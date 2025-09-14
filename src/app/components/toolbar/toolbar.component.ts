@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Theme, ThemeService } from '../../services/theme.service';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -32,6 +32,8 @@ export class ToolbarComponent {
   // Injections
   //
 
+  /** Activated route */
+  private route = inject(ActivatedRoute);
   /** Router */
   private router = inject(Router);
   /** Media service */
@@ -48,6 +50,13 @@ export class ToolbarComponent {
   themeEnum = Theme;
 
   //
+  // Constants
+  //
+
+  /** Query parameter theme */
+  private QUERY_PARAM_THEME: string = 'theme';
+
+  //
   // Actions
   //
 
@@ -56,6 +65,7 @@ export class ToolbarComponent {
    */
   onDarkModeClicked() {
     this.themeService.switchTheme(Theme.DARK);
+    this.updateQueryParameters();
   }
 
   /**
@@ -63,6 +73,7 @@ export class ToolbarComponent {
    */
   onLightModeClicked() {
     this.themeService.switchTheme(Theme.LIGHT);
+    this.updateQueryParameters();
   }
 
   //
@@ -75,5 +86,23 @@ export class ToolbarComponent {
    */
   isRouteActive(routePath: string): boolean {
     return this.router.url.replace(/\?.*/, '') === routePath;
+  }
+
+  //
+  // Helpers
+  //
+
+  /**
+   * Updates query parameters
+   */
+  private updateQueryParameters() {
+    this.router
+      .navigate([], {
+        relativeTo: this.route,
+        queryParams: {
+          [this.QUERY_PARAM_THEME]: this.themeService.theme(),
+        },
+      })
+      .then();
   }
 }

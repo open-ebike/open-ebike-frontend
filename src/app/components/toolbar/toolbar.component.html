@@ -19,6 +19,31 @@
           }
         </a>
       </div>
+      <div class="flex-box"></div>
+      <div class="toolbar-block end">
+        @if (themeService.theme() === themeEnum.LIGHT) {
+          <button
+            mat-button
+            class="toolbar-menu-item"
+            (click)="onDarkModeClicked()"
+          >
+            <span class="material-symbols-outlined toolbar-icon"
+              >dark_mode</span
+            >
+          </button>
+        }
+        @if (themeService.theme() === themeEnum.DARK) {
+          <button
+            mat-button
+            class="toolbar-menu-item"
+            (click)="onLightModeClicked()"
+          >
+            <span class="material-symbols-outlined toolbar-icon"
+              >light_mode</span
+            >
+          </button>
+        }
+      </div>
     </mat-toolbar>
   </div>
 </ng-container>
