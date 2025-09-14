@@ -1,0 +1,46 @@
+@use "@angular/material" as mat;
+@import "../../../styles";
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+
+  @media #{$breakpoint-small} {
+    padding: 5%;
+  }
+  @media #{$breakpoint-medium} {
+    padding: 5% 15% 2%;
+  }
+  @media #{$breakpoint-large} {
+    padding: 5% 15% 2%;
+  }
+
+  .footer-section {
+    @media #{$breakpoint-small} {
+      min-width: 100%;
+    }
+    @media #{$breakpoint-medium} {
+      min-width: 50%;
+    }
+    @media #{$breakpoint-large} {
+      min-width: 25%;
+    }
+
+    .list {
+      list-style-type: none;
+      padding-inline-start: 0;
+    }
+  }
+}
+
+.footer-2 {
+  @media #{$breakpoint-small} {
+    padding: 5%;
+  }
+  @media #{$breakpoint-medium} {
+    padding: 5% 15% 2%;
+  }
+  @media #{$breakpoint-large} {
+    padding: 5% 15% 2%;
+  }
+}
