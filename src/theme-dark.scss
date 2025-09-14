@@ -1,13 +1,13 @@
 @use "@angular/material" as mat;
 
-$color-chinese-blue: #3C5297;
-$color-liberty-blue: #5261AC;
-$color-celestial-blue: #4E9DCE;
-$color-pale-cyan: #8BD2FB;
-$color-raspberry-pink: #D75B98;
+$color-chinese-blue: #3c5297;
+$color-liberty-blue: #5261ac;
+$color-celestial-blue: #4e9dce;
+$color-pale-cyan: #8bd2fb;
+$color-raspberry-pink: #d75b98;
 
 $mat-chinese-blue: (
-  50:  hsl(225, 43%, 90%),
+  50: hsl(225, 43%, 90%),
   100: hsl(225, 43%, 80%),
   200: hsl(225, 43%, 70%),
   300: hsl(225, 43%, 60%),
@@ -40,7 +40,7 @@ $mat-chinese-blue: (
 );
 
 $mat-liberty-blue: (
-  50:  hsl(230, 35%, 90%),
+  50: hsl(230, 35%, 90%),
   100: hsl(230, 35%, 80%),
   200: hsl(230, 35%, 70%),
   300: hsl(230, 35%, 60%),
@@ -73,7 +73,7 @@ $mat-liberty-blue: (
 );
 
 $mat-celestial-blue: (
-  50:  hsl(203, 57%, 96%),
+  50: hsl(203, 57%, 96%),
   100: hsl(203, 57%, 86%),
   200: hsl(203, 57%, 76%),
   300: hsl(203, 57%, 66%),
@@ -172,12 +172,7 @@ $mat-raspberry-pink: (
 );
 
 $open-ebike-primary: mat.m2-define-palette($mat-celestial-blue, 400, 300, 500);
-$open-ebike-accent: mat.m2-define-palette(
-  $mat-raspberry-pink,
-  300,
-  200,
-  400
-);
+$open-ebike-accent: mat.m2-define-palette($mat-raspberry-pink, 300, 200, 400);
 $open-ebike-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
 $theme-dark: mat.m2-define-dark-theme(
