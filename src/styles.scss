@@ -1,3 +1,40 @@
+@use "@angular/material" as mat;
+@import "theme.scss";
+@import "sizes.scss";
+@import "flex.scss";
+
+@include mat.all-component-themes($theme-light);
+
+.theme-light {
+  //@include mat.all-component-themes($theme-light);
+
+  a {
+    color: #424242;
+    text-decoration-style: dotted;
+  }
+}
+
+.theme-dark {
+  @include mat.all-component-colors($theme-dark);
+
+  a {
+    color: #ffffff;
+    text-decoration-style: dotted;
+  }
+
+  // FIXME: Figure out why these overrides are necessary
+
+  .mat-toolbar {
+    color: #ffffff !important;
+    background: #212121 !important;
+  }
+
+  .mat-button {
+    color: #ffffff !important;
+    background: transparent !important;
+  }
+}
+
 /* You can add global styles to this file, and also import other style files */
 
 html,
