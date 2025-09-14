@@ -1,0 +1,33 @@
+@use "@angular/material" as mat;
+@import "../styles";
+
+.theme-light {
+  color: #424242;
+  background: #ffffff;
+}
+
+.theme-dark {
+  color: #ffffff;
+  background: #343332;
+}
+
+.fixed {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+}
+
+.fixed-information-button {
+  position: fixed;
+  right: 48px;
+  bottom: 48px;
+  z-index: 999;
+
+  height: 48px;
+  width: 48px;
+}
+
+.toolbar-spacer {
+  height: 64px;
+}
