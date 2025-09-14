@@ -1,0 +1,36 @@
+<ng-container *transloco="let t; lang: lang; read: 'pages.imprint'">
+  <div class="flex-container container">
+    <div class="text">
+      <h1>{{ t("title") }}</h1>
+
+      <h3>{{ t("information") }}</h3>
+      <p>Florian Schwanz</p>
+      <p>Manteuffelstraße 71</p>
+      <p>10999 Berlin</p>
+
+      <h3>{{ t("contact") }}</h3>
+      <p>
+        {{ t("email") }}:
+        <a href="mailto:florian.schwanz@gmail.com" target="_blank"
+          >florian.schwanz&#64;gmail.com</a
+        >
+      </p>
+
+      <h3>{{ t("editorially-responsible") }}</h3>
+      <p>Florian Schwanz</p>
+      <p>Manteuffelstraße 71</p>
+      <p>10999 Berlin</p>
+
+      <h3>{{ t("disclaimer.title") }}</h3>
+      <h4>{{ t("disclaimer.liability-for-content.title") }}</h4>
+      <p>{{ t("disclaimer.liability-for-content.text-1") }}</p>
+      <p>{{ t("disclaimer.liability-for-content.text-2") }}</p>
+      <h4>{{ t("disclaimer.liability-for-links.title") }}</h4>
+      <p>{{ t("disclaimer.liability-for-links.text-1") }}</p>
+      <p>{{ t("disclaimer.liability-for-links.text-2") }}</p>
+      <h4>{{ t("disclaimer.data-protection.title") }}</h4>
+      <p>{{ t("disclaimer.data-protection.text-1") }}</p>
+      <p>{{ t("disclaimer.data-protection.text-2") }}</p>
+    </div>
+  </div>
+</ng-container>
