@@ -1,0 +1,24 @@
+<ng-container *transloco="let t; lang: lang">
+  <div [class]="themeService.theme()">
+    <mat-toolbar class="toolbar flex-container">
+      <div class="toolbar-block start">
+        <a [routerLink]="['/']" queryParamsHandling="merge">
+          @if (themeService.theme() == themeEnum.LIGHT) {
+            <img
+              id="logo-light"
+              src="assets/logos/logo-with-text.png"
+              alt="logo"
+            />
+          }
+          @if (themeService.theme() == themeEnum.DARK) {
+            <img
+              id="logo-dark"
+              src="assets/logos/logo-with-text-dark.png"
+              alt="logo"
+            />
+          }
+        </a>
+      </div>
+    </mat-toolbar>
+  </div>
+</ng-container>
