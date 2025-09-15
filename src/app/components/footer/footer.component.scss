@@ -44,3 +44,10 @@
     padding: 5% 15% 2%;
   }
 }
+
+::ng-deep .theme-dark {
+  .footer,
+  .footer-2 {
+    background: #212121 !important;
+  }
+}
