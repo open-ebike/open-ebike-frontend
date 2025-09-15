@@ -43,6 +43,23 @@
             >
           </button>
         }
+        @if (authenticationService.isLoggedIn()) {
+          <button
+            mat-button
+            class="toolbar-menu-item"
+            (click)="authenticationService.logout()"
+          >
+            {{ t("actions.logout") }}
+          </button>
+        } @else {
+          <button
+            mat-button
+            class="toolbar-menu-item"
+            (click)="authenticationService.login()"
+          >
+            {{ t("actions.login") }}
+          </button>
+        }
       </div>
     </mat-toolbar>
   </div>

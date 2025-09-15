@@ -1,3 +1,11 @@
 {
-  "app-title": "Open eBike"
+  "app-title": "Open eBike",
+  "actions": {
+    "login": "Login",
+    "login-with-singlekey-id": "Login with SingleKey ID",
+    "logout": "Logout"
+  },
+  "terms": {
+    "hello": "Hello {{username}}"
+  }
 }

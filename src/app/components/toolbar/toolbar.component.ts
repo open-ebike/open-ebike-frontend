@@ -6,8 +6,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Media, MediaService } from '../../services/media.service';
 import { getBrowserLang, TranslocoModule } from '@jsverse/transloco';
+import { AuthenticationService } from '../../services/authentication.service';
 
 /**
  * Displays toolbar
@@ -36,16 +36,13 @@ export class ToolbarComponent {
   private route = inject(ActivatedRoute);
   /** Router */
   private router = inject(Router);
-  /** Media service */
-  public mediaService = inject(MediaService);
   /** Theme service */
   public themeService = inject(ThemeService);
+  /** Authentication service */
+  public authenticationService = inject(AuthenticationService);
 
   /** Language */
   lang = getBrowserLang();
-
-  /** Media enum */
-  mediaEnum = Media;
   /** Theme enum */
   themeEnum = Theme;
 
@@ -74,18 +71,6 @@ export class ToolbarComponent {
   onLightModeClicked() {
     this.themeService.switchTheme(Theme.LIGHT);
     this.updateQueryParameters();
-  }
-
-  //
-  // Helpers
-  //
-
-  /**
-   * Checks if a given route is active
-   * @param routePath route path
-   */
-  isRouteActive(routePath: string): boolean {
-    return this.router.url.replace(/\?.*/, '') === routePath;
   }
 
   //
