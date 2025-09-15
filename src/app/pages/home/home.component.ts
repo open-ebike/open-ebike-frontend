@@ -1,15 +1,18 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Theme, ThemeService } from '../../services/theme.service';
-import { getBrowserLang } from '@jsverse/transloco';
+import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { combineLatest, first } from 'rxjs';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { AuthenticationService } from '../../services/authentication.service';
+import { MatButton } from '@angular/material/button';
 
 /**
  * Displays home component
  */
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [TranslocoDirective, MatButton],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   standalone: true,
@@ -25,6 +28,8 @@ export class HomeComponent implements OnInit {
   private router = inject(Router);
   /** Theme service */
   private themeService = inject(ThemeService);
+  /** Authentication service */
+  public authenticationService = inject(AuthenticationService);
 
   /** Language */
   lang = getBrowserLang();

@@ -1,1 +1,23 @@
-<div class="container"></div>
+<ng-container *transloco="let t; lang: lang">
+  <div class="container flex-container">
+    @if (authenticationService.isLoggedIn()) {
+      <div class="text">
+        <h2>
+          {{
+            t("terms.hello", {
+              username: authenticationService.getIdentityClaims().email,
+            })
+          }}
+        </h2>
+      </div>
+    } @else {
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="authenticationService.login()"
+      >
+        {{ t("actions.login-with-singlekey-id") }}
+      </button>
+    }
+  </div>
+</ng-container>

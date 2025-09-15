@@ -4,13 +4,26 @@
 ::ng-deep .theme-light {
   .container {
     background: #f6f6f4;
-    height: calc(100vh - 64px);
   }
 }
 
 ::ng-deep .theme-dark {
   .container {
     background: #343332;
-    height: calc(100vh - 64px);
   }
+}
+
+.container {
+  height: calc(100vh - 64px);
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  max-width: 960px;
+  margin: 32px;
+}
+
+h2 {
+  margin-top: 32px;
 }
