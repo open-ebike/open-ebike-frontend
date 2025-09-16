@@ -20,6 +20,9 @@
       }
     }
   },
+  "terms": {
+    "features": "Features"
+  },
   "actions": {
     "login": "Login",
     "logout": "Logout"

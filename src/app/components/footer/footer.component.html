@@ -1,4 +1,15 @@
 <ng-container *transloco="let t; lang: lang">
-  <!--  <div class="footer"></div>-->
+  @if (authenticationService.isLoggedIn()) {
+    <div class="footer">
+      <div class="footer-section">
+        <strong>{{ t("terms.features") }}</strong>
+        <ul class="list">
+          <li>
+            <a routerLink="/ebikes">{{ t("pages.ebikes.title") }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  }
   <div class="footer-2">Open eBike © {{ year }}</div>
 </ng-container>
