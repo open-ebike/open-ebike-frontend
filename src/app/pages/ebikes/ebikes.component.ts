@@ -1,22 +1,46 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Theme, ThemeService } from '../../services/theme.service';
+import { AuthenticationService } from '../../services/authentication.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { combineLatest, first } from 'rxjs';
-import { AuthenticationService } from '../../services/authentication.service';
-import { MatButton } from '@angular/material/button';
+import {
+  EbikeProfile,
+  EbikeProfileService,
+} from '../../services/api/ebike-profile.service';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardFooter,
+  MatCardHeader,
+  MatCardSubtitle,
+  MatCardTitle,
+} from '@angular/material/card';
+import { MatRipple } from '@angular/material/core';
 
 /**
- * Displays home component
+ * Displays eBikes
  */
 @Component({
-  selector: 'app-home',
-  imports: [TranslocoDirective, MatButton],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  selector: 'app-ebikes',
+  imports: [
+    TranslocoDirective,
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardSubtitle,
+    MatRipple,
+    RouterLink,
+    MatCardContent,
+    MatCardActions,
+    MatCardFooter,
+  ],
+  templateUrl: './ebikes.component.html',
+  styleUrl: './ebikes.component.scss',
   standalone: true,
 })
-export class HomeComponent implements OnInit {
+export class EbikesComponent implements OnInit {
   //
   // Injections
   //
@@ -29,6 +53,15 @@ export class HomeComponent implements OnInit {
   private themeService = inject(ThemeService);
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
+  /** eBike profile service */
+  private ebikeProfileService = inject(EbikeProfileService);
+
+  //
+  // Signals
+  //
+
+  /** Signal providing eBike profiles */
+  ebikeProfiles = signal<EbikeProfile[]>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -49,6 +82,7 @@ export class HomeComponent implements OnInit {
    */
   ngOnInit() {
     this.initializeTheme();
+    this.initializeEbikes();
     this.handleQueryParameters();
   }
 
@@ -70,6 +104,15 @@ export class HomeComponent implements OnInit {
         break;
       }
     }
+  }
+
+  /**
+   * Initializes eBikes
+   */
+  private initializeEbikes() {
+    this.ebikeProfileService.getAllBikes().subscribe((eBikeProfiles) => {
+      this.ebikeProfiles.set(eBikeProfiles.bikes);
+    });
   }
 
   /**

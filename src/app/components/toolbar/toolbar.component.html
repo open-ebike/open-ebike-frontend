@@ -18,6 +18,26 @@
             />
           }
         </a>
+        <button
+          mat-button
+          class="toolbar-menu-item"
+          routerLinkActive="toolbar-menu-item-active"
+          routerLink="/home"
+          queryParamsHandling="merge"
+        >
+          {{ t("pages.home.title") }}
+        </button>
+        @if (authenticationService.isLoggedIn()) {
+          <button
+            mat-button
+            class="toolbar-menu-item"
+            routerLinkActive="toolbar-menu-item-active"
+            routerLink="/ebikes"
+            queryParamsHandling="merge"
+          >
+            {{ t("pages.ebikes.title") }}
+          </button>
+        }
       </div>
       <div class="flex-box"></div>
       <div class="toolbar-block end">

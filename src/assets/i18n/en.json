@@ -1,11 +1,27 @@
 {
   "app-title": "Open eBike",
+  "pages": {
+    "home": {
+      "title": "Home",
+      "actions": {
+        "login-with-singlekey-id": "Login with SingleKey ID"
+      },
+      "terms": {
+        "hello": "Hello {{username}}"
+      }
+    },
+    "ebikes": {
+      "title": "eBikes",
+      "terms": {
+        "ebike": "eBike"
+      },
+      "messages": {
+        "no-ebikes-found": "no eBikes found"
+      }
+    }
+  },
   "actions": {
     "login": "Login",
-    "login-with-singlekey-id": "Login with SingleKey ID",
     "logout": "Logout"
-  },
-  "terms": {
-    "hello": "Hello {{username}}"
   }
 }
