@@ -1,0 +1,17 @@
+<ng-container *transloco="let t; lang: lang; prefix: 'pages.ebike-details'">
+  <div class="container flex-container-vertical">
+    @if (authenticationService.isLoggedIn()) {
+      <div class="inner-container">
+        <h2>
+          <span mat-card-avatar class="ebike-avatar">
+            <span class="material-symbols-outlined ebike-icon">
+              electric_bike
+            </span>
+          </span>
+          {{ t("title") }}
+        </h2>
+      </div>
+      <div class="flex-box"></div>
+    }
+  </div>
+</ng-container>

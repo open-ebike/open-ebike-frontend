@@ -18,6 +18,9 @@
       "messages": {
         "no-ebikes-found": "no eBikes found"
       }
+    },
+    "ebike-details": {
+      "title": "eBike"
     }
   },
   "terms": {

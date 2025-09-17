@@ -1,0 +1,66 @@
+@use "@angular/material" as mat;
+@import "../../../styles";
+
+::ng-deep .theme-light {
+  .container {
+    background: #f6f6f4;
+  }
+}
+
+::ng-deep .theme-dark {
+  .container {
+    background: #343332;
+  }
+}
+
+.container {
+  height: calc(100vh - 64px);
+  align-items: center;
+  justify-content: center;
+}
+
+.inner-container {
+  width: 960px;
+}
+
+.ebike-card {
+  cursor: pointer;
+  height: 128px;
+  width: 50%;
+}
+
+.ebike-avatar {
+  background: transparent !important;
+}
+
+.ebike-icon {
+  padding: 4px;
+  margin-right: 8px;
+  border-radius: 100%;
+}
+
+::ng-deep .theme-light {
+  .ebike-icon {
+    color: mat.m2-get-color-from-palette($open-ebike-accent, 500);
+    background: mix(
+      mat.m2-get-color-from-palette($open-ebike-accent, 500),
+      transparent,
+      20%
+    ) !important;
+  }
+}
+
+::ng-deep .theme-dark {
+  .ebike-icon {
+    color: mat.m2-get-color-from-palette($open-ebike-accent, 300);
+    background: mix(
+      mat.m2-get-color-from-palette($open-ebike-accent, 500),
+      transparent,
+      20%
+    ) !important;
+  }
+}
+
+h2 {
+  margin-top: 32px;
+}
