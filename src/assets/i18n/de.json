@@ -20,7 +20,32 @@
       }
     },
     "ebike-details": {
-      "title": "eBike"
+      "title": "eBike",
+      "terms": {
+        "components": "Komponenten",
+        "more-attributes": "weitere Attribute",
+        "drive-unit": "Drive Unit",
+        "remote-control": "Remote Control",
+        "battery": "Batterie",
+        "anti-lock-brake-system": "Antiblockiersystem",
+        "connect-module": "Connect Module",
+        "head-unit": "Head Unit",
+        "serial-number": "Seriennummer",
+        "part-number": "Teilnummer",
+        "walk-assist": "Schiebehilfe",
+        "odometer": "Odometer",
+        "rear-wheel-circumference-user": "Reifendurchmesser",
+        "maximum-assistance-speed": "maximale Unterstützungsgeschwindigkeit",
+        "active-assist-modes": "aktive Unterstützungsmodi",
+        "assist-mode": "Unterstützungsmodus",
+        "reachable-range": "Reichweite",
+        "power-on-time-total": "Betriebszeit gesamt",
+        "power-on-time-with-motor-support": "Betriebszeit mit Motorunterstüzung",
+        "delivered-wh-over-lifetime": "ingesamt verbrauchte Wh",
+        "charge-cycles-total": "Ladezyklen gesamt",
+        "charge-cycles-on-bike": "Ladezyklen am Bike",
+        "charge-cycles-off-bike": "Ladezyklen standalone"
+      }
     }
   },
   "terms": {

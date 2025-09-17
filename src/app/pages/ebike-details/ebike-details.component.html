@@ -10,6 +10,327 @@
           </span>
           {{ t("title") }}
         </h2>
+
+        <h3>{{ t("terms.components") }}</h3>
+        <div class="grid">
+          @if (ebikeProfile()?.driveUnit) {
+            <mat-card class="ebike-card" mat-ripple>
+              <mat-card-header>
+                <div mat-card-avatar class="ebike-avatar">
+                  <span class="material-symbols-outlined ebike-icon">
+                    extension
+                  </span>
+                </div>
+                <mat-card-title
+                  >{{ ebikeProfile()?.driveUnit?.productName }}
+                </mat-card-title>
+                <mat-card-subtitle
+                  >{{ t("terms.drive-unit") }}
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{ t("terms.serial-number") }}</strong
+                    >: {{ ebikeProfile()?.driveUnit?.serialNumber }}
+                  </li>
+                  <li>
+                    <strong class="label">{{ t("terms.part-number") }}</strong
+                    >: {{ ebikeProfile()?.driveUnit?.partNumber }}
+                  </li>
+                </ul>
+                <mat-accordion class="no-shadow-accordion" multi>
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>{{
+                        t("terms.more-attributes")
+                      }}</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ul class="list">
+                      <li>
+                        <strong class="label">{{
+                          t("terms.walk-assist")
+                        }}</strong
+                        >: max.
+                        {{
+                          ebikeProfile()?.driveUnit?.walkAssistConfiguration
+                            ?.maximumSpeed
+                        }}
+                        km/h
+                        @if (
+                          ebikeProfile()?.driveUnit?.walkAssistConfiguration
+                            ?.isEnabled
+                        ) {
+                          ({{ t("terms.enabled") }})
+                        } @else {
+                          ({{ t("terms.disabled") }})
+                        }
+                      </li>
+                    </ul>
+                    <ul class="list">
+                      <li>
+                        <strong class="label">{{ t("terms.odometer") }}</strong
+                        >:
+                        {{
+                          ebikeProfile()?.driveUnit?.odometer
+                            | thousandsSeparator
+                        }}
+                        m
+                      </li>
+                      <li>
+                        <strong class="label">{{
+                          t("terms.rear-wheel-circumference-user")
+                        }}</strong
+                        >:
+                        {{
+                          ebikeProfile()?.driveUnit?.rearWheelCircumferenceUser
+                        }}
+                        mm
+                      </li>
+                      <li>
+                        <strong class="label">{{
+                          t("terms.maximum-assistance-speed")
+                        }}</strong
+                        >:
+                        {{ ebikeProfile()?.driveUnit?.maximumAssistanceSpeed }}
+                        mm
+                      </li>
+                    </ul>
+                    <ul class="list">
+                      @for (
+                        activeAssistMode of ebikeProfile()?.driveUnit
+                          ?.activeAssistModes;
+                        track activeAssistMode
+                      ) {
+                        <li>
+                          <strong class="label"
+                            >{{ t("terms.assist-mode") }}
+                            {{ activeAssistMode.name }}</strong
+                          >: {{ t("terms.reachable-range") }}
+                          {{
+                            activeAssistMode.reachableRange | thousandsSeparator
+                          }}
+                          m
+                        </li>
+                      }
+                    </ul>
+                    <ul class="list">
+                      <li>
+                        <strong class="label">{{
+                          t("terms.power-on-time-total")
+                        }}</strong
+                        >: {{ ebikeProfile()?.driveUnit?.powerOnTime?.total }} h
+                      </li>
+                      <li>
+                        <strong class="label">{{
+                          t("terms.power-on-time-with-motor-support")
+                        }}</strong
+                        >:
+                        {{
+                          ebikeProfile()?.driveUnit?.powerOnTime
+                            ?.withMotorSupport
+                        }}
+                        h
+                      </li>
+                    </ul>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </mat-card-content>
+              <mat-card-actions></mat-card-actions>
+            </mat-card>
+          }
+
+          @if (ebikeProfile()?.remoteControl) {
+            <mat-card class="ebike-card" mat-ripple>
+              <mat-card-header>
+                <div mat-card-avatar class="ebike-avatar">
+                  <span class="material-symbols-outlined ebike-icon">
+                    extension
+                  </span>
+                </div>
+                <mat-card-title
+                  >{{ ebikeProfile()?.remoteControl?.productName }}
+                </mat-card-title>
+                <mat-card-subtitle
+                  >{{ t("terms.remote-control") }}
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{ t("terms.serial-number") }}</strong
+                    >: {{ ebikeProfile()?.remoteControl?.serialNumber }}
+                  </li>
+                  <li>
+                    <strong class="label">{{ t("terms.part-number") }}</strong
+                    >: {{ ebikeProfile()?.remoteControl?.partNumber }}
+                  </li>
+                </ul>
+              </mat-card-content>
+              <mat-card-actions></mat-card-actions>
+            </mat-card>
+          }
+
+          @for (battery of ebikeProfile()?.batteries; track battery) {
+            <mat-card class="ebike-card" mat-ripple>
+              <mat-card-header>
+                <div mat-card-avatar class="ebike-avatar">
+                  <span class="material-symbols-outlined ebike-icon">
+                    battery_charging_full
+                  </span>
+                </div>
+                <mat-card-title>{{ battery.productName }}</mat-card-title>
+                <mat-card-subtitle>{{ t("terms.battery") }}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{ t("terms.serial-number") }}</strong
+                    >: {{ battery.serialNumber }}
+                  </li>
+                  <li>
+                    <strong class="label">{{ t("terms.part-number") }}</strong
+                    >: {{ battery.partNumber }}
+                  </li>
+                </ul>
+                <mat-accordion class="no-shadow-accordion" multi>
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>{{
+                        t("terms.more-attributes")
+                      }}</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ul class="list">
+                      <li>
+                        <strong class="label">{{
+                          t("terms.delivered-wh-over-lifetime")
+                        }}</strong
+                        >: {{ battery.deliveredWhOverLifetime }}
+                      </li>
+                    </ul>
+                    <ul class="list">
+                      <li>
+                        <strong class="label">{{
+                          t("terms.charge-cycles-total")
+                        }}</strong
+                        >: {{ battery.chargeCycles.total }}
+                      </li>
+                      <li>
+                        <strong class="label">{{
+                          t("terms.charge-cycles-on-bike")
+                        }}</strong
+                        >: {{ battery.chargeCycles.onBike }}
+                      </li>
+                      <li>
+                        <strong class="label">{{
+                          t("terms.charge-cycles-off-bike")
+                        }}</strong
+                        >: {{ battery.chargeCycles.offBike }}
+                      </li>
+                    </ul>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </mat-card-content>
+              <mat-card-actions></mat-card-actions>
+            </mat-card>
+          }
+
+          @for (
+            antiLockBrakeSystem of ebikeProfile()?.antiLockBrakeSystems;
+            track antiLockBrakeSystem
+          ) {
+            <mat-card class="ebike-card" mat-ripple>
+              <mat-card-header>
+                <div mat-card-avatar class="ebike-avatar">
+                  <span class="material-symbols-outlined ebike-icon">
+                    extension
+                  </span>
+                </div>
+                <mat-card-title
+                  >{{ antiLockBrakeSystem.productName }}
+                </mat-card-title>
+                <mat-card-subtitle
+                  >{{ t("terms.anti-lock-brake-system") }}
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{ t("terms.serial-number") }}</strong
+                    >: {{ antiLockBrakeSystem.serialNumber }}
+                  </li>
+                  <li>
+                    <strong class="label">{{ t("terms.part-number") }}</strong
+                    >: {{ antiLockBrakeSystem.partNumber }}
+                  </li>
+                </ul>
+              </mat-card-content>
+              <mat-card-actions></mat-card-actions>
+            </mat-card>
+          }
+
+          @if (ebikeProfile()?.connectModule) {
+            <mat-card class="ebike-card" mat-ripple>
+              <mat-card-header>
+                <div mat-card-avatar class="ebike-avatar">
+                  <span class="material-symbols-outlined ebike-icon">
+                    extension
+                  </span>
+                </div>
+                <mat-card-title
+                  >{{ ebikeProfile()?.connectModule?.productName }}
+                </mat-card-title>
+                <mat-card-subtitle
+                  >{{ t("terms.connect-module") }}
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{ t("terms.serial-number") }}</strong
+                    >: {{ ebikeProfile()?.connectModule?.serialNumber }}
+                  </li>
+                  <li>
+                    <strong class="label">{{ t("terms.part-number") }}</strong
+                    >: {{ ebikeProfile()?.connectModule?.partNumber }}
+                  </li>
+                </ul>
+              </mat-card-content>
+              <mat-card-actions></mat-card-actions>
+            </mat-card>
+          }
+
+          @if (ebikeProfile()?.headUnit) {
+            <mat-card class="ebike-card" mat-ripple>
+              <mat-card-header>
+                <div mat-card-avatar class="ebike-avatar">
+                  <span class="material-symbols-outlined ebike-icon">
+                    tablet
+                  </span>
+                </div>
+                <mat-card-title
+                  >{{ ebikeProfile()?.headUnit?.productName }}
+                </mat-card-title>
+                <mat-card-subtitle
+                  >{{ t("terms.head-unit") }}
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{ t("terms.serial-number") }}</strong
+                    >: {{ ebikeProfile()?.headUnit?.serialNumber }}
+                  </li>
+                  <li>
+                    <strong class="label">{{ t("terms.part-number") }}</strong
+                    >: {{ ebikeProfile()?.headUnit?.partNumber }}
+                  </li>
+                </ul>
+              </mat-card-content>
+              <mat-card-actions></mat-card-actions>
+            </mat-card>
+          }
+        </div>
       </div>
       <div class="flex-box"></div>
     }

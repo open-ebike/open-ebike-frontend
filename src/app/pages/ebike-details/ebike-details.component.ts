@@ -8,14 +8,50 @@ import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { Theme, ThemeService } from '../../services/theme.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { combineLatest, first } from 'rxjs';
-import { MatCardAvatar } from '@angular/material/card';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardAvatar,
+  MatCardContent,
+  MatCardFooter,
+  MatCardHeader,
+  MatCardSubtitle,
+  MatCardTitle,
+} from '@angular/material/card';
+import { MatRipple } from '@angular/material/core';
+import { ThousandsSeparatorPipe } from '../../pipes/thousands-separator.pipe';
+import { MatGridList, MatGridTile } from '@angular/material/grid-list';
+import {
+  MatAccordion,
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle,
+} from '@angular/material/expansion';
 
 /**
  * Displays eBike details
  */
 @Component({
   selector: 'app-ebike-details',
-  imports: [TranslocoDirective, MatCardAvatar],
+  imports: [
+    TranslocoDirective,
+    MatCardAvatar,
+    MatCard,
+    MatCardHeader,
+    MatCardTitle,
+    MatCardSubtitle,
+    MatRipple,
+    MatCardContent,
+    ThousandsSeparatorPipe,
+    MatGridList,
+    MatGridTile,
+    MatCardFooter,
+    MatCardActions,
+    MatAccordion,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+  ],
   templateUrl: './ebike-details.component.html',
   styleUrl: './ebike-details.component.scss',
   standalone: true,

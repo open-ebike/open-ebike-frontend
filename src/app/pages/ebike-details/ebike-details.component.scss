@@ -1,5 +1,6 @@
 @use "@angular/material" as mat;
 @import "../../../styles";
+@import "../../../sizes";
 
 ::ng-deep .theme-light {
   .container {
@@ -14,19 +15,44 @@
 }
 
 .container {
-  height: calc(100vh - 64px);
+  min-height: calc(100vh - 64px);
+  padding: 0 16px 16px;
   align-items: center;
   justify-content: center;
 }
 
-.inner-container {
-  width: 960px;
+@media #{$breakpoint-small} {
+  .inner-container {
+    width: 100%;
+  }
+}
+
+@media #{$breakpoint-medium} {
+  .inner-container {
+    width: 960px;
+  }
+}
+
+@media #{$breakpoint-large} {
+  .inner-container {
+    width: 960px;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media #{$breakpoint-large} {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .ebike-card {
-  cursor: pointer;
-  height: 128px;
-  width: 50%;
+  min-height: 242px;
 }
 
 .ebike-avatar {
@@ -63,4 +89,45 @@
 
 h2 {
   margin-top: 32px;
+}
+
+.list {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+
+li {
+  width: 100%;
+}
+
+.label {
+  display: inline-block;
+  width: 256px;
+  max-width: 45%;
+}
+
+mat-card {
+  cursor: pointer;
+}
+
+mat-card-content {
+  margin-bottom: 0 !important;
+}
+
+.mat-mdc-card-content:last-child {
+  padding-bottom: 16px;
+}
+
+.no-shadow-accordion {
+  border: none !important;
+
+  .mat-expansion-panel {
+    box-shadow: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+
+    .mat-expansion-panel-header {
+      border-bottom: none !important;
+    }
+  }
 }
