@@ -22,6 +22,11 @@
     "ebike-details": {
       "title": "eBike",
       "terms": {
+        "oem-id": "OEM ID",
+        "created-at": "angelegt am",
+        "language": "Sprache",
+        "service-due-date": "nächster Servicetermin",
+        "service-due-odometer": "nächster Servicetermin Odometer",
         "components": "Komponenten",
         "more-attributes": "weitere Attribute",
         "drive-unit": "Drive Unit",
@@ -44,7 +49,8 @@
         "delivered-wh-over-lifetime": "ingesamt verbrauchte Wh",
         "charge-cycles-total": "Ladezyklen gesamt",
         "charge-cycles-on-bike": "Ladezyklen am Bike",
-        "charge-cycles-off-bike": "Ladezyklen standalone"
+        "charge-cycles-off-bike": "Ladezyklen standalone",
+        "undefined": "nicht definiert"
       }
     }
   },

@@ -59,7 +59,8 @@
   background: transparent !important;
 }
 
-.ebike-icon {
+.ebike-icon,
+.component-icon {
   padding: 4px;
   margin-right: 8px;
   border-radius: 100%;
@@ -74,6 +75,15 @@
       20%
     ) !important;
   }
+
+  .component-icon {
+    color: mat.m2-get-color-from-palette($open-ebike-primary, 500);
+    background: mix(
+      mat.m2-get-color-from-palette($open-ebike-primary, 500),
+      transparent,
+      20%
+    ) !important;
+  }
 }
 
 ::ng-deep .theme-dark {
@@ -81,6 +91,15 @@
     color: mat.m2-get-color-from-palette($open-ebike-accent, 300);
     background: mix(
       mat.m2-get-color-from-palette($open-ebike-accent, 500),
+      transparent,
+      20%
+    ) !important;
+  }
+
+  .component-icon {
+    color: mat.m2-get-color-from-palette($open-ebike-primary, 300);
+    background: mix(
+      mat.m2-get-color-from-palette($open-ebike-primary, 500),
       transparent,
       20%
     ) !important;

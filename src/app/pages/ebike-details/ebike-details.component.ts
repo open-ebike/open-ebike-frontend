@@ -27,6 +27,7 @@ import {
   MatExpansionPanelHeader,
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
+import { DatePipe } from '@angular/common';
 
 /**
  * Displays eBike details
@@ -51,6 +52,7 @@ import {
     MatExpansionPanel,
     MatExpansionPanelHeader,
     MatExpansionPanelTitle,
+    DatePipe,
   ],
   templateUrl: './ebike-details.component.html',
   styleUrl: './ebike-details.component.scss',

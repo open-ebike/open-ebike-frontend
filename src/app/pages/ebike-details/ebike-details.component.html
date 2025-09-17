@@ -11,13 +11,64 @@
           {{ t("title") }}
         </h2>
 
+        <ul class="list">
+          <li>
+            <strong class="label">{{ t("terms.oem-id") }}</strong
+            >:
+            @if (ebikeProfile()?.oemId) {
+              {{ ebikeProfile()?.oemId }}
+            } @else {
+              <em>{{ t("terms.undefined") }}</em>
+            }
+          </li>
+          <li>
+            <strong class="label">{{ t("terms.created-at") }}</strong
+            >:
+            @if (ebikeProfile()?.createdAt) {
+              {{ ebikeProfile()?.createdAt | date: "medium" }}
+            } @else {
+              <em>{{ t("terms.undefined") }}</em>
+            }
+          </li>
+          <li>
+            <strong class="label">{{ t("terms.language") }}</strong
+            >:
+            @if (ebikeProfile()?.language) {
+              {{ ebikeProfile()?.language }}
+            } @else {
+              <em>{{ t("terms.undefined") }}</em>
+            }
+          </li>
+        </ul>
+
+        <ul class="list">
+          <li>
+            <strong class="label">{{ t("terms.service-due-date") }}</strong
+            >:
+            @if (ebikeProfile()?.serviceDue?.date) {
+              {{ ebikeProfile()?.serviceDue?.date | date: "medium" }}
+            } @else {
+              <em>{{ t("terms.undefined") }}</em>
+            }
+          </li>
+          <li>
+            <strong class="label">{{ t("terms.service-due-odometer") }}</strong
+            >:
+            @if (ebikeProfile()?.serviceDue?.odometer) {
+              {{ ebikeProfile()?.serviceDue?.odometer }}
+            } @else {
+              <em>{{ t("terms.undefined") }}</em>
+            }
+          </li>
+        </ul>
+
         <h3>{{ t("terms.components") }}</h3>
         <div class="grid">
           @if (ebikeProfile()?.driveUnit) {
             <mat-card class="ebike-card" mat-ripple>
               <mat-card-header>
                 <div mat-card-avatar class="ebike-avatar">
-                  <span class="material-symbols-outlined ebike-icon">
+                  <span class="material-symbols-outlined component-icon">
                     extension
                   </span>
                 </div>
@@ -42,9 +93,9 @@
                 <mat-accordion class="no-shadow-accordion" multi>
                   <mat-expansion-panel>
                     <mat-expansion-panel-header>
-                      <mat-panel-title>{{
-                        t("terms.more-attributes")
-                      }}</mat-panel-title>
+                      <mat-panel-title
+                        >{{ t("terms.more-attributes") }}
+                      </mat-panel-title>
                     </mat-expansion-panel-header>
                     <ul class="list">
                       <li>
@@ -144,7 +195,7 @@
             <mat-card class="ebike-card" mat-ripple>
               <mat-card-header>
                 <div mat-card-avatar class="ebike-avatar">
-                  <span class="material-symbols-outlined ebike-icon">
+                  <span class="material-symbols-outlined component-icon">
                     extension
                   </span>
                 </div>
@@ -175,7 +226,7 @@
             <mat-card class="ebike-card" mat-ripple>
               <mat-card-header>
                 <div mat-card-avatar class="ebike-avatar">
-                  <span class="material-symbols-outlined ebike-icon">
+                  <span class="material-symbols-outlined component-icon">
                     battery_charging_full
                   </span>
                 </div>
@@ -196,9 +247,9 @@
                 <mat-accordion class="no-shadow-accordion" multi>
                   <mat-expansion-panel>
                     <mat-expansion-panel-header>
-                      <mat-panel-title>{{
-                        t("terms.more-attributes")
-                      }}</mat-panel-title>
+                      <mat-panel-title
+                        >{{ t("terms.more-attributes") }}
+                      </mat-panel-title>
                     </mat-expansion-panel-header>
                     <ul class="list">
                       <li>
@@ -242,7 +293,7 @@
             <mat-card class="ebike-card" mat-ripple>
               <mat-card-header>
                 <div mat-card-avatar class="ebike-avatar">
-                  <span class="material-symbols-outlined ebike-icon">
+                  <span class="material-symbols-outlined component-icon">
                     extension
                   </span>
                 </div>
@@ -273,7 +324,7 @@
             <mat-card class="ebike-card" mat-ripple>
               <mat-card-header>
                 <div mat-card-avatar class="ebike-avatar">
-                  <span class="material-symbols-outlined ebike-icon">
+                  <span class="material-symbols-outlined component-icon">
                     extension
                   </span>
                 </div>
@@ -304,7 +355,7 @@
             <mat-card class="ebike-card" mat-ripple>
               <mat-card-header>
                 <div mat-card-avatar class="ebike-avatar">
-                  <span class="material-symbols-outlined ebike-icon">
+                  <span class="material-symbols-outlined component-icon">
                     tablet
                   </span>
                 </div>
