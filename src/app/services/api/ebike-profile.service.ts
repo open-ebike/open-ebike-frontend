@@ -2,119 +2,6 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
-
-/**
- * Represents a service due
- */
-export interface ServiceDue {
-  /** Point in time in UTC after service is due */
-  date: Date;
-  /** The total distance in meters after which service is due */
-  odometer: number;
-}
-
-/**
- * Represents a walk assist configuration
- */
-export interface WalkAssistConfiguration {
-  /** A boolean indicating if the walk assist is enabled */
-  isEnabled: boolean;
-  /** Maximum bike speed of the walk assist in km/h */
-  maximumSpeed: number;
-}
-
-/**
- * Represents an active assist mode
- */
-export interface ActiveAssistMode {
-  /** Name of the assist mode */
-  name: string;
-  /** Provides the reachable range in meters */
-  reachableRange: number;
-}
-
-export interface PowerOnTime {
-  /** The power-on time in hours */
-  total: number;
-  withMotorSupport: number;
-}
-
-/**
- * Represents a drive unit
- */
-export interface DriveUnit {
-  productName: string;
-  serialNumber: string;
-  partNumber: string;
-  walkAssistConfiguration: WalkAssistConfiguration;
-  /** The total distance in meters */
-  odometer: number;
-  /** Wheel circumference in mm */
-  rearWheelCircumferenceUser: number;
-  /** The maximum assistance speed in km/h */
-  maximumAssistanceSpeed: number;
-  /** Reachable range in meters per active assist mode sorted by weakest to strongest assist mode */
-  activeAssistModes: ActiveAssistMode[];
-  powerOnTime: PowerOnTime;
-}
-
-/**
- * Represents a remote control
- */
-export interface RemoteControl {
-  productName: string;
-  serialNumber: string;
-  partNumber: string;
-}
-
-export interface ChargeCycles {
-  /** The total number of full charge cycles */
-  total: number;
-  /** The number of full charge cycles of the battery while charging on bike */
-  onBike: number;
-  /** The number of full charge cycles of the battery while charging stand-alone/off bike */
-  offBike: number;
-}
-
-/**
- * Represents a battery
- */
-export interface Battery {
-  productName: string;
-  serialNumber: string;
-  partNumber: string;
-  /** The delivered Wh over lifetime */
-  deliveredWhOverLifetime: number;
-  chargeCycles: ChargeCycles;
-}
-
-/**
- * Represents an anti-lock braking system
- */
-export interface AntiLockBrakeSystem {
-  productName: string;
-  serialNumber: string;
-  partNumber: string;
-}
-
-/**
- * Represents a connect module
- */
-export interface ConnectModule {
-  productName: string;
-  serialNumber: string;
-  partNumber: string;
-}
-
-/**
- * Represents a head unit
- */
-export interface HeadUnit {
-  productName: string;
-  serialNumber: string;
-  partNumber: string;
-}
-
 /**
  * Represents a list of eBike profiles
  */
@@ -151,6 +38,121 @@ export interface EbikeProfile {
 }
 
 /**
+ * Represents a service due
+ */
+export interface ServiceDue {
+  /** Point in time in UTC after service is due */
+  date: Date;
+  /** The total distance in meters after which service is due */
+  odometer: number;
+}
+
+/**
+ * Represents a drive unit
+ */
+export interface DriveUnit {
+  productName: string;
+  serialNumber: string;
+  partNumber: string;
+  walkAssistConfiguration: WalkAssistConfiguration;
+  /** The total distance in meters */
+  odometer: number;
+  /** Wheel circumference in mm */
+  rearWheelCircumferenceUser: number;
+  /** The maximum assistance speed in km/h */
+  maximumAssistanceSpeed: number;
+  /** Reachable range in meters per active assist mode sorted by weakest to strongest assist mode */
+  activeAssistModes: ActiveAssistMode[];
+  powerOnTime: PowerOnTime;
+}
+
+/**
+ * Represents a walk assist configuration
+ */
+export interface WalkAssistConfiguration {
+  /** A boolean indicating if the walk assist is enabled */
+  isEnabled: boolean;
+  /** Maximum bike speed of the walk assist in km/h */
+  maximumSpeed: number;
+}
+
+/**
+ * Represents an active assist mode
+ */
+export interface ActiveAssistMode {
+  /** Name of the assist mode */
+  name: string;
+  /** Provides the reachable range in meters */
+  reachableRange: number;
+}
+
+/**
+ * Represents power-on time
+ */
+export interface PowerOnTime {
+  /** The power-on time in hours */
+  total: number;
+  withMotorSupport: number;
+}
+
+/**
+ * Represents a remote control
+ */
+export interface RemoteControl {
+  productName: string;
+  serialNumber: string;
+  partNumber: string;
+}
+
+/**
+ * Represents a battery
+ */
+export interface Battery {
+  productName: string;
+  serialNumber: string;
+  partNumber: string;
+  /** The delivered Wh over lifetime */
+  deliveredWhOverLifetime: number;
+  chargeCycles: ChargeCycles;
+}
+
+export interface ChargeCycles {
+  /** The total number of full charge cycles */
+  total: number;
+  /** The number of full charge cycles of the battery while charging on bike */
+  onBike: number;
+  /** The number of full charge cycles of the battery while charging stand-alone/off bike */
+  offBike: number;
+}
+
+/**
+ * Represents an anti-lock braking system
+ */
+export interface AntiLockBrakeSystem {
+  productName: string;
+  serialNumber: string;
+  partNumber: string;
+}
+
+/**
+ * Represents a connect module
+ */
+export interface ConnectModule {
+  productName: string;
+  serialNumber: string;
+  partNumber: string;
+}
+
+/**
+ * Represents a head unit
+ */
+export interface HeadUnit {
+  productName: string;
+  serialNumber: string;
+  partNumber: string;
+}
+
+/**
  * Handles eBike profiles
  */
 @Injectable({
@@ -166,6 +168,16 @@ export class EbikeProfileService {
   getAllBikes(): Observable<EbikeProfiles> {
     return this.http.get<EbikeProfiles>(
       `${environment.eBikeApiUrl}/bike-profile/smart-system/v1/bikes`,
+    );
+  }
+
+  /**
+   * Retrieve a single eBike
+   * @param bikeId bike ID
+   */
+  getBike(bikeId: string): Observable<EbikeProfile> {
+    return this.http.get<EbikeProfile>(
+      `${environment.eBikeApiUrl}/bike-profile/smart-system/v1/bikes/${bikeId}`,
     );
   }
 }
