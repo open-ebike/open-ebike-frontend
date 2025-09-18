@@ -52,6 +52,9 @@
         "charge-cycles-off-bike": "Ladezyklen standalone",
         "undefined": "nicht definiert"
       }
+    },
+    "activities": {
+      "title": "Activities"
     }
   },
   "terms": {

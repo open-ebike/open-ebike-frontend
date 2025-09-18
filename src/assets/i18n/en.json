@@ -54,6 +54,9 @@
         "charge-cycles-off-bike": "charge cycles off-bike",
         "undefined": "undefined"
       }
+    },
+    "activities": {
+      "title": "Activities"
     }
   },
   "terms": {

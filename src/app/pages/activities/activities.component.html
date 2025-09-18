@@ -1,0 +1,31 @@
+<ng-container *transloco="let t; lang: lang; prefix: 'pages.activities'">
+  @if (authenticationService.isLoggedIn()) {
+    <div class="container"></div>
+    <mat-accordion class="overlay-left">
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ t("title") }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list>
+          @for (activitySummary of activitySummaries(); track activitySummary) {
+            <mat-list-item mat-ripple class="activity-item">
+              <mat-icon matListItemIcon class="activity-icon">route</mat-icon>
+              <div matListItemTitle class="title">
+                {{ activitySummary.title }}
+              </div>
+              <div matListItemLine class="subtitle">
+                <span>{{ activitySummary.startTime | date: "medium" }}</span>
+                <span class="delimiter">·</span>
+                <span
+                  >{{ activitySummary.distance | metersToKilometers }} km</span
+                >
+              </div>
+            </mat-list-item>
+          }
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  }
+</ng-container>

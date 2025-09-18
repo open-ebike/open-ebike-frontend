@@ -1,0 +1,105 @@
+@use "@angular/material" as mat;
+@import "../../../styles";
+
+::ng-deep .theme-light {
+  .container {
+    background: #f6f6f4;
+  }
+}
+
+::ng-deep .theme-dark {
+  .container {
+    background: #343332;
+  }
+}
+
+.container {
+  min-height: calc(100vh - 64px);
+  padding: 0 16px 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+@media #{$breakpoint-small} {
+  .inner-container {
+    width: 100%;
+  }
+}
+
+@media #{$breakpoint-medium} {
+  .inner-container {
+    width: 960px;
+  }
+}
+
+@media #{$breakpoint-large} {
+  .inner-container {
+    width: 960px;
+  }
+}
+
+h2 {
+  margin-top: 32px;
+}
+
+//
+// Overlays
+//
+
+$overlay-margin: 32px;
+$toolbar-height: 64px;
+$expansion-panel-header-height: 64px;
+
+.overlay-left {
+  z-index: 1;
+  position: absolute;
+  top: $toolbar-height;
+  left: 0;
+  margin: $overlay-margin;
+  box-shadow:
+    0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  max-height: calc(100vh - $toolbar-height - (2 * $overlay-margin));
+
+  @media #{$breakpoint-large} {
+    width: 450px;
+  }
+
+  @media #{$breakpoint-medium} {
+    width: 450px;
+  }
+
+  @media #{$breakpoint-small} {
+    width: calc(100% - 60px);
+  }
+}
+
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 0 16px !important;
+}
+
+.activity-item {
+  cursor: pointer;
+  padding: 0 24px 0;
+}
+
+.activity-icon {
+  padding: 4px;
+  margin-right: 8px;
+  border-radius: 100%;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.subtitle {
+  color: mat.m2-get-color-from-palette(mat.$m2-grey-palette, 500);
+}
+
+.delimiter {
+  padding-left: 4px;
+  padding-right: 4px;
+}

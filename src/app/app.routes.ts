@@ -3,6 +3,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { EbikesComponent } from './pages/ebikes/ebikes.component';
 import { AuthGuard } from './services/auth/auth-guards';
 import { EbikeDetailsComponent } from './pages/ebike-details/ebike-details.component';
+import { ActivitiesComponent } from './pages/activities/activities.component';
 
 export const routes: Routes = [
   {
@@ -12,6 +13,11 @@ export const routes: Routes = [
   {
     path: 'ebike-details/:id',
     component: EbikeDetailsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'activities',
+    component: ActivitiesComponent,
     canActivate: [AuthGuard],
   },
   {
