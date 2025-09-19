@@ -1,0 +1,133 @@
+{
+  "app-title": "Open eBike",
+  "pages": {
+    "home": {
+      "title": "Home",
+      "actions": {
+        "login-with-singlekey-id": "Login with SingleKey ID"
+      },
+      "terms": {
+        "hello": "Hello {{username}}"
+      }
+    },
+    "ebikes": {
+      "title": "eBikes",
+      "terms": {
+        "ebike": "eBike",
+        "registered": "registered"
+      },
+      "messages": {
+        "no-ebikes-found": "no eBikes found"
+      }
+    },
+    "ebike-details": {
+      "title": "eBike",
+      "terms": {
+        "registered": "registered",
+        "oem-id": "OEM ID",
+        "created-at": "created at",
+        "language": "language",
+        "service-due-date": "service due date",
+        "service-due-odometer": "service due odometer",
+        "components": "Components",
+        "more-attributes": "more attributes",
+        "drive-unit": "Drive Unit",
+        "remote-control": "Remote Control",
+        "battery": "Battery",
+        "anti-lock-brake-system": "Anti-Lock Brake System",
+        "connect-module": "Connect Module",
+        "head-unit": "Head Unit",
+        "serial-number": "serial number",
+        "part-number": "part number",
+        "undefined": "undefined",
+        "bike-passes": "Bike Passes",
+        "bike-pass": "Bike Pass",
+        "frame-number": "frame number",
+        "frame-number-position": "frame number position",
+        "description": "description",
+        "updated-at": "updated at",
+        "bulk-installation-reports": "Bulk Installation Reports",
+        "bulk-installation-report": "Installation Report",
+        "service-book": "Service Book",
+        "service-record": "Service Record",
+        "remote-configuration-cases": "Remote Configuration Cases",
+        "remote-configuration-case": "Case",
+        "installation-reports": "Installation Reports",
+        "installation-report": "Installation Report"
+      },
+      "actions": {
+        "show-all": "show all"
+      }
+    },
+    "activities": {
+      "title": "Activities",
+      "terms": {
+        "activity": "Activity",
+        "distance": "distance",
+        "altitude": "altitude",
+        "speed": "speed",
+        "cadence": "cadence",
+        "latitude": "latitude",
+        "longitude": "longitude",
+        "riderPower": "rider power",
+        "undefined": "undefined"
+      },
+      "actions": {
+        "show-all": "show all",
+        "hide-all": "hide all"
+      }
+    },
+    "registrations": {
+      "title": "Registrations",
+      "terms": {
+        "bike-registration": "bike registration",
+        "component-registration": "component registration",
+        "serial-number": "serial number",
+        "part-number": "part number"
+      }
+    },
+    "component-details": {
+      "title": "Component Details",
+      "terms": {
+        "registered": "registered",
+        "ebike": "eBike",
+        "drive-unit": "Drive Unit",
+        "remote-control": "Remote Control",
+        "battery": "Battery",
+        "anti-lock-brake-system": "Anti-Lock Brake System",
+        "connect-module": "Connect Module",
+        "head-unit": "Head Unit",
+        "serial-number": "serial number",
+        "part-number": "part number",
+        "walk-assist": "walk assist",
+        "enabled": "enabled",
+        "disabled": "disabled",
+        "odometer": "odometer",
+        "rear-wheel-circumference-user": "wheel circumference",
+        "maximum-assistance-speed": "maximum assistance speed",
+        "active-assist-modes": "active assist modes",
+        "assist-mode": "assist mode",
+        "reachable-range": "reachable range",
+        "power-on-time-total": "power-on time total",
+        "power-on-time-with-motor-support": "power-on time with motor support",
+        "delivered-wh-over-lifetime": "delivered Wh over lifetime",
+        "charge-cycles-total": "charge cycles total",
+        "charge-cycles-on-bike": "charge cycles on-bike",
+        "charge-cycles-off-bike": "charge cycles off-bike",
+        "undefined": "undefined",
+        "field-data": "Field Data",
+        "capacity-tester": "Capacity Tester"
+      }
+    }
+  },
+  "terms": {
+    "features": "Features",
+    "development": "Development",
+    "github": "GitHub",
+    "dev-log": "Dev Log"
+  },
+  "actions": {
+    "login": "Login",
+    "logout": "Logout"
+  }
+}
