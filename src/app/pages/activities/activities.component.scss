@@ -15,7 +15,7 @@
 
 .container {
   min-height: calc(100vh - 64px);
-  padding: 0 16px 16px;
+  padding: 0 0 16px;
   align-items: center;
   justify-content: center;
 }
@@ -40,6 +40,21 @@
 
 h2 {
   margin-top: 32px;
+}
+
+.list {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+
+li {
+  width: 100%;
+}
+
+.label {
+  display: inline-block;
+  width: 128px;
+  max-width: 45%;
 }
 
 //
@@ -90,9 +105,30 @@ $expansion-panel-header-height: 64px;
   border-radius: 100%;
 }
 
+::ng-deep .theme-light {
+  .activity-icon {
+    color: mat.m2-get-color-from-palette($open-ebike-accent, 500);
+    background: mix(
+      mat.m2-get-color-from-palette($open-ebike-accent, 500),
+      transparent,
+      20%
+    ) !important;
+  }
+}
+
+::ng-deep .theme-dark {
+  .activity-icon {
+    color: mat.m2-get-color-from-palette($open-ebike-accent, 300);
+    background: mix(
+      mat.m2-get-color-from-palette($open-ebike-accent, 500),
+      transparent,
+      20%
+    ) !important;
+  }
+}
+
 .title {
-  font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .subtitle {

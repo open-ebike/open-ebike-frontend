@@ -56,7 +56,21 @@
       }
     },
     "activities": {
-      "title": "Activities"
+      "title": "Activities",
+      "terms": {
+        "activity": "Activity",
+        "distance": "distance",
+        "altitude": "altitude",
+        "speed": "speed",
+        "cadence": "cadence",
+        "latitude": "latitude",
+        "longitude": "longitude",
+        "riderPower": "rider power",
+        "undefined": "undefined"
+      },
+      "actions": {
+        "show-all": "show all"
+      }
     }
   },
   "terms": {

@@ -1,29 +1,36 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  Component,
+  computed,
+  inject,
+  OnInit,
+  Signal,
+  signal,
+} from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Theme, ThemeService } from '../../services/theme.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import {
+  ActivityDetail,
   ActivityRecordsService,
   ActivitySummary,
   ActivitySummarySort,
 } from '../../services/api/activity-records.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { combineLatest, first } from 'rxjs';
-import {
-  MatAccordion,
-  MatExpansionPanel,
-  MatExpansionPanelHeader,
-  MatExpansionPanelTitle,
-} from '@angular/material/expansion';
-import {
-  CdkFixedSizeVirtualScroll,
-  CdkVirtualScrollViewport,
-} from '@angular/cdk/scrolling';
 import { MatList, MatListItem } from '@angular/material/list';
 import { DatePipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatRipple } from '@angular/material/core';
 import { MetersToKilometersPipe } from '../../pipes/meters-to-kilometers.pipe';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardAvatar,
+  MatCardContent,
+  MatCardFooter,
+} from '@angular/material/card';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButton } from '@angular/material/button';
 
 /**
  * Displays activities
@@ -32,18 +39,20 @@ import { MetersToKilometersPipe } from '../../pipes/meters-to-kilometers.pipe';
   selector: 'app-activities',
   imports: [
     TranslocoDirective,
-    MatAccordion,
-    MatExpansionPanel,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle,
-    CdkVirtualScrollViewport,
-    CdkFixedSizeVirtualScroll,
     MatList,
     MatListItem,
     MatIcon,
     DatePipe,
     MatRipple,
     MetersToKilometersPipe,
+    MatCard,
+    RouterLink,
+    MatCardAvatar,
+    MatCardContent,
+    MatCardActions,
+    MatCardFooter,
+    MatSidenavModule,
+    MatButton,
   ],
   templateUrl: './activities.component.html',
   styleUrl: './activities.component.scss',
@@ -69,8 +78,18 @@ export class ActivitiesComponent implements OnInit {
   // Signals
   //
 
+  /** Signal providing the selected activity ID */
+  id = signal<string | null>(null);
+  /** Signal providing the selected activity */
+  selectedActivity: Signal<ActivitySummary | undefined> = computed(() => {
+    return this.activitySummaries().find(
+      (activitySummary) => activitySummary.id === this.id(),
+    );
+  });
   /** Signal providing activity summaries */
   activitySummaries = signal<ActivitySummary[]>([]);
+  /** Signal providing activity details */
+  activityDetails = signal<ActivityDetail[]>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -91,7 +110,18 @@ export class ActivitiesComponent implements OnInit {
    */
   ngOnInit() {
     this.initializeTheme();
-    this.initializeActivities(20, 0, '-startTime');
+    this.initializeActivitiesSummaries(20, 0, '-startTime');
+
+    this.route.params.subscribe((params) => {
+      this.id.set(params['id']);
+
+      if (params['id']?.length > 0) {
+        this.initializeActivityDetails(params['id']);
+      } else {
+        this.activityDetails.set([]);
+      }
+    });
+
     this.handleQueryParameters();
   }
 
@@ -118,7 +148,7 @@ export class ActivitiesComponent implements OnInit {
   /**
    * Initializes activities
    */
-  private initializeActivities(
+  private initializeActivitiesSummaries(
     limit: number,
     offset: number,
     sort: ActivitySummarySort,
@@ -127,6 +157,17 @@ export class ActivitiesComponent implements OnInit {
       .getAllActivitySummaries(limit, offset, sort)
       .subscribe((activitySummaries) => {
         this.activitySummaries.set(activitySummaries.activitySummaries);
+      });
+  }
+
+  /**
+   * Initializes activity details
+   */
+  private initializeActivityDetails(id: string) {
+    this.activityRecordsService
+      .getActivityDetails(id)
+      .subscribe((activityDetails) => {
+        this.activityDetails.set(activityDetails.activityDetails);
       });
   }
 

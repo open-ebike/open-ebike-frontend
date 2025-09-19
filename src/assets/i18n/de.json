@@ -54,7 +54,21 @@
       }
     },
     "activities": {
-      "title": "Activities"
+      "title": "Activities",
+      "terms": {
+        "activity": "Activity",
+        "distance": "Distanz",
+        "altitude": "Höhe",
+        "speed": "Geschwindigkeit",
+        "cadence": "Kadenz",
+        "latitude": "Breitengrad",
+        "longitude": "Längengrad",
+        "riderPower": "Energie",
+        "undefined": "nicht definiert"
+      },
+      "actions": {
+        "show-all": "alle anzeigen"
+      }
     }
   },
   "terms": {

@@ -78,8 +78,6 @@ export class EbikeDetailsComponent implements OnInit {
   // Signals
   //
 
-  /** eBike ID */
-  id = signal<string>('');
   /** Signal providing eBike profile */
   ebikeProfile = signal<EbikeProfile | null>(null);
 

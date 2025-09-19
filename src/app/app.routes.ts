@@ -16,13 +16,18 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'activities',
+    path: 'ebikes',
+    component: EbikesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'activities/:id',
     component: ActivitiesComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'ebikes',
-    component: EbikesComponent,
+    path: 'activities',
+    component: ActivitiesComponent,
     canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: 'home' },
