@@ -69,6 +69,15 @@
       "actions": {
         "show-all": "alle anzeigen"
       }
+    },
+    "registrations": {
+      "title": "Registrierungen",
+      "terms": {
+        "bike-registration": "Bike Registrierung",
+        "component-registration": "Komponenten Registrierung",
+        "serial-number": "Seriennummer",
+        "part-number": "Teilnummer"
+      }
     }
   },
   "terms": {
