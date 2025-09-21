@@ -65,9 +65,9 @@
         <h3>{{ t("terms.components") }}</h3>
         <div class="grid">
           @if (ebikeProfile()?.driveUnit) {
-            <mat-card class="ebike-card" mat-ripple>
+            <mat-card class="component-card" mat-ripple>
               <mat-card-header>
-                <div mat-card-avatar class="ebike-avatar">
+                <div mat-card-avatar class="component-avatar">
                   <span class="material-symbols-outlined component-icon">
                     extension
                   </span>
@@ -192,9 +192,9 @@
           }
 
           @if (ebikeProfile()?.remoteControl) {
-            <mat-card class="ebike-card" mat-ripple>
+            <mat-card class="component-card" mat-ripple>
               <mat-card-header>
-                <div mat-card-avatar class="ebike-avatar">
+                <div mat-card-avatar class="component-avatar">
                   <span class="material-symbols-outlined component-icon">
                     extension
                   </span>
@@ -223,9 +223,9 @@
           }
 
           @for (battery of ebikeProfile()?.batteries; track battery) {
-            <mat-card class="ebike-card" mat-ripple>
+            <mat-card class="component-card" mat-ripple>
               <mat-card-header>
-                <div mat-card-avatar class="ebike-avatar">
+                <div mat-card-avatar class="component-avatar">
                   <span class="material-symbols-outlined component-icon">
                     battery_charging_full
                   </span>
@@ -290,9 +290,9 @@
             antiLockBrakeSystem of ebikeProfile()?.antiLockBrakeSystems;
             track antiLockBrakeSystem
           ) {
-            <mat-card class="ebike-card" mat-ripple>
+            <mat-card class="component-card" mat-ripple>
               <mat-card-header>
-                <div mat-card-avatar class="ebike-avatar">
+                <div mat-card-avatar class="component-avatar">
                   <span class="material-symbols-outlined component-icon">
                     extension
                   </span>
@@ -321,9 +321,9 @@
           }
 
           @if (ebikeProfile()?.connectModule) {
-            <mat-card class="ebike-card" mat-ripple>
+            <mat-card class="component-card" mat-ripple>
               <mat-card-header>
-                <div mat-card-avatar class="ebike-avatar">
+                <div mat-card-avatar class="component-avatar">
                   <span class="material-symbols-outlined component-icon">
                     extension
                   </span>
@@ -352,9 +352,9 @@
           }
 
           @if (ebikeProfile()?.headUnit) {
-            <mat-card class="ebike-card" mat-ripple>
+            <mat-card class="component-card" mat-ripple>
               <mat-card-header>
-                <div mat-card-avatar class="ebike-avatar">
+                <div mat-card-avatar class="component-avatar">
                   <span class="material-symbols-outlined component-icon">
                     tablet
                   </span>
@@ -382,6 +382,48 @@
             </mat-card>
           }
         </div>
+
+        <h3>{{ t("terms.bike-passes") }}</h3>
+
+        @for (bikePass of bikePasses(); track bikePass) {
+          <mat-card class="bike-pass-card" mat-ripple>
+            <mat-card-header>
+              <div mat-card-avatar class="bike-pass-avatar">
+                <span class="material-symbols-outlined bike-pass-icon">
+                  badge
+                </span>
+              </div>
+              <mat-card-title>{{ t("terms.bike-pass") }} </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <ul class="list">
+                <li>
+                  <strong class="label">{{ t("terms.frame-number") }}</strong
+                  >: {{ bikePass.frameNumber }}
+                </li>
+                <li>
+                  <strong class="label">{{
+                    t("terms.frame-number-position")
+                  }}</strong
+                  >: {{ bikePass.frameNumberPosition }}
+                </li>
+                <li>
+                  <strong class="label">{{ t("terms.description") }}</strong
+                  >: {{ bikePass.description }}
+                </li>
+                <li>
+                  <strong class="label">{{ t("terms.created-at") }}</strong
+                  >: {{ bikePass.createdAt }}
+                </li>
+                <li>
+                  <strong class="label">{{ t("terms.updated-at") }}</strong
+                  >: {{ bikePass.updatedAt }}
+                </li>
+              </ul>
+            </mat-card-content>
+            <mat-card-actions></mat-card-actions>
+          </mat-card>
+        }
       </div>
       <div class="flex-box"></div>
     }

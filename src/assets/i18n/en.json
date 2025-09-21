@@ -52,7 +52,13 @@
         "charge-cycles-total": "charge cycles total",
         "charge-cycles-on-bike": "charge cycles on-bike",
         "charge-cycles-off-bike": "charge cycles off-bike",
-        "undefined": "undefined"
+        "undefined": "undefined",
+        "bike-passes": "Bike Passes",
+        "bike-pass": "Bike Pass",
+        "frame-number": "frame number",
+        "frame-number-position": "frame number position",
+        "description": "description",
+        "updated-at": "updated at"
       }
     },
     "activities": {

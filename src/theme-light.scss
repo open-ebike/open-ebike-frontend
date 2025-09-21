@@ -172,6 +172,12 @@ $mat-raspberry-pink: (
 );
 
 $open-ebike-primary: mat.m2-define-palette($mat-celestial-blue, 400, 300, 500);
+$open-ebike-secondary: mat.m2-define-palette(
+  $mat-celestial-blue,
+  400,
+  300,
+  500
+);
 $open-ebike-accent: mat.m2-define-palette($mat-raspberry-pink, 300, 200, 400);
 $open-ebike-warn: mat.m2-define-palette(mat.$m2-red-palette);
 

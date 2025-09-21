@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   EbikeProfile,
@@ -28,6 +28,10 @@ import {
   MatExpansionPanelTitle,
 } from '@angular/material/expansion';
 import { DatePipe } from '@angular/common';
+import {
+  BikePass,
+  BikePassService,
+} from '../../services/api/bike-pass.service';
 
 /**
  * Displays eBike details
@@ -73,6 +77,8 @@ export class EbikeDetailsComponent implements OnInit {
   public authenticationService = inject(AuthenticationService);
   /** eBike profile service */
   private ebikeProfileService = inject(EbikeProfileService);
+  /** Bike pass service */
+  private bikePassService = inject(BikePassService);
 
   //
   // Signals
@@ -80,6 +86,8 @@ export class EbikeDetailsComponent implements OnInit {
 
   /** Signal providing eBike profile */
   ebikeProfile = signal<EbikeProfile | null>(null);
+  /** Signal providing bike passes */
+  bikePasses = signal<BikePass[] | null>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -101,6 +109,7 @@ export class EbikeDetailsComponent implements OnInit {
       }
 
       this.initializeEbike(params['id']);
+      this.initializeBikePasses(params['id']);
     });
   }
 
@@ -142,6 +151,15 @@ export class EbikeDetailsComponent implements OnInit {
   private initializeEbike(bikeId: string) {
     this.ebikeProfileService.getBike(bikeId).subscribe((eBikeProfile) => {
       this.ebikeProfile.set(eBikeProfile);
+    });
+  }
+
+  /**
+   * Initializes bike passes
+   */
+  private initializeBikePasses(bikeId: string) {
+    this.bikePassService.getBikePasses(bikeId).subscribe((bikePasses) => {
+      this.bikePasses.set(bikePasses.bikePasses);
     });
   }
 

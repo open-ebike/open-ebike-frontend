@@ -51,16 +51,21 @@
   }
 }
 
-.ebike-card {
+.ebike-card,
+.component-card,
+.bike-pass-card {
   min-height: 242px;
 }
 
-.ebike-avatar {
+.ebike-avatar,
+.component-avatar,
+.bike-pass-avatar {
   background: transparent !important;
 }
 
 .ebike-icon,
-.component-icon {
+.component-icon,
+.bike-pass-icon {
   padding: 4px;
   margin-right: 8px;
   border-radius: 100%;
@@ -80,6 +85,15 @@
     color: mat.m2-get-color-from-palette($open-ebike-primary, 500);
     background: mix(
       mat.m2-get-color-from-palette($open-ebike-primary, 500),
+      transparent,
+      20%
+    ) !important;
+  }
+
+  .bike-pass-icon {
+    color: mat.m2-get-color-from-palette($open-ebike-secondary, 500);
+    background: mix(
+      mat.m2-get-color-from-palette($open-ebike-secondary, 500),
       transparent,
       20%
     ) !important;
@@ -104,10 +118,20 @@
       20%
     ) !important;
   }
+
+  .bike-pass-icon {
+    color: mat.m2-get-color-from-palette($open-ebike-secondary, 500);
+    background: mix(
+      mat.m2-get-color-from-palette($open-ebike-secondary, 500),
+      transparent,
+      20%
+    ) !important;
+  }
 }
 
-h2 {
-  margin-top: 32px;
+h2,
+h3 {
+  margin-top: 16px;
 }
 
 .list {

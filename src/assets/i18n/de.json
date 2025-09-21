@@ -50,7 +50,13 @@
         "charge-cycles-total": "Ladezyklen gesamt",
         "charge-cycles-on-bike": "Ladezyklen am Bike",
         "charge-cycles-off-bike": "Ladezyklen standalone",
-        "undefined": "nicht definiert"
+        "undefined": "nicht definiert",
+        "bike-passes": "Bike Passes",
+        "bike-pass": "Bike Pass",
+        "frame-number": "Rahmennummer",
+        "frame-number-position": "Rahmennummer Position",
+        "description": "Beschreibung",
+        "updated-at": "aktualisiert am"
       }
     },
     "activities": {
