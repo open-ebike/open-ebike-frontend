@@ -4,7 +4,7 @@
     "home": {
       "title": "Home",
       "actions": {
-        "login-with-singlekey-id": "Login with SingleKey ID"
+        "enter-client-credentials-login": "Enter Client Credentials and Login"
       },
       "terms": {
         "hello": "Hello {{username}}"
@@ -118,6 +118,18 @@
         "field-data": "Field Data",
         "capacity-tester": "Capacity Tester"
       }
+    },
+    "login": {
+      "title": "Login",
+      "terms": {
+        "client-id": "Client ID"
+      },
+      "actions": {
+        "enter-client-id": "Enter the client ID of your client application",
+        "save": "Save",
+        "login": "Login",
+        "login-with-singlekey-id": "Login with SingleKey ID"
+      }
     }
   },
   "terms": {
@@ -127,6 +139,7 @@
     "dev-log": "Dev Log"
   },
   "actions": {
+    "enter-client-credentials": "Enter Client Credentials",
     "login": "Login",
     "logout": "Logout"
   }
