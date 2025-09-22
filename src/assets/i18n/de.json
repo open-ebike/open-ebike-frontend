@@ -56,7 +56,9 @@
         "frame-number": "Rahmennummer",
         "frame-number-position": "Rahmennummer Position",
         "description": "Beschreibung",
-        "updated-at": "aktualisiert am"
+        "updated-at": "aktualisiert am",
+        "installation-reports": "Installationsberichte",
+        "installation-report": "Installationsbericht"
       }
     },
     "activities": {

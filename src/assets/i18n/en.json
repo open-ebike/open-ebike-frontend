@@ -58,7 +58,9 @@
         "frame-number": "frame number",
         "frame-number-position": "frame number position",
         "description": "description",
-        "updated-at": "updated at"
+        "updated-at": "updated at",
+        "installation-reports": "Installations Reports",
+        "installation-report": "Installation Report"
       }
     },
     "activities": {

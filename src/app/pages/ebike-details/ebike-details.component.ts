@@ -32,6 +32,11 @@ import {
   BikePass,
   BikePassService,
 } from '../../services/api/bike-pass.service';
+import {
+  BulkConfigurationService,
+  InstallationReport,
+} from '../../services/api/bulk-configuration.service';
+import { AttributeTreeComponent } from '../../components/attribute-tree/attribute-tree.component';
 
 /**
  * Displays eBike details
@@ -57,6 +62,7 @@ import {
     MatExpansionPanelHeader,
     MatExpansionPanelTitle,
     DatePipe,
+    AttributeTreeComponent,
   ],
   templateUrl: './ebike-details.component.html',
   styleUrl: './ebike-details.component.scss',
@@ -79,6 +85,8 @@ export class EbikeDetailsComponent implements OnInit {
   private ebikeProfileService = inject(EbikeProfileService);
   /** Bike pass service */
   private bikePassService = inject(BikePassService);
+  /** Bulk configuration service */
+  private bulkConfigurationService = inject(BulkConfigurationService);
 
   //
   // Signals
@@ -88,6 +96,8 @@ export class EbikeDetailsComponent implements OnInit {
   ebikeProfile = signal<EbikeProfile | null>(null);
   /** Signal providing bike passes */
   bikePasses = signal<BikePass[] | null>([]);
+  /** Signal providing installation reports */
+  installationReports = signal<InstallationReport[] | null>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -110,6 +120,7 @@ export class EbikeDetailsComponent implements OnInit {
 
       this.initializeEbike(params['id']);
       this.initializeBikePasses(params['id']);
+      this.initializeInstallationReports(params['id']);
     });
   }
 
@@ -161,6 +172,17 @@ export class EbikeDetailsComponent implements OnInit {
     this.bikePassService.getBikePasses(bikeId).subscribe((bikePasses) => {
       this.bikePasses.set(bikePasses.bikePasses);
     });
+  }
+
+  /**
+   * Initializes installation reports
+   */
+  private initializeInstallationReports(bikeId: string) {
+    this.bulkConfigurationService
+      .getInstallationReports(bikeId)
+      .subscribe((installationReports) => {
+        this.installationReports.set(installationReports.installationReports);
+      });
   }
 
   /**
