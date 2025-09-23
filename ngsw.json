@@ -1,0 +1,91 @@
+{
+  "configVersion": 1,
+  "timestamp": 1758639924388,
+  "index": "/open-ebike-frontend/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/open-ebike-frontend/favicon.ico",
+        "/open-ebike-frontend/index.html",
+        "/open-ebike-frontend/main-DWGEM7GG.js",
+        "/open-ebike-frontend/manifest.webmanifest",
+        "/open-ebike-frontend/polyfills-B6TNHZQ6.js",
+        "/open-ebike-frontend/styles-D7DGIPHR.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/open-ebike-frontend/assets/i18n/de.json",
+        "/open-ebike-frontend/assets/i18n/en.json",
+        "/open-ebike-frontend/assets/icons-maskable/maskable_icon.png",
+        "/open-ebike-frontend/assets/icons-maskable/maskable_icon_x128.png",
+        "/open-ebike-frontend/assets/icons-maskable/maskable_icon_x192.png",
+        "/open-ebike-frontend/assets/icons-maskable/maskable_icon_x384.png",
+        "/open-ebike-frontend/assets/icons-maskable/maskable_icon_x48.png",
+        "/open-ebike-frontend/assets/icons-maskable/maskable_icon_x512.png",
+        "/open-ebike-frontend/assets/icons-maskable/maskable_icon_x72.png",
+        "/open-ebike-frontend/assets/icons-maskable/maskable_icon_x96.png",
+        "/open-ebike-frontend/assets/logos/logo-with-text-dark.png",
+        "/open-ebike-frontend/assets/logos/logo-with-text.png",
+        "/open-ebike-frontend/assets/screenshots/screenshot-narrow.png",
+        "/open-ebike-frontend/assets/screenshots/screenshot-wide.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/open-ebike-frontend/assets/i18n/de.json": "8c881a30051e01016ba1c2d7849933c45b0f369b",
+    "/open-ebike-frontend/assets/i18n/en.json": "6401b4d9d525be58c279320410fcf35686e03ba7",
+    "/open-ebike-frontend/assets/icons-maskable/maskable_icon.png": "416d9f21335eceb5c56de7c94985877f496c972d",
+    "/open-ebike-frontend/assets/icons-maskable/maskable_icon_x128.png": "774c4b9a17172e8a9c757524961726bef5ebd7d7",
+    "/open-ebike-frontend/assets/icons-maskable/maskable_icon_x192.png": "ff304a47573e0cea5ebf715d50303252bd96295f",
+    "/open-ebike-frontend/assets/icons-maskable/maskable_icon_x384.png": "027f094118abfa7a06b11fd9f1eb53d0e863f681",
+    "/open-ebike-frontend/assets/icons-maskable/maskable_icon_x48.png": "6e9a5e184540297a4915affb7009270f3cf1af28",
+    "/open-ebike-frontend/assets/icons-maskable/maskable_icon_x512.png": "7fe2ade29249daefbd246d594d5c7dca0aaf20b9",
+    "/open-ebike-frontend/assets/icons-maskable/maskable_icon_x72.png": "1fdaf97fc10c138a0505d323caa9b0a3f9526544",
+    "/open-ebike-frontend/assets/icons-maskable/maskable_icon_x96.png": "a0a66daff0929a0f3659ad59b6e3ad09b2a08597",
+    "/open-ebike-frontend/assets/logos/logo-with-text-dark.png": "6f6afa0c47ba152e39129dc0aa4c01985df38a16",
+    "/open-ebike-frontend/assets/logos/logo-with-text.png": "34159e5d765196ba2055b9b290917118f7b20326",
+    "/open-ebike-frontend/assets/screenshots/screenshot-narrow.png": "f9f5babb10d2826e0dc7c995e2c2570e9b413845",
+    "/open-ebike-frontend/assets/screenshots/screenshot-wide.png": "63a94618198c1c893f72f3df21f4818ca12d54a9",
+    "/open-ebike-frontend/favicon.ico": "10a2549b8c8961b36c02fd60046faeee8582743c",
+    "/open-ebike-frontend/index.html": "30436179f256e02ce95d53fb29171b9e007d3b05",
+    "/open-ebike-frontend/main-DWGEM7GG.js": "e885eda172bf8fc1b3cfab3756df3580ac85f835",
+    "/open-ebike-frontend/manifest.webmanifest": "9d709ed8fc22df10f45e02375ea335d5a9eba110",
+    "/open-ebike-frontend/polyfills-B6TNHZQ6.js": "bf76ac291d7f51c1139b7edcf86b359a30c08c64",
+    "/open-ebike-frontend/styles-D7DGIPHR.css": "1ebb65fdf3b1f25f10d3d49cc801b2014ac3ffe0"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
