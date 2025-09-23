@@ -2,6 +2,15 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
+
+export type ComponentType =
+  | 'DRIVE_UNIT'
+  | 'REMOTE_CONTROL'
+  | 'BATTERY'
+  | 'ANTI_LOCK_BRAKE_SYSTEM'
+  | 'CONNECT_MODULE'
+  | 'HEAD_UNIT';
+
 /**
  * Represents a list of eBike profiles
  */

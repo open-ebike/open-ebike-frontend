@@ -98,7 +98,7 @@ export class DiagnosisFieldDataService {
    * @param partNumber part number
    * @param serialNumber serial number
    */
-  getInstallationReports(partNumber: string, serialNumber: string) {
+  getFieldData(partNumber: string, serialNumber: string) {
     return this.http.get<CapacityTesters>(
       `${environment.eBikeApiUrl}/diagnosis-field-data/smart-system/v1/capacity-testers?partNumber=${partNumber}&serialNumber=${serialNumber}`,
     );

@@ -1,0 +1,198 @@
+<ng-container *transloco="let t; lang: lang; prefix: 'pages.component-details'">
+  <div class="container flex-container-vertical">
+    @if (authenticationService.isLoggedIn()) {
+      <div class="inner-container">
+        <h2>
+          @if (ebikeProfile()) {
+            <span
+              style="cursor: pointer; font-size: 24px"
+              [routerLink]="['/ebike-details', ebikeProfile()?.id]"
+            >
+              <span mat-card-avatar class="ebike-avatar">
+                <span class="material-symbols-outlined ebike-icon">
+                  electric_bike
+                </span>
+              </span>
+              {{ t("terms.ebike") }}
+              {{ ebikeProfile()?.id }}
+            </span>
+          }
+        </h2>
+        <h2>
+          @if (component()) {
+            @if (componentType() == "DRIVE_UNIT") {
+              <span mat-card-avatar class="component-avatar">
+                <span class="material-symbols-outlined component-icon">
+                  extension
+                </span>
+              </span>
+              {{ t("terms.drive-unit") }}
+            }
+            @if (componentType() == "REMOTE_CONTROL") {
+              <span mat-card-avatar class="component-avatar">
+                <span class="material-symbols-outlined component-icon">
+                  extension
+                </span>
+              </span>
+              {{ t("terms.remote-control") }}
+            }
+            @if (componentType() == "BATTERY") {
+              <span mat-card-avatar class="component-avatar">
+                <span class="material-symbols-outlined component-icon">
+                  battery_charging_full
+                </span>
+              </span>
+              {{ t("terms.battery") }}
+            }
+            @if (componentType() == "ANTI_LOCK_BRAKE_SYSTEM") {
+              <span mat-card-avatar class="component-avatar">
+                <span class="material-symbols-outlined component-icon">
+                  extension
+                </span>
+              </span>
+              {{ t("terms.anti-lock-brake-system") }}
+            }
+            @if (componentType() == "CONNECT_MODULE") {
+              <span mat-card-avatar class="component-avatar">
+                <span class="material-symbols-outlined component-icon">
+                  extension
+                </span>
+              </span>
+              {{ t("terms.connect-module") }}
+            }
+            @if (componentType() == "HEAD_UNIT") {
+              <span mat-card-avatar class="component-avatar">
+                <span class="material-symbols-outlined component-icon">
+                  tablet
+                </span>
+              </span>
+              {{ t("terms.head-unit") }}
+            }
+
+            {{ component()?.productName }}
+          }
+        </h2>
+
+        <ul class="list">
+          <li>
+            <strong class="label">{{ t("terms.serial-number") }}</strong
+            >:
+            @if (component()?.serialNumber) {
+              {{ component()?.serialNumber }}
+            } @else {
+              <em>{{ t("terms.undefined") }}</em>
+            }
+          </li>
+          <li>
+            <strong class="label">{{ t("terms.part-number") }}</strong
+            >:
+            @if (component()?.partNumber) {
+              {{ component()?.partNumber }}
+            } @else {
+              <em>{{ t("terms.undefined") }}</em>
+            }
+          </li>
+        </ul>
+
+        @if (componentType() == "DRIVE_UNIT" && driveUnit()) {
+          <ul class="list">
+            <li>
+              <strong class="label">{{ t("terms.walk-assist") }}</strong
+              >: max.
+              {{ driveUnit()?.walkAssistConfiguration?.maximumSpeed }}
+              km/h
+              @if (driveUnit()?.walkAssistConfiguration?.isEnabled) {
+                ({{ t("terms.enabled") }})
+              } @else {
+                ({{ t("terms.disabled") }})
+              }
+            </li>
+          </ul>
+          <ul class="list">
+            <li>
+              <strong class="label">{{ t("terms.odometer") }}</strong
+              >:
+              {{ driveUnit()?.odometer | thousandsSeparator }}
+              m
+            </li>
+            <li>
+              <strong class="label">{{
+                t("terms.rear-wheel-circumference-user")
+              }}</strong
+              >:
+              {{ driveUnit()?.rearWheelCircumferenceUser }}
+              mm
+            </li>
+            <li>
+              <strong class="label">{{
+                t("terms.maximum-assistance-speed")
+              }}</strong
+              >:
+              {{ driveUnit()?.maximumAssistanceSpeed }}
+              mm
+            </li>
+          </ul>
+          <ul class="list">
+            @for (
+              activeAssistMode of driveUnit()?.activeAssistModes;
+              track activeAssistMode
+            ) {
+              <li>
+                <strong class="label"
+                  >{{ t("terms.assist-mode") }}
+                  {{ activeAssistMode.name }}</strong
+                >: {{ t("terms.reachable-range") }}
+                {{ activeAssistMode.reachableRange | thousandsSeparator }}
+                m
+              </li>
+            }
+          </ul>
+          <ul class="list">
+            <li>
+              <strong class="label">{{ t("terms.power-on-time-total") }}</strong
+              >: {{ driveUnit()?.powerOnTime?.total }} h
+            </li>
+            <li>
+              <strong class="label">{{
+                t("terms.power-on-time-with-motor-support")
+              }}</strong
+              >:
+              {{ driveUnit()?.powerOnTime?.withMotorSupport }}
+              h
+            </li>
+          </ul>
+        }
+
+        @if (componentType() == "BATTERY" && battery()) {
+          <ul class="list">
+            <li>
+              <strong class="label">{{
+                t("terms.delivered-wh-over-lifetime")
+              }}</strong
+              >: {{ battery()?.deliveredWhOverLifetime }}
+            </li>
+          </ul>
+          <ul class="list">
+            <li>
+              <strong class="label">{{ t("terms.charge-cycles-total") }}</strong
+              >: {{ battery()?.chargeCycles?.total }}
+            </li>
+            <li>
+              <strong class="label">{{
+                t("terms.charge-cycles-on-bike")
+              }}</strong
+              >: {{ battery()?.chargeCycles?.onBike }}
+            </li>
+            <li>
+              <strong class="label">{{
+                t("terms.charge-cycles-off-bike")
+              }}</strong
+              >: {{ battery()?.chargeCycles?.offBike }}
+            </li>
+          </ul>
+        }
+      </div>
+      <div class="flex-box"></div>
+    }
+  </div>
+</ng-container>

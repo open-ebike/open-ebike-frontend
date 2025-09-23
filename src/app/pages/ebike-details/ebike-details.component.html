@@ -9,6 +9,7 @@
             </span>
           </span>
           {{ t("title") }}
+          {{ ebikeProfile()?.id }}
         </h2>
 
         <ul class="list">
@@ -66,7 +67,15 @@
 
         <div class="grid">
           @if (ebikeProfile()?.driveUnit) {
-            <mat-card class="component-card" mat-ripple>
+            <mat-card
+              class="component-card"
+              mat-ripple
+              [routerLink]="['/component-details', ebikeProfile()?.id]"
+              [queryParams]="{
+                serialNumber: ebikeProfile()?.driveUnit?.serialNumber,
+                partNumber: ebikeProfile()?.driveUnit?.partNumber,
+              }"
+            >
               <mat-card-header>
                 <div mat-card-avatar class="component-avatar">
                   <span class="material-symbols-outlined component-icon">
@@ -91,109 +100,21 @@
                     >: {{ ebikeProfile()?.driveUnit?.partNumber }}
                   </li>
                 </ul>
-                <mat-accordion class="no-shadow-accordion" multi>
-                  <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                      <mat-panel-title
-                        >{{ t("terms.more-attributes") }}
-                      </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <ul class="list">
-                      <li>
-                        <strong class="label">{{
-                          t("terms.walk-assist")
-                        }}</strong
-                        >: max.
-                        {{
-                          ebikeProfile()?.driveUnit?.walkAssistConfiguration
-                            ?.maximumSpeed
-                        }}
-                        km/h
-                        @if (
-                          ebikeProfile()?.driveUnit?.walkAssistConfiguration
-                            ?.isEnabled
-                        ) {
-                          ({{ t("terms.enabled") }})
-                        } @else {
-                          ({{ t("terms.disabled") }})
-                        }
-                      </li>
-                    </ul>
-                    <ul class="list">
-                      <li>
-                        <strong class="label">{{ t("terms.odometer") }}</strong
-                        >:
-                        {{
-                          ebikeProfile()?.driveUnit?.odometer
-                            | thousandsSeparator
-                        }}
-                        m
-                      </li>
-                      <li>
-                        <strong class="label">{{
-                          t("terms.rear-wheel-circumference-user")
-                        }}</strong
-                        >:
-                        {{
-                          ebikeProfile()?.driveUnit?.rearWheelCircumferenceUser
-                        }}
-                        mm
-                      </li>
-                      <li>
-                        <strong class="label">{{
-                          t("terms.maximum-assistance-speed")
-                        }}</strong
-                        >:
-                        {{ ebikeProfile()?.driveUnit?.maximumAssistanceSpeed }}
-                        mm
-                      </li>
-                    </ul>
-                    <ul class="list">
-                      @for (
-                        activeAssistMode of ebikeProfile()?.driveUnit
-                          ?.activeAssistModes;
-                        track activeAssistMode
-                      ) {
-                        <li>
-                          <strong class="label"
-                            >{{ t("terms.assist-mode") }}
-                            {{ activeAssistMode.name }}</strong
-                          >: {{ t("terms.reachable-range") }}
-                          {{
-                            activeAssistMode.reachableRange | thousandsSeparator
-                          }}
-                          m
-                        </li>
-                      }
-                    </ul>
-                    <ul class="list">
-                      <li>
-                        <strong class="label">{{
-                          t("terms.power-on-time-total")
-                        }}</strong
-                        >: {{ ebikeProfile()?.driveUnit?.powerOnTime?.total }} h
-                      </li>
-                      <li>
-                        <strong class="label">{{
-                          t("terms.power-on-time-with-motor-support")
-                        }}</strong
-                        >:
-                        {{
-                          ebikeProfile()?.driveUnit?.powerOnTime
-                            ?.withMotorSupport
-                        }}
-                        h
-                      </li>
-                    </ul>
-                  </mat-expansion-panel>
-                </mat-accordion>
               </mat-card-content>
               <mat-card-actions></mat-card-actions>
             </mat-card>
           }
 
           @if (ebikeProfile()?.remoteControl) {
-            <mat-card class="component-card" mat-ripple>
+            <mat-card
+              class="component-card"
+              mat-ripple
+              [routerLink]="['/component-details', ebikeProfile()?.id]"
+              [queryParams]="{
+                serialNumber: ebikeProfile()?.remoteControl?.serialNumber,
+                partNumber: ebikeProfile()?.remoteControl?.partNumber,
+              }"
+            >
               <mat-card-header>
                 <div mat-card-avatar class="component-avatar">
                   <span class="material-symbols-outlined component-icon">
@@ -224,7 +145,15 @@
           }
 
           @for (battery of ebikeProfile()?.batteries; track battery) {
-            <mat-card class="component-card" mat-ripple>
+            <mat-card
+              class="component-card"
+              mat-ripple
+              [routerLink]="['/component-details', ebikeProfile()?.id]"
+              [queryParams]="{
+                serialNumber: battery.serialNumber,
+                partNumber: battery.partNumber,
+              }"
+            >
               <mat-card-header>
                 <div mat-card-avatar class="component-avatar">
                   <span class="material-symbols-outlined component-icon">
@@ -245,43 +174,6 @@
                     >: {{ battery.partNumber }}
                   </li>
                 </ul>
-                <mat-accordion class="no-shadow-accordion" multi>
-                  <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                      <mat-panel-title
-                        >{{ t("terms.more-attributes") }}
-                      </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <ul class="list">
-                      <li>
-                        <strong class="label">{{
-                          t("terms.delivered-wh-over-lifetime")
-                        }}</strong
-                        >: {{ battery.deliveredWhOverLifetime }}
-                      </li>
-                    </ul>
-                    <ul class="list">
-                      <li>
-                        <strong class="label">{{
-                          t("terms.charge-cycles-total")
-                        }}</strong
-                        >: {{ battery.chargeCycles.total }}
-                      </li>
-                      <li>
-                        <strong class="label">{{
-                          t("terms.charge-cycles-on-bike")
-                        }}</strong
-                        >: {{ battery.chargeCycles.onBike }}
-                      </li>
-                      <li>
-                        <strong class="label">{{
-                          t("terms.charge-cycles-off-bike")
-                        }}</strong
-                        >: {{ battery.chargeCycles.offBike }}
-                      </li>
-                    </ul>
-                  </mat-expansion-panel>
-                </mat-accordion>
               </mat-card-content>
               <mat-card-actions></mat-card-actions>
             </mat-card>
@@ -291,7 +183,15 @@
             antiLockBrakeSystem of ebikeProfile()?.antiLockBrakeSystems;
             track antiLockBrakeSystem
           ) {
-            <mat-card class="component-card" mat-ripple>
+            <mat-card
+              class="component-card"
+              mat-ripple
+              [routerLink]="['/component-details', ebikeProfile()?.id]"
+              [queryParams]="{
+                serialNumber: antiLockBrakeSystem.serialNumber,
+                partNumber: antiLockBrakeSystem.partNumber,
+              }"
+            >
               <mat-card-header>
                 <div mat-card-avatar class="component-avatar">
                   <span class="material-symbols-outlined component-icon">
@@ -322,7 +222,15 @@
           }
 
           @if (ebikeProfile()?.connectModule) {
-            <mat-card class="component-card" mat-ripple>
+            <mat-card
+              class="component-card"
+              mat-ripple
+              [routerLink]="['/component-details', ebikeProfile()?.id]"
+              [queryParams]="{
+                serialNumber: ebikeProfile()?.connectModule?.serialNumber,
+                partNumber: ebikeProfile()?.connectModule?.partNumber,
+              }"
+            >
               <mat-card-header>
                 <div mat-card-avatar class="component-avatar">
                   <span class="material-symbols-outlined component-icon">
@@ -353,7 +261,15 @@
           }
 
           @if (ebikeProfile()?.headUnit) {
-            <mat-card class="component-card" mat-ripple>
+            <mat-card
+              class="component-card"
+              mat-ripple
+              [routerLink]="['/component-details', ebikeProfile()?.id]"
+              [queryParams]="{
+                serialNumber: ebikeProfile()?.headUnit?.serialNumber,
+                partNumber: ebikeProfile()?.headUnit?.partNumber,
+              }"
+            >
               <mat-card-header>
                 <div mat-card-avatar class="component-avatar">
                   <span class="material-symbols-outlined component-icon">
@@ -442,9 +358,9 @@
                   assignment
                 </span>
               </div>
-              <mat-card-title>{{
-                t("terms.installation-report")
-              }}</mat-card-title>
+              <mat-card-title
+                >{{ t("terms.installation-report") }}
+              </mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <app-attribute-tree

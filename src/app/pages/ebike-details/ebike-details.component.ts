@@ -1,5 +1,5 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
   EbikeProfile,
   EbikeProfileService,
@@ -57,12 +57,9 @@ import { AttributeTreeComponent } from '../../components/attribute-tree/attribut
     MatGridTile,
     MatCardFooter,
     MatCardActions,
-    MatAccordion,
-    MatExpansionPanel,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle,
     DatePipe,
     AttributeTreeComponent,
+    RouterLink,
   ],
   templateUrl: './ebike-details.component.html',
   styleUrl: './ebike-details.component.scss',

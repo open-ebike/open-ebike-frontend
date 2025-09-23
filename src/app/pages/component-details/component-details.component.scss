@@ -39,29 +39,13 @@
   }
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
-
-@media #{$breakpoint-large} {
-  .grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
 .ebike-avatar,
-.component-avatar,
-.bike-pass-avatar,
-.installation-report-avatar {
+.component-avatar {
   background: transparent !important;
 }
 
 .ebike-icon,
-.component-icon,
-.bike-pass-icon,
-.installation-report-icon {
+.component-icon {
   padding: 4px;
   margin-right: 8px;
   border-radius: 100%;
@@ -85,16 +69,6 @@
       20%
     ) !important;
   }
-
-  .bike-pass-icon,
-  .installation-report-icon {
-    color: mat.m2-get-color-from-palette($open-ebike-secondary, 500);
-    background: mix(
-      mat.m2-get-color-from-palette($open-ebike-secondary, 500),
-      transparent,
-      20%
-    ) !important;
-  }
 }
 
 ::ng-deep .theme-dark {
@@ -111,16 +85,6 @@
     color: mat.m2-get-color-from-palette($open-ebike-primary, 300);
     background: mix(
       mat.m2-get-color-from-palette($open-ebike-primary, 500),
-      transparent,
-      20%
-    ) !important;
-  }
-
-  .bike-pass-icon,
-  .installation-report-icon {
-    color: mat.m2-get-color-from-palette($open-ebike-secondary, 500);
-    background: mix(
-      mat.m2-get-color-from-palette($open-ebike-secondary, 500),
       transparent,
       20%
     ) !important;
@@ -147,14 +111,7 @@ li {
   max-width: 45%;
 }
 
-mat-card {
-  cursor: pointer;
-}
-
-mat-card-content {
-  margin-bottom: 0 !important;
-}
-
-.mat-mdc-card-content:last-child {
-  padding-bottom: 16px;
+.delimiter {
+  padding-left: 4px;
+  padding-right: 4px;
 }

@@ -5,6 +5,7 @@ import { AuthGuard } from './services/auth/auth-guards';
 import { EbikeDetailsComponent } from './pages/ebike-details/ebike-details.component';
 import { ActivitiesComponent } from './pages/activities/activities.component';
 import { RegistrationsComponent } from './pages/registrations/registrations.component';
+import { ComponentDetailsComponent } from './pages/component-details/component-details.component';
 
 export const routes: Routes = [
   {
@@ -34,6 +35,11 @@ export const routes: Routes = [
   {
     path: 'registrations',
     component: RegistrationsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'component-details/:id',
+    component: ComponentDetailsComponent,
     canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: 'home' },
