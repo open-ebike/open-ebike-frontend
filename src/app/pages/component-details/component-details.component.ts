@@ -15,10 +15,23 @@ import {
   RemoteControl,
 } from '../../services/api/ebike-profile.service';
 import { combineLatest, first } from 'rxjs';
-import { MatCardAvatar } from '@angular/material/card';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardAvatar,
+  MatCardContent,
+  MatCardFooter,
+  MatCardHeader,
+  MatCardTitle,
+} from '@angular/material/card';
 import { MatButton } from '@angular/material/button';
 import { MatRipple } from '@angular/material/core';
 import { ThousandsSeparatorPipe } from '../../pipes/thousands-separator.pipe';
+import {
+  CapacityTester,
+  DiagnosisFieldDataService,
+} from '../../services/api/diagnosis-field-data.service';
+import { AttributeTreeComponent } from '../../components/attribute-tree/attribute-tree.component';
 
 /**
  * Displays component details
@@ -32,6 +45,13 @@ import { ThousandsSeparatorPipe } from '../../pipes/thousands-separator.pipe';
     MatButton,
     MatRipple,
     ThousandsSeparatorPipe,
+    AttributeTreeComponent,
+    MatCard,
+    MatCardActions,
+    MatCardContent,
+    MatCardFooter,
+    MatCardHeader,
+    MatCardTitle,
   ],
   templateUrl: './component-details.component.html',
   styleUrl: './component-details.component.scss',
@@ -52,6 +72,8 @@ export class ComponentDetailsComponent implements OnInit {
   public authenticationService = inject(AuthenticationService);
   /** eBike profile service */
   private ebikeProfileService = inject(EbikeProfileService);
+  /** Diagnosis field data service */
+  private diagnosisFieldDataService = inject(DiagnosisFieldDataService);
 
   //
   // Signals
@@ -73,6 +95,7 @@ export class ComponentDetailsComponent implements OnInit {
   driveUnit = signal<DriveUnit | undefined>(undefined);
   battery = signal<Battery | undefined>(undefined);
   componentType = signal<ComponentType | undefined>(undefined);
+  capacityTesters = signal<CapacityTester[]>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -178,6 +201,19 @@ export class ComponentDetailsComponent implements OnInit {
         }
       }
     });
+
+    effect(() => {
+      if (
+        this.component()?.serialNumber != null &&
+        this.component()?.partNumber != null
+      ) {
+        this.initializeCapacityTesters(
+          // @ts-ignore
+          this.component()?.serialNumber,
+          this.component()?.partNumber,
+        );
+      }
+    });
   }
 
   //
@@ -219,6 +255,17 @@ export class ComponentDetailsComponent implements OnInit {
     this.ebikeProfileService.getBike(bikeId).subscribe((eBikeProfile) => {
       this.ebikeProfile.set(eBikeProfile);
     });
+  }
+
+  /**
+   * Initializes capacity testers
+   */
+  private initializeCapacityTesters(partNumber: string, serialNumber: string) {
+    this.diagnosisFieldDataService
+      .getFieldData(partNumber, serialNumber)
+      .subscribe((capacityTesters) => {
+        this.capacityTesters.set(capacityTesters.capacityTesters);
+      });
   }
 
   /**

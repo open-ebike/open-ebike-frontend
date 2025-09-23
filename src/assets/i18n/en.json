@@ -101,7 +101,9 @@
         "charge-cycles-total": "charge cycles total",
         "charge-cycles-on-bike": "charge cycles on-bike",
         "charge-cycles-off-bike": "charge cycles off-bike",
-        "undefined": "undefined"
+        "undefined": "undefined",
+        "field-data": "Field Data",
+        "capacity-tester": "Capacity Tester"
       }
     }
   },

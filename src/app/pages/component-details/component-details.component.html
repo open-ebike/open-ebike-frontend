@@ -191,6 +191,28 @@
             </li>
           </ul>
         }
+
+        <h3>{{ t("terms.field-data") }}</h3>
+
+        @for (capacityTester of capacityTesters(); track capacityTester) {
+          <mat-card class="capacity-tester-card">
+            <mat-card-header>
+              <div mat-card-avatar class="capacity-tester-avatar">
+                <span class="material-symbols-outlined capacity-tester-icon">
+                  assignment
+                </span>
+              </div>
+              <mat-card-title>{{ t("terms.capacity-tester") }} </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <app-attribute-tree
+                [object]="capacityTester"
+              ></app-attribute-tree>
+            </mat-card-content>
+            <mat-card-actions></mat-card-actions>
+            <mat-card-footer></mat-card-footer>
+          </mat-card>
+        }
       </div>
       <div class="flex-box"></div>
     }

@@ -99,7 +99,9 @@
         "charge-cycles-total": "Ladezyklen gesamt",
         "charge-cycles-on-bike": "Ladezyklen am Bike",
         "charge-cycles-off-bike": "Ladezyklen standalone",
-        "undefined": "nicht definiert"
+        "undefined": "nicht definiert",
+        "field-data": "Field Data",
+        "capacity-tester": "Capacity Tester"
       }
     }
   },

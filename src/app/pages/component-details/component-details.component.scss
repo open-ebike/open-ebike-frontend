@@ -40,12 +40,14 @@
 }
 
 .ebike-avatar,
-.component-avatar {
+.component-avatar,
+.capacity-tester-avatar {
   background: transparent !important;
 }
 
 .ebike-icon,
-.component-icon {
+.component-icon,
+.capacity-tester-icon {
   padding: 4px;
   margin-right: 8px;
   border-radius: 100%;
@@ -61,7 +63,8 @@
     ) !important;
   }
 
-  .component-icon {
+  .component-icon,
+  .capacity-tester-icon {
     color: mat.m2-get-color-from-palette($open-ebike-primary, 500);
     background: mix(
       mat.m2-get-color-from-palette($open-ebike-primary, 500),
@@ -81,7 +84,8 @@
     ) !important;
   }
 
-  .component-icon {
+  .component-icon,
+  .capacity-tester-icon {
     color: mat.m2-get-color-from-palette($open-ebike-primary, 300);
     background: mix(
       mat.m2-get-color-from-palette($open-ebike-primary, 500),
