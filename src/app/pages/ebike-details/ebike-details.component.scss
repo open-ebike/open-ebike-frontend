@@ -54,14 +54,16 @@
 .ebike-avatar,
 .component-avatar,
 .bike-pass-avatar,
-.installation-report-avatar {
+.installation-report-avatar,
+.service-record-avatar {
   background: transparent !important;
 }
 
 .ebike-icon,
 .component-icon,
 .bike-pass-icon,
-.installation-report-icon {
+.installation-report-icon,
+.service-record-icon {
   padding: 4px;
   margin-right: 8px;
   border-radius: 100%;
@@ -87,7 +89,8 @@
   }
 
   .bike-pass-icon,
-  .installation-report-icon {
+  .installation-report-icon,
+  .service-record-icon {
     color: mat.m2-get-color-from-palette($open-ebike-secondary, 500);
     background: mix(
       mat.m2-get-color-from-palette($open-ebike-secondary, 500),
@@ -117,7 +120,8 @@
   }
 
   .bike-pass-icon,
-  .installation-report-icon {
+  .installation-report-icon,
+  .service-record-icon {
     color: mat.m2-get-color-from-palette($open-ebike-secondary, 500);
     background: mix(
       mat.m2-get-color-from-palette($open-ebike-secondary, 500),

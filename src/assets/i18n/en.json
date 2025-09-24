@@ -45,7 +45,9 @@
         "description": "description",
         "updated-at": "updated at",
         "installation-reports": "Installations Reports",
-        "installation-report": "Installation Report"
+        "installation-report": "Installation Report",
+        "service-book": "Service Book",
+        "service-record": "Service Record"
       }
     },
     "activities": {

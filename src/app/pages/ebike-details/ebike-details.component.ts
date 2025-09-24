@@ -37,6 +37,10 @@ import {
   InstallationReport,
 } from '../../services/api/bulk-configuration.service';
 import { AttributeTreeComponent } from '../../components/attribute-tree/attribute-tree.component';
+import {
+  DigitalServiceBookService,
+  ServiceRecord,
+} from '../../services/api/digital-service-book.service';
 
 /**
  * Displays eBike details
@@ -84,6 +88,8 @@ export class EbikeDetailsComponent implements OnInit {
   private bikePassService = inject(BikePassService);
   /** Bulk configuration service */
   private bulkConfigurationService = inject(BulkConfigurationService);
+  /** Digital service book service */
+  private digitalServiceBookService = inject(DigitalServiceBookService);
 
   //
   // Signals
@@ -95,6 +101,8 @@ export class EbikeDetailsComponent implements OnInit {
   bikePasses = signal<BikePass[] | null>([]);
   /** Signal providing installation reports */
   installationReports = signal<InstallationReport[] | null>([]);
+  /** Signal providing service records */
+  serviceRecords = signal<ServiceRecord[] | null>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -118,6 +126,7 @@ export class EbikeDetailsComponent implements OnInit {
       this.initializeEbike(params['id']);
       this.initializeBikePasses(params['id']);
       this.initializeInstallationReports(params['id']);
+      this.initializeServiceRecords(params['id']);
     });
   }
 
@@ -179,6 +188,17 @@ export class EbikeDetailsComponent implements OnInit {
       .getInstallationReports(bikeId)
       .subscribe((installationReports) => {
         this.installationReports.set(installationReports.installationReports);
+      });
+  }
+
+  /**
+   * Initializes service records
+   */
+  private initializeServiceRecords(bikeId: string) {
+    this.digitalServiceBookService
+      .getServiceRecords(bikeId)
+      .subscribe((serviceRecords) => {
+        this.serviceRecords.set(serviceRecords.serviceRecords);
       });
   }
 

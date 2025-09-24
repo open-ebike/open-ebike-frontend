@@ -371,6 +371,26 @@
             <mat-card-footer></mat-card-footer>
           </mat-card>
         }
+
+        <h3>{{ t("terms.service-book") }}</h3>
+
+        @for (serviceRecord of serviceRecords(); track serviceRecord) {
+          <mat-card class="service-record-card">
+            <mat-card-header>
+              <div mat-card-avatar class="service-record-avatar">
+                <span class="material-symbols-outlined service-record-icon">
+                  assignment
+                </span>
+              </div>
+              <mat-card-title>{{ t("terms.service-record") }} </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <app-attribute-tree [object]="serviceRecord"></app-attribute-tree>
+            </mat-card-content>
+            <mat-card-actions></mat-card-actions>
+            <mat-card-footer></mat-card-footer>
+          </mat-card>
+        }
       </div>
       <div class="flex-box"></div>
     }
