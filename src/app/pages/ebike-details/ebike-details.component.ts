@@ -41,6 +41,11 @@ import {
   DigitalServiceBookService,
   ServiceRecord,
 } from '../../services/api/digital-service-book.service';
+import {
+  Case,
+  Cases,
+  RemoteConfigurationService,
+} from '../../services/api/remote-configuration.service';
 
 /**
  * Displays eBike details
@@ -90,6 +95,8 @@ export class EbikeDetailsComponent implements OnInit {
   private bulkConfigurationService = inject(BulkConfigurationService);
   /** Digital service book service */
   private digitalServiceBookService = inject(DigitalServiceBookService);
+  /** Remote configuration service */
+  private remoteConfigurationService = inject(RemoteConfigurationService);
 
   //
   // Signals
@@ -103,6 +110,8 @@ export class EbikeDetailsComponent implements OnInit {
   installationReports = signal<InstallationReport[] | null>([]);
   /** Signal providing service records */
   serviceRecords = signal<ServiceRecord[] | null>([]);
+  /** Signal providing remote configuration cases */
+  remoteConfigurationCases = signal<Case[] | null>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -127,6 +136,7 @@ export class EbikeDetailsComponent implements OnInit {
       this.initializeBikePasses(params['id']);
       this.initializeInstallationReports(params['id']);
       this.initializeServiceRecords(params['id']);
+      this.initializeRemoteConfigurationCases(params['id']);
     });
   }
 
@@ -199,6 +209,17 @@ export class EbikeDetailsComponent implements OnInit {
       .getServiceRecords(bikeId)
       .subscribe((serviceRecords) => {
         this.serviceRecords.set(serviceRecords.serviceRecords);
+      });
+  }
+
+  /**
+   * Initializes remote configuration cases
+   */
+  private initializeRemoteConfigurationCases(bikeId: string) {
+    this.remoteConfigurationService
+      .getRemoteConfigurationCases(bikeId)
+      .subscribe((remoteConfigurationCases) => {
+        this.remoteConfigurationCases.set(remoteConfigurationCases.cases);
       });
   }
 

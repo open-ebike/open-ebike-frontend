@@ -47,7 +47,9 @@
         "installation-reports": "Installations Reports",
         "installation-report": "Installation Report",
         "service-book": "Service Book",
-        "service-record": "Service Record"
+        "service-record": "Service Record",
+        "remote-configuration-cases": "Remote Configuration Cases",
+        "remote-configuration-case": "Case"
       }
     },
     "activities": {
