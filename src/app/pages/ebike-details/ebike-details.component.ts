@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
   EbikeProfile,
@@ -21,12 +21,6 @@ import {
 import { MatRipple } from '@angular/material/core';
 import { ThousandsSeparatorPipe } from '../../pipes/thousands-separator.pipe';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
-import {
-  MatAccordion,
-  MatExpansionPanel,
-  MatExpansionPanelHeader,
-  MatExpansionPanelTitle,
-} from '@angular/material/expansion';
 import { DatePipe } from '@angular/common';
 import {
   BikePass,
@@ -34,7 +28,7 @@ import {
 } from '../../services/api/bike-pass.service';
 import {
   BulkConfigurationService,
-  InstallationReport,
+  BulkInstallationReport,
 } from '../../services/api/bulk-configuration.service';
 import { AttributeTreeComponent } from '../../components/attribute-tree/attribute-tree.component';
 import {
@@ -43,9 +37,12 @@ import {
 } from '../../services/api/digital-service-book.service';
 import {
   Case,
-  Cases,
   RemoteConfigurationService,
 } from '../../services/api/remote-configuration.service';
+import {
+  InstallationReport,
+  ReleaseManagementService,
+} from '../../services/api/release-management.service';
 
 /**
  * Displays eBike details
@@ -97,6 +94,8 @@ export class EbikeDetailsComponent implements OnInit {
   private digitalServiceBookService = inject(DigitalServiceBookService);
   /** Remote configuration service */
   private remoteConfigurationService = inject(RemoteConfigurationService);
+  /** Release management service */
+  private releaseManagementService = inject(ReleaseManagementService);
 
   //
   // Signals
@@ -106,12 +105,14 @@ export class EbikeDetailsComponent implements OnInit {
   ebikeProfile = signal<EbikeProfile | null>(null);
   /** Signal providing bike passes */
   bikePasses = signal<BikePass[] | null>([]);
-  /** Signal providing installation reports */
-  installationReports = signal<InstallationReport[] | null>([]);
+  /** Signal providing bulk installation reports */
+  bulkInstallationReports = signal<BulkInstallationReport[] | null>([]);
   /** Signal providing service records */
   serviceRecords = signal<ServiceRecord[] | null>([]);
   /** Signal providing remote configuration cases */
   remoteConfigurationCases = signal<Case[] | null>([]);
+  /** Signal providing installation reports */
+  installationReports = signal<InstallationReport[] | null>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -134,9 +135,10 @@ export class EbikeDetailsComponent implements OnInit {
 
       this.initializeEbike(params['id']);
       this.initializeBikePasses(params['id']);
-      this.initializeInstallationReports(params['id']);
+      this.initializeBulkInstallationReports(params['id']);
       this.initializeServiceRecords(params['id']);
       this.initializeRemoteConfigurationCases(params['id']);
+      this.initializeInstallationReports(params['id']);
     });
   }
 
@@ -191,13 +193,15 @@ export class EbikeDetailsComponent implements OnInit {
   }
 
   /**
-   * Initializes installation reports
+   * Initializes bulk installation reports
    */
-  private initializeInstallationReports(bikeId: string) {
+  private initializeBulkInstallationReports(bikeId: string) {
     this.bulkConfigurationService
       .getInstallationReports(bikeId)
       .subscribe((installationReports) => {
-        this.installationReports.set(installationReports.installationReports);
+        this.bulkInstallationReports.set(
+          installationReports.installationReports,
+        );
       });
   }
 
@@ -220,6 +224,17 @@ export class EbikeDetailsComponent implements OnInit {
       .getRemoteConfigurationCases(bikeId)
       .subscribe((remoteConfigurationCases) => {
         this.remoteConfigurationCases.set(remoteConfigurationCases.cases);
+      });
+  }
+
+  /**
+   * Initializes installation reports
+   */
+  private initializeInstallationReports(bikeId: string) {
+    this.releaseManagementService
+      .getInstallationReports(bikeId)
+      .subscribe((installationReports) => {
+        this.installationReports.set(installationReports.installationReports);
       });
   }
 

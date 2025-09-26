@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
 export interface InstallationReports {
@@ -129,21 +129,37 @@ export class ReleaseManagementService {
 
   /**
    * Get installation reports of a specified bike
+   * @param bikeId bike ID
    * @param createdAfter created after
    * @param createdBefore created before
    * @param limit limit
    * @param offset offset
-   * @param bikeId bike ID
    */
   getInstallationReports(
-    createdAfter: string,
-    createdBefore: string,
-    limit: number,
-    offset: number,
     bikeId: string,
+    createdAfter?: string,
+    createdBefore?: string,
+    limit?: number,
+    offset?: number,
   ) {
+    let params = new HttpParams().set('bikeId', bikeId);
+
+    if (createdAfter) {
+      params = params.set('createdAfter', createdAfter);
+    }
+    if (createdBefore) {
+      params = params.set('createdBefore', createdBefore);
+    }
+    if (limit) {
+      params = params.set('limit', limit);
+    }
+    if (offset) {
+      params = params.set('offset', offset);
+    }
+
     return this.http.get<InstallationReports>(
-      `${environment.eBikeApiUrl}/software-update/smart-system/v1/installation-reports?createdAfter=${createdAfter}&createdBefore=${createdBefore}&limit=${limit}&offset=${offset}&bikeId=${bikeId}`,
+      `${environment.eBikeApiUrl}/software-update/smart-system/v1/installation-reports`,
+      { params: params },
     );
   }
 }

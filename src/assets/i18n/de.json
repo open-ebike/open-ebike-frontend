@@ -44,12 +44,14 @@
         "frame-number-position": "Rahmennummer Position",
         "description": "Beschreibung",
         "updated-at": "aktualisiert am",
-        "installation-reports": "Installationsberichte",
-        "installation-report": "Installationsbericht",
+        "bulk-installation-reports": "Installationsberichte",
+        "bulk-installation-report": "Installationsbericht",
         "service-book": "Service Book",
         "service-record": "Service Record",
         "remote-configuration-cases": "Remote Configuration Cases",
-        "remote-configuration-case": "Case"
+        "remote-configuration-case": "Case",
+        "installation-reports": "Installationsberichte",
+        "installation-report": "Installationsbericht"
       }
     },
     "activities": {

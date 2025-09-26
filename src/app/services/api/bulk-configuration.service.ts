@@ -2,11 +2,11 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
-export interface InstallationReports {
-  installationReports: InstallationReport[];
+export interface BulkInstallationReports {
+  installationReports: BulkInstallationReport[];
 }
 
-export interface InstallationReport {
+export interface BulkInstallationReport {
   userAgent: string;
   bikeComponents: BikeComponents;
   bikeProperties: BikeProperties;
@@ -173,7 +173,7 @@ export class BulkConfigurationService {
    * @param bikeId bike ID
    */
   getInstallationReports(bikeId: string) {
-    return this.http.get<InstallationReports>(
+    return this.http.get<BulkInstallationReports>(
       `${environment.eBikeApiUrl}/bulk-configuration/smart-system/v1/installation-reports?bikeId=${bikeId}`,
     );
   }
