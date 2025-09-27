@@ -47,6 +47,7 @@ import {
   EbikeRegistrationService,
   Registration,
 } from '../../services/api/ebike-registration.service';
+import { MatButton } from '@angular/material/button';
 
 /**
  * Displays eBike details
@@ -70,6 +71,7 @@ import {
     DatePipe,
     AttributeTreeComponent,
     RouterLink,
+    MatButton,
   ],
   templateUrl: './ebike-details.component.html',
   styleUrl: './ebike-details.component.scss',

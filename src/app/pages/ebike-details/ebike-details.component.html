@@ -10,6 +10,10 @@
           </span>
           {{ t("title") }}
           {{ ebikeProfile()?.id }}
+          <span class="delimiter">·</span>
+          <button mat-button routerLink="/ebikes">
+            {{ t("actions.show-all") }}
+          </button>
         </h2>
 
         @if (isEbikeRegistered(ebikeProfile()?.id)) {

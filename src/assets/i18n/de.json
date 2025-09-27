@@ -54,6 +54,9 @@
         "remote-configuration-case": "Case",
         "installation-reports": "Installationsberichte",
         "installation-report": "Installationsbericht"
+      },
+      "actions": {
+        "show-all": "alle anzeigen"
       }
     },
     "activities": {
