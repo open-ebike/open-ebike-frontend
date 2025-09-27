@@ -5,6 +5,10 @@
 
 @include mat.all-component-themes($theme-light);
 
+//
+// Light theme
+//
+
 .theme-light {
   //@include mat.all-component-themes($theme-light);
 
@@ -12,7 +16,53 @@
     color: #424242;
     text-decoration-style: dotted;
   }
+
+  .container {
+    background: #f6f6f4;
+  }
+
+  .ebike,
+  .ebike-registered,
+  .activity {
+    color: mat.m2-get-color-from-palette($open-ebike-accent, 500);
+  }
+
+  .ebike.icon,
+  .activity.icon {
+    background: mix(
+      mat.m2-get-color-from-palette($open-ebike-accent, 500),
+      transparent,
+      20%
+    ) !important;
+  }
+
+  .component,
+  .component-registered,
+  .capacity-tester,
+  .bike-pass,
+  .installation-report,
+  .service-record,
+  .remote-configuration-case {
+    color: mat.m2-get-color-from-palette($open-ebike-primary, 500);
+  }
+
+  .component.icon,
+  .capacity-tester.icon,
+  .bike-pass.icon,
+  .installation-report.icon,
+  .service-record.icon,
+  .remote-configuration-case.icon {
+    background: mix(
+      mat.m2-get-color-from-palette($open-ebike-primary, 500),
+      transparent,
+      20%
+    ) !important;
+  }
 }
+
+//
+// Dark theme
+//
 
 .theme-dark {
   @include mat.all-component-colors($theme-dark);
@@ -20,6 +70,48 @@
   a {
     color: #ffffff;
     text-decoration-style: dotted;
+  }
+
+  .container {
+    background: #343332;
+  }
+
+  .ebike,
+  .ebike-registered,
+  .activity {
+    color: mat.m2-get-color-from-palette($open-ebike-accent, 300);
+  }
+
+  .ebike.icon,
+  .activity.icon {
+    background: mix(
+      mat.m2-get-color-from-palette($open-ebike-accent, 300),
+      transparent,
+      20%
+    ) !important;
+  }
+
+  .component,
+  .component-registered,
+  .capacity-tester,
+  .bike-pass,
+  .installation-report,
+  .service-record,
+  .remote-configuration-case {
+    color: mat.m2-get-color-from-palette($open-ebike-primary, 300);
+  }
+
+  .component.icon,
+  .capacity-tester.icon,
+  .bike-pass.icon,
+  .installation-report.icon,
+  .service-record.icon,
+  .remote-configuration-case.icon {
+    background: mix(
+      mat.m2-get-color-from-palette($open-ebike-primary, 300),
+      transparent,
+      20%
+    ) !important;
   }
 
   // FIXME: Figure out why these overrides are necessary
@@ -35,7 +127,93 @@
   }
 }
 
-/* You can add global styles to this file, and also import other style files */
+//
+// Other elements
+//
+
+.container {
+  min-height: calc(100vh - 64px);
+  padding: 0 16px 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+@media #{$breakpoint-small} {
+  .inner-container {
+    width: 100%;
+  }
+}
+
+@media #{$breakpoint-medium} {
+  .inner-container {
+    width: 960px;
+  }
+}
+
+@media #{$breakpoint-large} {
+  .inner-container {
+    width: 960px;
+  }
+}
+
+.title {
+  font-weight: 600;
+}
+
+.subtitle {
+  color: mat.m2-get-color-from-palette(mat.$m2-grey-palette, 500);
+}
+
+.delimiter {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.icon {
+  padding: 4px;
+  border-radius: 100%;
+}
+
+h2,
+h3 {
+  margin-top: 32px;
+}
+
+h2 .icon {
+  margin-right: 8px;
+}
+
+.list {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+
+.list-item {
+  cursor: pointer !important;
+  padding: 0 24px 0;
+}
+
+li {
+  width: 100%;
+}
+
+.label {
+  display: inline-block;
+  width: 256px;
+  max-width: 45%;
+}
+
+.ebike-registered,
+.component-registered {
+  padding-left: 4px;
+}
+
+.ebike-registered.icon,
+.component-registered.icon {
+  font-size: 18px;
+  padding-left: 0;
+  vertical-align: sub;
+}
 
 html,
 body {

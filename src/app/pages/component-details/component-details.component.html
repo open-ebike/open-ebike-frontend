@@ -8,10 +8,8 @@
               style="cursor: pointer; font-size: 24px"
               [routerLink]="['/ebike-details', ebikeProfile()?.id]"
             >
-              <span mat-card-avatar class="ebike-avatar">
-                <span class="material-symbols-outlined ebike-icon">
-                  electric_bike
-                </span>
+              <span class="material-symbols-outlined ebike icon">
+                electric_bike
               </span>
               {{ t("terms.ebike") }}
               {{ ebikeProfile()?.id }}
@@ -21,50 +19,38 @@
         <h2>
           @if (component()) {
             @if (componentType() == "DRIVE_UNIT") {
-              <span mat-card-avatar class="component-avatar">
-                <span class="material-symbols-outlined component-icon">
-                  extension
-                </span>
+              <span class="material-symbols-outlined component icon">
+                extension
               </span>
               {{ t("terms.drive-unit") }}
             }
             @if (componentType() == "REMOTE_CONTROL") {
-              <span mat-card-avatar class="component-avatar">
-                <span class="material-symbols-outlined component-icon">
-                  extension
-                </span>
+              <span class="material-symbols-outlined component icon">
+                extension
               </span>
               {{ t("terms.remote-control") }}
             }
             @if (componentType() == "BATTERY") {
-              <span mat-card-avatar class="component-avatar">
-                <span class="material-symbols-outlined component-icon">
-                  battery_charging_full
-                </span>
+              <span class="material-symbols-outlined component icon">
+                battery_charging_full
               </span>
               {{ t("terms.battery") }}
             }
             @if (componentType() == "ANTI_LOCK_BRAKE_SYSTEM") {
-              <span mat-card-avatar class="component-avatar">
-                <span class="material-symbols-outlined component-icon">
-                  extension
-                </span>
+              <span class="material-symbols-outlined component icon">
+                extension
               </span>
               {{ t("terms.anti-lock-brake-system") }}
             }
             @if (componentType() == "CONNECT_MODULE") {
-              <span mat-card-avatar class="component-avatar">
-                <span class="material-symbols-outlined component-icon">
-                  extension
-                </span>
+              <span class="material-symbols-outlined component icon">
+                extension
               </span>
               {{ t("terms.connect-module") }}
             }
             @if (componentType() == "HEAD_UNIT") {
-              <span mat-card-avatar class="component-avatar">
-                <span class="material-symbols-outlined component-icon">
-                  tablet
-                </span>
+              <span class="material-symbols-outlined component icon">
+                tablet
               </span>
               {{ t("terms.head-unit") }}
             }
@@ -81,7 +67,7 @@
         ) {
           <ul class="list">
             <li>
-              <span class="material-symbols-outlined component-registered-icon">
+              <span class="material-symbols-outlined component-registered icon">
                 verified
               </span>
               <strong class="component-registered">{{
@@ -213,10 +199,10 @@
         <h3>{{ t("terms.field-data") }}</h3>
 
         @for (capacityTester of capacityTesters(); track capacityTester) {
-          <mat-card class="capacity-tester-card">
+          <mat-card>
             <mat-card-header>
-              <div mat-card-avatar class="capacity-tester-avatar">
-                <span class="material-symbols-outlined capacity-tester-icon">
+              <div mat-card-avatar>
+                <span class="material-symbols-outlined capacity-tester icon">
                   assignment
                 </span>
               </div>

@@ -3,62 +3,65 @@
     @if (authenticationService.isLoggedIn()) {
       <div class="inner-container">
         <h2>{{ t("title") }}</h2>
-        @for (registration of registrations(); track registration) {
-          @if (registration.registrationType == "BIKE_REGISTRATION") {
-            <mat-card
-              class="ebike-card"
-              mat-ripple
-              [routerLink]="[
-                '/ebike-details',
-                registration.bikeRegistration?.bikeId,
-              ]"
-              queryParamsHandling="merge"
-            >
-              <mat-card-header>
-                <div mat-card-avatar class="ebike-avatar">
-                  <span class="material-symbols-outlined ebike-icon">
-                    electric_bike
-                  </span>
-                </div>
-                <mat-card-title
-                  >{{ t("terms.bike-registration") }}
-                </mat-card-title>
-                <mat-card-subtitle>
-                  <span>{{ registration.bikeRegistration?.bikeId }}</span>
-                  <span class="delimiter">·</span>
-                  <span>{{ registration.createdAt | date: "medium" }}</span>
-                </mat-card-subtitle>
-              </mat-card-header>
-            </mat-card>
+        <div class="grid">
+          @for (registration of registrations(); track registration) {
+            @if (registration.registrationType == "BIKE_REGISTRATION") {
+              <mat-card
+                mat-ripple
+                [routerLink]="[
+                  '/ebike-details',
+                  registration.bikeRegistration?.bikeId,
+                ]"
+                queryParamsHandling="merge"
+              >
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <span class="material-symbols-outlined ebike icon">
+                      electric_bike
+                    </span>
+                  </div>
+                  <mat-card-title
+                    >{{ t("terms.bike-registration") }}
+                  </mat-card-title>
+                  <mat-card-subtitle>
+                    <span>{{ registration.bikeRegistration?.bikeId }}</span>
+                    <span class="delimiter">·</span>
+                    <span>{{ registration.createdAt | date: "medium" }}</span>
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+            }
+            @if (registration.registrationType == "COMPONENT_REGISTRATION") {
+              <mat-card class="ebike-card" mat-ripple>
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <span class="material-symbols-outlined component icon">
+                      extension
+                    </span>
+                  </div>
+                  <mat-card-title
+                    >{{ t("terms.component-registration") }}
+                  </mat-card-title>
+                  <mat-card-subtitle>
+                    <span
+                      >{{ t("terms.part-number") }}
+                      {{ registration.componentRegistration?.partNumber }}</span
+                    >
+                    <span class="delimiter">·</span>
+                    <span
+                      >{{ t("terms.serial-number") }}
+                      {{
+                        registration.componentRegistration?.serialNumber
+                      }}</span
+                    >
+                    <span class="delimiter">·</span>
+                    <span>{{ registration.createdAt | date: "medium" }}</span>
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+            }
           }
-          @if (registration.registrationType == "COMPONENT_REGISTRATION") {
-            <mat-card class="ebike-card" mat-ripple>
-              <mat-card-header>
-                <div mat-card-avatar class="component-avatar">
-                  <span class="material-symbols-outlined component-icon">
-                    extension
-                  </span>
-                </div>
-                <mat-card-title
-                  >{{ t("terms.component-registration") }}
-                </mat-card-title>
-                <mat-card-subtitle>
-                  <span
-                    >{{ t("terms.part-number") }}
-                    {{ registration.componentRegistration?.partNumber }}</span
-                  >
-                  <span class="delimiter">·</span>
-                  <span
-                    >{{ t("terms.serial-number") }}
-                    {{ registration.componentRegistration?.serialNumber }}</span
-                  >
-                  <span class="delimiter">·</span>
-                  <span>{{ registration.createdAt | date: "medium" }}</span>
-                </mat-card-subtitle>
-              </mat-card-header>
-            </mat-card>
-          }
-        }
+        </div>
       </div>
       <div class="flex-box"></div>
     }

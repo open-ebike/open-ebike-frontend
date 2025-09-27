@@ -11,6 +11,7 @@ import {
 import {
   MatCard,
   MatCardActions,
+  MatCardAvatar,
   MatCardContent,
   MatCardFooter,
   MatCardHeader,
@@ -33,6 +34,7 @@ import { MatChip, MatChipOption } from '@angular/material/chips';
     TranslocoDirective,
     MatCard,
     MatCardHeader,
+    MatCardAvatar,
     MatCardTitle,
     MatCardSubtitle,
     MatRipple,

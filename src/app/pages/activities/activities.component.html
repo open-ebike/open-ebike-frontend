@@ -15,15 +15,15 @@
             ) {
               <mat-list-item
                 mat-ripple
-                class="activity-item"
+                class="list-item"
                 (click)="onActivityClicked(activitySummary.id)"
               >
                 <mat-icon
                   matListItemIcon
-                  class="activity-icon"
-                  style="margin-top: 8px"
-                  >route</mat-icon
-                >
+                  class="activity icon"
+                  style="margin: 8px"
+                  >route
+                </mat-icon>
                 <div matListItemTitle class="title">
                   {{ activitySummary.title }}
                 </div>
@@ -46,10 +46,8 @@
             @if (selectedActivity()) {
               <div class="inner-container">
                 <h2>
-                  <span mat-card-avatar class="activity-avatar">
-                    <span class="material-symbols-outlined activity-icon">
-                      route
-                    </span>
+                  <span class="material-symbols-outlined activity icon">
+                    route
                   </span>
                   {{ t("terms.activity") }} {{ selectedActivity()?.title }}
                   <span class="delimiter">·</span>
