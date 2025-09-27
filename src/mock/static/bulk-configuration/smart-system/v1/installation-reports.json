@@ -1,0 +1,150 @@
+{
+  "installationReports": [
+    {
+      "userAgent": "bdp/1.2.3",
+      "bikeComponents": {
+        "remoteControl": {
+          "productCode": "BHU3600",
+          "serialNumber": "12345-1234-12-123-12-1234",
+          "partNumber": "1234567890",
+          "softwareVersion": "1.0.0"
+        },
+        "driveUnit": {
+          "productCode": "BHU3600",
+          "serialNumber": "12345-1234-12-123-12-1234",
+          "partNumber": "1234567890",
+          "softwareVersion": "1.0.0"
+        },
+        "antiLockBrakingSystem": {
+          "productCode": "BHU3600",
+          "serialNumber": "12345-1234-12-123-12-1234",
+          "partNumber": "1234567890",
+          "softwareVersion": "1.0.0"
+        }
+      },
+      "bikeProperties": {
+        "brandId": "string",
+        "manufacturerBikeModelId": "string",
+        "productId": "string",
+        "speedRegionId": "string",
+        "gearshiftId": "string",
+        "bikeCategory": "CITY",
+        "maximumMotorTorqueStatus": "UNINITIALIZED",
+        "maximumMotorTorque": -2147483648,
+        "driveUnitProductCode": "BHU3600"
+      },
+      "manufactureInformation": {
+        "manufacturerBikeModelId": "string",
+        "manufacturerBikeId": "string",
+        "batteryKeyLockNumber": "string"
+      },
+      "updateInformation": {
+        "installedAt": "2023-04-05T08:08:08.12345Z",
+        "manufactureDate": "2023-04-05",
+        "bikeId": "796c0ba5-c305-4dff-96b8-2e46237eb77e",
+        "originalConfiguration": {
+          "antiLockBrakingSystemBuiltIn": true,
+          "antiLockBrakingSystemCalibration": "string",
+          "antiLockBrakingSystemMode": "string",
+          "assistModes": [
+            {
+              "id": "string",
+              "version": -2147483648,
+              "availableOnRemoteControl": true,
+              "availableOnBike": true,
+              "name": "string"
+            }
+          ],
+          "antiLockBrakingSystemCalibrationChecksum": -2147483648,
+          "isAssistModesConfigurable": true,
+          "bikeCategory": "CITY",
+          "bikeCategoryChecksum": -2147483648,
+          "brakeHoseLengthFromCaliper": -2147483648,
+          "brakeHoseLengthFromCaliperChecksum": -2147483648,
+          "brakeHoseLengthFromMasterCylinder": -2147483648,
+          "brakeHoseLengthFromMasterCylinderChecksum": -2147483648,
+          "rangeExtenderReadiness": true,
+          "displayLanguage": "string",
+          "frontBrakeDiscCalliper": "string",
+          "frontBrakeDiscCalliperChecksum": -2147483648,
+          "frontBrakeDiscDiameter": -2147483648,
+          "frontBrakeDiscDiameterChecksum": -2147483648,
+          "frontWheelCircumference": -1.7976931348623157e308,
+          "frontWheelCircumferenceChecksum": -2147483648,
+          "gearshiftApplication": {
+            "id": "string",
+            "version": -2147483648
+          },
+          "isHighPowerPortConfigurable": true,
+          "lengthUnit": "METRIC",
+          "lightAttached": true,
+          "lightPower": -1.7976931348623157e308,
+          "lightStatus": "LIGHT_ALWAYS_OFF",
+          "isLightConfigurable": true,
+          "isLowPowerPortConfigurable": true,
+          "multiPurposePortStatus": "DEACTIVATED",
+          "isMultiPurposePortConfigurable": true,
+          "maxGearTransmissionRatio": -1.7976931348623157e308,
+          "speedRegionApplication": {
+            "id": "string",
+            "version": -2147483648,
+            "maximumLegalBikeSpeed": -1.7976931348623157e308,
+            "maximumAssistanceSpeed": -1.7976931348623157e308,
+            "udamModificationPossible": true,
+            "walkAssistConfigurable": true
+          },
+          "name": "string",
+          "productionSite": "string",
+          "productApplication": {
+            "id": "string",
+            "version": -2147483648
+          },
+          "rearWheelCircumference": -1.7976931348623157e308,
+          "rearWheelCircumferenceChecksum": -2147483648,
+          "speedSource": "RIM_MAGNET",
+          "secondSpeedSource": "RIM_MAGNET",
+          "timeFormat": "HOUR24",
+          "imuAsAbsSpeedSource": true,
+          "mountingAngle": -2147483648,
+          "mountingAngleChecksum": -2147483648,
+          "maximumBikeSpeed": -1.7976931348623157e308,
+          "walkAssistEnabled": true,
+          "walkAssistSpeed": -1.7976931348623157e308,
+          "maximumMotorTorque": 85,
+          "maximumMotorTorqueStatus": "UNINITIALIZED",
+          "throttleReadiness": "READY_ASSEMBLED",
+          "hubConfigurablePortConfiguration": "UNUSED",
+          "isHubConfigurablePortConfigurable": true,
+          "mountingAngleRoll": -2147483648,
+          "mountingAngleRollChecksum": -2147483648,
+          "motorProductCode": "string",
+          "dbChecksum": "string",
+          "excludedFromProduction": true,
+          "folder": "string",
+          "gearshiftTypeId": "G900MDEMA0",
+          "itemNumbers": [
+            {
+              "value": "string"
+            }
+          ],
+          "regioSpeedId": "string",
+          "productApplicationId": "string",
+          "boschDiagnosisToolVersion": "string",
+          "dongleId": "string",
+          "connectBleDevices": true,
+          "numberOfBleDevices": 5,
+          "oemTorqueLimitation": 85,
+          "oemTorqueLimitationStatus": "UNINITIALIZED",
+          "connectModuleReadiness": true,
+          "lowPowerPortStatus": true,
+          "highPowerPortStatus": true
+        },
+        "originalManufactureInformation": {}
+      },
+      "failureInformation": {
+        "failedAt": "2023-04-05T08:08:08.12345Z",
+        "bikeId": "796c0ba5-c305-4dff-96b8-2e46237eb77e"
+      }
+    }
+  ]
+}

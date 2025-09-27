@@ -1,0 +1,42 @@
+{
+  "capacityTesters": [
+    {
+      "capacityTesterSerialNumber": "BCT3990.1",
+      "capacityTesterData": {
+        "totalOperationTime": 4800,
+        "numOfSuccessfulFinishedDischargeCycles": 51,
+        "numOfSuccessfulFinishedMeasurementCycles": 163,
+        "numOfDischargeCyclesStopped": 34,
+        "numOfDischargeCycleErrors": 12,
+        "numOfMeasurementCyclesStopped": 8,
+        "numOfMeasurementCycleErrors": 15,
+        "maxBmsCurrentExtAdc": 45,
+        "minBmsCurrentExtAdc": 11,
+        "maxBmsCurrentIntAdc": 40,
+        "minBmsCurrentIntAdc": 12,
+        "maxBmsVoltageExtAdc": 39,
+        "maxFanVoltageIntAdc": 3,
+        "maxTempSensor1": 78,
+        "minTempSensor1": 28,
+        "maxTempSensor2": 83,
+        "minTempSensor2": 18,
+        "numOfStartedDischargeCycles": 93,
+        "numOfStartedMeasurementCycles": 114,
+        "numOfInterruptedDischargeCyclesBatteryDisconnect": 32,
+        "numOfInterruptedMeasurementCyclesBatteryDisconnect": 53
+      },
+      "batteryData": {
+        "manufacturingDate": "01.01.2022",
+        "hwVersion": "1.0.0",
+        "nominalCapacity": 500,
+        "fullChargeCycles": 2.3,
+        "partNumber": "1234567890",
+        "serialNumber": "bbp123456789",
+        "swVersion": "1.0.0",
+        "measuredCapacity": 200,
+        "onBikeMeasurement": true
+      },
+      "createdAt": "2023-04-30T14:04:54.846Z"
+    }
+  ]
+}

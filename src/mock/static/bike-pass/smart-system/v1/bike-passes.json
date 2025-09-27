@@ -1,0 +1,12 @@
+{
+  "bikePasses": [
+    {
+      "bikeId": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+      "frameNumber": "WOW 12345 AB CD",
+      "frameNumberPosition": "bottom bracket",
+      "description": "Some fancy stars on the fork that glows in the dark :)",
+      "createdAt": "2023-04-05T08:08:08.12345Z",
+      "updatedAt": "2023-04-05T08:08:08.12345Z"
+    }
+  ]
+}

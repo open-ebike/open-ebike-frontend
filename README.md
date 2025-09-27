@@ -36,6 +36,12 @@ You can start the app locally by running
 npm run start
 ```
 
+Alternatively, you can start the app with a mock backend locally by running
+
+```
+npm run start-mock
+```
+
 ## Acknowledgements
 
 Icon made by Freepik from [flaticon.com](https://flaticon.com)

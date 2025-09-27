@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start-mock": "ng serve --configuration development-mock --host=127.0.0.1 --verbose",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",

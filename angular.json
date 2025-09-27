@@ -50,6 +50,16 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "mock": {
+              "assets": ["src/favicon.ico", "src/assets", "src/mock/static"],
+              "fileReplacements": [
+                {
+                  "replace": "src/app/services/authentication.service.ts",
+                  "with": "src/app/services/authentication-mock.service.ts"
+                }
+              ],
+              "scripts": ["src/mock/config/init-mock.js"]
             }
           },
           "defaultConfiguration": "production"
@@ -65,6 +75,10 @@
             },
             "development": {
               "buildTarget": "open-ebike-frontend:build:development"
+            },
+            "development-mock": {
+              "buildTarget": "open-ebike-frontend:build:development,mock",
+              "proxyConfig": "src/mock/config/proxy.conf.mjs"
             }
           },
           "defaultConfiguration": "development"

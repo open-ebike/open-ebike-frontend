@@ -1,0 +1,44 @@
+{
+  "pagination": {
+    "total": -2147483648,
+    "offset": -2147483648,
+    "limit": -2147483648
+  },
+  "activitySummaries": [
+    {
+      "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+      "startTime": "2019-08-24T14:15:22Z",
+      "endTime": "2019-08-24T14:15:22Z",
+      "timeZone": "Europe/Berlin",
+      "durationWithoutStops": -2147483648,
+      "title": "string",
+      "bikeId": "aee92d17-b30b-4841-aa40-c0573569b04c",
+      "startOdometer": -2147483648,
+      "speed": {
+        "average": -3.402823669209385e38,
+        "maximum": -3.402823669209385e38
+      },
+      "distance": -2147483648,
+      "cadence": {
+        "average": -3.402823669209385e38,
+        "maximum": -3.402823669209385e38
+      },
+      "riderPower": {
+        "average": -3.402823669209385e38,
+        "maximum": -3.402823669209385e38
+      },
+      "elevation": {
+        "gain": -2147483648,
+        "loss": -2147483648
+      },
+      "caloriesBurned": -3.402823669209385e38
+    }
+  ],
+  "links": {
+    "self": "http://example.com",
+    "prev": "http://example.com",
+    "next": "http://example.com",
+    "last": "http://example.com",
+    "first": "http://example.com"
+  }
+}

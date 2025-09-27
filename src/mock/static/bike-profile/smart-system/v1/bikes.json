@@ -1,0 +1,82 @@
+{
+  "bikes": [
+    {
+      "id": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+      "createdAt": "2022-03-30T14:15:22Z",
+      "serviceDue": {
+        "date": "2023-06-30T14:15:22Z",
+        "odometer": 2000000
+      },
+      "language": "en",
+      "driveUnit": {
+        "productName": "Drive Unit Performance Line CX",
+        "serialNumber": "17509-0059-99-300-00-0000",
+        "partNumber": "EB1110000A-50",
+        "walkAssistConfiguration": {
+          "isEnabled": true,
+          "maximumSpeed": 6
+        },
+        "odometer": 15000,
+        "rearWheelCircumferenceUser": 2300,
+        "maximumAssistanceSpeed": 45,
+        "activeAssistModes": [
+          {
+            "name": "Eco",
+            "reachableRange": 60000
+          },
+          {
+            "name": "Tour",
+            "reachableRange": 50000
+          },
+          {
+            "name": "eMTB",
+            "reachableRange": 40000
+          },
+          {
+            "name": "Turbo",
+            "reachableRange": 30000
+          }
+        ],
+        "powerOnTime": {
+          "total": 3600,
+          "withMotorSupport": 3000
+        }
+      },
+      "remoteControl": {
+        "productName": "LED Remote",
+        "serialNumber": "14026-0289-01-A10-00-0000",
+        "partNumber": "EB1310000E"
+      },
+      "batteries": [
+        {
+          "productName": "PowerTube 750",
+          "serialNumber": "17331-0067-02-797-00-0016",
+          "partNumber": "EB1210000X",
+          "deliveredWhOverLifetime": 10000,
+          "chargeCycles": {
+            "total": 27.9,
+            "onBike": 5,
+            "offBike": 22.9
+          }
+        }
+      ],
+      "antiLockBrakeSystems": [
+        {
+          "productName": "eBike ABS",
+          "serialNumber": "12345-6789-12-345-11-1111",
+          "partNumber": "EB11110002"
+        }
+      ],
+      "connectModule": {
+        "productName": "ConnectModule",
+        "serialNumber": "17918-0052-01-368-00-0000",
+        "partNumber": "EB1310000B"
+      },
+      "headUnit": {
+        "productName": "Kiox 300",
+        "serialNumber": "13916-0056-01-A06-00-0000",
+        "partNumber": "EB13100003"
+      }
+    }
+  ]
+}

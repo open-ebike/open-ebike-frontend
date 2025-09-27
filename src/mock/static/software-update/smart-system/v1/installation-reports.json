@@ -1,0 +1,153 @@
+{
+  "installationReports": [
+    {
+      "status": "INSTALLATION_SUCCESSFUL",
+      "brandId": "string",
+      "bikeId": "aee92d17-b30b-4841-aa40-c0573569b04c",
+      "updateSetId": "d3fb68f6-2974-4afd-804b-4299178ae1a3",
+      "releaseSetLastModified": "2020-01-01T00:00:00.000Z",
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "clientStatus": {
+        "statusType": "PRECONDITION_ERROR"
+      },
+      "updateMetrics": {
+        "clientMetrics": {
+          "transferStartedAt": "2020-01-01T00:00:00.000Z",
+          "transferFinishedAt": "2020-01-01T00:00:00.000Z",
+          "installationStartedAt": "2020-01-01T00:00:00.000Z",
+          "reportFinalizedAt": "2020-01-01T00:00:00.000Z"
+        }
+      },
+      "updateContext": {
+        "isforcedUpdate": true,
+        "updateType": "string",
+        "bulkConfigChangeId": "de0b1823-2be0-4bee-a18a-9ab8cfdcf3f9",
+        "clientAgent": {
+          "clientType": "BDP"
+        },
+        "bikeProfileBeforeUpdate": {
+          "applications": {
+            "gearshift": {
+              "id": "X000000010",
+              "version": "1"
+            },
+            "product": {
+              "id": "X000000010",
+              "version": "1"
+            },
+            "speedRegion": {
+              "id": "X000000010",
+              "version": "1"
+            },
+            "assistModes": [
+              {
+                "id": "X000000010",
+                "version": "1"
+              }
+            ]
+          },
+          "components": [
+            {
+              "bootloaderVersion": "1.0.0",
+              "hardwareSoftwareVersion": "1.0",
+              "hardwareVersion": "1.0",
+              "partNumber": "EB1310000E",
+              "productCode": "BDU3600",
+              "serialNumber": "12345-1234-12-123-12-1234",
+              "softwareVersion": "1.0.0"
+            }
+          ],
+          "thirdPartyComponents": [
+            {
+              "componentName": "eShift",
+              "manufacturerName": "TEKTRO",
+              "serialNumber": "T&B_RD 1234567890",
+              "hardwareVersion": "1.0",
+              "softwareVersion": "1.0.0"
+            }
+          ]
+        },
+        "bikeProfileAfterUpdate": {
+          "applications": {
+            "gearshift": {
+              "id": "X000000010",
+              "version": "1"
+            },
+            "product": {
+              "id": "X000000010",
+              "version": "1"
+            },
+            "speedRegion": {
+              "id": "X000000010",
+              "version": "1"
+            },
+            "assistModes": [
+              {
+                "id": "X000000010",
+                "version": "1"
+              }
+            ]
+          },
+          "components": [
+            {
+              "bootloaderVersion": "1.0.0",
+              "hardwareSoftwareVersion": "1.0",
+              "hardwareVersion": "1.0",
+              "partNumber": "EB1310000E",
+              "productCode": "BDU3600",
+              "serialNumber": "12345-1234-12-123-12-1234",
+              "softwareVersion": "1.0.0"
+            }
+          ],
+          "thirdPartyComponents": [
+            {
+              "componentName": "eShift",
+              "manufacturerName": "TEKTRO",
+              "serialNumber": "T&B_RD 1234567890",
+              "hardwareVersion": "1.0",
+              "softwareVersion": "1.0.0"
+            }
+          ]
+        },
+        "stateOfChargeBeforeTransfer": {
+          "remoteControl": -2147483648,
+          "connectModule": -2147483648
+        },
+        "stateOfChargeBeforeInstallation": {
+          "remoteControl": -2147483648,
+          "connectModule": -2147483648
+        },
+        "temperatureBeforeTransfer": {
+          "remoteControlBattery": 303.15,
+          "remoteControlPcb": 303.15,
+          "batteryPack1Fet": 0.1,
+          "batteryPack1": 0.1,
+          "batteryPack2Fet": 0.1,
+          "batteryPack2": 0.1,
+          "driveUnitPcb": 0.1
+        },
+        "temperatureBeforeInstallation": {
+          "remoteControlBattery": 303.15,
+          "remoteControlPcb": 303.15,
+          "batteryPack1Fet": 0.1,
+          "batteryPack1": 0.1,
+          "batteryPack2Fet": 0.1,
+          "batteryPack2": 0.1,
+          "driveUnitPcb": 0.1
+        }
+      }
+    }
+  ],
+  "pagination": {
+    "limit": 10,
+    "offset": 0,
+    "total": 20
+  },
+  "links": {
+    "self": "https://api.bosch-ebike.com/software-update/v1/smart-system/installation-reports?bikeId=953b859b-0beb-4128-aa1b-9c3dbbbd2787&limit=10&offset=0",
+    "first": "https://api.bosch-ebike.com/software-update/v1/smart-system/installation-reports?bikeId=953b859b-0beb-4128-aa1b-9c3dbbbd2787&limit=10&offset=0",
+    "prev": "https://api.bosch-ebike.com/software-update/v1/smart-system/installation-reports?bikeId=953b859b-0beb-4128-aa1b-9c3dbbbd2787&limit=10&offset=0",
+    "next": "https://api.bosch-ebike.com/software-update/v1/smart-system/installation-reports?bikeId=953b859b-0beb-4128-aa1b-9c3dbbbd2787&limit=10&offset=10",
+    "last": "https://api.bosch-ebike.com/software-update/v1/smart-system/installation-reports?bikeId=953b859b-0beb-4128-aa1b-9c3dbbbd2787&limit=10&offset=10"
+  }
+}

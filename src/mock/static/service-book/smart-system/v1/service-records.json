@@ -1,0 +1,344 @@
+{
+  "serviceRecords": [
+    {
+      "id": "0f7ff9dc-d240-4971-b897-ebc8283cb8da",
+      "type": "INSPECTION",
+      "attributes": {
+        "bikeDealer": {
+          "name": "La vélo de Bosch",
+          "street": "La Liberté 4711",
+          "city": "75000 Paris"
+        },
+        "bikeId": "aee92d17-b30b-4841-aa40-c0573569b04c",
+        "odometerValue": 0,
+        "createdAt": "2019-08-24T14:15:22Z",
+        "details": {
+          "version": 1,
+          "toolVersion": "bdp/3.1.9",
+          "bike": {
+            "manufacturerBikeId": "some-bike-123",
+            "brandId": "BR-AN-D1"
+          },
+          "actuatorTest": {
+            "remoteControl": [
+              {
+                "testName": "ABS_REAR_SENSOR_TEST",
+                "overallResult": "NOT_PERFORMED",
+                "note": "string",
+                "productName": "Kiox300",
+                "typeVariant": "DRIVE_UNIT_ACTIVE_LINE_BDU332X",
+                "stepResults": {
+                  "antiLockBrakingSystemRearSensorStep": "NOT_TESTED",
+                  "antiLockBrakingSystemWssFrontWheel": "NOT_TESTED",
+                  "antiLockBrakingSystemWssRearWheel": "NOT_TESTED",
+                  "batteryButtonPower": "NOT_TESTED",
+                  "batteryLedBlue": "NOT_TESTED",
+                  "driveUnitRimSensor": "NOT_TESTED",
+                  "driveUnitReedSensor": "NOT_TESTED",
+                  "driveUnitImuAntiLockBrakingSystemSensor": "NOT_TESTED",
+                  "driveUnitLightPowerPortStep": "NOT_TESTED",
+                  "remoteControlIlluminateSensor": "NOT_TESTED",
+                  "remoteControlDarkenSensor": "NOT_TESTED",
+                  "remoteControlButtonPlus": "NOT_TESTED",
+                  "remoteControlButtonMode": "NOT_TESTED",
+                  "remoteControlButtonMinus": "NOT_TESTED",
+                  "remoteControlButtonLeft": "NOT_TESTED",
+                  "remoteControlButtonRight": "NOT_TESTED",
+                  "remoteControlButtonCenter": "NOT_TESTED",
+                  "remoteControlButtonPower": "NOT_TESTED",
+                  "remoteControlLedRed": "NOT_TESTED",
+                  "remoteControlLedGreen": "NOT_TESTED",
+                  "remoteControlLedBlue": "NOT_TESTED",
+                  "remoteControlLedOrange": "NOT_TESTED",
+                  "remoteControlLcdRed": "NOT_TESTED",
+                  "remoteControlLcdGreen": "NOT_TESTED",
+                  "remoteControlLcdBlue": "NOT_TESTED",
+                  "remoteControlLcdWhite": "NOT_TESTED",
+                  "remoteControlBuzzerOn": "NOT_TESTED",
+                  "headUnitLcdRed": "NOT_TESTED",
+                  "headUnitLcdGreen": "NOT_TESTED",
+                  "headUnitLcdBlue": "NOT_TESTED",
+                  "headUnitLcdWhite": "NOT_TESTED",
+                  "headUnitBuzzerOn": "NOT_TESTED",
+                  "headUnitButtonInfo": "NOT_TESTED",
+                  "headUnitButtonLight": "NOT_TESTED",
+                  "headUnitButtonReset": "NOT_TESTED",
+                  "headUnitButtonWalk": "NOT_TESTED",
+                  "headUnitButtonHome": "NOT_TESTED",
+                  "headUnitButtonPlus": "NOT_TESTED",
+                  "headUnitButtonMode": "NOT_TESTED",
+                  "headUnitButtonMinus": "NOT_TESTED",
+                  "headUnitButtonLeft": "NOT_TESTED",
+                  "headUnitButtonRight": "NOT_TESTED",
+                  "headUnitButtonCenter": "NOT_TESTED",
+                  "headUnitButtonPower": "NOT_TESTED",
+                  "headUnitJoystickUp": "NOT_TESTED",
+                  "headUnitJoystickDown": "NOT_TESTED",
+                  "headUnitJoystickLeft": "NOT_TESTED",
+                  "headUnitJoystickRight": "NOT_TESTED",
+                  "headUnitJoystickCenter": "NOT_TESTED"
+                }
+              }
+            ],
+            "driveUnit": [{}],
+            "battery1": [{}],
+            "battery2": [{}],
+            "headUnit": [{}],
+            "antiLockBrakeSystem": [{}],
+            "connectModule": [{}]
+          },
+          "inspection": {
+            "inspections": [
+              {
+                "categoryType": "REMOTE",
+                "typeVariant": "DRIVE_UNIT_ACTIVE_LINE_BDU332X",
+                "services": {
+                  "headUnitCheckDesignCover": "NOT_CHECKED",
+                  "headUnitCheckTurnOnOffBike": "NOT_CHECKED",
+                  "headUnitCheckButtons": "NOT_CHECKED",
+                  "headUnitCheckContacts": "NOT_CHECKED",
+                  "headUnitCheckMounting": "NOT_CHECKED",
+                  "headUnitCheckCables": "NOT_CHECKED",
+                  "remoteControlTurnOnOff": "NOT_CHECKED",
+                  "remoteControlCheckButtons": "NOT_CHECKED",
+                  "remoteControlCheckMounting": "NOT_CHECKED",
+                  "remoteControlCheckCables": "NOT_CHECKED",
+                  "remoteControlCheckDesignCover": "NOT_CHECKED",
+                  "batteryCheckMountingAndLock": "NOT_CHECKED",
+                  "batteryCheckTurnOnOffBike": "NOT_CHECKED",
+                  "batteryCheckCoverCap": "NOT_CHECKED",
+                  "batteryCheckHousing": "NOT_CHECKED",
+                  "batteryCheckCablesAndContacts": "NOT_CHECKED",
+                  "driveUnitCheckDesignCover": "NOT_CHECKED",
+                  "driveUnitCheckMounting": "NOT_CHECKED",
+                  "driveUnitCheckCrankGuides": "NOT_CHECKED",
+                  "driveUnitCheckCablesAndContacts": "NOT_CHECKED",
+                  "driveUnitCheckChainringIntakeAndLockring": "NOT_CHECKED",
+                  "driveUnitCheckChainringDamaged": "NOT_CHECKED",
+                  "driveUnitCheckBearingAndUpgrade": "NOT_CHECKED",
+                  "driveUnitCheckSpeedSensorAndMagnetPosition": "NOT_CHECKED",
+                  "antiLockBrakingSystemCheckIndicatorLampWorking": "NOT_CHECKED",
+                  "antiLockBrakingSystemCheckControlUnitMounting": "NOT_CHECKED",
+                  "antiLockBrakingSystemCheckControlUnitDamaged": "NOT_CHECKED",
+                  "antiLockBrakingSystemCheckSpeedSensors": "NOT_CHECKED",
+                  "antiLockBrakingSystemCheckCables": "NOT_CHECKED",
+                  "antiLockBrakingSystemCheckBrakeSystemWaterproofErosionNoise": "NOT_CHECKED",
+                  "connectModuleCheckHousing": "NOT_CHECKED",
+                  "connectModuleCheckMounting": "NOT_CHECKED",
+                  "connectModuleCheckCables": "NOT_CHECKED",
+                  "connectModuleCheckConnections": "NOT_CHECKED",
+                  "remoteControl3300CheckButtons": "NOT_CHECKED",
+                  "remoteControl3300CheckMounting": "NOT_CHECKED",
+                  "remoteControl3300CheckCables": "NOT_CHECKED",
+                  "headUnit3200CheckHousing": "NOT_CHECKED",
+                  "headUnit3200CheckContacts": "NOT_CHECKED",
+                  "headUnit3200CheckMounting": "NOT_CHECKED",
+                  "miscUpdateSoftware": "NOT_CHECKED",
+                  "miscPerformTestDrive": "NOT_CHECKED",
+                  "miscCheckWalkAssistAndLight": "NOT_CHECKED",
+                  "miscCheckLight": "NOT_CHECKED",
+                  "miscUpdateServiceInterval": "NOT_CHECKED"
+                },
+                "productName": "Kiox300"
+              }
+            ]
+          },
+          "softwareUpdate": {
+            "client": {
+              "type": "BDP",
+              "version": "1.0.3-354-g222b6197aa"
+            },
+            "isForcedUpdate": false,
+            "bike": {
+              "brandId": "BR-AN-D1",
+              "manufacturerBikeId": "string",
+              "bikeId": "0f7ff9dc-d240-4971-b897-ebc8283cb8da",
+              "bikeCategory": "CITY",
+              "updatedApplications": {
+                "product": {
+                  "id": "P1000",
+                  "longName": "ULTRA TURBO+++",
+                  "version": {
+                    "old": 1,
+                    "new": 2,
+                    "localizedReleaseNotes": "Unglaubliche Performance."
+                  }
+                },
+                "gear": {
+                  "id": "P1000",
+                  "longName": "ULTRA TURBO+++",
+                  "version": {
+                    "old": 1,
+                    "new": 2,
+                    "localizedReleaseNotes": "Unglaubliche Performance."
+                  }
+                },
+                "speed": {
+                  "id": "P1000",
+                  "longName": "ULTRA TURBO+++",
+                  "version": {
+                    "old": 1,
+                    "new": 2,
+                    "localizedReleaseNotes": "Unglaubliche Performance."
+                  }
+                },
+                "assistModes": [
+                  {
+                    "id": "A1000",
+                    "longName": "ULTRA TURBO+++",
+                    "isActive": true,
+                    "version": {
+                      "old": 1,
+                      "new": 2,
+                      "localizedReleaseNotes": "Unglaubliche Performance."
+                    }
+                  }
+                ]
+              },
+              "updatedComponents": [
+                {
+                  "productCode": "BDU3600",
+                  "productName": "Kiox300",
+                  "partNumber": "0275007000",
+                  "serialNumber": "33912-1234-37-300-00-0000",
+                  "hardwareVersion": "1.0.0",
+                  "hardwareSoftwareVersion": "1.0.0",
+                  "bootloaderVersion": {
+                    "old": "1.2.4-a",
+                    "new": "1.2.4-b",
+                    "localizedReleaseNotes": "What an update!"
+                  },
+                  "softwareVersion": {
+                    "old": "1.2.4-a",
+                    "new": "1.2.4-b",
+                    "localizedReleaseNotes": "What an update!"
+                  },
+                  "localizedReleaseNotes": "string"
+                }
+              ]
+            }
+          },
+          "customerReport": {
+            "metaData": {
+              "toolCreationTimestamp": "2022-11-30T14:04:54.846354+01:00",
+              "toolVersion": "7.8.0",
+              "dataModelVersion": "5.1.3-b",
+              "schemaVersion": 1
+            },
+            "bike": {
+              "bikeInformation": {
+                "datapointValues": [
+                  {
+                    "id": "bikeId",
+                    "value": "string"
+                  }
+                ]
+              },
+              "individualInformation": {
+                "datapointValues": [
+                  {
+                    "id": "bikeId",
+                    "value": "string"
+                  }
+                ]
+              },
+              "additionalInformation": {
+                "datapointValues": [
+                  {
+                    "id": "bikeId",
+                    "value": "string"
+                  }
+                ]
+              },
+              "supportModes": [
+                {
+                  "isActive": true,
+                  "id": "ID234234",
+                  "version": 2,
+                  "shortName": "AMA3",
+                  "longName": "Assist Mode A3 [str=2]",
+                  "application": "A000100010",
+                  "isUserAdjusted": true,
+                  "userDefinedAssistModeValues": {
+                    "accelerationResponse": 0.55,
+                    "assistLevel": 1.05,
+                    "maximumBikeSpeed": 25,
+                    "maximumMotorTorque": 70,
+                    "maximumMotorPower": 20
+                  },
+                  "userDefinedAssistModeDefaults": {
+                    "accelerationResponse": 0.55,
+                    "assistLevel": 1.05,
+                    "maximumBikeSpeed": 25,
+                    "maximumMotorTorque": 70,
+                    "maximumMotorPower": 20
+                  }
+                }
+              ],
+              "statistics": {
+                "chartData": [
+                  {
+                    "distanceValue": 1234,
+                    "energyValue": 82,
+                    "displayName": "Assist Mode A3",
+                    "tooltipName": "A useful tooltip"
+                  }
+                ],
+                "datapointValues": [
+                  {
+                    "id": "bikeId",
+                    "value": "string"
+                  }
+                ]
+              },
+              "components": [
+                {
+                  "typeVariant": "DRIVE_UNIT_ACTIVE_LINE_BDU332X",
+                  "highestSpecialState": "MISSING",
+                  "connected": true,
+                  "softwareUpdateAvailable": true,
+                  "productName": "Performance Line CX",
+                  "datapointValues": [
+                    {
+                      "id": "bikeId",
+                      "value": "string"
+                    }
+                  ]
+                }
+              ]
+            },
+            "nextServiceInformation": {
+              "daysNextService": 23,
+              "metersNextService": 3145
+            }
+          },
+          "bikeIdChange": {
+            "remoteControlBikeId": "05a95d9b-6781-4ad9-b201-3e9a0e5acda1",
+            "newBikeId": "6caaf76a-06b1-45dd-a52a-6e16eb928e7b",
+            "typeVariantRemoteControl": "DRIVE_UNIT_ACTIVE_LINE_BDU332X",
+            "replacedComponent": "DRIVE_UNIT"
+          },
+          "batteryMeasurement": {
+            "battery": {
+              "productCode": "BBP3770",
+              "productName": "Kiox300",
+              "partNumber": "EB1210003A",
+              "serialNumber": "13919-0702-01-A10-00-0000",
+              "hardwareVersion": "3.1.0",
+              "softwareVersion": "4.14.2",
+              "bootloaderVersion": "1.0.1",
+              "hardwareSoftwareVersion": "1.2.0"
+            },
+            "measurement": {
+              "fullChargeCycles": -2147483648,
+              "measuredEnergyCapacity": -2147483648,
+              "nominalEnergyCapacity": -2147483648,
+              "measuredCapacityPercentage": 0,
+              "onBikeMeasurement": true
+            }
+          }
+        }
+      }
+    }
+  ]
+}
