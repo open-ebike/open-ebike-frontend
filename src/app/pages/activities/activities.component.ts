@@ -22,13 +22,7 @@ import { DatePipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatRipple } from '@angular/material/core';
 import { MetersToKilometersPipe } from '../../pipes/meters-to-kilometers.pipe';
-import {
-  MatCard,
-  MatCardActions,
-  MatCardAvatar,
-  MatCardContent,
-  MatCardFooter,
-} from '@angular/material/card';
+import { MatCard, MatCardAvatar, MatCardContent } from '@angular/material/card';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButton } from '@angular/material/button';
 
@@ -49,8 +43,6 @@ import { MatButton } from '@angular/material/button';
     RouterLink,
     MatCardAvatar,
     MatCardContent,
-    MatCardActions,
-    MatCardFooter,
     MatSidenavModule,
     MatButton,
   ],
