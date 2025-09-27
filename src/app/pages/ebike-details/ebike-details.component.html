@@ -11,7 +11,7 @@
           {{ t("title") }}
           {{ ebikeProfile()?.id }}
           <span class="delimiter">·</span>
-          <button mat-button routerLink="/ebikes">
+          <button mat-button routerLink="/ebikes" queryParamsHandling="merge">
             {{ t("actions.show-all") }}
           </button>
         </h2>
@@ -92,6 +92,7 @@
                 serialNumber: ebikeProfile()?.driveUnit?.serialNumber,
                 partNumber: ebikeProfile()?.driveUnit?.partNumber,
               }"
+              queryParamsHandling="merge"
             >
               <mat-card-header>
                 <div mat-card-avatar class="component-avatar">
@@ -147,6 +148,7 @@
                 serialNumber: ebikeProfile()?.remoteControl?.serialNumber,
                 partNumber: ebikeProfile()?.remoteControl?.partNumber,
               }"
+              queryParamsHandling="merge"
             >
               <mat-card-header>
                 <div mat-card-avatar class="component-avatar">
@@ -186,6 +188,7 @@
                 serialNumber: battery.serialNumber,
                 partNumber: battery.partNumber,
               }"
+              queryParamsHandling="merge"
             >
               <mat-card-header>
                 <div mat-card-avatar class="component-avatar">
@@ -224,6 +227,7 @@
                 serialNumber: antiLockBrakeSystem.serialNumber,
                 partNumber: antiLockBrakeSystem.partNumber,
               }"
+              queryParamsHandling="merge"
             >
               <mat-card-header>
                 <div mat-card-avatar class="component-avatar">
@@ -263,6 +267,7 @@
                 serialNumber: ebikeProfile()?.connectModule?.serialNumber,
                 partNumber: ebikeProfile()?.connectModule?.partNumber,
               }"
+              queryParamsHandling="merge"
             >
               <mat-card-header>
                 <div mat-card-avatar class="component-avatar">
@@ -302,6 +307,7 @@
                 serialNumber: ebikeProfile()?.headUnit?.serialNumber,
                 partNumber: ebikeProfile()?.headUnit?.partNumber,
               }"
+              queryParamsHandling="merge"
             >
               <mat-card-header>
                 <div mat-card-avatar class="component-avatar">

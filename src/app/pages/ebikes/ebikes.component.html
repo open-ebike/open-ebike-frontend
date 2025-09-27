@@ -8,6 +8,7 @@
             <mat-card
               mat-ripple
               [routerLink]="['/ebike-details', ebikeProfile.id]"
+              queryParamsHandling="merge"
             >
               <mat-card-header>
                 <div mat-card-avatar class="ebike-avatar">

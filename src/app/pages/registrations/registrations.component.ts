@@ -87,7 +87,6 @@ export class RegistrationsComponent implements OnInit {
    * Handles on-init phase
    */
   ngOnInit() {
-    this.initializeTheme();
     this.initializeRegistrations();
     this.handleQueryParameters();
   }
@@ -95,22 +94,6 @@ export class RegistrationsComponent implements OnInit {
   //
   // Initialization
   //
-
-  /**
-   * Initializes theme
-   */
-  private initializeTheme() {
-    switch (this.themeService.theme()) {
-      case Theme.LIGHT: {
-        this.updateQueryParameters();
-        break;
-      }
-      case Theme.DARK: {
-        this.updateQueryParameters();
-        break;
-      }
-    }
-  }
 
   /**
    * Initializes eBike

@@ -104,7 +104,6 @@ export class ActivitiesComponent implements OnInit {
    * Handles on-init phase
    */
   ngOnInit() {
-    this.initializeTheme();
     this.initializeActivitiesSummaries(20, 0, '-startTime');
 
     this.route.params.subscribe((params) => {
@@ -123,22 +122,6 @@ export class ActivitiesComponent implements OnInit {
   //
   // Initialization
   //
-
-  /**
-   * Initializes theme
-   */
-  private initializeTheme() {
-    switch (this.themeService.theme()) {
-      case Theme.LIGHT: {
-        this.updateQueryParameters();
-        break;
-      }
-      case Theme.DARK: {
-        this.updateQueryParameters();
-        break;
-      }
-    }
-  }
 
   /**
    * Initializes activities
@@ -196,7 +179,9 @@ export class ActivitiesComponent implements OnInit {
    * Handles the drawer closed state
    */
   onDrawerClosed(): void {
-    this.router.navigate(['/activities', this.id()]);
+    this.router.navigate(['/activities', this.id()], {
+      queryParamsHandling: 'merge',
+    });
   }
 
   //

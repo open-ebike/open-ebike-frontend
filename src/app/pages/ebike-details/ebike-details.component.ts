@@ -162,29 +162,12 @@ export class EbikeDetailsComponent implements OnInit {
    * Handles on-init phase
    */
   ngOnInit() {
-    this.initializeTheme();
     this.handleQueryParameters();
   }
 
   //
   // Initialization
   //
-
-  /**
-   * Initializes theme
-   */
-  private initializeTheme() {
-    switch (this.themeService.theme()) {
-      case Theme.LIGHT: {
-        this.updateQueryParameters();
-        break;
-      }
-      case Theme.DARK: {
-        this.updateQueryParameters();
-        break;
-      }
-    }
-  }
 
   /**
    * Initializes eBike
