@@ -73,7 +73,8 @@
         "undefined": "nicht definiert"
       },
       "actions": {
-        "show-all": "alle anzeigen"
+        "show-all": "alle anzeigen",
+        "hide-all": "alle verbergen"
       }
     },
     "registrations": {

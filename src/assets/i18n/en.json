@@ -73,7 +73,8 @@
         "undefined": "undefined"
       },
       "actions": {
-        "show-all": "show all"
+        "show-all": "show all",
+        "hide-all": "hide all"
       }
     },
     "registrations": {

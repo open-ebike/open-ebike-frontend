@@ -54,7 +54,11 @@
                   {{ t("terms.activity") }} {{ selectedActivity()?.title }}
                   <span class="delimiter">·</span>
                   <button mat-button (click)="drawer.toggle()">
-                    {{ t("actions.show-all") }}
+                    @if (drawer.opened) {
+                      {{ t("actions.hide-all") }}
+                    } @else {
+                      {{ t("actions.show-all") }}
+                    }
                   </button>
                 </h2>
 
