@@ -12,6 +12,19 @@
           {{ ebikeProfile()?.id }}
         </h2>
 
+        @if (isRegistered(ebikeProfile()?.id)) {
+          <ul class="list">
+            <li>
+              <span class="material-symbols-outlined ebike-registered-icon">
+                verified
+              </span>
+              <strong class="ebike-registered">{{
+                t("terms.registered")
+              }}</strong>
+            </li>
+          </ul>
+        }
+
         <ul class="list">
           <li>
             <strong class="label">{{ t("terms.oem-id") }}</strong

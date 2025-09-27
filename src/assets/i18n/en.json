@@ -13,7 +13,8 @@
     "ebikes": {
       "title": "eBikes",
       "terms": {
-        "ebike": "eBike"
+        "ebike": "eBike",
+        "registered": "registered"
       },
       "messages": {
         "no-ebikes-found": "no eBikes found"
@@ -22,6 +23,7 @@
     "ebike-details": {
       "title": "eBike",
       "terms": {
+        "registered": "registered",
         "oem-id": "OEM ID",
         "created-at": "created at",
         "language": "language",

@@ -60,6 +60,18 @@
   border-radius: 100%;
 }
 
+.ebike-registered {
+  color: mat.m2-get-color-from-palette($open-ebike-accent, 500);
+  font-size: 14px;
+  padding-left: 4px;
+}
+
+.ebike-registered-icon {
+  color: mat.m2-get-color-from-palette($open-ebike-accent, 500);
+  font-size: 14px;
+  vertical-align: sub;
+}
+
 ::ng-deep .theme-light {
   .ebike-icon {
     color: mat.m2-get-color-from-palette($open-ebike-accent, 500);
@@ -84,6 +96,11 @@
 
 h2 {
   margin-top: 32px;
+}
+
+.delimiter {
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 mat-card {

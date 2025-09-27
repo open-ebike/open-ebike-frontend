@@ -43,6 +43,10 @@ import {
   InstallationReport,
   ReleaseManagementService,
 } from '../../services/api/release-management.service';
+import {
+  EbikeRegistrationService,
+  Registration,
+} from '../../services/api/ebike-registration.service';
 
 /**
  * Displays eBike details
@@ -96,6 +100,8 @@ export class EbikeDetailsComponent implements OnInit {
   private remoteConfigurationService = inject(RemoteConfigurationService);
   /** Release management service */
   private releaseManagementService = inject(ReleaseManagementService);
+  /** eBike registration service */
+  private ebikeRegistrationService = inject(EbikeRegistrationService);
 
   //
   // Signals
@@ -113,6 +119,8 @@ export class EbikeDetailsComponent implements OnInit {
   remoteConfigurationCases = signal<Case[] | null>([]);
   /** Signal providing installation reports */
   installationReports = signal<InstallationReport[] | null>([]);
+  /** Signal providing registrations */
+  registrations = signal<Registration[]>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -139,6 +147,8 @@ export class EbikeDetailsComponent implements OnInit {
       this.initializeServiceRecords(params['id']);
       this.initializeRemoteConfigurationCases(params['id']);
       this.initializeInstallationReports(params['id']);
+
+      this.initializeRegistrations();
     });
   }
 
@@ -239,6 +249,17 @@ export class EbikeDetailsComponent implements OnInit {
   }
 
   /**
+   * Initializes registrations
+   */
+  private initializeRegistrations() {
+    this.ebikeRegistrationService
+      .getRegistrations()
+      .subscribe((registrations) => {
+        this.registrations.set(registrations.registrations);
+      });
+  }
+
+  /**
    * Handles query parameters
    */
   private handleQueryParameters() {
@@ -254,6 +275,16 @@ export class EbikeDetailsComponent implements OnInit {
   //
   // Helpers
   //
+
+  /**
+   * Determines if an ebike is registered
+   * @param bikeId bike ID
+   */
+  isRegistered(bikeId: string | undefined) {
+    return this.registrations().find(
+      (registration) => registration.bikeRegistration?.bikeId === bikeId,
+    );
+  }
 
   /**
    * Updates query parameters

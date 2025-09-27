@@ -70,6 +70,17 @@ remote-configuration-case-icon {
   border-radius: 100%;
 }
 
+.ebike-registered {
+  color: mat.m2-get-color-from-palette($open-ebike-accent, 500);
+  padding-left: 4px;
+}
+
+.ebike-registered-icon {
+  color: mat.m2-get-color-from-palette($open-ebike-accent, 500);
+  font-size: 18px;
+  vertical-align: sub;
+}
+
 ::ng-deep .theme-light {
   .ebike-icon {
     color: mat.m2-get-color-from-palette($open-ebike-accent, 500);

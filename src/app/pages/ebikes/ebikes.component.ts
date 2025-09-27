@@ -18,6 +18,11 @@ import {
   MatCardTitle,
 } from '@angular/material/card';
 import { MatRipple } from '@angular/material/core';
+import {
+  EbikeRegistrationService,
+  Registration,
+} from '../../services/api/ebike-registration.service';
+import { MatChip, MatChipOption } from '@angular/material/chips';
 
 /**
  * Displays eBikes
@@ -35,6 +40,8 @@ import { MatRipple } from '@angular/material/core';
     MatCardContent,
     MatCardActions,
     MatCardFooter,
+    MatChip,
+    MatChipOption,
   ],
   templateUrl: './ebikes.component.html',
   styleUrl: './ebikes.component.scss',
@@ -55,6 +62,8 @@ export class EbikesComponent implements OnInit {
   public authenticationService = inject(AuthenticationService);
   /** eBike profile service */
   private ebikeProfileService = inject(EbikeProfileService);
+  /** eBike registration service */
+  private ebikeRegistrationService = inject(EbikeRegistrationService);
 
   //
   // Signals
@@ -62,6 +71,8 @@ export class EbikesComponent implements OnInit {
 
   /** Signal providing eBike profiles */
   ebikeProfiles = signal<EbikeProfile[]>([]);
+  /** Signal providing registrations */
+  registrations = signal<Registration[]>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -83,6 +94,7 @@ export class EbikesComponent implements OnInit {
   ngOnInit() {
     this.initializeTheme();
     this.initializeEbikes();
+    this.initializeRegistrations();
     this.handleQueryParameters();
   }
 
@@ -116,6 +128,17 @@ export class EbikesComponent implements OnInit {
   }
 
   /**
+   * Initializes registrations
+   */
+  private initializeRegistrations() {
+    this.ebikeRegistrationService
+      .getRegistrations()
+      .subscribe((registrations) => {
+        this.registrations.set(registrations.registrations);
+      });
+  }
+
+  /**
    * Handles query parameters
    */
   private handleQueryParameters() {
@@ -131,6 +154,16 @@ export class EbikesComponent implements OnInit {
   //
   // Helpers
   //
+
+  /**
+   * Determines if an ebike is registered
+   * @param bikeId bike ID
+   */
+  isRegistered(bikeId: string) {
+    return this.registrations().find(
+      (registration) => registration.bikeRegistration?.bikeId === bikeId,
+    );
+  }
 
   /**
    * Updates query parameters
