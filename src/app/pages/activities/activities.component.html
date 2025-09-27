@@ -1,8 +1,8 @@
 <ng-container *transloco="let t; lang: lang; prefix: 'pages.activities'">
   <div>
     @if (authenticationService.isLoggedIn()) {
-      <mat-drawer-container class="container">
-        <mat-drawer #drawer mode="side" [opened]="!id()">
+      <mat-drawer-container class="container" hasBackdrop="false">
+        <mat-drawer #drawer mode="over" [opened]="!id()">
           <mat-list>
             @for (
               activitySummary of activitySummaries();
