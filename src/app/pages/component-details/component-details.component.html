@@ -73,6 +73,24 @@
           }
         </h2>
 
+        @if (
+          isComponentRegistered(
+            component()?.partNumber,
+            component()?.serialNumber
+          )
+        ) {
+          <ul class="list">
+            <li>
+              <span class="material-symbols-outlined component-registered-icon">
+                verified
+              </span>
+              <strong class="component-registered">{{
+                t("terms.registered")
+              }}</strong>
+            </li>
+          </ul>
+        }
+
         <ul class="list">
           <li>
             <strong class="label">{{ t("terms.serial-number") }}</strong

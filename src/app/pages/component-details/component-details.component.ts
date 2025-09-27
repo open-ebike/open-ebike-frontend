@@ -32,6 +32,10 @@ import {
   DiagnosisFieldDataService,
 } from '../../services/api/diagnosis-field-data.service';
 import { AttributeTreeComponent } from '../../components/attribute-tree/attribute-tree.component';
+import {
+  EbikeRegistrationService,
+  Registration,
+} from '../../services/api/ebike-registration.service';
 
 /**
  * Displays component details
@@ -74,6 +78,8 @@ export class ComponentDetailsComponent implements OnInit {
   private ebikeProfileService = inject(EbikeProfileService);
   /** Diagnosis field data service */
   private diagnosisFieldDataService = inject(DiagnosisFieldDataService);
+  /** eBike registration service */
+  private ebikeRegistrationService = inject(EbikeRegistrationService);
 
   //
   // Signals
@@ -96,6 +102,8 @@ export class ComponentDetailsComponent implements OnInit {
   battery = signal<Battery | undefined>(undefined);
   componentType = signal<ComponentType | undefined>(undefined);
   capacityTesters = signal<CapacityTester[]>([]);
+  /** Signal providing registrations */
+  registrations = signal<Registration[]>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -121,6 +129,8 @@ export class ComponentDetailsComponent implements OnInit {
       }
 
       this.initializeEbike(params['id']);
+
+      this.initializeRegistrations();
     });
 
     effect(() => {
@@ -258,6 +268,17 @@ export class ComponentDetailsComponent implements OnInit {
   }
 
   /**
+   * Initializes registrations
+   */
+  private initializeRegistrations() {
+    this.ebikeRegistrationService
+      .getRegistrations()
+      .subscribe((registrations) => {
+        this.registrations.set(registrations.registrations);
+      });
+  }
+
+  /**
    * Initializes capacity testers
    */
   private initializeCapacityTesters(partNumber: string, serialNumber: string) {
@@ -289,6 +310,22 @@ export class ComponentDetailsComponent implements OnInit {
   //
   // Helpers
   //
+
+  /**
+   * Determines if a component is registered
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  isComponentRegistered(
+    partNumber: string | undefined,
+    serialNumber: string | undefined,
+  ) {
+    return this.registrations().find(
+      (registration) =>
+        registration.componentRegistration?.partNumber === partNumber &&
+        registration.componentRegistration?.serialNumber === serialNumber,
+    );
+  }
 
   /**
    * Updates query parameters

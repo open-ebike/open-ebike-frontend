@@ -159,7 +159,7 @@ export class EbikesComponent implements OnInit {
    * Determines if an ebike is registered
    * @param bikeId bike ID
    */
-  isRegistered(bikeId: string) {
+  isEbikeRegistered(bikeId: string) {
     return this.registrations().find(
       (registration) => registration.bikeRegistration?.bikeId === bikeId,
     );

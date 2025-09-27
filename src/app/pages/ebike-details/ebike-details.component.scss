@@ -81,6 +81,18 @@ remote-configuration-case-icon {
   vertical-align: sub;
 }
 
+.component-registered {
+  color: mat.m2-get-color-from-palette($open-ebike-primary, 500);
+  font-size: 14px;
+  padding-left: 4px;
+}
+
+.component-registered-icon {
+  color: mat.m2-get-color-from-palette($open-ebike-primary, 500);
+  font-size: 14px;
+  vertical-align: sub;
+}
+
 ::ng-deep .theme-light {
   .ebike-icon {
     color: mat.m2-get-color-from-palette($open-ebike-accent, 500);
@@ -148,6 +160,11 @@ remote-configuration-case-icon {
 h2,
 h3 {
   margin-top: 16px;
+}
+
+.delimiter {
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .list {

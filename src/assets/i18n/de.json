@@ -85,6 +85,7 @@
     "component-details": {
       "title": "Komponentendetails",
       "terms": {
+        "registered": "registriert",
         "ebike": "eBike",
         "drive-unit": "Drive Unit",
         "remote-control": "Remote Control",

@@ -280,9 +280,25 @@ export class EbikeDetailsComponent implements OnInit {
    * Determines if an ebike is registered
    * @param bikeId bike ID
    */
-  isRegistered(bikeId: string | undefined) {
+  isEbikeRegistered(bikeId: string | undefined) {
     return this.registrations().find(
       (registration) => registration.bikeRegistration?.bikeId === bikeId,
+    );
+  }
+
+  /**
+   * Determines if a component is registered
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  isComponentRegistered(
+    partNumber: string | undefined,
+    serialNumber: string | undefined,
+  ) {
+    return this.registrations().find(
+      (registration) =>
+        registration.componentRegistration?.partNumber === partNumber &&
+        registration.componentRegistration?.serialNumber === serialNumber,
     );
   }
 

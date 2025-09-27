@@ -12,7 +12,7 @@
           {{ ebikeProfile()?.id }}
         </h2>
 
-        @if (isRegistered(ebikeProfile()?.id)) {
+        @if (isEbikeRegistered(ebikeProfile()?.id)) {
           <ul class="list">
             <li>
               <span class="material-symbols-outlined ebike-registered-icon">
@@ -98,8 +98,24 @@
                 <mat-card-title
                   >{{ ebikeProfile()?.driveUnit?.productName }}
                 </mat-card-title>
-                <mat-card-subtitle
-                  >{{ t("terms.drive-unit") }}
+                <mat-card-subtitle>
+                  @if (
+                    isComponentRegistered(
+                      ebikeProfile()?.driveUnit?.partNumber,
+                      ebikeProfile()?.driveUnit?.serialNumber
+                    )
+                  ) {
+                    <span
+                      class="material-symbols-outlined component-registered-icon"
+                    >
+                      verified
+                    </span>
+                    <span class="component-registered">{{
+                      t("terms.registered")
+                    }}</span>
+                    <span class="delimiter">·</span>
+                  }
+                  {{ t("terms.drive-unit") }}
                 </mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
