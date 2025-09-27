@@ -121,7 +121,10 @@
     }
   },
   "terms": {
-    "features": "Features"
+    "features": "Features",
+    "development": "Development",
+    "github": "GitHub",
+    "dev-log": "Dev Log"
   },
   "actions": {
     "login": "Login",
