@@ -3,10 +3,8 @@
     @if (authenticationService.isLoggedIn()) {
       <div class="inner-container">
         <h2>
-          <span mat-card-avatar class="ebike-avatar">
-            <span class="material-symbols-outlined ebike-icon">
-              electric_bike
-            </span>
+          <span class="material-symbols-outlined ebike icon">
+            electric_bike
           </span>
           {{ t("title") }}
           {{ ebikeProfile()?.id }}
@@ -19,7 +17,7 @@
         @if (isEbikeRegistered(ebikeProfile()?.id)) {
           <ul class="list">
             <li>
-              <span class="material-symbols-outlined ebike-registered-icon">
+              <span class="material-symbols-outlined ebike-registered icon">
                 verified
               </span>
               <strong class="ebike-registered">{{
@@ -85,7 +83,6 @@
         <div class="grid">
           @if (ebikeProfile()?.driveUnit) {
             <mat-card
-              class="component-card"
               mat-ripple
               [routerLink]="['/component-details', ebikeProfile()?.id]"
               [queryParams]="{
@@ -95,8 +92,8 @@
               queryParamsHandling="merge"
             >
               <mat-card-header>
-                <div mat-card-avatar class="component-avatar">
-                  <span class="material-symbols-outlined component-icon">
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined component icon">
                     extension
                   </span>
                 </div>
@@ -111,7 +108,7 @@
                     )
                   ) {
                     <span
-                      class="material-symbols-outlined component-registered-icon"
+                      class="material-symbols-outlined component-registered icon"
                     >
                       verified
                     </span>
@@ -141,7 +138,6 @@
 
           @if (ebikeProfile()?.remoteControl) {
             <mat-card
-              class="component-card"
               mat-ripple
               [routerLink]="['/component-details', ebikeProfile()?.id]"
               [queryParams]="{
@@ -151,8 +147,8 @@
               queryParamsHandling="merge"
             >
               <mat-card-header>
-                <div mat-card-avatar class="component-avatar">
-                  <span class="material-symbols-outlined component-icon">
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined component icon">
                     extension
                   </span>
                 </div>
@@ -181,7 +177,6 @@
 
           @for (battery of ebikeProfile()?.batteries; track battery) {
             <mat-card
-              class="component-card"
               mat-ripple
               [routerLink]="['/component-details', ebikeProfile()?.id]"
               [queryParams]="{
@@ -191,8 +186,8 @@
               queryParamsHandling="merge"
             >
               <mat-card-header>
-                <div mat-card-avatar class="component-avatar">
-                  <span class="material-symbols-outlined component-icon">
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined component icon">
                     battery_charging_full
                   </span>
                 </div>
@@ -220,7 +215,6 @@
             track antiLockBrakeSystem
           ) {
             <mat-card
-              class="component-card"
               mat-ripple
               [routerLink]="['/component-details', ebikeProfile()?.id]"
               [queryParams]="{
@@ -230,8 +224,8 @@
               queryParamsHandling="merge"
             >
               <mat-card-header>
-                <div mat-card-avatar class="component-avatar">
-                  <span class="material-symbols-outlined component-icon">
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined component icon">
                     extension
                   </span>
                 </div>
@@ -260,7 +254,6 @@
 
           @if (ebikeProfile()?.connectModule) {
             <mat-card
-              class="component-card"
               mat-ripple
               [routerLink]="['/component-details', ebikeProfile()?.id]"
               [queryParams]="{
@@ -270,8 +263,8 @@
               queryParamsHandling="merge"
             >
               <mat-card-header>
-                <div mat-card-avatar class="component-avatar">
-                  <span class="material-symbols-outlined component-icon">
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined component icon">
                     extension
                   </span>
                 </div>
@@ -300,7 +293,6 @@
 
           @if (ebikeProfile()?.headUnit) {
             <mat-card
-              class="component-card"
               mat-ripple
               [routerLink]="['/component-details', ebikeProfile()?.id]"
               [queryParams]="{
@@ -310,8 +302,8 @@
               queryParamsHandling="merge"
             >
               <mat-card-header>
-                <div mat-card-avatar class="component-avatar">
-                  <span class="material-symbols-outlined component-icon">
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined component icon">
                     tablet
                   </span>
                 </div>
@@ -342,10 +334,10 @@
         <h3>{{ t("terms.bike-passes") }}</h3>
 
         @for (bikePass of bikePasses(); track bikePass) {
-          <mat-card class="bike-pass-card" mat-ripple>
+          <mat-card mat-ripple>
             <mat-card-header>
-              <div mat-card-avatar class="component-avatar">
-                <span class="material-symbols-outlined bike-pass-icon">
+              <div mat-card-avatar>
+                <span class="material-symbols-outlined bike-pass icon">
                   badge
                 </span>
               </div>
@@ -388,11 +380,11 @@
           installationReport of bulkInstallationReports();
           track installationReport
         ) {
-          <mat-card class="installation-report-card">
+          <mat-card>
             <mat-card-header>
-              <div mat-card-avatar class="installation-report-avatar">
+              <div mat-card-avatar>
                 <span
-                  class="material-symbols-outlined installation-report-icon"
+                  class="material-symbols-outlined installation-report icon"
                 >
                   assignment
                 </span>
@@ -414,8 +406,8 @@
         @for (serviceRecord of serviceRecords(); track serviceRecord) {
           <mat-card class="service-record-card">
             <mat-card-header>
-              <div mat-card-avatar class="service-record-avatar">
-                <span class="material-symbols-outlined service-record-icon">
+              <div mat-card-avatar>
+                <span class="material-symbols-outlined service-record icon">
                   assignment
                 </span>
               </div>
@@ -433,11 +425,11 @@
           remoteConfigurationCase of remoteConfigurationCases();
           track remoteConfigurationCase
         ) {
-          <mat-card class="remote-configuration-case-card">
+          <mat-card>
             <mat-card-header>
-              <div mat-card-avatar class="remote-configuration-case-avatar">
+              <div mat-card-avatar>
                 <span
-                  class="material-symbols-outlined remote-configuration-case-icon"
+                  class="material-symbols-outlined remote-configuration-case icon"
                 >
                   assignment
                 </span>
@@ -460,11 +452,11 @@
           installationReport of installationReports();
           track installationReport
         ) {
-          <mat-card class="installation-report-card">
+          <mat-card>
             <mat-card-header>
-              <div mat-card-avatar class="installation-report-avatar">
+              <div mat-card-avatar>
                 <span
-                  class="material-symbols-outlined installation-report-icon"
+                  class="material-symbols-outlined installation-report icon"
                 >
                   assignment
                 </span>
