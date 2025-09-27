@@ -2,7 +2,12 @@
   <div>
     @if (authenticationService.isLoggedIn()) {
       <mat-drawer-container class="container" hasBackdrop="false">
-        <mat-drawer #drawer mode="over" [opened]="!id()">
+        <mat-drawer
+          #drawer
+          mode="over"
+          [opened]="!id()"
+          (closed)="onDrawerClosed()"
+        >
           <mat-list>
             @for (
               activitySummary of activitySummaries();
@@ -11,7 +16,7 @@
               <mat-list-item
                 mat-ripple
                 class="activity-item"
-                [routerLink]="['/activities', activitySummary.id]"
+                (click)="onActivityClicked(activitySummary.id)"
               >
                 <mat-icon
                   matListItemIcon

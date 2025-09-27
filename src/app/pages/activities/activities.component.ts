@@ -5,6 +5,7 @@ import {
   OnInit,
   Signal,
   signal,
+  viewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Theme, ThemeService } from '../../services/theme.service';
@@ -23,7 +24,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatRipple } from '@angular/material/core';
 import { MetersToKilometersPipe } from '../../pipes/meters-to-kilometers.pipe';
 import { MatCard, MatCardAvatar, MatCardContent } from '@angular/material/card';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatButton } from '@angular/material/button';
 
 /**
@@ -82,6 +83,8 @@ export class ActivitiesComponent implements OnInit {
   activitySummaries = signal<ActivitySummary[]>([]);
   /** Signal providing activity details */
   activityDetails = signal<ActivityDetail[]>([]);
+
+  drawer = viewChild(MatDrawer);
 
   /** Language */
   lang = getBrowserLang();
@@ -174,6 +177,26 @@ export class ActivitiesComponent implements OnInit {
 
         this.themeService.switchTheme(theme ? theme : Theme.LIGHT);
       });
+  }
+
+  //
+  // Actions
+  //
+
+  /**
+   * Handles click on an activity
+   * @param id ID
+   */
+  onActivityClicked(id: string) {
+    this.id.set(id);
+    this.drawer()?.close();
+  }
+
+  /**
+   * Handles the drawer closed state
+   */
+  onDrawerClosed(): void {
+    this.router.navigate(['/activities', this.id()]);
   }
 
   //
