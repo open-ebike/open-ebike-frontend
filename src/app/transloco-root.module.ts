@@ -18,19 +18,11 @@ export class TranslocoHttpLoader implements TranslocoLoader {
   private platformLocation = inject(PlatformLocation);
 
   getTranslation(langPath: string) {
-    const baseHref = environment.baseHref;
-
-    if (baseHref) {
-      return this.http.get<Translation>(
-        `${baseHref}assets/i18n/${langPath}.json`,
-      );
-    } else {
-      return this.http.get<Translation>(
-        `${
-          window.location.origin
-        }${this.platformLocation.getBaseHrefFromDOM()}assets/i18n/${langPath}.json`,
-      );
-    }
+    return this.http.get<Translation>(
+      `${
+        window.location.origin
+      }${this.platformLocation.getBaseHrefFromDOM()}assets/i18n/${langPath}.json`,
+    );
   }
 }
 
