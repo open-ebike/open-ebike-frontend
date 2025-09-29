@@ -22,7 +22,7 @@ jobs:
       - name: Install Dependencies and Build
         run: |
           npm ci
-          npm run build -- --base-href=/open-ebike-frontend/ --configuration production
+          npm run build -- --base-href=/open-ebike-frontend/ --configuration github-pages
 
       - name: Copy 404 page
         run: |
