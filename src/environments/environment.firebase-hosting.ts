@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  eBikeApiUrl: 'https://api.bosch-ebike.com',
+  eBikeApiUrl: '/api',
   authConfig: {
     issuer: 'https://p9.authz.bosch.com/auth/realms/obc',
     tokenEndpoint:

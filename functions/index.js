@@ -8,7 +8,7 @@ const targetApiUrl = "https://api.bosch-ebike.com";
 exports.proxyApi = functions.https.onRequest((request, response) => {
   cors(request, response, async () => {
     // Construct the full URL for the external API, including the path and query string
-    const fullUrl = `${targetApiUrl}${request.path}${request.url.includes("?") ? "?" + request.url.split("?")[1] : ""}`;
+    const fullUrl = `${targetApiUrl}${request.path.replace("/api", "")}${request.url.includes("?") ? "?" + request.url.split("?")[1] : ""}`;
 
     // Extract the bearer token from the request headers
     const authHeader = request.headers.authorization;
