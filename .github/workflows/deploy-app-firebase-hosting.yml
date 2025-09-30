@@ -20,7 +20,7 @@ jobs:
       - name: Install Dependencies and Build
         run: |
           npm ci
-          npm run build -- --configuration production
+          npm run build -- --configuration firebase-hosting
 
       - name: Deploy to Firebase Hosting
         uses: w9jds/firebase-action@master

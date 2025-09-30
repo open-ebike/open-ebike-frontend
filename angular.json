@@ -31,6 +31,27 @@
             "scripts": []
           },
           "configurations": {
+            "firebase-hosting": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.firebase-hosting.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2MB",
+                  "maximumError": "4MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "128kB",
+                  "maximumError": "256kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "github-pages": {
               "fileReplacements": [
                 {
@@ -76,6 +97,9 @@
             "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
+            "firebase-hosting": {
+              "buildTarget": "open-ebike-frontend:build:firebase-hosting"
+            },
             "github-pages": {
               "buildTarget": "open-ebike-frontend:build:github-pages"
             },
