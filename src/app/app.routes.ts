@@ -6,6 +6,7 @@ import { EbikeDetailsComponent } from './pages/ebike-details/ebike-details.compo
 import { ActivitiesComponent } from './pages/activities/activities.component';
 import { RegistrationsComponent } from './pages/registrations/registrations.component';
 import { ComponentDetailsComponent } from './pages/component-details/component-details.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
   {
@@ -41,6 +42,10 @@ export const routes: Routes = [
     path: 'component-details/:id',
     component: ComponentDetailsComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
   { path: '**', redirectTo: 'home' },
 ];

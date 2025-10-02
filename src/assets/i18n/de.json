@@ -4,7 +4,7 @@
     "home": {
       "title": "Startseite",
       "actions": {
-        "login-with-singlekey-id": "Login mit SingleKey ID"
+        "enter-client-credentials-login": "Client Credentials spezifizieren und einloggen"
       },
       "terms": {
         "hello": "Hallo {{username}}"
@@ -116,6 +116,18 @@
         "field-data": "Field Data",
         "capacity-tester": "Capacity Tester"
       }
+    },
+    "login": {
+      "title": "Login",
+      "terms": {
+        "client-id": "Client ID"
+      },
+      "actions": {
+        "enter-client-id": "Gib die Client ID deiner Client Application ein",
+        "save": "Speichern",
+        "login": "Login",
+        "login-with-singlekey-id": "Login mit SingleKey ID"
+      }
     }
   },
   "terms": {
@@ -125,6 +137,7 @@
     "dev-log": "Dev Log"
   },
   "actions": {
+    "enter-client-credentials": "Client Credentials spezifizieren",
     "login": "Login",
     "logout": "Logout"
   }

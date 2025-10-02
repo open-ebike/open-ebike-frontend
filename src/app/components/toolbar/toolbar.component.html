@@ -81,6 +81,11 @@
             >
           </button>
         }
+        @if (!authenticationService.isLoggedIn()) {
+          <button mat-button class="toolbar-menu-item" routerLink="/login">
+            {{ t("pages.login.title") }}
+          </button>
+        }
         @if (authenticationService.isLoggedIn()) {
           <button
             mat-button
@@ -88,14 +93,6 @@
             (click)="authenticationService.logout()"
           >
             {{ t("actions.logout") }}
-          </button>
-        } @else {
-          <button
-            mat-button
-            class="toolbar-menu-item"
-            (click)="authenticationService.login()"
-          >
-            {{ t("actions.login") }}
           </button>
         }
       </div>

@@ -11,12 +11,8 @@
         </h2>
       </div>
     } @else {
-      <button
-        mat-flat-button
-        color="primary"
-        (click)="authenticationService.login()"
-      >
-        {{ t("actions.login-with-singlekey-id") }}
+      <button mat-flat-button color="primary" routerLink="/login">
+        {{ t("actions.enter-client-credentials-login") }}
       </button>
     }
   </div>

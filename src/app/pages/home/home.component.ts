@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Theme, ThemeService } from '../../services/theme.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { combineLatest, first } from 'rxjs';
@@ -11,7 +11,7 @@ import { MatButton } from '@angular/material/button';
  */
 @Component({
   selector: 'app-home',
-  imports: [TranslocoDirective, MatButton],
+  imports: [TranslocoDirective, MatButton, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   standalone: true,
@@ -47,8 +47,11 @@ export class HomeComponent implements OnInit {
   /**
    * Handles on-init phase
    */
-  ngOnInit() {
+  async ngOnInit() {
     this.handleQueryParameters();
+
+    await this.authenticationService.restoreConfig();
+    await this.authenticationService.processLoginCallback();
   }
 
   //

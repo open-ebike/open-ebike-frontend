@@ -1,5 +1,7 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 /**
  * Represents identify claims of an ID token
@@ -42,14 +44,58 @@ export interface IdentityClaims {
   providedIn: 'root',
 })
 export class AuthenticationService {
+  /** Router */
+  private router = inject(Router);
   /** OAuth service */
   private oauthService = inject(OAuthService);
+  /** Signal providing client ID */
+  public clientId = signal<string>('');
+
+  /**
+   * Restores client ID from local storage
+   */
+  async restoreConfig() {
+    const clientId = localStorage.getItem('clientId');
+
+    if (!clientId) return false;
+
+    await this.configure(clientId);
+    return true;
+  }
+
+  /**
+   * Process login callback
+   */
+  async processLoginCallback() {
+    await this.oauthService.tryLoginCodeFlow();
+  }
+
+  /**
+   * Configures the OAuth service
+   * @param clientId client ID
+   */
+  async configure(clientId: string): Promise<void> {
+    this.clientId.set(clientId);
+
+    // Set client ID auth config
+    const authConfig = { ...environment.authConfig };
+    authConfig.clientId = clientId;
+
+    // Configure auth config
+    this.oauthService.configure(authConfig);
+
+    // Fetch token endpoint
+    await this.oauthService.loadDiscoveryDocument();
+
+    // Store client ID
+    localStorage.setItem('clientId', clientId);
+  }
 
   /**
    * Logs in the user
    */
   login() {
-    this.oauthService.initLoginFlow();
+    this.oauthService.initCodeFlow();
   }
 
   /**

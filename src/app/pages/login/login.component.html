@@ -1,0 +1,42 @@
+<ng-container *transloco="let t; lang: lang; prefix: 'pages.login'">
+  <div class="container flex-container-vertical">
+    <div class="inner-container">
+      <h2>
+        <span class="material-symbols-outlined icon"> key </span>
+        {{ t("title") }}
+      </h2>
+      <div class="question">{{ t("actions.enter-client-id") }}</div>
+      <form class="form">
+        <mat-form-field>
+          <mat-label>{{ t("terms.client-id") }}</mat-label>
+          <input
+            matInput
+            placeholder="euda-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            #input
+            [value]="this.authenticationService.clientId()"
+            name="clientId"
+          />
+        </mat-form-field>
+      </form>
+      <button
+        mat-flat-button
+        color="primary"
+        class="button"
+        [disabled]="input.value.length == 0"
+        (click)="onSaveClicked(input.value)"
+      >
+        {{ t("actions.save") }}
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        class="button"
+        [disabled]="!authenticationService.clientId()"
+        (click)="onLoginClicked()"
+      >
+        {{ t("actions.login") }}
+      </button>
+    </div>
+    <div class="flex-box"></div>
+  </div>
+</ng-container>
