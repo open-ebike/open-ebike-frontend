@@ -1,7 +1,7 @@
 <ng-container *transloco="let t; lang: lang; prefix: 'pages.activities'">
   <div>
     @if (authenticationService.isLoggedIn()) {
-      <mat-drawer-container hasBackdrop="true">
+      <mat-drawer-container hasBackdrop="true" class="drawer-container">
         <mat-drawer
           #drawer
           mode="over"
