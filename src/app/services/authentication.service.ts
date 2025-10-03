@@ -44,8 +44,6 @@ export interface IdentityClaims {
   providedIn: 'root',
 })
 export class AuthenticationService {
-  /** Router */
-  private router = inject(Router);
   /** OAuth service */
   private oauthService = inject(OAuthService);
   /** Signal providing client ID */

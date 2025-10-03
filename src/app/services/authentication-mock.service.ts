@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 /**
  * Represents identify claims of an ID token
@@ -41,6 +42,27 @@ export interface IdentityClaims {
   providedIn: 'root',
 })
 export class AuthenticationService {
+  /** OAuth service */
+  private oauthService = inject(OAuthService);
+  /** Signal providing client ID */
+  public clientId = signal<string>('');
+
+  /**
+   * Restores client ID from local storage
+   */
+  async restoreConfig() {}
+
+  /**
+   * Process login callback
+   */
+  async processLoginCallback() {}
+
+  /**
+   * Configures the OAuth service
+   * @param clientId client ID
+   */
+  async configure(clientId: string): Promise<void> {}
+
   /**
    * Logs in the user
    */
