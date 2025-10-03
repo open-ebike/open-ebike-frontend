@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { EbikesComponent } from './pages/ebikes/ebikes.component';
-import { AuthGuard } from './services/auth/auth-guards';
+import { AuthGuard } from './services/auth/auth-guard';
 import { EbikeDetailsComponent } from './pages/ebike-details/ebike-details.component';
 import { ActivitiesComponent } from './pages/activities/activities.component';
 import { RegistrationsComponent } from './pages/registrations/registrations.component';
