@@ -178,10 +178,12 @@ export class ActivitiesComponent implements OnInit {
   /**
    * Handles the drawer closed state
    */
-  onDrawerClosed(): void {
-    this.router.navigate(['/activities', this.id()], {
-      queryParamsHandling: 'merge',
-    });
+  onDrawerClosed() {
+    if (this.id()) {
+      this.router.navigate(['/activities', this.id()], {
+        queryParamsHandling: 'merge',
+      });
+    }
   }
 
   //
