@@ -17,15 +17,11 @@ import {
 import { combineLatest, first } from 'rxjs';
 import {
   MatCard,
-  MatCardActions,
   MatCardAvatar,
   MatCardContent,
-  MatCardFooter,
   MatCardHeader,
   MatCardTitle,
 } from '@angular/material/card';
-import { MatButton } from '@angular/material/button';
-import { MatRipple } from '@angular/material/core';
 import { ThousandsSeparatorPipe } from '../../pipes/thousands-separator.pipe';
 import {
   CapacityTester,
@@ -46,14 +42,10 @@ import {
     TranslocoDirective,
     MatCardAvatar,
     RouterLink,
-    MatButton,
-    MatRipple,
     ThousandsSeparatorPipe,
     AttributeTreeComponent,
     MatCard,
-    MatCardActions,
     MatCardContent,
-    MatCardFooter,
     MatCardHeader,
     MatCardTitle,
   ],

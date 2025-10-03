@@ -19,8 +19,6 @@ import {
   MatCardTitle,
 } from '@angular/material/card';
 import { MatRipple } from '@angular/material/core';
-import { ThousandsSeparatorPipe } from '../../pipes/thousands-separator.pipe';
-import { MatGridList, MatGridTile } from '@angular/material/grid-list';
 import { DatePipe } from '@angular/common';
 import {
   BikePass,
@@ -63,9 +61,6 @@ import { MatButton } from '@angular/material/button';
     MatCardSubtitle,
     MatRipple,
     MatCardContent,
-    ThousandsSeparatorPipe,
-    MatGridList,
-    MatGridTile,
     MatCardFooter,
     MatCardActions,
     DatePipe,

@@ -7,10 +7,7 @@ import {
   EbikeRegistrationService,
   Registration,
 } from '../../services/api/ebike-registration.service';
-import { MatList } from '@angular/material/list';
 import { DatePipe } from '@angular/common';
-import { MetersToKilometersPipe } from '../../pipes/meters-to-kilometers.pipe';
-import { MatIcon } from '@angular/material/icon';
 import { MatRipple } from '@angular/material/core';
 import { combineLatest, first } from 'rxjs';
 import {
@@ -28,11 +25,8 @@ import {
   selector: 'app-registrations',
   imports: [
     TranslocoDirective,
-    MatList,
     DatePipe,
-    MatIcon,
     MatRipple,
-    MetersToKilometersPipe,
     RouterLink,
     MatCard,
     MatCardHeader,

@@ -42,8 +42,6 @@ import { MatChip, MatChipOption } from '@angular/material/chips';
     MatCardContent,
     MatCardActions,
     MatCardFooter,
-    MatChip,
-    MatChipOption,
   ],
   templateUrl: './ebikes.component.html',
   styleUrl: './ebikes.component.scss',
