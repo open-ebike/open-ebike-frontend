@@ -7,7 +7,7 @@ import {
   EbikeRegistrationService,
   Registration,
 } from '../../services/api/ebike-registration.service';
-import { MatList, MatListItem } from '@angular/material/list';
+import { MatList } from '@angular/material/list';
 import { DatePipe } from '@angular/common';
 import { MetersToKilometersPipe } from '../../pipes/meters-to-kilometers.pipe';
 import { MatIcon } from '@angular/material/icon';
@@ -31,8 +31,6 @@ import {
     MatList,
     DatePipe,
     MatIcon,
-    MatList,
-    MatListItem,
     MatRipple,
     MetersToKilometersPipe,
     RouterLink,
