@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { getBrowserLang, TranslocoModule } from '@jsverse/transloco';
 import { AuthenticationService } from '../../services/authentication.service';
+import { Media, MediaService } from '../../services/media.service';
 
 /**
  * Displays toolbar
@@ -36,6 +37,8 @@ export class ToolbarComponent {
   private route = inject(ActivatedRoute);
   /** Router */
   private router = inject(Router);
+  /** Media service */
+  public mediaService = inject(MediaService);
   /** Theme service */
   public themeService = inject(ThemeService);
   /** Authentication service */
@@ -43,6 +46,8 @@ export class ToolbarComponent {
 
   /** Language */
   lang = getBrowserLang();
+  /** Media enum */
+  mediaEnum = Media;
   /** Theme enum */
   themeEnum = Theme;
 

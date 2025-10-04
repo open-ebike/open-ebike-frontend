@@ -18,84 +18,181 @@
             />
           }
         </a>
-        <button
-          mat-button
-          class="toolbar-menu-item"
-          routerLinkActive="toolbar-menu-item-active"
-          routerLink="/home"
-          queryParamsHandling="merge"
-        >
-          {{ t("pages.home.title") }}
-        </button>
-        @if (authenticationService.isLoggedIn()) {
-          <button
-            mat-button
-            class="toolbar-menu-item"
-            routerLinkActive="toolbar-menu-item-active"
-            routerLink="/ebikes"
-            queryParamsHandling="merge"
-          >
-            {{ t("pages.ebikes.title") }}
-          </button>
-          <button
-            mat-button
-            class="toolbar-menu-item"
-            routerLinkActive="toolbar-menu-item-active"
-            routerLink="/activities"
-            queryParamsHandling="merge"
-          >
-            {{ t("pages.activities.title") }}
-          </button>
-          <button
-            mat-button
-            class="toolbar-menu-item"
-            routerLinkActive="toolbar-menu-item-active"
-            routerLink="/registrations"
-            queryParamsHandling="merge"
-          >
-            {{ t("pages.registrations.title") }}
-          </button>
-        }
       </div>
-      <div class="flex-box"></div>
-      <div class="toolbar-block end">
-        @if (themeService.theme() === themeEnum.LIGHT) {
+      @if (mediaService.media() > mediaEnum.SMALL) {
+        <div class="toolbar-block start">
           <button
             mat-button
             class="toolbar-menu-item"
-            (click)="onDarkModeClicked()"
+            routerLinkActive="toolbar-menu-item-active"
+            routerLink="/home"
+            queryParamsHandling="merge"
+          >
+            {{ t("pages.home.title") }}
+          </button>
+          @if (authenticationService.isLoggedIn()) {
+            <button
+              mat-button
+              class="toolbar-menu-item"
+              routerLinkActive="toolbar-menu-item-active"
+              routerLink="/ebikes"
+              queryParamsHandling="merge"
+            >
+              {{ t("pages.ebikes.title") }}
+            </button>
+            <button
+              mat-button
+              class="toolbar-menu-item"
+              routerLinkActive="toolbar-menu-item-active"
+              routerLink="/activities"
+              queryParamsHandling="merge"
+            >
+              {{ t("pages.activities.title") }}
+            </button>
+            <button
+              mat-button
+              class="toolbar-menu-item"
+              routerLinkActive="toolbar-menu-item-active"
+              routerLink="/registrations"
+              queryParamsHandling="merge"
+            >
+              {{ t("pages.registrations.title") }}
+            </button>
+          }
+        </div>
+        <div class="flex-box"></div>
+        <div class="toolbar-block end">
+          @if (themeService.theme() === themeEnum.LIGHT) {
+            <button
+              mat-button
+              class="toolbar-menu-item"
+              (click)="onDarkModeClicked()"
+            >
+              <span class="material-symbols-outlined toolbar-icon"
+                >dark_mode</span
+              >
+            </button>
+          }
+          @if (themeService.theme() === themeEnum.DARK) {
+            <button
+              mat-button
+              class="toolbar-menu-item"
+              (click)="onLightModeClicked()"
+            >
+              <span class="material-symbols-outlined toolbar-icon"
+                >light_mode</span
+              >
+            </button>
+          }
+          @if (authenticationService.isLoggedIn()) {
+            <button
+              mat-button
+              class="toolbar-menu-item"
+              (click)="authenticationService.logout()"
+            >
+              {{ t("actions.logout") }}
+            </button>
+          } @else {
+            <button mat-button class="toolbar-menu-item" routerLink="/login">
+              {{ t("pages.login.title") }}
+            </button>
+          }
+        </div>
+      } @else {
+        <div class="flex-box"></div>
+        <div class="toolbar-block end">
+          <button
+            mat-button
+            class="toolbar-menu-item"
+            [matMenuTriggerFor]="menu"
           >
             <span class="material-symbols-outlined toolbar-icon"
-              >dark_mode</span
+              >more_vert</span
             >
           </button>
-        }
-        @if (themeService.theme() === themeEnum.DARK) {
-          <button
-            mat-button
-            class="toolbar-menu-item"
-            (click)="onLightModeClicked()"
-          >
-            <span class="material-symbols-outlined toolbar-icon"
-              >light_mode</span
+          <mat-menu #menu="matMenu">
+            <button
+              mat-menu-item
+              class="toolbar-menu-item"
+              routerLinkActive="toolbar-menu-item-active"
+              routerLink="/home"
+              queryParamsHandling="merge"
             >
-          </button>
-        }
-        @if (!authenticationService.isLoggedIn()) {
-          <button mat-button class="toolbar-menu-item" routerLink="/login">
-            {{ t("pages.login.title") }}
-          </button>
-        }
-        @if (authenticationService.isLoggedIn()) {
-          <button
-            mat-button
-            class="toolbar-menu-item"
-            (click)="authenticationService.logout()"
-          >
-            {{ t("actions.logout") }}
-          </button>
-        }
-      </div>
+              {{ t("pages.home.title") }}
+            </button>
+            @if (authenticationService.isLoggedIn()) {
+              <button
+                mat-menu-item
+                class="toolbar-menu-item"
+                routerLinkActive="toolbar-menu-item-active"
+                routerLink="/ebikes"
+                queryParamsHandling="merge"
+              >
+                {{ t("pages.ebikes.title") }}
+              </button>
+              <button
+                mat-menu-item
+                class="toolbar-menu-item"
+                routerLinkActive="toolbar-menu-item-active"
+                routerLink="/activities"
+                queryParamsHandling="merge"
+              >
+                {{ t("pages.activities.title") }}
+              </button>
+              <button
+                mat-menu-item
+                class="toolbar-menu-item"
+                routerLinkActive="toolbar-menu-item-active"
+                routerLink="/registrations"
+                queryParamsHandling="merge"
+              >
+                {{ t("pages.registrations.title") }}
+              </button>
+            }
+            @if (themeService.theme() === themeEnum.LIGHT) {
+              <button
+                mat-menu-item
+                class="toolbar-menu-item"
+                (click)="onDarkModeClicked()"
+              >
+                <span class="material-symbols-outlined toolbar-icon"
+                  >dark_mode</span
+                >
+                {{ t("actions.switch-to-dark-mode") }}
+              </button>
+            }
+            @if (themeService.theme() === themeEnum.DARK) {
+              <button
+                mat-menu-item
+                class="toolbar-menu-item"
+                (click)="onLightModeClicked()"
+              >
+                <span class="material-symbols-outlined toolbar-icon"
+                  >light_mode</span
+                >
+                {{ t("actions.switch-to-light-mode") }}
+              </button>
+            }
+            @if (authenticationService.isLoggedIn()) {
+              <button
+                mat-menu-item
+                class="toolbar-menu-item"
+                (click)="authenticationService.logout()"
+              >
+                {{ t("actions.logout") }}
+              </button>
+            } @else {
+              <button
+                mat-menu-item
+                class="toolbar-menu-item"
+                routerLink="/login"
+              >
+                {{ t("pages.login.title") }}
+              </button>
+            }
+          </mat-menu>
+        </div>
+      }
     </mat-toolbar>
   </div>
 </ng-container>

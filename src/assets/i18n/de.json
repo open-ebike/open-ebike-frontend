@@ -151,6 +151,8 @@
   },
   "actions": {
     "enter-client-credentials": "Client Credentials spezifizieren",
+    "switch-to-light-mode": "zu Light Mode wechseln",
+    "switch-to-dark-mode": "zu Dark Mode wechseln",
     "login": "Login",
     "logout": "Logout"
   }

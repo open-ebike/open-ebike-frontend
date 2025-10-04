@@ -153,6 +153,8 @@
   },
   "actions": {
     "enter-client-credentials": "Enter Client Credentials",
+    "switch-to-light-mode": "Switch to Light Mode",
+    "switch-to-dark-mode": "Switch to Dark Mode",
     "login": "Login",
     "logout": "Logout"
   }
