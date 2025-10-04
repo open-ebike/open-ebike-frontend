@@ -5,6 +5,7 @@
         <mat-drawer
           #drawer
           mode="over"
+          class="drawer"
           [opened]="!id()"
           (closed)="onDrawerClosed()"
         >
@@ -38,6 +39,10 @@
                   >
                 </div>
               </mat-list-item>
+            } @empty {
+              <mat-list-item class="list-item">{{
+                t("messages.no-activities")
+              }}</mat-list-item>
             }
           </mat-list>
         </mat-drawer>

@@ -17,7 +17,7 @@
         "registered": "registered"
       },
       "messages": {
-        "no-ebikes-found": "no eBikes found"
+        "no-ebikes": "no eBikes registered"
       }
     },
     "ebike-details": {
@@ -55,6 +55,13 @@
         "installation-reports": "Installation Reports",
         "installation-report": "Installation Report"
       },
+      "messages": {
+        "no-bike-passes": "no bike passes found",
+        "no-bulk-installation-reports": "no bulk installation reports found",
+        "no-service-records": "no service records found",
+        "no-remote-configuration-cases": "no remote configuration cases found",
+        "no-installation-reports": "no installation reports found"
+      },
       "actions": {
         "show-all": "show all"
       }
@@ -71,6 +78,9 @@
         "longitude": "longitude",
         "riderPower": "rider power",
         "undefined": "undefined"
+      },
+      "messages": {
+        "no-activities": "no activities recorded"
       },
       "actions": {
         "show-all": "show all",
@@ -117,6 +127,9 @@
         "undefined": "undefined",
         "field-data": "Field Data",
         "capacity-tester": "Capacity Tester"
+      },
+      "messages": {
+        "no-field-data": "no field data recorded"
       }
     },
     "login": {

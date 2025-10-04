@@ -372,6 +372,8 @@
             <mat-card-actions></mat-card-actions>
             <mat-card-footer></mat-card-footer>
           </mat-card>
+        } @empty {
+          <p>{{ t("messages.no-bike-passes") }}</p>
         }
 
         <h3>{{ t("terms.bulk-installation-reports") }}</h3>
@@ -399,6 +401,8 @@
               ></app-attribute-tree>
             </mat-card-content>
           </mat-card>
+        } @empty {
+          <p>{{ t("messages.no-bulk-installation-reports") }}</p>
         }
 
         <h3>{{ t("terms.service-book") }}</h3>
@@ -417,6 +421,8 @@
               <app-attribute-tree [object]="serviceRecord"></app-attribute-tree>
             </mat-card-content>
           </mat-card>
+        } @empty {
+          <p>{{ t("messages.no-service-records") }}</p>
         }
 
         <h3>{{ t("terms.remote-configuration-cases") }}</h3>
@@ -444,6 +450,8 @@
               ></app-attribute-tree>
             </mat-card-content>
           </mat-card>
+        } @empty {
+          <p>{{ t("messages.no-remote-configuration-cases") }}</p>
         }
 
         <h3>{{ t("terms.installation-reports") }}</h3>
@@ -471,6 +479,8 @@
               ></app-attribute-tree>
             </mat-card-content>
           </mat-card>
+        } @empty {
+          <p>{{ t("messages.no-installation-reports") }}</p>
         }
       </div>
       <div class="flex-box"></div>

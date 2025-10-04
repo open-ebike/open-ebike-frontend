@@ -214,6 +214,8 @@
               ></app-attribute-tree>
             </mat-card-content>
           </mat-card>
+        } @empty {
+          <p>{{ t("messages.no-field-data") }}</p>
         }
       </div>
       <div class="flex-box"></div>
