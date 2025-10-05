@@ -20,7 +20,6 @@ The aim of this project is to display the data retrieved via the [EU Data Act AP
 ### Built With
 
 - [Angular](https://angular.io/)
-- [Mapbox](https://mapbox.com/)
 
 ## Usage
 
@@ -42,6 +41,14 @@ Alternatively, you can start the app with a mock backend locally by running
 npm run start-mock
 ```
 
-## Acknowledgements
+## Attribution
 
 Icon made by Freepik from [flaticon.com](https://flaticon.com)
+
+## License
+
+Distributed under the AGPLv3 License. See [LICENSE.md](./LICENSE.md) for more information.
+
+## Contact
+
+openebike@gmail.com
