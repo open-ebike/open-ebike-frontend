@@ -1,4 +1,5 @@
 [![Issues](https://img.shields.io/github/issues/open-ebike/open-ebike-frontend)](https://github.com/open-ebike/open-ebike-frontend/issues)
+[![Deploy Angular App to Firebase Hosting](https://github.com/open-ebike/open-ebike-frontend/actions/workflows/deploy-app-firebase-hosting.yml/badge.svg)](https://github.com/open-ebike/open-ebike-frontend/actions/workflows/deploy-app-firebase-hosting.yml)
 
 <br />
 <p align="center">
