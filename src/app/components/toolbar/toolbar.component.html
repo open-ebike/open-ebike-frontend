@@ -88,6 +88,15 @@
             mat-button
             class="toolbar-menu-item"
             routerLinkActive="toolbar-menu-item-active"
+            routerLink="/contact"
+            queryParamsHandling="merge"
+          >
+            {{ t("pages.contact.title") }}
+          </button>
+          <button
+            mat-button
+            class="toolbar-menu-item"
+            routerLinkActive="toolbar-menu-item-active"
             routerLink="/imprint"
             queryParamsHandling="merge"
           >
@@ -182,6 +191,15 @@
                 {{ t("actions.switch-to-light-mode") }}
               </button>
             }
+            <button
+              mat-menu-item
+              class="toolbar-menu-item"
+              routerLinkActive="toolbar-menu-item-active"
+              routerLink="/contact"
+              queryParamsHandling="merge"
+            >
+              {{ t("pages.contact.title") }}
+            </button>
             <button
               mat-menu-item
               class="toolbar-menu-item"

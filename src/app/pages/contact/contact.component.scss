@@ -1,0 +1,53 @@
+@use "@angular/material" as mat;
+@import "../../../styles";
+
+.container {
+  height: calc(100% - 64px);
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  max-width: 960px;
+  margin: 32px;
+}
+
+.logo-funding {
+  max-width: 200px;
+  margin: 8px;
+}
+
+h2 {
+  margin-top: 32px;
+  text-transform: uppercase;
+}
+
+.member-image {
+  height: 75px;
+  width: 75px;
+  margin-right: 25px;
+}
+
+.team-container,
+.contact-container {
+  margin-bottom: 50px;
+}
+
+.team-sub-container,
+.contact-sub-container {
+  margin-bottom: 25px;
+}
+
+.social-icon {
+  margin-right: 10px;
+  vertical-align: text-bottom;
+}
+
+.social-delimiter {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.contact-icon {
+  margin-right: 10px;
+}

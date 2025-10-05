@@ -142,6 +142,17 @@
         "login-with-singlekey-id": "Login mit SingleKey ID"
       }
     },
+    "contact": {
+      "title": "Kontakt",
+      "labels": {
+        "team": "Team",
+        "data-scientist": "Data Scientist",
+        "consultant": "Consultant",
+        "fullstack-developer": "Fullstack Developer",
+        "machine-learning-enthusiast": "Machine Learning Enthusiast",
+        "agile-coach": "Agile Coach"
+      }
+    },
     "imprint": {
       "title": "Impressum",
       "information": "Angaben gemäß § 5 TMG",
