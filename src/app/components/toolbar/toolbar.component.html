@@ -84,6 +84,15 @@
               >
             </button>
           }
+          <button
+            mat-button
+            class="toolbar-menu-item"
+            routerLinkActive="toolbar-menu-item-active"
+            routerLink="/imprint"
+            queryParamsHandling="merge"
+          >
+            {{ t("pages.imprint.title") }}
+          </button>
           @if (authenticationService.isLoggedIn()) {
             <button
               mat-button
@@ -173,6 +182,15 @@
                 {{ t("actions.switch-to-light-mode") }}
               </button>
             }
+            <button
+              mat-menu-item
+              class="toolbar-menu-item"
+              routerLinkActive="toolbar-menu-item-active"
+              routerLink="/imprint"
+              queryParamsHandling="merge"
+            >
+              {{ t("pages.imprint.title") }}
+            </button>
             @if (authenticationService.isLoggedIn()) {
               <button
                 mat-menu-item
