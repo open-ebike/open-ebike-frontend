@@ -58,6 +58,16 @@ export class LoginComponent implements OnInit {
   }
 
   /**
+   * Handles click on save-and-login button
+   * @param clientId client ID
+   */
+  onSaveAndLoginClicked(clientId: string) {
+    this.authenticationService.configure(clientId).then(() => {
+      this.authenticationService.login();
+    });
+  }
+
+  /**
    * Handles click on login button
    */
   onLoginClicked() {

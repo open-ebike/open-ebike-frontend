@@ -5,3 +5,28 @@
   max-width: 960px;
   margin: 32px;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media #{$breakpoint-large} {
+  .grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.list {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+
+li {
+  margin: 24px 0;
+}
+
+.client-application > li {
+  margin: 8px 0;
+}

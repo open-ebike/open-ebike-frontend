@@ -7,6 +7,30 @@
         "enter-client-credentials-login": "Enter Client Credentials and Login"
       },
       "terms": {
+        "welcome": "Welcome to Open eBike",
+        "getting-started": "This app showcases the usage of the EUDA API of Bosch eBike Systems. Follow these steps to get started:",
+        "step-1-title": "Step 1 - SingleKey ID Account",
+        "step-1-content": "Sign up for <a href='https://singlekey-id.com/en-us/login' target='_blank'>SingleKey ID</a>",
+        "step-2-title": "Step 2 - eBike Flow app",
+        "step-2-content-1": "Have a <a href='https://www.bosch-ebike.com/us/products/the-smart-system' target='_blank'>Bosch-powered eBike using the Smart System</a>",
+        "step-2-content-2": "Get the <a href='https://www.bosch-ebike.com/us/products/ebike-flow-app' target='_blank'>eBike Flow app</a> and log in with your SingleKey ID account",
+        "step-2-content-3": "Connect your eBike with the Flow app and take a ride",
+        "step-3-title": "Step 3 - Data Access Request",
+        "step-3-content-1": "Log in to <a href='https://portal.bosch-ebike.com' target='_blank'>https://portal.bosch-ebike.com</a> using your SingleKey ID account",
+        "step-3-content-2": "Accept the terms and conditions and select <strong class='highlight'>I am a user</strong>",
+        "step-3-content-3": "Create a client application with the following specs",
+        "step-3-content-4": "Note the displayed client ID",
+        "step-4-title": "Step 4 - Data Access Grant",
+        "step-4-content-1": "Log in to <a href='https://flow.bosch-ebike.com' target='_blank'>https://flow.bosch-ebike.com</a> using your SingleKey ID account",
+        "step-4-content-2": "On the <a href='https://flow.bosch-ebike.com/data-act' target='_blank'>Data Act page</a> grant your client application access to your eBike's data",
+        "step-5-title": "Step 5 - Open eBike Login",
+        "step-5-content-1": "Visit the <a href='https://open-ebike.web.app/login' target='_blank'>Open eBike login page</a>",
+        "step-5-content-2": "Enter the client ID you noted in step 3 and click <strong class='highlight'>save and login</>",
+        "client-application-name": "client application name",
+        "login-url": "login URL",
+        "redirect-uris": "redirect URI(s)",
+        "confidential-client": "confidential client",
+        "false": "false",
         "hello": "Hello {{username}}"
       }
     },
@@ -140,6 +164,7 @@
       "actions": {
         "enter-client-id": "Enter the client ID of your client application",
         "save": "Save",
+        "save-and-login": "Save and Login",
         "login": "Login",
         "login-with-singlekey-id": "Login with SingleKey ID"
       }

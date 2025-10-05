@@ -5,13 +5,29 @@ import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { combineLatest, first } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
 import { MatButton } from '@angular/material/button';
+import {
+  MatCard,
+  MatCardAvatar,
+  MatCardContent,
+  MatCardHeader,
+  MatCardTitle,
+} from '@angular/material/card';
 
 /**
  * Displays home component
  */
 @Component({
   selector: 'app-home',
-  imports: [TranslocoDirective, MatButton, RouterLink],
+  imports: [
+    TranslocoDirective,
+    MatButton,
+    RouterLink,
+    MatCard,
+    MatCardHeader,
+    MatCardAvatar,
+    MatCardTitle,
+    MatCardContent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   standalone: true,

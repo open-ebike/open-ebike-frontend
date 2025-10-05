@@ -1,5 +1,5 @@
 <ng-container *transloco="let t; lang: lang; prefix: 'pages.home'">
-  <div class="container flex-container">
+  <div class="container flex-container-vertical">
     @if (authenticationService.isLoggedIn()) {
       <div class="text">
         <h2>
@@ -11,9 +11,108 @@
         </h2>
       </div>
     } @else {
-      <button mat-flat-button color="primary" routerLink="/login">
-        {{ t("actions.enter-client-credentials-login") }}
-      </button>
+      <h2>{{ t("terms.welcome") }}</h2>
+      <h3>{{ t("terms.getting-started") }}</h3>
+      <div class="grid">
+        <mat-card>
+          <mat-card-header>
+            <div mat-card-avatar>
+              <span class="material-symbols-outlined component icon">
+                account_circle
+              </span>
+            </div>
+            <mat-card-title>{{ t("terms.step-1-title") }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p [innerHTML]="t('terms.step-1-content')"></p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-header>
+            <div mat-card-avatar>
+              <span class="material-symbols-outlined component icon">
+                mobile
+              </span>
+            </div>
+            <mat-card-title>{{ t("terms.step-2-title") }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <ul class="list">
+              <li [innerHTML]="t('terms.step-2-content-1')"></li>
+              <li [innerHTML]="t('terms.step-2-content-2')"></li>
+              <li [innerHTML]="t('terms.step-2-content-3')"></li>
+            </ul>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-header>
+            <div mat-card-avatar>
+              <span class="material-symbols-outlined component icon">
+                contract
+              </span>
+            </div>
+            <mat-card-title>{{ t("terms.step-3-title") }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <ul class="list">
+              <li [innerHTML]="t('terms.step-3-content-1')"></li>
+              <li [innerHTML]="t('terms.step-3-content-2')"></li>
+              <li [innerHTML]="t('terms.step-3-content-3')"></li>
+              <ul class="client-application">
+                <li>
+                  <strong class="highlight">{{ t("terms.login-url") }}:</strong>
+                  https://open-ebike.web.app
+                </li>
+                <li>
+                  <strong class="highlight"
+                    >{{ t("terms.redirect-uris") }}:</strong
+                  >
+                  https://open-ebike.web.app/*
+                </li>
+                <li>
+                  <strong class="highlight"
+                    >{{ t("terms.confidential-client") }}:</strong
+                  >
+                  {{ t("terms.false") }}
+                </li>
+              </ul>
+              <li [innerHTML]="t('terms.step-3-content-4')"></li>
+            </ul>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-header>
+            <div mat-card-avatar>
+              <span class="material-symbols-outlined component icon">
+                approval_delegation
+              </span>
+            </div>
+            <mat-card-title>{{ t("terms.step-4-title") }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <ul class="list">
+              <li [innerHTML]="t('terms.step-4-content-1')"></li>
+              <li [innerHTML]="t('terms.step-4-content-2')"></li>
+            </ul>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-header>
+            <div mat-card-avatar>
+              <span class="material-symbols-outlined component icon">
+                login
+              </span>
+            </div>
+            <mat-card-title>{{ t("terms.step-5-title") }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <ul class="list">
+              <li [innerHTML]="t('terms.step-5-content-1')"></li>
+              <li [innerHTML]="t('terms.step-5-content-2')"></li>
+            </ul>
+          </mat-card-content>
+        </mat-card>
+      </div>
     }
   </div>
 </ng-container>

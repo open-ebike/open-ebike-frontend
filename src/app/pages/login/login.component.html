@@ -32,9 +32,9 @@
         color="primary"
         class="button"
         [disabled]="!authenticationService.clientId()"
-        (click)="onLoginClicked()"
+        (click)="onSaveAndLoginClicked(input.value)"
       >
-        {{ t("actions.login") }}
+        {{ t("actions.save-and-login") }}
       </button>
     </div>
     <div class="flex-box"></div>
