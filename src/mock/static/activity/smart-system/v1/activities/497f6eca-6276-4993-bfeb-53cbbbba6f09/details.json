@@ -1,0 +1,112 @@
+{
+  "activityDetails": [
+    {
+      "distance": 0,
+      "altitude": 37,
+      "speed": 0,
+      "cadence": 0,
+      "latitude": 52.5061,
+      "longitude": 13.4414,
+      "riderPower": 0
+    },
+    {
+      "distance": 150,
+      "altitude": 37,
+      "speed": 10.2,
+      "cadence": 70,
+      "latitude": 52.5067,
+      "longitude": 13.4429,
+      "riderPower": 130
+    },
+    {
+      "distance": 300,
+      "altitude": 36,
+      "speed": 11.5,
+      "cadence": 75,
+      "latitude": 52.5074,
+      "longitude": 13.4442,
+      "riderPower": 150
+    },
+    {
+      "distance": 500,
+      "altitude": 36,
+      "speed": 13.8,
+      "cadence": 82,
+      "latitude": 52.5085,
+      "longitude": 13.446,
+      "riderPower": 180
+    },
+    {
+      "distance": 700,
+      "altitude": 37,
+      "speed": 15.0,
+      "cadence": 85,
+      "latitude": 52.5097,
+      "longitude": 13.4478,
+      "riderPower": 200
+    },
+    {
+      "distance": 900,
+      "altitude": 37,
+      "speed": 14.5,
+      "cadence": 83,
+      "latitude": 52.5108,
+      "longitude": 13.4495,
+      "riderPower": 195
+    },
+    {
+      "distance": 1100,
+      "altitude": 37,
+      "speed": 16.2,
+      "cadence": 88,
+      "latitude": 52.5119,
+      "longitude": 13.451,
+      "riderPower": 210
+    },
+    {
+      "distance": 1300,
+      "altitude": 36,
+      "speed": 17.0,
+      "cadence": 90,
+      "latitude": 52.5129,
+      "longitude": 13.4525,
+      "riderPower": 220
+    },
+    {
+      "distance": 1500,
+      "altitude": 36,
+      "speed": 16.5,
+      "cadence": 89,
+      "latitude": 52.5138,
+      "longitude": 13.454,
+      "riderPower": 215
+    },
+    {
+      "distance": 1700,
+      "altitude": 35,
+      "speed": 14.0,
+      "cadence": 78,
+      "latitude": 52.5145,
+      "longitude": 13.455,
+      "riderPower": 180
+    },
+    {
+      "distance": 1850,
+      "altitude": 35,
+      "speed": 12.5,
+      "cadence": 70,
+      "latitude": 52.5152,
+      "longitude": 13.456,
+      "riderPower": 160
+    },
+    {
+      "distance": 2000,
+      "altitude": 35,
+      "speed": 10.0,
+      "cadence": 65,
+      "latitude": 52.5158,
+      "longitude": 13.457,
+      "riderPower": 140
+    }
+  ]
+}
