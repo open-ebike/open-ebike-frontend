@@ -24,11 +24,22 @@ import { DatePipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatRipple } from '@angular/material/core';
 import { MetersToKilometersPipe } from '../../pipes/meters-to-kilometers.pipe';
-import { MatCard, MatCardAvatar, MatCardContent } from '@angular/material/card';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardAvatar,
+  MatCardContent,
+  MatCardFooter,
+} from '@angular/material/card';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatButton } from '@angular/material/button';
 import { environment } from '../../../environments/environment';
-import { MapBoxStyle, MapComponent } from '../../components/map/map.component';
+import {
+  MapBoxStyle,
+  MapComponent,
+  Origin,
+  Overlay,
+} from '../../components/map/map.component';
 import { MapboxService } from '../../services/mapbox.service';
 
 /**
@@ -50,6 +61,8 @@ import { MapboxService } from '../../services/mapbox.service';
     MatSidenavModule,
     MatButton,
     MapComponent,
+    MatCardActions,
+    MatCardFooter,
   ],
   templateUrl: './activities.component.html',
   styleUrl: './activities.component.scss',
@@ -97,8 +110,11 @@ export class ActivitiesComponent implements OnInit {
   //
 
   mapId = 'activities';
-  mapHeight = '100%';
+  mapHeight = 'calc(100vh - 64px - 92px)';
   mapStyle = MapBoxStyle.LIGHT_V10;
+
+  overlays: Map<string, Overlay> = new Map<string, Overlay>();
+  boundingBox: number[] | undefined;
 
   /** Language */
   lang = getBrowserLang();
@@ -147,7 +163,9 @@ export class ActivitiesComponent implements OnInit {
    * Handles on-init phase
    */
   ngOnInit() {
-    this.initializeActivitiesSummaries(1_000, 0, '-startTime');
+    this.mapboxService.restoreConfig();
+
+    this.initializeActivitiesSummaries(100, 0, '-startTime');
     this.handleQueryParameters();
   }
 
@@ -178,6 +196,42 @@ export class ActivitiesComponent implements OnInit {
       .getActivityDetails(id)
       .subscribe((activityDetails) => {
         this.activityDetails.set(activityDetails.activityDetails);
+
+        const geojson = this.mapboxService.buildGeojson(
+          activityDetails.activityDetails,
+        );
+
+        const overlayId = 'activity-details';
+        const source = {
+          origin: Origin.INLINE,
+          name: overlayId,
+          value: JSON.stringify(geojson),
+        };
+        const layer = {
+          origin: Origin.INLINE,
+          name: `${overlayId}-layer`,
+          value: JSON.stringify({
+            id: `${overlayId}-layer`,
+            type: 'line',
+            source: overlayId,
+            layout: {
+              'line-join': 'round',
+              'line-cap': 'round',
+            },
+            paint: {
+              'line-color': '#d75b98',
+              'line-width': 8,
+            },
+          }),
+        };
+        const overlay = {
+          source,
+          layers: [layer],
+        };
+
+        this.overlays.set(id, overlay);
+        this.overlays = new Map(this.overlays);
+        this.boundingBox = geojson.features[0]['properties']['bounding-box'];
       });
   }
 
@@ -229,6 +283,4 @@ export class ActivitiesComponent implements OnInit {
       })
       .then();
   }
-
-  protected readonly environment = environment;
 }
