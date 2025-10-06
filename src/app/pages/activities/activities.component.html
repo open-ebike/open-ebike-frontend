@@ -3,42 +3,58 @@
     @if (authenticationService.isLoggedIn()) {
       <mat-drawer-container hasBackdrop="true" class="drawer-container">
         <mat-drawer #drawer mode="over" class="drawer" [opened]="!id()">
-          <mat-list>
-            @for (
-              activitySummary of activitySummaries();
-              track activitySummary
-            ) {
-              <mat-list-item
-                mat-ripple
-                class="list-item"
-                (click)="onActivityClicked(activitySummary.id)"
+          <div class="flex-container-vertical" style="height: 100%">
+            <mat-list class="activities-list">
+              @for (
+                activitySummary of activitySummaries();
+                track activitySummary
+              ) {
+                <mat-list-item
+                  mat-ripple
+                  class="list-item"
+                  (click)="onActivityClicked(activitySummary.id)"
+                >
+                  <mat-icon
+                    matListItemIcon
+                    class="activity icon"
+                    style="margin: 8px"
+                    >route
+                  </mat-icon>
+                  <div matListItemTitle class="title">
+                    {{ activitySummary.title }}
+                  </div>
+                  <div matListItemLine class="subtitle">
+                    <span>{{
+                      activitySummary.startTime | date: "medium"
+                    }}</span>
+                    <span class="delimiter">·</span>
+                    <span
+                      >{{
+                        activitySummary.distance | metersToKilometers
+                      }}
+                      km</span
+                    >
+                  </div>
+                </mat-list-item>
+              } @empty {
+                <mat-list-item class="list-item"
+                  >{{ t("messages.no-activities") }}
+                </mat-list-item>
+              }
+            </mat-list>
+            <div class="flex-box"></div>
+            <div class="activities-paginator">
+              <mat-paginator
+                (page)="handlePageEvent($event)"
+                [length]="pageTotalLength()"
+                [pageSize]="pageSize()"
+                [showFirstLastButtons]="'true'"
+                [pageSizeOptions]="pageSizeOptions"
+                [pageIndex]="pageIndex()"
               >
-                <mat-icon
-                  matListItemIcon
-                  class="activity icon"
-                  style="margin: 8px"
-                  >route
-                </mat-icon>
-                <div matListItemTitle class="title">
-                  {{ activitySummary.title }}
-                </div>
-                <div matListItemLine class="subtitle">
-                  <span>{{ activitySummary.startTime | date: "medium" }}</span>
-                  <span class="delimiter">·</span>
-                  <span
-                    >{{
-                      activitySummary.distance | metersToKilometers
-                    }}
-                    km</span
-                  >
-                </div>
-              </mat-list-item>
-            } @empty {
-              <mat-list-item class="list-item"
-                >{{ t("messages.no-activities") }}
-              </mat-list-item>
-            }
-          </mat-list>
+              </mat-paginator>
+            </div>
+          </div>
         </mat-drawer>
         <mat-drawer-content>
           <div class="container flex-container-vertical">

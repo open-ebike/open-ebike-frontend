@@ -43,7 +43,7 @@ $expansion-panel-header-height: 64px;
 }
 
 .drawer {
-  width: 512px;
+  width: 560px;
 }
 
 .grid {
@@ -54,6 +54,11 @@ $expansion-panel-header-height: 64px;
 
 $toolbar-height: 64px;
 $inner-container-height: 90px;
+
+.activities-list,
+.activities-paginator {
+  margin: 16px 0 16px;
+}
 
 .container {
   padding: 0;

@@ -41,6 +41,7 @@ import {
   Overlay,
 } from '../../components/map/map.component';
 import { MapboxService } from '../../services/mapbox.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 /**
  * Displays activities
@@ -63,6 +64,7 @@ import { MapboxService } from '../../services/mapbox.service';
     MapComponent,
     MatCardActions,
     MatCardFooter,
+    MatPaginator,
   ],
   templateUrl: './activities.component.html',
   styleUrl: './activities.component.scss',
@@ -106,6 +108,17 @@ export class ActivitiesComponent implements OnInit {
   drawer = viewChild(MatDrawer);
 
   //
+  // Paginator
+  //
+
+  pageTotalLength = signal(0);
+  pageIndex = signal(0);
+  pageSize = signal(20);
+  pageOffset = computed(() => this.pageIndex() * this.pageSize());
+
+  pageSizeOptions = [1, 20, 50, 100];
+
+  //
   // Map
   //
 
@@ -132,6 +145,14 @@ export class ActivitiesComponent implements OnInit {
    * Constructor
    */
   constructor() {
+    effect(() => {
+      this.initializeActivitiesSummaries(
+        this.pageSize(),
+        this.pageOffset(),
+        '-startTime',
+      );
+    });
+
     effect(() => {
       if (this.id()?.trim().length > 0) {
         this.initializeActivityDetails(this.id()?.trim());
@@ -164,8 +185,6 @@ export class ActivitiesComponent implements OnInit {
    */
   ngOnInit() {
     this.mapboxService.restoreConfig();
-
-    this.initializeActivitiesSummaries(100, 0, '-startTime');
     this.handleQueryParameters();
   }
 
@@ -185,6 +204,7 @@ export class ActivitiesComponent implements OnInit {
       .getAllActivitySummaries(limit, offset, sort)
       .subscribe((activitySummaries) => {
         this.activitySummaries.set(activitySummaries.activitySummaries);
+        this.pageTotalLength.set(activitySummaries.pagination.total);
       });
   }
 
@@ -263,6 +283,19 @@ export class ActivitiesComponent implements OnInit {
   onActivityClicked(id: string) {
     this.id.set(id);
     this.drawer()?.close();
+  }
+
+  /**
+   * Handles page event
+   * @param event event
+   */
+  handlePageEvent(event: any) {
+    if (event.pageSize !== this.pageSize()) {
+      this.pageSize.set(event.pageSize);
+      this.pageIndex.set(0);
+    } else {
+      this.pageIndex.set(event.pageIndex);
+    }
   }
 
   //

@@ -1,8 +1,8 @@
 {
   "pagination": {
-    "total": -2147483648,
-    "offset": -2147483648,
-    "limit": -2147483648
+    "total": 2,
+    "offset": 0,
+    "limit": 2
   },
   "activitySummaries": [
     {
