@@ -1,12 +1,6 @@
 @use "@angular/material" as mat;
 @import "../../../styles";
 
-.container {
-  height: calc(100% - 64px);
-  align-items: center;
-  justify-content: center;
-}
-
 .text {
   max-width: 960px;
   margin: 32px;

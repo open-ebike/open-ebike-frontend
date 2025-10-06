@@ -6,7 +6,7 @@ import { MatButton } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 
 /**
- * Displays client credentials page
+ * Displays login page
  */
 @Component({
   selector: 'app-login',

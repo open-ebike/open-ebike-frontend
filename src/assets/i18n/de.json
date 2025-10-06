@@ -167,6 +167,16 @@
         "login-with-singlekey-id": "Login mit SingleKey ID"
       }
     },
+    "configuration": {
+      "title": "Konfiguration",
+      "terms": {
+        "mapbox-access-token": "Mapbox Access Token"
+      },
+      "actions": {
+        "enter-mapbox-access-token": "Gib den Mapbox Access Token ein",
+        "save": "Speichern"
+      }
+    },
     "contact": {
       "title": "Kontakt",
       "labels": {

@@ -9,6 +9,7 @@ import { ComponentDetailsComponent } from './pages/component-details/component-d
 import { LoginComponent } from './pages/login/login.component';
 import { ImprintComponent } from './pages/imprint/imprint.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { ConfigurationComponent } from './pages/configuration/configuration.component';
 
 export const routes: Routes = [
   {
@@ -38,6 +39,11 @@ export const routes: Routes = [
   {
     path: 'component-details/:id',
     component: ComponentDetailsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'configuration',
+    component: ConfigurationComponent,
     canActivate: [AuthGuard],
   },
   {

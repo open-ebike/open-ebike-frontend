@@ -1,0 +1,33 @@
+<ng-container *transloco="let t; lang: lang; prefix: 'pages.configuration'">
+  <div class="container flex-container-vertical">
+    <div class="inner-container">
+      <h2>
+        <span class="material-symbols-outlined icon"> settings </span>
+        {{ t("title") }}
+      </h2>
+      <div class="question">{{ t("actions.enter-mapbox-access-token") }}</div>
+      <form class="form">
+        <mat-form-field>
+          <mat-label>{{ t("terms.mapbox-access-token") }}</mat-label>
+          <input
+            matInput
+            placeholder="pk.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxx"
+            #input
+            [value]="this.mapboxService.mapboxAccessToken()"
+            name="mapboxAccessToken"
+          />
+        </mat-form-field>
+      </form>
+      <button
+        mat-flat-button
+        color="primary"
+        class="button"
+        [disabled]="input.value.length == 0"
+        (click)="onSaveClicked(input.value)"
+      >
+        {{ t("actions.save") }}
+      </button>
+    </div>
+    <div class="flex-box"></div>
+  </div>
+</ng-container>
