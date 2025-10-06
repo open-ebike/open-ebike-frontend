@@ -27,6 +27,9 @@ import { MetersToKilometersPipe } from '../../pipes/meters-to-kilometers.pipe';
 import { MatCard, MatCardAvatar, MatCardContent } from '@angular/material/card';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatButton } from '@angular/material/button';
+import { environment } from '../../../environments/environment';
+import { MapBoxStyle, MapComponent } from '../../components/map/map.component';
+import { MapboxService } from '../../services/mapbox.service';
 
 /**
  * Displays activities
@@ -46,6 +49,7 @@ import { MatButton } from '@angular/material/button';
     MatCardContent,
     MatSidenavModule,
     MatButton,
+    MapComponent,
   ],
   templateUrl: './activities.component.html',
   styleUrl: './activities.component.scss',
@@ -66,6 +70,8 @@ export class ActivitiesComponent implements OnInit {
   public authenticationService = inject(AuthenticationService);
   /** Activity records service */
   private activityRecordsService = inject(ActivityRecordsService);
+  /** Mapbox service */
+  public mapboxService = inject(MapboxService);
 
   //
   // Signals
@@ -85,6 +91,14 @@ export class ActivitiesComponent implements OnInit {
   activityDetails = signal<ActivityDetail[]>([]);
 
   drawer = viewChild(MatDrawer);
+
+  //
+  // Map
+  //
+
+  mapId = 'activities';
+  mapHeight = '100%';
+  mapStyle = MapBoxStyle.LIGHT_V10;
 
   /** Language */
   lang = getBrowserLang();
@@ -108,6 +122,19 @@ export class ActivitiesComponent implements OnInit {
         this.updateQueryParameters();
       } else {
         this.activityDetails.set([]);
+      }
+    });
+
+    effect(() => {
+      switch (this.themeService.theme()) {
+        case Theme.LIGHT: {
+          this.mapStyle = MapBoxStyle.LIGHT_V10;
+          break;
+        }
+        case Theme.DARK: {
+          this.mapStyle = MapBoxStyle.DARK_V10;
+          break;
+        }
       }
     });
   }
@@ -202,4 +229,6 @@ export class ActivitiesComponent implements OnInit {
       })
       .then();
   }
+
+  protected readonly environment = environment;
 }

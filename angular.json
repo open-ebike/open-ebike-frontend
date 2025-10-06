@@ -33,7 +33,8 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "serviceWorker": "ngsw-config.json"
+            "serviceWorker": "ngsw-config.json",
+            "allowedCommonJsDependencies": ["mapbox-gl"]
           },
           "configurations": {
             "firebase-hosting": {
@@ -46,13 +47,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2MB",
-                  "maximumError": "4MB"
+                  "maximumWarning": "4MB",
+                  "maximumError": "8MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "128kB",
-                  "maximumError": "256kB"
+                  "maximumWarning": "256kB",
+                  "maximumError": "512kB"
                 }
               ],
               "outputHashing": "all"

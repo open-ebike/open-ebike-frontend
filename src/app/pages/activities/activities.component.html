@@ -34,133 +34,144 @@
                 </div>
               </mat-list-item>
             } @empty {
-              <mat-list-item class="list-item">{{
-                t("messages.no-activities")
-              }}</mat-list-item>
+              <mat-list-item class="list-item"
+                >{{ t("messages.no-activities") }}
+              </mat-list-item>
             }
           </mat-list>
         </mat-drawer>
         <mat-drawer-content>
           <div class="container flex-container-vertical">
-            @if (selectedActivity()) {
-              <div class="inner-container">
-                <h2>
-                  <span class="material-symbols-outlined activity icon">
-                    route
-                  </span>
+            <div class="inner-container" style="height: 92px">
+              <h2>
+                <span class="material-symbols-outlined activity icon">
+                  route
+                </span>
+                @if (selectedActivity()) {
                   {{ t("terms.activity") }} {{ selectedActivity()?.title }}
                   <span class="delimiter">·</span>
-                  <button mat-button (click)="drawer.toggle()">
-                    @if (drawer.opened) {
-                      {{ t("actions.hide-all") }}
-                    } @else {
-                      {{ t("actions.show-all") }}
-                    }
-                  </button>
-                </h2>
-
-                @for (
-                  activityDetail of activityDetails();
-                  track activityDetail
-                ) {
-                  <mat-card mat-ripple>
-                    <mat-card-content>
-                      <ul class="list">
-                        <li>
-                          <strong class="label">{{
-                            t("terms.distance")
-                          }}</strong
-                          >:
-                          @if (activityDetail?.distance) {
-                            {{ activityDetail?.distance }}
-                          } @else {
-                            <em>{{ t("terms.undefined") }}</em>
-                          }
-                        </li>
-                        <li>
-                          <strong class="label">{{
-                            t("terms.altitude")
-                          }}</strong
-                          >:
-                          @if (activityDetail?.altitude) {
-                            {{ activityDetail?.altitude }} m
-                          } @else {
-                            <em>{{ t("terms.undefined") }}</em>
-                          }
-                        </li>
-                        <li>
-                          <strong class="label">{{ t("terms.speed") }}</strong
-                          >:
-                          @if (activityDetail?.speed) {
-                            {{ activityDetail?.speed }} km/h
-                          } @else {
-                            <em>{{ t("terms.undefined") }}</em>
-                          }
-                        </li>
-                        <li>
-                          <strong class="label">{{ t("terms.cadence") }}</strong
-                          >:
-                          @if (activityDetail?.cadence) {
-                            {{ activityDetail?.cadence }} rpm
-                          } @else {
-                            <em>{{ t("terms.undefined") }}</em>
-                          }
-                        </li>
-                        <li>
-                          <strong class="label">{{
-                            t("terms.latitude")
-                          }}</strong
-                          >:
-                          @if (activityDetail?.latitude) {
-                            {{ activityDetail?.latitude }}
-                          } @else {
-                            <em>{{ t("terms.undefined") }}</em>
-                          }
-                        </li>
-                        <li>
-                          <strong class="label">{{
-                            t("terms.longitude")
-                          }}</strong
-                          >:
-                          @if (activityDetail?.longitude) {
-                            {{ activityDetail?.longitude }}
-                          } @else {
-                            <em>{{ t("terms.undefined") }}</em>
-                          }
-                        </li>
-                        <li>
-                          <strong class="label">{{
-                            t("terms.riderPower")
-                          }}</strong
-                          >:
-                          @if (activityDetail?.riderPower) {
-                            {{ activityDetail?.riderPower }} W
-                          } @else {
-                            <em>{{ t("terms.undefined") }}</em>
-                          }
-                        </li>
-                      </ul>
-                    </mat-card-content>
-                  </mat-card>
+                } @else {
+                  {{ t("title") }}
+                  <span class="delimiter">·</span>
                 }
+                <button mat-button (click)="drawer.toggle()">
+                  @if (drawer.opened) {
+                    {{ t("actions.hide-all") }}
+                  } @else {
+                    {{ t("actions.show-all") }}
+                  }
+                </button>
+              </h2>
+            </div>
+
+            @if (mapboxService.mapboxAccessToken()) {
+              <div class="map-container">
+                <app-map
+                  [id]="mapId"
+                  [height]="mapHeight"
+                  [style]="mapStyle"
+                  [interactiveEnabled]="false"
+                ></app-map>
               </div>
             } @else {
               <div class="inner-container">
-                <h2>
-                  <span mat-card-avatar class="activity-avatar">
-                    <span class="material-symbols-outlined activity-icon">
-                      route
-                    </span>
-                  </span>
-                  {{ t("title") }}
-                  <span class="delimiter">·</span>
-                  <button mat-button (click)="drawer.toggle()">
-                    {{ t("actions.show-all") }}
-                  </button>
-                </h2>
+                @if (selectedActivity()) {
+                  <div class="grid">
+                    @for (
+                      activityDetail of activityDetails();
+                      track activityDetail
+                    ) {
+                      <mat-card mat-ripple>
+                        <mat-card-content>
+                          <ul class="list">
+                            <li>
+                              <strong class="label">{{
+                                t("terms.distance")
+                              }}</strong
+                              >:
+                              @if (activityDetail?.distance) {
+                                {{ activityDetail?.distance }}
+                              } @else {
+                                <em>{{ t("terms.undefined") }}</em>
+                              }
+                            </li>
+                            <li>
+                              <strong class="label">{{
+                                t("terms.altitude")
+                              }}</strong
+                              >:
+                              @if (activityDetail?.altitude) {
+                                {{ activityDetail?.altitude }} m
+                              } @else {
+                                <em>{{ t("terms.undefined") }}</em>
+                              }
+                            </li>
+                            <li>
+                              <strong class="label">{{
+                                t("terms.speed")
+                              }}</strong
+                              >:
+                              @if (activityDetail?.speed) {
+                                {{ activityDetail?.speed }} km/h
+                              } @else {
+                                <em>{{ t("terms.undefined") }}</em>
+                              }
+                            </li>
+                            <li>
+                              <strong class="label">{{
+                                t("terms.cadence")
+                              }}</strong
+                              >:
+                              @if (activityDetail?.cadence) {
+                                {{ activityDetail?.cadence }} rpm
+                              } @else {
+                                <em>{{ t("terms.undefined") }}</em>
+                              }
+                            </li>
+                            <li>
+                              <strong class="label">{{
+                                t("terms.latitude")
+                              }}</strong
+                              >:
+                              @if (activityDetail?.latitude) {
+                                {{ activityDetail?.latitude }}
+                              } @else {
+                                <em>{{ t("terms.undefined") }}</em>
+                              }
+                            </li>
+                            <li>
+                              <strong class="label">{{
+                                t("terms.longitude")
+                              }}</strong
+                              >:
+                              @if (activityDetail?.longitude) {
+                                {{ activityDetail?.longitude }}
+                              } @else {
+                                <em>{{ t("terms.undefined") }}</em>
+                              }
+                            </li>
+                            <li>
+                              <strong class="label">{{
+                                t("terms.riderPower")
+                              }}</strong
+                              >:
+                              @if (activityDetail?.riderPower) {
+                                {{ activityDetail?.riderPower }} W
+                              } @else {
+                                <em>{{ t("terms.undefined") }}</em>
+                              }
+                            </li>
+                          </ul>
+                        </mat-card-content>
+                        <mat-card-actions></mat-card-actions>
+                        <mat-card-footer></mat-card-footer>
+                      </mat-card>
+                    }
+                  </div>
+                }
               </div>
+              <div class="flex-box"></div>
             }
-            <div class="flex-box"></div>
           </div>
         </mat-drawer-content>
       </mat-drawer-container>

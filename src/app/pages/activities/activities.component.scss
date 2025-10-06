@@ -45,3 +45,21 @@ $expansion-panel-header-height: 64px;
 .drawer {
   width: 512px;
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+$toolbar-height: 64px;
+$inner-container-height: 90px;
+
+.container {
+  padding: 0;
+}
+
+.map-container {
+  height: calc(100vh - $toolbar-height - $inner-container-height);
+  width: 100%;
+}
