@@ -3,7 +3,7 @@
     @if (authenticationService.isLoggedIn()) {
       <div class="inner-container">
         <h2>{{ t("title") }}</h2>
-        <div class="grid">
+        <div class="grid wide">
           @for (ebikeProfile of ebikeProfiles(); track ebikeProfile) {
             <mat-card
               mat-ripple

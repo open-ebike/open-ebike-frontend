@@ -25,8 +25,8 @@
                 verified
               </span>
               <strong class="ebike-registered">{{
-                t("terms.registered")
-              }}</strong>
+                  t("terms.registered")
+                }}</strong>
             </li>
           </ul>
         }
@@ -84,7 +84,7 @@
 
         <h3>{{ t("terms.components") }}</h3>
 
-        <div class="grid">
+        <div class="grid wide">
           @if (ebikeProfile()?.driveUnit) {
             <mat-card
               mat-ripple
@@ -102,23 +102,21 @@
                   </span>
                 </div>
                 <mat-card-title
-                  >{{ ebikeProfile()?.driveUnit?.productName }}
+                >{{ ebikeProfile()?.driveUnit?.productName }}
                 </mat-card-title>
                 <mat-card-subtitle>
-                  @if (
-                    isComponentRegistered(
-                      ebikeProfile()?.driveUnit?.partNumber,
-                      ebikeProfile()?.driveUnit?.serialNumber
-                    )
-                  ) {
+                  @if (isComponentRegistered(
+                    ebikeProfile()?.driveUnit?.partNumber,
+                    ebikeProfile()?.driveUnit?.serialNumber
+                  )) {
                     <span
                       class="material-symbols-outlined component-registered icon"
                     >
                       verified
                     </span>
                     <span class="component-registered">{{
-                      t("terms.registered")
-                    }}</span>
+                        t("terms.registered")
+                      }}</span>
                     <span class="delimiter">·</span>
                   }
                   {{ t("terms.drive-unit") }}
@@ -157,10 +155,10 @@
                   </span>
                 </div>
                 <mat-card-title
-                  >{{ ebikeProfile()?.remoteControl?.productName }}
+                >{{ ebikeProfile()?.remoteControl?.productName }}
                 </mat-card-title>
                 <mat-card-subtitle
-                  >{{ t("terms.remote-control") }}
+                >{{ t("terms.remote-control") }}
                 </mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
@@ -214,10 +212,8 @@
             </mat-card>
           }
 
-          @for (
-            antiLockBrakeSystem of ebikeProfile()?.antiLockBrakeSystems;
-            track antiLockBrakeSystem
-          ) {
+          @for (antiLockBrakeSystem of ebikeProfile()?.antiLockBrakeSystems;
+            track antiLockBrakeSystem) {
             <mat-card
               mat-ripple
               [routerLink]="['/component-details', ebikeProfile()?.id]"
@@ -234,10 +230,10 @@
                   </span>
                 </div>
                 <mat-card-title
-                  >{{ antiLockBrakeSystem.productName }}
+                >{{ antiLockBrakeSystem.productName }}
                 </mat-card-title>
                 <mat-card-subtitle
-                  >{{ t("terms.anti-lock-brake-system") }}
+                >{{ t("terms.anti-lock-brake-system") }}
                 </mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
@@ -273,10 +269,10 @@
                   </span>
                 </div>
                 <mat-card-title
-                  >{{ ebikeProfile()?.connectModule?.productName }}
+                >{{ ebikeProfile()?.connectModule?.productName }}
                 </mat-card-title>
                 <mat-card-subtitle
-                  >{{ t("terms.connect-module") }}
+                >{{ t("terms.connect-module") }}
                 </mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
@@ -312,10 +308,10 @@
                   </span>
                 </div>
                 <mat-card-title
-                  >{{ ebikeProfile()?.headUnit?.productName }}
+                >{{ ebikeProfile()?.headUnit?.productName }}
                 </mat-card-title>
                 <mat-card-subtitle
-                  >{{ t("terms.head-unit") }}
+                >{{ t("terms.head-unit") }}
                 </mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
@@ -337,155 +333,159 @@
 
         <h3>{{ t("terms.bike-passes") }}</h3>
 
-        @for (bikePass of bikePasses(); track bikePass) {
-          <mat-card mat-ripple>
-            <mat-card-header>
-              <div mat-card-avatar>
+        <div class="grid">
+          @for (bikePass of bikePasses(); track bikePass) {
+            <mat-card mat-ripple>
+              <mat-card-header>
+                <div mat-card-avatar>
                 <span class="material-symbols-outlined bike-pass icon">
                   badge
                 </span>
-              </div>
-              <mat-card-title>{{ t("terms.bike-pass") }}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <ul class="list">
-                <li>
-                  <strong class="label">{{ t("terms.frame-number") }}</strong
-                  >: {{ bikePass.frameNumber }}
-                </li>
-                <li>
-                  <strong class="label">{{
-                    t("terms.frame-number-position")
-                  }}</strong
-                  >: {{ bikePass.frameNumberPosition }}
-                </li>
-                <li>
-                  <strong class="label">{{ t("terms.description") }}</strong
-                  >: {{ bikePass.description }}
-                </li>
-                <li>
-                  <strong class="label">{{ t("terms.created-at") }}</strong
-                  >: {{ bikePass.createdAt }}
-                </li>
-                <li>
-                  <strong class="label">{{ t("terms.updated-at") }}</strong
-                  >: {{ bikePass.updatedAt }}
-                </li>
-              </ul>
-            </mat-card-content>
-            <mat-card-actions></mat-card-actions>
-            <mat-card-footer></mat-card-footer>
-          </mat-card>
-        } @empty {
-          <p>{{ t("messages.no-bike-passes") }}</p>
-        }
+                </div>
+                <mat-card-title>{{ t("terms.bike-pass") }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{ t("terms.frame-number") }}</strong
+                    >: {{ bikePass.frameNumber }}
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                        t("terms.frame-number-position")
+                      }}</strong
+                    >: {{ bikePass.frameNumberPosition }}
+                  </li>
+                  <li>
+                    <strong class="label">{{ t("terms.description") }}</strong
+                    >: {{ bikePass.description }}
+                  </li>
+                  <li>
+                    <strong class="label">{{ t("terms.created-at") }}</strong
+                    >: {{ bikePass.createdAt }}
+                  </li>
+                  <li>
+                    <strong class="label">{{ t("terms.updated-at") }}</strong
+                    >: {{ bikePass.updatedAt }}
+                  </li>
+                </ul>
+              </mat-card-content>
+              <mat-card-actions></mat-card-actions>
+              <mat-card-footer></mat-card-footer>
+            </mat-card>
+          } @empty {
+            <p>{{ t("messages.no-bike-passes") }}</p>
+          }
+        </div>
 
         <h3>{{ t("terms.bulk-installation-reports") }}</h3>
 
-        @for (
-          installationReport of bulkInstallationReports();
-          track installationReport
-        ) {
-          <mat-card>
-            <mat-card-header>
-              <div mat-card-avatar>
+        <div class="grid">
+          @for (installationReport of bulkInstallationReports();
+            track installationReport) {
+            <mat-card>
+              <mat-card-header>
+                <div mat-card-avatar>
                 <span
                   class="material-symbols-outlined installation-report icon"
                 >
                   assignment
                 </span>
-              </div>
-              <mat-card-title
+                </div>
+                <mat-card-title
                 >{{ t("terms.bulk-installation-report") }}
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <app-attribute-tree
-                [object]="installationReport"
-              ></app-attribute-tree>
-            </mat-card-content>
-          </mat-card>
-        } @empty {
-          <p>{{ t("messages.no-bulk-installation-reports") }}</p>
-        }
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <app-attribute-tree
+                  [object]="installationReport"
+                ></app-attribute-tree>
+              </mat-card-content>
+            </mat-card>
+          } @empty {
+            <p>{{ t("messages.no-bulk-installation-reports") }}</p>
+          }
+        </div>
 
         <h3>{{ t("terms.service-book") }}</h3>
 
-        @for (serviceRecord of serviceRecords(); track serviceRecord) {
-          <mat-card class="service-record-card">
-            <mat-card-header>
-              <div mat-card-avatar>
+        <div class="grid">
+          @for (serviceRecord of serviceRecords(); track serviceRecord) {
+            <mat-card class="service-record-card">
+              <mat-card-header>
+                <div mat-card-avatar>
                 <span class="material-symbols-outlined service-record icon">
                   assignment
                 </span>
-              </div>
-              <mat-card-title>{{ t("terms.service-record") }}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <app-attribute-tree [object]="serviceRecord"></app-attribute-tree>
-            </mat-card-content>
-          </mat-card>
-        } @empty {
-          <p>{{ t("messages.no-service-records") }}</p>
-        }
+                </div>
+                <mat-card-title>{{ t("terms.service-record") }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <app-attribute-tree [object]="serviceRecord"></app-attribute-tree>
+              </mat-card-content>
+            </mat-card>
+          } @empty {
+            <p>{{ t("messages.no-service-records") }}</p>
+          }
+        </div>
 
         <h3>{{ t("terms.remote-configuration-cases") }}</h3>
 
-        @for (
-          remoteConfigurationCase of remoteConfigurationCases();
-          track remoteConfigurationCase
-        ) {
-          <mat-card>
-            <mat-card-header>
-              <div mat-card-avatar>
+        <div class="grid">
+          @for (remoteConfigurationCase of remoteConfigurationCases();
+            track remoteConfigurationCase) {
+            <mat-card>
+              <mat-card-header>
+                <div mat-card-avatar>
                 <span
                   class="material-symbols-outlined remote-configuration-case icon"
                 >
                   assignment
                 </span>
-              </div>
-              <mat-card-title
+                </div>
+                <mat-card-title
                 >{{ t("terms.remote-configuration-case") }}
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <app-attribute-tree
-                [object]="remoteConfigurationCase"
-              ></app-attribute-tree>
-            </mat-card-content>
-          </mat-card>
-        } @empty {
-          <p>{{ t("messages.no-remote-configuration-cases") }}</p>
-        }
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <app-attribute-tree
+                  [object]="remoteConfigurationCase"
+                ></app-attribute-tree>
+              </mat-card-content>
+            </mat-card>
+          } @empty {
+            <p>{{ t("messages.no-remote-configuration-cases") }}</p>
+          }
+        </div>
 
         <h3>{{ t("terms.installation-reports") }}</h3>
 
-        @for (
-          installationReport of installationReports();
-          track installationReport
-        ) {
-          <mat-card>
-            <mat-card-header>
-              <div mat-card-avatar>
+        <div class="grid">
+          @for (installationReport of installationReports();
+            track installationReport) {
+            <mat-card>
+              <mat-card-header>
+                <div mat-card-avatar>
                 <span
                   class="material-symbols-outlined installation-report icon"
                 >
                   assignment
                 </span>
-              </div>
-              <mat-card-title
+                </div>
+                <mat-card-title
                 >{{ t("terms.installation-report") }}
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <app-attribute-tree
-                [object]="installationReport"
-              ></app-attribute-tree>
-            </mat-card-content>
-          </mat-card>
-        } @empty {
-          <p>{{ t("messages.no-installation-reports") }}</p>
-        }
+                </mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <app-attribute-tree
+                  [object]="installationReport"
+                ></app-attribute-tree>
+              </mat-card-content>
+            </mat-card>
+          } @empty {
+            <p>{{ t("messages.no-installation-reports") }}</p>
+          }
+        </div>
       </div>
       <div class="flex-box"></div>
     }

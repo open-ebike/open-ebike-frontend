@@ -9,7 +9,7 @@
 }
 
 @media #{$breakpoint-large} {
-  .grid {
+  .grid.wide {
     grid-template-columns: 1fr 1fr;
   }
 }
