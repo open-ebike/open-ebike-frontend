@@ -2,13 +2,7 @@
   <div>
     @if (authenticationService.isLoggedIn()) {
       <mat-drawer-container hasBackdrop="true" class="drawer-container">
-        <mat-drawer
-          #drawer
-          mode="over"
-          class="drawer"
-          [opened]="!id()"
-          (closed)="onDrawerClosed()"
-        >
+        <mat-drawer #drawer mode="over" class="drawer" [opened]="!id()">
           <mat-list>
             @for (
               activitySummary of activitySummaries();

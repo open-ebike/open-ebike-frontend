@@ -82,7 +82,7 @@ export class EbikeDetailsComponent implements OnInit {
   /** Router */
   private router = inject(Router);
   /** Theme service */
-  private themeService = inject(ThemeService);
+  public themeService = inject(ThemeService);
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
   /** eBike profile service */

@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { getBrowserLang, TranslocoModule } from '@jsverse/transloco';
 import { AuthenticationService } from '../../services/authentication.service';
 import { RouterLink } from '@angular/router';
+import { ThemeService } from '../../services/theme.service';
 
 /**
  * Displays footer
@@ -18,6 +19,8 @@ export class FooterComponent {
   // Injections
   //
 
+  /** Theme service */
+  public themeService = inject(ThemeService);
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
 

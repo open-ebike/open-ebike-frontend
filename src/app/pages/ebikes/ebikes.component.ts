@@ -23,7 +23,6 @@ import {
   EbikeRegistrationService,
   Registration,
 } from '../../services/api/ebike-registration.service';
-import { MatChip, MatChipOption } from '@angular/material/chips';
 
 /**
  * Displays eBikes
@@ -57,7 +56,7 @@ export class EbikesComponent implements OnInit {
   /** Router */
   private router = inject(Router);
   /** Theme service */
-  private themeService = inject(ThemeService);
+  public themeService = inject(ThemeService);
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
   /** eBike profile service */

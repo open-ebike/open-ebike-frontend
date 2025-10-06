@@ -12,7 +12,9 @@
                   '/ebike-details',
                   registration.bikeRegistration?.bikeId,
                 ]"
-                queryParamsHandling="merge"
+                [queryParams]="{
+                  theme: themeService.theme(),
+                }"
               >
                 <mat-card-header>
                   <div mat-card-avatar>

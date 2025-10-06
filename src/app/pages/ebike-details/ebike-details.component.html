@@ -9,7 +9,11 @@
           {{ t("title") }}
           {{ ebikeProfile()?.id }}
           <span class="delimiter">·</span>
-          <button mat-button routerLink="/ebikes" queryParamsHandling="merge">
+          <button
+            mat-button
+            routerLink="/ebikes"
+            [queryParams]="{ theme: themeService.theme() }"
+          >
             {{ t("actions.show-all") }}
           </button>
         </h2>
@@ -88,8 +92,8 @@
               [queryParams]="{
                 serialNumber: ebikeProfile()?.driveUnit?.serialNumber,
                 partNumber: ebikeProfile()?.driveUnit?.partNumber,
+                theme: themeService.theme(),
               }"
-              queryParamsHandling="merge"
             >
               <mat-card-header>
                 <div mat-card-avatar>
@@ -143,8 +147,8 @@
               [queryParams]="{
                 serialNumber: ebikeProfile()?.remoteControl?.serialNumber,
                 partNumber: ebikeProfile()?.remoteControl?.partNumber,
+                theme: themeService.theme(),
               }"
-              queryParamsHandling="merge"
             >
               <mat-card-header>
                 <div mat-card-avatar>
@@ -182,8 +186,8 @@
               [queryParams]="{
                 serialNumber: battery.serialNumber,
                 partNumber: battery.partNumber,
+                theme: themeService.theme(),
               }"
-              queryParamsHandling="merge"
             >
               <mat-card-header>
                 <div mat-card-avatar>
@@ -220,8 +224,8 @@
               [queryParams]="{
                 serialNumber: antiLockBrakeSystem.serialNumber,
                 partNumber: antiLockBrakeSystem.partNumber,
+                theme: themeService.theme(),
               }"
-              queryParamsHandling="merge"
             >
               <mat-card-header>
                 <div mat-card-avatar>
@@ -259,8 +263,8 @@
               [queryParams]="{
                 serialNumber: ebikeProfile()?.connectModule?.serialNumber,
                 partNumber: ebikeProfile()?.connectModule?.partNumber,
+                theme: themeService.theme(),
               }"
-              queryParamsHandling="merge"
             >
               <mat-card-header>
                 <div mat-card-avatar>
@@ -298,8 +302,8 @@
               [queryParams]="{
                 serialNumber: ebikeProfile()?.headUnit?.serialNumber,
                 partNumber: ebikeProfile()?.headUnit?.partNumber,
+                theme: themeService.theme(),
               }"
-              queryParamsHandling="merge"
             >
               <mat-card-header>
                 <div mat-card-avatar>

@@ -1,6 +1,7 @@
 import {
   Component,
   computed,
+  effect,
   inject,
   OnInit,
   Signal,
@@ -71,7 +72,7 @@ export class ActivitiesComponent implements OnInit {
   //
 
   /** Signal providing the selected activity ID */
-  id = signal<string | null>(null);
+  id = signal<string>('');
   /** Signal providing the selected activity */
   selectedActivity: Signal<ActivitySummary | undefined> = computed(() => {
     return this.activitySummaries().find(
@@ -94,6 +95,22 @@ export class ActivitiesComponent implements OnInit {
 
   /** Query parameter theme */
   private QUERY_PARAM_THEME: string = 'theme';
+  /** Query parameter activity ID */
+  private QUERY_ACTIVITY_ID: string = 'id';
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    effect(() => {
+      if (this.id()?.trim().length > 0) {
+        this.initializeActivityDetails(this.id()?.trim());
+        this.updateQueryParameters();
+      } else {
+        this.activityDetails.set([]);
+      }
+    });
+  }
 
   //
   // Lifecycle hooks
@@ -103,18 +120,7 @@ export class ActivitiesComponent implements OnInit {
    * Handles on-init phase
    */
   ngOnInit() {
-    this.initializeActivitiesSummaries(20, 0, '-startTime');
-
-    this.route.params.subscribe((params) => {
-      this.id.set(params['id']);
-
-      if (params['id']?.length > 0) {
-        this.initializeActivityDetails(params['id']);
-      } else {
-        this.activityDetails.set([]);
-      }
-    });
-
+    this.initializeActivitiesSummaries(1_000, 0, '-startTime');
     this.handleQueryParameters();
   }
 
@@ -156,8 +162,12 @@ export class ActivitiesComponent implements OnInit {
       .pipe(first())
       .subscribe(([queryParams]) => {
         const theme = queryParams[this.QUERY_PARAM_THEME];
+        const id = queryParams[this.QUERY_ACTIVITY_ID];
 
         this.themeService.switchTheme(theme ? theme : Theme.LIGHT);
+        if (id?.trim().length > 0) {
+          this.id.set(id);
+        }
       });
   }
 
@@ -174,17 +184,6 @@ export class ActivitiesComponent implements OnInit {
     this.drawer()?.close();
   }
 
-  /**
-   * Handles the drawer closed state
-   */
-  onDrawerClosed() {
-    if (this.id()) {
-      this.router.navigate(['/activities', this.id()], {
-        queryParamsHandling: 'merge',
-      });
-    }
-  }
-
   //
   // Helpers
   //
@@ -198,6 +197,7 @@ export class ActivitiesComponent implements OnInit {
         relativeTo: this.route,
         queryParams: {
           [this.QUERY_PARAM_THEME]: this.themeService.theme(),
+          [this.QUERY_ACTIVITY_ID]: this.id() ? this.id() : null,
         },
       })
       .then();

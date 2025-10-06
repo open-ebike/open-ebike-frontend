@@ -8,7 +8,9 @@
             <mat-card
               mat-ripple
               [routerLink]="['/ebike-details', ebikeProfile.id]"
-              queryParamsHandling="merge"
+              [queryParams]="{
+                theme: themeService.theme(),
+              }"
             >
               <mat-card-header>
                 <div mat-card-avatar>

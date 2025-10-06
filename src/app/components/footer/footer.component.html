@@ -5,19 +5,25 @@
         <strong>{{ t("terms.features") }}</strong>
         <ul class="list">
           <li>
-            <a routerLink="/ebikes" queryParamsHandling="merge">{{
-              t("pages.ebikes.title")
-            }}</a>
+            <a
+              routerLink="/ebikes"
+              [queryParams]="{ theme: themeService.theme() }"
+              >{{ t("pages.ebikes.title") }}</a
+            >
           </li>
           <li>
-            <a routerLink="/activities" queryParamsHandling="merge">{{
-              t("pages.activities.title")
-            }}</a>
+            <a
+              routerLink="/activities"
+              [queryParams]="{ theme: themeService.theme() }"
+              >{{ t("pages.activities.title") }}</a
+            >
           </li>
           <li>
-            <a routerLink="/registrations" queryParamsHandling="merge">{{
-              t("pages.registrations.title")
-            }}</a>
+            <a
+              routerLink="/registrations"
+              [queryParams]="{ theme: themeService.theme() }"
+              >{{ t("pages.registrations.title") }}</a
+            >
           </li>
         </ul>
       </div>
@@ -40,14 +46,18 @@
         <strong>{{ t("terms.about") }}</strong>
         <ul class="list">
           <li>
-            <a routerLink="/contact" queryParamsHandling="merge">{{
-              t("pages.contact.title")
-            }}</a>
+            <a
+              routerLink="/contact"
+              [queryParams]="{ theme: themeService.theme() }"
+              >{{ t("pages.contact.title") }}</a
+            >
           </li>
           <li>
-            <a routerLink="/imprint" queryParamsHandling="merge">{{
-              t("pages.imprint.title")
-            }}</a>
+            <a
+              routerLink="/imprint"
+              [queryParams]="{ theme: themeService.theme() }"
+              >{{ t("pages.imprint.title") }}</a
+            >
           </li>
         </ul>
       </div>
