@@ -1,7 +1,7 @@
 <ng-container *transloco="let t; lang: lang; prefix: 'pages.home'">
   <div class="container flex-container-vertical">
     @if (authenticationService.isLoggedIn()) {
-      <div class="text">
+      <div class="inner-container">
         <h2>
           {{
             t("terms.hello", {
@@ -11,9 +11,14 @@
         </h2>
       </div>
     } @else {
-      <div style="padding: 0 16px 0; box-sizing: border-box">
-        <h2>{{ t("terms.welcome") }}</h2>
-        <h3>{{ t("terms.getting-started") }}</h3>
+      <div class="inner-container">
+        <h1>
+          {{ t("terms.welcome-to") }}
+          <span class="app-title">{{ t("terms.app-title") }}</span>
+        </h1>
+        <h2>{{ t("terms.getting-started") }}</h2>
+      </div>
+      <div class="grid-container">
         <div class="grid wide">
           <mat-card>
             <mat-card-header>

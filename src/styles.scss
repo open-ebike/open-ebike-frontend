@@ -141,8 +141,9 @@
   justify-content: center;
 }
 
-.inner-container {
-  padding: 0 16px 0;
+.inner-container,
+.grid-container {
+  padding: 0 16px 32px;
   box-sizing: border-box;
 }
 
@@ -191,11 +192,8 @@ h2 .icon {
   margin-right: 8px;
 }
 
-h3 {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  text-decoration: underline;
-  margin: 0.75em 0 0.25em !important;
-  line-height: 1.2em !important;
+a:hover {
+  color: mat.m2-get-color-from-palette(mat.$m2-grey-palette, 600);
 }
 
 .list {

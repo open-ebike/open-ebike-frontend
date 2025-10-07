@@ -7,7 +7,8 @@
         "enter-client-credentials-login": "Client Credentials spezifizieren und einloggen"
       },
       "terms": {
-        "welcome": "Willkommen bei Open eBike",
+        "welcome-to": "Willkommen bei",
+        "app-title": "Open eBike",
         "getting-started": "Diese App zeigt die Verwendung der EUDA-API von Bosch eBike Systems. Befolgen Sie diese Schritte, um loszulegen:",
         "step-1-title": "Schritt 1 - SingleKey ID Account",
         "step-1-content": "Erstelle einen <a href='https://singlekey-id.com/de-de/login' target='_blank'>SingleKey ID Account</a>",

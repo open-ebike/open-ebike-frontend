@@ -126,7 +126,7 @@ export class ActivitiesComponent implements OnInit {
   //
 
   mapId = 'activities';
-  mapHeight = 'calc(100vh - 64px - 92px)';
+  mapHeight = 'calc(100vh - 64px - 124px)';
   mapStyle = MapBoxStyle.LIGHT_V10;
 
   overlays: Map<string, Overlay> = new Map<string, Overlay>();

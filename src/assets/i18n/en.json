@@ -7,7 +7,8 @@
         "enter-client-credentials-login": "Enter Client Credentials and Login"
       },
       "terms": {
-        "welcome": "Welcome to Open eBike",
+        "welcome-to": "Welcome to",
+        "app-title": "Open eBike",
         "getting-started": "This app showcases the usage of the EUDA API of Bosch eBike Systems. Follow these steps to get started:",
         "step-1-title": "Step 1 - SingleKey ID Account",
         "step-1-content": "Sign up for <a href='https://singlekey-id.com/en-us/login' target='_blank'>SingleKey ID</a>",
@@ -99,7 +100,7 @@
         "start-time": "start time",
         "end-time": "end time",
         "timezone": "timezone",
-        "duration-without-stops": "duriation without Stops",
+        "duration-without-stops": "duration without Stops",
         "title": "Titel",
         "bike-id": "Bike ID",
         "start-odometer": "start odometer",
@@ -120,7 +121,7 @@
         "altitude": "altitude",
         "latitude": "latitude",
         "longitude": "longitude",
-        "undefined": "nicht definiert"
+        "undefined": "undefined"
       },
       "messages": {
         "no-activities": "no activities recorded"

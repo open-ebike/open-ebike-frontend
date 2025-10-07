@@ -10,6 +10,8 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 32px;
+
+  margin-top: 32px;
 }
 
 @media #{$breakpoint-large} {
@@ -29,4 +31,16 @@ li {
 
 .client-application > li {
   margin: 8px 0;
+}
+
+::ng-deep .theme-light {
+  .app-title {
+    color: mat.m2-get-color-from-palette($open-ebike-primary, 500);
+  }
+}
+
+::ng-deep .theme-dark {
+  .app-title {
+    color: mat.m2-get-color-from-palette($open-ebike-primary, 300);
+  }
 }
