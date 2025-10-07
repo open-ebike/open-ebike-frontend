@@ -44,6 +44,7 @@ $expansion-panel-header-height: 64px;
 
 .drawer {
   width: 560px;
+  max-width: 90vw;
 }
 
 .grid {
@@ -52,12 +53,15 @@ $expansion-panel-header-height: 64px;
   gap: 16px;
 }
 
-$toolbar-height: 64px;
 $inner-container-height: 90px;
 
 .activities-list,
 .activities-paginator {
   margin: 16px 0 16px;
+}
+
+.activity-summary {
+  padding: 0 24px 0;
 }
 
 .container {
@@ -67,4 +71,8 @@ $inner-container-height: 90px;
 .map-container {
   height: calc(100vh - $toolbar-height - $inner-container-height);
   width: 100%;
+}
+
+mat-card {
+  cursor: pointer;
 }

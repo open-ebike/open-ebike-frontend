@@ -2,8 +2,11 @@
   <div>
     @if (authenticationService.isLoggedIn()) {
       <mat-drawer-container hasBackdrop="true" class="drawer-container">
-        <mat-drawer #drawer mode="over" class="drawer" [opened]="!id()">
-          <div class="flex-container-vertical" style="height: 100%">
+        <mat-drawer #drawerStart mode="over" class="drawer" [opened]="!id()">
+          <div class="flex-container-vertical" style="min-height: 100%">
+            <div class="activity-summary">
+              <h2>{{ t("terms.activities") }}</h2>
+            </div>
             <mat-list class="activities-list">
               @for (
                 activitySummary of activitySummaries();
@@ -56,27 +59,207 @@
             </div>
           </div>
         </mat-drawer>
+        <mat-drawer #drawerEnd mode="over" class="drawer" position="end">
+          <div class="activity-summary">
+            @if (selectedActivity()) {
+              <h2>{{ t("terms.activity-summary") }}</h2>
+              <ul class="list">
+                <li>
+                  <strong class="label">{{ t("terms.start-time") }}</strong
+                  >:
+                  @if (selectedActivity()?.startTime) {
+                    {{ selectedActivity()?.startTime | date: "medium" }}
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+                <li>
+                  <strong class="label">{{ t("terms.end-time") }}</strong
+                  >:
+                  @if (selectedActivity()?.endTime) {
+                    {{ selectedActivity()?.endTime | date: "medium" }}
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+                <li>
+                  <strong class="label">{{ t("terms.timezone") }}</strong
+                  >:
+                  @if (selectedActivity()?.timeZone) {
+                    {{ selectedActivity()?.timeZone }}
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+                <li>
+                  <strong class="label">{{
+                    t("terms.duration-without-stops")
+                  }}</strong
+                  >:
+                  @if (selectedActivity()?.durationWithoutStops) {
+                    {{
+                      selectedActivity()?.durationWithoutStops
+                        | date: "H:mm:ss" : "UTC"
+                    }}
+                    h
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+              </ul>
+              <ul class="list">
+                <li>
+                  <strong class="label">{{ t("terms.start-odometer") }}</strong
+                  >:
+                  @if (selectedActivity()?.startOdometer) {
+                    {{
+                      selectedActivity()?.startOdometer ?? 0
+                        | metersToKilometers
+                    }}
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+                <li>
+                  <strong class="label">{{ t("terms.speed-average") }}</strong
+                  >:
+                  @if (selectedActivity()?.speed) {
+                    {{ selectedActivity()?.speed?.average ?? 0 | round: 2 }}
+                    km/h km/h)
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+                <li>
+                  <strong class="label">{{ t("terms.speed-maximum") }}</strong
+                  >:
+                  @if (selectedActivity()?.speed) {
+                    {{ selectedActivity()?.speed?.maximum ?? 0 | round: 2 }}
+                    km/h
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+                <li>
+                  <strong class="label">{{ t("terms.distance") }}</strong
+                  >:
+                  @if (selectedActivity()?.distance) {
+                    {{ selectedActivity()?.distance ?? 0 | metersToKilometers }}
+                    km
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+                <li>
+                  <strong class="label">{{ t("terms.elevation-gain") }}</strong
+                  >:
+                  @if (selectedActivity()?.elevation) {
+                    {{ selectedActivity()?.elevation?.gain ?? 0 | round: 2 }}
+                    m
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+                <li>
+                  <strong class="label">{{ t("terms.elevation-loss") }}</strong
+                  >:
+                  @if (selectedActivity()?.elevation) {
+                    {{ selectedActivity()?.elevation?.loss ?? 0 | round: 2 }}
+                    m
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+              </ul>
+              <ul class="list">
+                <li>
+                  <strong class="label">{{ t("terms.cadence-average") }}</strong
+                  >:
+                  @if (selectedActivity()?.cadence) {
+                    {{ selectedActivity()?.cadence?.average ?? 0 | round: 2 }}
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+                <li>
+                  <strong class="label">{{ t("terms.cadence-maximum") }}</strong
+                  >:
+                  @if (selectedActivity()?.cadence) {
+                    {{ selectedActivity()?.cadence?.maximum ?? 0 | round: 2 }}
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+                <li>
+                  <strong class="label">{{
+                    t("terms.rider-power-average")
+                  }}</strong
+                  >:
+                  @if (selectedActivity()?.riderPower) {
+                    {{
+                      selectedActivity()?.riderPower?.average ?? 0 | round: 2
+                    }}
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+                <li>
+                  <strong class="label">{{
+                    t("terms.rider-power-maximum")
+                  }}</strong
+                  >:
+                  @if (selectedActivity()?.riderPower) {
+                    {{
+                      selectedActivity()?.riderPower?.maximum ?? 0 | round: 2
+                    }}
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+                <li>
+                  <strong class="label">{{ t("terms.calories-burned") }}</strong
+                  >:
+                  @if (selectedActivity()?.caloriesBurned) {
+                    {{ selectedActivity()?.caloriesBurned ?? 0 | round: 2 }}
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+              </ul>
+            }
+          </div>
+        </mat-drawer>
         <mat-drawer-content>
           <div class="container flex-container-vertical">
-            <div class="inner-container" style="height: 92px">
+            <div class="inner-container" style="min-height: 92px">
               <h2>
                 <span class="material-symbols-outlined activity icon">
                   route
                 </span>
                 @if (selectedActivity()) {
-                  {{ t("terms.activity") }} {{ selectedActivity()?.title }}
+                  {{ selectedActivity()?.title }}
                   <span class="delimiter">·</span>
                 } @else {
                   {{ t("title") }}
                   <span class="delimiter">·</span>
                 }
-                <button mat-button (click)="drawer.toggle()">
-                  @if (drawer.opened) {
+                <button mat-button (click)="drawerStart.toggle()">
+                  @if (drawerStart.opened) {
                     {{ t("actions.hide-all") }}
                   } @else {
                     {{ t("actions.show-all") }}
                   }
                 </button>
+                @if (selectedActivity()) {
+                  <span class="delimiter">·</span>
+                  <button mat-button (click)="drawerEnd.toggle()">
+                    @if (drawerEnd.opened) {
+                      {{ t("actions.hide-summary") }}
+                    } @else {
+                      {{ t("actions.show-summary") }}
+                    }
+                  </button>
+                }
               </h2>
             </div>
 

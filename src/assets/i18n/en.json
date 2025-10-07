@@ -94,21 +94,42 @@
       "title": "Activities",
       "terms": {
         "activity": "Activity",
-        "distance": "distance",
-        "altitude": "altitude",
+        "activities": "Activities",
+        "activity-summary": "Activity Summary",
+        "start-time": "start time",
+        "end-time": "end time",
+        "timezone": "timezone",
+        "duration-without-stops": "duriation without Stops",
+        "title": "Titel",
+        "bike-id": "Bike ID",
+        "start-odometer": "start odometer",
         "speed": "speed",
+        "speed-average": "speed",
+        "speed-maximum": "speed (max.)",
+        "distance": "distance",
         "cadence": "cadence",
+        "cadence-average": "cadence",
+        "cadence-maximum": "cadence (max.)",
+        "rider-power": "energy",
+        "rider-power-average": "rider power",
+        "rider-power-maximum": "rider power (max.)",
+        "elevation": "elevation",
+        "elevation-gain": "elevation gain",
+        "elevation-loss": "elevation loss",
+        "calories-burned": "calories burned",
+        "altitude": "altitude",
         "latitude": "latitude",
         "longitude": "longitude",
-        "riderPower": "rider power",
-        "undefined": "undefined"
+        "undefined": "nicht definiert"
       },
       "messages": {
         "no-activities": "no activities recorded"
       },
       "actions": {
         "show-all": "show all",
-        "hide-all": "hide all"
+        "hide-all": "hide all",
+        "show-summary": "show summary",
+        "hide-summary": "hide summary"
       }
     },
     "registrations": {

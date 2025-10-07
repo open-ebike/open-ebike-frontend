@@ -42,6 +42,7 @@ import {
 } from '../../components/map/map.component';
 import { MapboxService } from '../../services/mapbox.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { RoundPipe } from '../../pipes/round.pipe';
 
 /**
  * Displays activities
@@ -65,6 +66,7 @@ import { MatPaginator } from '@angular/material/paginator';
     MatCardActions,
     MatCardFooter,
     MatPaginator,
+    RoundPipe,
   ],
   templateUrl: './activities.component.html',
   styleUrl: './activities.component.scss',
@@ -105,7 +107,8 @@ export class ActivitiesComponent implements OnInit {
   /** Signal providing activity details */
   activityDetails = signal<ActivityDetail[]>([]);
 
-  drawer = viewChild(MatDrawer);
+  drawerStart = viewChild(MatDrawer);
+  drawerEnd = viewChild(MatDrawer);
 
   //
   // Paginator
@@ -157,6 +160,7 @@ export class ActivitiesComponent implements OnInit {
       if (this.id()?.trim().length > 0) {
         this.initializeActivityDetails(this.id()?.trim());
         this.updateQueryParameters();
+        this.drawerEnd()?.open();
       } else {
         this.activityDetails.set([]);
       }
@@ -282,7 +286,7 @@ export class ActivitiesComponent implements OnInit {
    */
   onActivityClicked(id: string) {
     this.id.set(id);
-    this.drawer()?.close();
+    this.drawerStart()?.close();
   }
 
   /**

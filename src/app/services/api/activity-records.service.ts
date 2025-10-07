@@ -37,7 +37,7 @@ export interface ActivitySummary {
   /** Bike uuid for the trip */
   bikeId: string;
   /** Odometer at start of activity in meters */
-  startOdometer: string;
+  startOdometer: number;
   speed: Speed;
   /** Odometer diff of activity in meters */
   distance: number;
