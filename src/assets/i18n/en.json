@@ -186,7 +186,8 @@
       "actions": {
         "enter-client-id": "Enter the client ID of your client application",
         "save": "Save",
-        "save-and-login": "Save and Login",
+        "save-and-login-bes2": "Save and Login BES2 (eBike System 2)",
+        "save-and-login-bes3": "Save and Login BES3 (Smart System)",
         "login": "Login",
         "login-with-singlekey-id": "Login with SingleKey ID"
       }

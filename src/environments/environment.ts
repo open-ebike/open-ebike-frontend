@@ -8,6 +8,7 @@ export const environment = {
     authorizationEndpoint:
       'https://p9.authz.bosch.com/auth/realms/obc/protocol/openid-connect/auth',
     redirectUri: 'http://localhost:4200/home',
+    postLogoutRedirectUri: 'http://localhost:4200/home',
     clientId: '',
     scope: 'euda:read',
     responseType: 'code',

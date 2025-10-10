@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { EbikeGeneration } from '../../services/auth/ebike-generation.type';
 
 /**
  * Displays login page
@@ -54,23 +55,19 @@ export class LoginComponent implements OnInit {
    * @param clientId client ID
    */
   onSaveClicked(clientId: string) {
-    this.authenticationService.configure(clientId);
+    this.authenticationService.saveClientId(clientId);
   }
 
   /**
    * Handles click on save-and-login button
    * @param clientId client ID
+   * @param ebikeGeneration eBike generation
    */
-  onSaveAndLoginClicked(clientId: string) {
-    this.authenticationService.configure(clientId).then(() => {
-      this.authenticationService.login();
+  onSaveAndLoginClicked(clientId: string, ebikeGeneration: EbikeGeneration) {
+    this.authenticationService.saveClientId(clientId);
+    this.authenticationService.saveEbikeGeneration(ebikeGeneration);
+    this.authenticationService.configure(clientId, ebikeGeneration).then(() => {
+      this.authenticationService.login(ebikeGeneration);
     });
-  }
-
-  /**
-   * Handles click on login button
-   */
-  onLoginClicked() {
-    this.authenticationService.login();
   }
 }

@@ -27,13 +27,11 @@ import { MetersToKilometersPipe } from '../../pipes/meters-to-kilometers.pipe';
 import {
   MatCard,
   MatCardActions,
-  MatCardAvatar,
   MatCardContent,
   MatCardFooter,
 } from '@angular/material/card';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatButton } from '@angular/material/button';
-import { environment } from '../../../environments/environment';
 import {
   MapBoxStyle,
   MapComponent,
@@ -58,7 +56,6 @@ import { RoundPipe } from '../../pipes/round.pipe';
     MatRipple,
     MetersToKilometersPipe,
     MatCard,
-    MatCardAvatar,
     MatCardContent,
     MatSidenavModule,
     MatButton,

@@ -39,7 +39,13 @@ npm run start
 Alternatively, you can start the app with a mock backend locally by running
 
 ```
-npm run start-mock
+npm run start-mock-bes3
+```
+
+or
+
+```
+npm run start-mock-bes2
 ```
 
 ## Attribution

@@ -184,7 +184,8 @@
       "actions": {
         "enter-client-id": "Gib die Client ID deiner Client Application ein",
         "save": "Speichern",
-        "save-and-login": "Speichern und Login",
+        "save-and-login-bes2": "Speichern und Login BES2 (eBike System 2)",
+        "save-and-login-bes3": "Speichern und Login BES3 (Smart System)",
         "login": "Login",
         "login-with-singlekey-id": "Login mit SingleKey ID"
       }

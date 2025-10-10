@@ -3,11 +3,22 @@
     @if (authenticationService.isLoggedIn()) {
       <div class="inner-container">
         <h2>
-          {{
-            t("terms.hello", {
-              username: authenticationService.getIdentityClaims().email,
-            })
-          }}
+          @switch (authenticationService.ebikeGeneration()) {
+            @case ("BES2") {
+              {{
+                t("terms.hello", {
+                  username: authenticationService.getIdentityClaims().name,
+                })
+              }}
+            }
+            @case ("BES3") {
+              {{
+                t("terms.hello", {
+                  username: authenticationService.getIdentityClaims().email,
+                })
+              }}
+            }
+          }
         </h2>
       </div>
     } @else {

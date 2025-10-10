@@ -8,6 +8,8 @@ export const environment = {
     authorizationEndpoint:
       'https://p9.authz.bosch.com/auth/realms/obc/protocol/openid-connect/auth',
     redirectUri: 'https://open-ebike.github.io/open-ebike-frontend/home',
+    postLogoutRedirectUri:
+      'https://open-ebike.github.io/open-ebike-frontend/home',
     clientId: '',
     scope: 'euda:read',
     responseType: 'code',

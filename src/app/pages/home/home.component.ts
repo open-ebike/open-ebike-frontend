@@ -1,10 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Theme, ThemeService } from '../../services/theme.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { combineLatest, first } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
-import { MatButton } from '@angular/material/button';
 import {
   MatCard,
   MatCardAvatar,
@@ -20,8 +19,6 @@ import {
   selector: 'app-home',
   imports: [
     TranslocoDirective,
-    MatButton,
-    RouterLink,
     MatCard,
     MatCardHeader,
     MatCardAvatar,
