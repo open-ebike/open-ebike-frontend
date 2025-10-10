@@ -9,6 +9,7 @@ import {
   MatCardAvatar,
   MatCardContent,
   MatCardHeader,
+  MatCardSubtitle,
   MatCardTitle,
 } from '@angular/material/card';
 
@@ -23,6 +24,7 @@ import {
     MatCardHeader,
     MatCardAvatar,
     MatCardTitle,
+    MatCardSubtitle,
     MatCardContent,
   ],
   templateUrl: './home.component.html',

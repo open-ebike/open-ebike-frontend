@@ -27,23 +27,11 @@
           {{ t("terms.welcome-to") }}
           <span class="app-title">{{ t("terms.app-title") }}</span>
         </h1>
-        <h2>{{ t("terms.getting-started") }}</h2>
+        <h2>{{ t("terms.app-description") }}</h2>
+        <h2>{{ t("terms.getting-started-1") }}</h2>
       </div>
       <div class="grid-container">
-        <div class="grid wide">
-          <mat-card>
-            <mat-card-header>
-              <div mat-card-avatar>
-                <span class="material-symbols-outlined component icon">
-                  account_circle
-                </span>
-              </div>
-              <mat-card-title>{{ t("terms.step-1-title") }}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <p [innerHTML]="t('terms.step-1-content')"></p>
-            </mat-card-content>
-          </mat-card>
+        <div class="grid-1">
           <mat-card>
             <mat-card-header>
               <div mat-card-avatar>
@@ -51,16 +39,53 @@
                   mobile
                 </span>
               </div>
-              <mat-card-title>{{ t("terms.step-2-title") }}</mat-card-title>
+              <mat-card-title>{{ t("terms.option-a-title") }}</mat-card-title>
+              <mat-card-subtitle>{{
+                t("terms.option-a-subtitle")
+              }}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
               <ul class="list">
-                <li [innerHTML]="t('terms.step-2-content-1')"></li>
-                <li [innerHTML]="t('terms.step-2-content-2')"></li>
-                <li [innerHTML]="t('terms.step-2-content-3')"></li>
+                <li [innerHTML]="t('terms.option-a-content-1')"></li>
+                <li [innerHTML]="t('terms.option-a-content-2')"></li>
+                <li [innerHTML]="t('terms.option-a-content-3')"></li>
+                <li [innerHTML]="t('terms.option-a-content-4')"></li>
               </ul>
             </mat-card-content>
           </mat-card>
+          <div style="align-content: center; text-align: center">
+            <h2>
+              {{ t("terms.or") }}
+            </h2>
+          </div>
+          <mat-card>
+            <mat-card-header>
+              <div mat-card-avatar>
+                <span class="material-symbols-outlined component icon">
+                  mobile
+                </span>
+              </div>
+              <mat-card-title>{{ t("terms.option-b-title") }}</mat-card-title>
+              <mat-card-subtitle>{{
+                t("terms.option-b-subtitle")
+              }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <ul class="list">
+                <li [innerHTML]="t('terms.option-b-content-1')"></li>
+                <li [innerHTML]="t('terms.option-b-content-2')"></li>
+                <li [innerHTML]="t('terms.option-b-content-3')"></li>
+                <li [innerHTML]="t('terms.option-b-content-4')"></li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <div class="inner-container">
+        <h2>{{ t("terms.getting-started-2") }}</h2>
+      </div>
+      <div class="grid-container">
+        <div class="grid-2">
           <mat-card>
             <mat-card-header>
               <div mat-card-avatar>
@@ -68,13 +93,14 @@
                   contract
                 </span>
               </div>
-              <mat-card-title>{{ t("terms.step-3-title") }}</mat-card-title>
+              <mat-card-title>{{ t("terms.step-1-title") }}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <ul class="list">
-                <li [innerHTML]="t('terms.step-3-content-1')"></li>
-                <li [innerHTML]="t('terms.step-3-content-2')"></li>
-                <li [innerHTML]="t('terms.step-3-content-3')"></li>
+                <li [innerHTML]="t('terms.step-1-content-1')"></li>
+                <li [innerHTML]="t('terms.step-1-content-2')"></li>
+                <li [innerHTML]="t('terms.step-1-content-3')"></li>
+                <li [innerHTML]="t('terms.step-1-content-4')"></li>
                 <ul class="client-application">
                   <li>
                     <strong class="highlight"
@@ -95,7 +121,7 @@
                     {{ t("terms.false") }}
                   </li>
                 </ul>
-                <li [innerHTML]="t('terms.step-3-content-4')"></li>
+                <li [innerHTML]="t('terms.step-1-content-5')"></li>
               </ul>
             </mat-card-content>
           </mat-card>
@@ -106,12 +132,12 @@
                   approval_delegation
                 </span>
               </div>
-              <mat-card-title>{{ t("terms.step-4-title") }}</mat-card-title>
+              <mat-card-title>{{ t("terms.step-2-title") }}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <ul class="list">
-                <li [innerHTML]="t('terms.step-4-content-1')"></li>
-                <li [innerHTML]="t('terms.step-4-content-2')"></li>
+                <li [innerHTML]="t('terms.step-2-content-1')"></li>
+                <li [innerHTML]="t('terms.step-2-content-2')"></li>
               </ul>
             </mat-card-content>
           </mat-card>
@@ -122,12 +148,14 @@
                   login
                 </span>
               </div>
-              <mat-card-title>{{ t("terms.step-5-title") }}</mat-card-title>
+              <mat-card-title>{{ t("terms.step-3-title") }}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <ul class="list">
-                <li [innerHTML]="t('terms.step-5-content-1')"></li>
-                <li [innerHTML]="t('terms.step-5-content-2')"></li>
+                <li [innerHTML]="t('terms.step-3-content-1')"></li>
+                <li [innerHTML]="t('terms.step-3-content-2')"></li>
+                <li [innerHTML]="t('terms.step-3-content-3')"></li>
+                <li [innerHTML]="t('terms.step-3-content-4')"></li>
               </ul>
             </mat-card-content>
           </mat-card>
