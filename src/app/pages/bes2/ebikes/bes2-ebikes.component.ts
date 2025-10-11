@@ -1,13 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Theme, ThemeService } from '../../../services/theme.service';
-import { AuthenticationService } from '../../../services/authentication.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
-import { combineLatest, first } from 'rxjs';
-import {
-  EbikeProfile,
-  EbikeProfileService,
-} from '../../../services/api/bes3/ebike-profile.service';
 import {
   MatCard,
   MatCardActions,
@@ -19,10 +11,14 @@ import {
   MatCardTitle,
 } from '@angular/material/card';
 import { MatRipple } from '@angular/material/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
-  EbikeRegistrationService,
-  Registration,
-} from '../../../services/api/bes3/ebike-registration.service';
+  EbikeProfile,
+  EbikeProfileService,
+} from '../../../services/api/bes2/ebike-profile.service';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { Theme, ThemeService } from '../../../services/theme.service';
+import { combineLatest, first } from 'rxjs';
 
 /**
  * Displays eBikes
@@ -42,11 +38,11 @@ import {
     MatCardActions,
     MatCardFooter,
   ],
-  templateUrl: './bes3-ebikes.component.html',
-  styleUrl: './bes3-ebikes.component.scss',
+  templateUrl: './bes2-ebikes.component.html',
+  styleUrl: './bes2-ebikes.component.scss',
   standalone: true,
 })
-export class Bes3EbikesComponent implements OnInit {
+export class Bes2EbikesComponent implements OnInit {
   //
   // Injections
   //
@@ -59,8 +55,6 @@ export class Bes3EbikesComponent implements OnInit {
   public authenticationService = inject(AuthenticationService);
   /** eBike profile service */
   private ebikeProfileService = inject(EbikeProfileService);
-  /** eBike registration service */
-  private ebikeRegistrationService = inject(EbikeRegistrationService);
 
   //
   // Signals
@@ -68,8 +62,6 @@ export class Bes3EbikesComponent implements OnInit {
 
   /** Signal providing eBike profiles */
   ebikeProfiles = signal<EbikeProfile[]>([]);
-  /** Signal providing registrations */
-  registrations = signal<Registration[]>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -90,7 +82,6 @@ export class Bes3EbikesComponent implements OnInit {
    */
   ngOnInit() {
     this.initializeEbikes();
-    this.initializeRegistrations();
     this.handleQueryParameters();
   }
 
@@ -104,17 +95,6 @@ export class Bes3EbikesComponent implements OnInit {
   }
 
   /**
-   * Initializes registrations
-   */
-  private initializeRegistrations() {
-    this.ebikeRegistrationService
-      .getRegistrations()
-      .subscribe((registrations) => {
-        this.registrations.set(registrations.registrations);
-      });
-  }
-
-  /**
    * Handles query parameters
    */
   private handleQueryParameters() {
@@ -125,19 +105,5 @@ export class Bes3EbikesComponent implements OnInit {
 
         this.themeService.switchTheme(theme ? theme : Theme.LIGHT);
       });
-  }
-
-  //
-  // Helpers
-  //
-
-  /**
-   * Determines if an ebike is registered
-   * @param bikeId bike ID
-   */
-  isEbikeRegistered(bikeId: string) {
-    return this.registrations().find(
-      (registration) => registration.bikeRegistration?.bikeId === bikeId,
-    );
   }
 }

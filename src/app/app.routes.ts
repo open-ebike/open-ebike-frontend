@@ -10,6 +10,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { ImprintComponent } from './pages/imprint/imprint.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { ConfigurationComponent } from './pages/configuration/configuration.component';
+import { Bes2EbikesComponent } from './pages/bes2/ebikes/bes2-ebikes.component';
 
 export const routes: Routes = [
   {
@@ -39,6 +40,11 @@ export const routes: Routes = [
   {
     path: 'bes3/component-details/:id',
     component: Bes3ComponentDetailsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'bes2/ebikes',
+    component: Bes2EbikesComponent,
     canActivate: [AuthGuard],
   },
   {

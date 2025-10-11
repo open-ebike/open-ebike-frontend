@@ -1,32 +1,48 @@
 <ng-container *transloco="let t; lang: lang">
   <div class="footer">
     @if (authenticationService.isLoggedIn()) {
-      <div class="footer-section">
-        <strong>{{ t("terms.features") }}</strong>
-        <ul class="list">
-          <li>
-            <a
-              routerLink="/bes3/ebikes"
-              [queryParams]="{ theme: themeService.theme() }"
-              >{{ t("pages.ebikes.title") }}</a
-            >
-          </li>
-          <li>
-            <a
-              routerLink="/bes3/activities"
-              [queryParams]="{ theme: themeService.theme() }"
-              >{{ t("pages.activities.title") }}</a
-            >
-          </li>
-          <li>
-            <a
-              routerLink="/bes3/registrations"
-              [queryParams]="{ theme: themeService.theme() }"
-              >{{ t("pages.registrations.title") }}</a
-            >
-          </li>
-        </ul>
-      </div>
+      @if (authenticationService.ebikeGeneration() == "BES3") {
+        <div class="footer-section">
+          <strong>{{ t("terms.features") }}</strong>
+          <ul class="list">
+            <li>
+              <a
+                routerLink="/bes3/ebikes"
+                [queryParams]="{ theme: themeService.theme() }"
+                >{{ t("pages.ebikes.title") }}</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/bes3/activities"
+                [queryParams]="{ theme: themeService.theme() }"
+                >{{ t("pages.activities.title") }}</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/bes3/registrations"
+                [queryParams]="{ theme: themeService.theme() }"
+                >{{ t("pages.registrations.title") }}</a
+              >
+            </li>
+          </ul>
+        </div>
+      }
+      @if (authenticationService.ebikeGeneration() == "BES2") {
+        <div class="footer-section">
+          <strong>{{ t("terms.features") }}</strong>
+          <ul class="list">
+            <li>
+              <a
+                routerLink="/bes2/ebikes"
+                [queryParams]="{ theme: themeService.theme() }"
+                >{{ t("pages.ebikes.title") }}</a
+              >
+            </li>
+          </ul>
+        </div>
+      }
     }
 
     <div class="footer-section">

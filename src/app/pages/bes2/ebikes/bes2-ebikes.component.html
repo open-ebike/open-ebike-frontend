@@ -1,0 +1,29 @@
+<ng-container *transloco="let t; lang: lang; prefix: 'pages.ebikes'">
+  <div class="container flex-container-vertical">
+    @if (authenticationService.isLoggedIn()) {
+      <div class="inner-container">
+        <h2>{{ t("title") }}</h2>
+        <div class="grid wide">
+          @for (ebikeProfile of ebikeProfiles(); track ebikeProfile) {
+            <mat-card mat-ripple>
+              <mat-card-header>
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined ebike icon">
+                    electric_bike
+                  </span>
+                </div>
+                <mat-card-title>{{ t("terms.ebike") }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content></mat-card-content>
+              <mat-card-actions></mat-card-actions>
+              <mat-card-footer></mat-card-footer>
+            </mat-card>
+          } @empty {
+            {{ t("messages.no-ebikes") }}
+          }
+        </div>
+      </div>
+      <div class="flex-box"></div>
+    }
+  </div>
+</ng-container>
