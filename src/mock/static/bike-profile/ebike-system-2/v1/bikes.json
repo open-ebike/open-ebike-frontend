@@ -1,0 +1,52 @@
+{
+  "bikes": [
+    {
+      "driveUnit": {
+        "serialNumber": "string",
+        "partNumber": "string",
+        "type": "string",
+        "deviceName": "string",
+        "productLineName": "PRDL_ACTIVE50_GEN3",
+        "bikeManufacturer": "Trek",
+        "maxSpeedForUdam": -2147483648,
+        "maxAssistFactor": -2147483648,
+        "features": ["EMTB"],
+        "customAssistanceLevels": [
+          [
+            {
+              "x": -2147483648,
+              "y": -2147483648
+            }
+          ]
+        ],
+        "isLockFeatureEnabled": true,
+        "settingsLastModifiedAt": {
+          "bikeSettings": "2019-08-24T14:15:22Z",
+          "customAssistanceLevels": "2019-08-24T14:15:22Z"
+        },
+        "isSpedelec": true
+      },
+      "headUnits": [
+        {
+          "serialNumber": "string",
+          "partNumber": "string",
+          "type": "string",
+          "deviceName": "string",
+          "deviceLineName": "BUI3XX",
+          "mapVersion": "string",
+          "memoryCapacity": "8 GB",
+          "lastSyncedAt": "2019-08-24T14:15:22Z",
+          "lastActivityUploadedAt": "2019-08-24T14:15:22Z"
+        }
+      ],
+      "batteries": [
+        {
+          "serialNumber": "string",
+          "partNumber": "string",
+          "type": "string",
+          "deviceName": "string"
+        }
+      ]
+    }
+  ]
+}
