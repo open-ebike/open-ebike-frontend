@@ -11,7 +11,7 @@
           <span class="delimiter">·</span>
           <button
             mat-button
-            routerLink="/ebikes"
+            routerLink="/bes3/ebikes"
             [queryParams]="{ theme: themeService.theme() }"
           >
             {{ t("actions.show-all") }}
@@ -88,7 +88,7 @@
           @if (ebikeProfile()?.driveUnit) {
             <mat-card
               mat-ripple
-              [routerLink]="['/component-details', ebikeProfile()?.id]"
+              [routerLink]="['/bes3/component-details', ebikeProfile()?.id]"
               [queryParams]="{
                 serialNumber: ebikeProfile()?.driveUnit?.serialNumber,
                 partNumber: ebikeProfile()?.driveUnit?.partNumber,
@@ -143,7 +143,7 @@
           @if (ebikeProfile()?.remoteControl) {
             <mat-card
               mat-ripple
-              [routerLink]="['/component-details', ebikeProfile()?.id]"
+              [routerLink]="['/bes3/component-details', ebikeProfile()?.id]"
               [queryParams]="{
                 serialNumber: ebikeProfile()?.remoteControl?.serialNumber,
                 partNumber: ebikeProfile()?.remoteControl?.partNumber,
@@ -182,7 +182,7 @@
           @for (battery of ebikeProfile()?.batteries; track battery) {
             <mat-card
               mat-ripple
-              [routerLink]="['/component-details', ebikeProfile()?.id]"
+              [routerLink]="['/bes3/component-details', ebikeProfile()?.id]"
               [queryParams]="{
                 serialNumber: battery.serialNumber,
                 partNumber: battery.partNumber,
@@ -220,7 +220,7 @@
           ) {
             <mat-card
               mat-ripple
-              [routerLink]="['/component-details', ebikeProfile()?.id]"
+              [routerLink]="['/bes3/component-details', ebikeProfile()?.id]"
               [queryParams]="{
                 serialNumber: antiLockBrakeSystem.serialNumber,
                 partNumber: antiLockBrakeSystem.partNumber,
@@ -259,7 +259,7 @@
           @if (ebikeProfile()?.connectModule) {
             <mat-card
               mat-ripple
-              [routerLink]="['/component-details', ebikeProfile()?.id]"
+              [routerLink]="['/bes3/component-details', ebikeProfile()?.id]"
               [queryParams]="{
                 serialNumber: ebikeProfile()?.connectModule?.serialNumber,
                 partNumber: ebikeProfile()?.connectModule?.partNumber,
@@ -298,7 +298,7 @@
           @if (ebikeProfile()?.headUnit) {
             <mat-card
               mat-ripple
-              [routerLink]="['/component-details', ebikeProfile()?.id]"
+              [routerLink]="['/bes3/component-details', ebikeProfile()?.id]"
               [queryParams]="{
                 serialNumber: ebikeProfile()?.headUnit?.serialNumber,
                 partNumber: ebikeProfile()?.headUnit?.partNumber,

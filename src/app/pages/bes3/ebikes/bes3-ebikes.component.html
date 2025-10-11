@@ -7,7 +7,7 @@
           @for (ebikeProfile of ebikeProfiles(); track ebikeProfile) {
             <mat-card
               mat-ripple
-              [routerLink]="['/ebike-details', ebikeProfile.id]"
+              [routerLink]="['/bes3/ebike-details', ebikeProfile.id]"
               [queryParams]="{
                 theme: themeService.theme(),
               }"

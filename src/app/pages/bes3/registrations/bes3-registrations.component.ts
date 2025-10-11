@@ -1,12 +1,12 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Theme, ThemeService } from '../../services/theme.service';
-import { AuthenticationService } from '../../services/authentication.service';
+import { Theme, ThemeService } from '../../../services/theme.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import {
   EbikeRegistrationService,
   Registration,
-} from '../../services/api/bes3/ebike-registration.service';
+} from '../../../services/api/bes3/ebike-registration.service';
 import { DatePipe } from '@angular/common';
 import { MatRipple } from '@angular/material/core';
 import { combineLatest, first } from 'rxjs';
@@ -34,11 +34,11 @@ import {
     MatCardSubtitle,
     MatCardTitle,
   ],
-  templateUrl: './registrations.component.html',
-  styleUrl: './registrations.component.scss',
+  templateUrl: './bes3-registrations.component.html',
+  styleUrl: './bes3-registrations.component.scss',
   standalone: true,
 })
-export class RegistrationsComponent implements OnInit {
+export class Bes3RegistrationsComponent implements OnInit {
   //
   // Injections
   //

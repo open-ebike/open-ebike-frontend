@@ -9,21 +9,21 @@ import {
   viewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Theme, ThemeService } from '../../services/theme.service';
-import { AuthenticationService } from '../../services/authentication.service';
+import { Theme, ThemeService } from '../../../services/theme.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 import {
   ActivityDetail,
   ActivityRecordsService,
   ActivitySummary,
   ActivitySummarySort,
-} from '../../services/api/bes3/activity-records.service';
+} from '../../../services/api/bes3/activity-records.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { combineLatest, first } from 'rxjs';
 import { MatList, MatListItem } from '@angular/material/list';
 import { DatePipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatRipple } from '@angular/material/core';
-import { MetersToKilometersPipe } from '../../pipes/meters-to-kilometers.pipe';
+import { MetersToKilometersPipe } from '../../../pipes/meters-to-kilometers.pipe';
 import {
   MatCard,
   MatCardActions,
@@ -37,10 +37,10 @@ import {
   MapComponent,
   Origin,
   Overlay,
-} from '../../components/map/map.component';
-import { MapboxService } from '../../services/mapbox.service';
+} from '../../../components/map/map.component';
+import { MapboxService } from '../../../services/mapbox.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { RoundPipe } from '../../pipes/round.pipe';
+import { RoundPipe } from '../../../pipes/round.pipe';
 
 /**
  * Displays activities
@@ -65,11 +65,11 @@ import { RoundPipe } from '../../pipes/round.pipe';
     MatPaginator,
     RoundPipe,
   ],
-  templateUrl: './activities.component.html',
-  styleUrl: './activities.component.scss',
+  templateUrl: './bes3-activities.component.html',
+  styleUrl: './bes3-activities.component.scss',
   standalone: true,
 })
-export class ActivitiesComponent implements OnInit {
+export class Bes3ActivitiesComponent implements OnInit {
   //
   // Injections
   //

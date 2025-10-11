@@ -1,13 +1,13 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Theme, ThemeService } from '../../services/theme.service';
-import { AuthenticationService } from '../../services/authentication.service';
+import { Theme, ThemeService } from '../../../services/theme.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { combineLatest, first } from 'rxjs';
 import {
   EbikeProfile,
   EbikeProfileService,
-} from '../../services/api/bes3/ebike-profile.service';
+} from '../../../services/api/bes3/ebike-profile.service';
 import {
   MatCard,
   MatCardActions,
@@ -22,7 +22,7 @@ import { MatRipple } from '@angular/material/core';
 import {
   EbikeRegistrationService,
   Registration,
-} from '../../services/api/bes3/ebike-registration.service';
+} from '../../../services/api/bes3/ebike-registration.service';
 
 /**
  * Displays eBikes
@@ -42,11 +42,11 @@ import {
     MatCardActions,
     MatCardFooter,
   ],
-  templateUrl: './ebikes.component.html',
-  styleUrl: './ebikes.component.scss',
+  templateUrl: './bes3-ebikes.component.html',
+  styleUrl: './bes3-ebikes.component.scss',
   standalone: true,
 })
-export class EbikesComponent implements OnInit {
+export class Bes3EbikesComponent implements OnInit {
   //
   // Injections
   //

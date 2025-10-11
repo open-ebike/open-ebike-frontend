@@ -3,10 +3,10 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
   EbikeProfile,
   EbikeProfileService,
-} from '../../services/api/bes3/ebike-profile.service';
+} from '../../../services/api/bes3/ebike-profile.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
-import { Theme, ThemeService } from '../../services/theme.service';
-import { AuthenticationService } from '../../services/authentication.service';
+import { Theme, ThemeService } from '../../../services/theme.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 import { combineLatest, first } from 'rxjs';
 import {
   MatCard,
@@ -23,28 +23,28 @@ import { DatePipe } from '@angular/common';
 import {
   BikePass,
   BikePassService,
-} from '../../services/api/bes3/bike-pass.service';
+} from '../../../services/api/bes3/bike-pass.service';
 import {
   BulkConfigurationService,
   BulkInstallationReport,
-} from '../../services/api/bes3/bulk-configuration.service';
-import { AttributeTreeComponent } from '../../components/attribute-tree/attribute-tree.component';
+} from '../../../services/api/bes3/bulk-configuration.service';
+import { AttributeTreeComponent } from '../../../components/attribute-tree/attribute-tree.component';
 import {
   DigitalServiceBookService,
   ServiceRecord,
-} from '../../services/api/bes3/digital-service-book.service';
+} from '../../../services/api/bes3/digital-service-book.service';
 import {
   Case,
   RemoteConfigurationService,
-} from '../../services/api/bes3/remote-configuration.service';
+} from '../../../services/api/bes3/remote-configuration.service';
 import {
   InstallationReport,
   ReleaseManagementService,
-} from '../../services/api/bes3/release-management.service';
+} from '../../../services/api/bes3/release-management.service';
 import {
   EbikeRegistrationService,
   Registration,
-} from '../../services/api/bes3/ebike-registration.service';
+} from '../../../services/api/bes3/ebike-registration.service';
 import { MatButton } from '@angular/material/button';
 
 /**
@@ -68,11 +68,11 @@ import { MatButton } from '@angular/material/button';
     RouterLink,
     MatButton,
   ],
-  templateUrl: './ebike-details.component.html',
-  styleUrl: './ebike-details.component.scss',
+  templateUrl: './bes3-ebike-details.component.html',
+  styleUrl: './bes3-ebike-details.component.scss',
   standalone: true,
 })
-export class EbikeDetailsComponent implements OnInit {
+export class Bes3EbikeDetailsComponent implements OnInit {
   //
   // Injections
   //
@@ -135,7 +135,7 @@ export class EbikeDetailsComponent implements OnInit {
   constructor() {
     this.route.params.subscribe((params) => {
       if (params['id'] == undefined && params['id'].length == 0) {
-        this.router.navigate(['/ebikes']);
+        this.router.navigate(['/bes3/ebikes']);
       }
 
       this.initializeEbike(params['id']);

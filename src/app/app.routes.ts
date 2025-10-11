@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { EbikesComponent } from './pages/ebikes/ebikes.component';
+import { Bes3EbikesComponent } from './pages/bes3/ebikes/bes3-ebikes.component';
 import { AuthGuard } from './services/auth/auth-guard';
-import { EbikeDetailsComponent } from './pages/ebike-details/ebike-details.component';
-import { ActivitiesComponent } from './pages/activities/activities.component';
-import { RegistrationsComponent } from './pages/registrations/registrations.component';
-import { ComponentDetailsComponent } from './pages/component-details/component-details.component';
+import { Bes3EbikeDetailsComponent } from './pages/bes3/ebike-details/bes3-ebike-details.component';
+import { Bes3ActivitiesComponent } from './pages/bes3/activities/bes3-activities.component';
+import { Bes3RegistrationsComponent } from './pages/bes3/registrations/bes3-registrations.component';
+import { Bes3ComponentDetailsComponent } from './pages/bes3/component-details/bes3-component-details.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ImprintComponent } from './pages/imprint/imprint.component';
 import { ContactComponent } from './pages/contact/contact.component';
@@ -17,28 +17,28 @@ export const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'ebike-details/:id',
-    component: EbikeDetailsComponent,
+    path: 'bes3/ebike-details/:id',
+    component: Bes3EbikeDetailsComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'ebikes',
-    component: EbikesComponent,
+    path: 'bes3/ebikes',
+    component: Bes3EbikesComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'activities',
-    component: ActivitiesComponent,
+    path: 'bes3/activities',
+    component: Bes3ActivitiesComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'registrations',
-    component: RegistrationsComponent,
+    path: 'bes3/registrations',
+    component: Bes3RegistrationsComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'component-details/:id',
-    component: ComponentDetailsComponent,
+    path: 'bes3/component-details/:id',
+    component: Bes3ComponentDetailsComponent,
     canActivate: [AuthGuard],
   },
   {

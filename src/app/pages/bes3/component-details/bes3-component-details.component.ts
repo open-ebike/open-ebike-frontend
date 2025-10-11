@@ -1,8 +1,8 @@
 import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Theme, ThemeService } from '../../services/theme.service';
-import { AuthenticationService } from '../../services/authentication.service';
+import { Theme, ThemeService } from '../../../services/theme.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 import {
   AntiLockBrakeSystem,
   Battery,
@@ -13,7 +13,7 @@ import {
   EbikeProfileService,
   HeadUnit,
   RemoteControl,
-} from '../../services/api/bes3/ebike-profile.service';
+} from '../../../services/api/bes3/ebike-profile.service';
 import { combineLatest, first } from 'rxjs';
 import {
   MatCard,
@@ -22,16 +22,16 @@ import {
   MatCardHeader,
   MatCardTitle,
 } from '@angular/material/card';
-import { ThousandsSeparatorPipe } from '../../pipes/thousands-separator.pipe';
+import { ThousandsSeparatorPipe } from '../../../pipes/thousands-separator.pipe';
 import {
   CapacityTester,
   DiagnosisFieldDataService,
-} from '../../services/api/bes3/diagnosis-field-data.service';
-import { AttributeTreeComponent } from '../../components/attribute-tree/attribute-tree.component';
+} from '../../../services/api/bes3/diagnosis-field-data.service';
+import { AttributeTreeComponent } from '../../../components/attribute-tree/attribute-tree.component';
 import {
   EbikeRegistrationService,
   Registration,
-} from '../../services/api/bes3/ebike-registration.service';
+} from '../../../services/api/bes3/ebike-registration.service';
 
 /**
  * Displays component details
@@ -49,11 +49,11 @@ import {
     MatCardHeader,
     MatCardTitle,
   ],
-  templateUrl: './component-details.component.html',
-  styleUrl: './component-details.component.scss',
+  templateUrl: './bes3-component-details.component.html',
+  styleUrl: './bes3-component-details.component.scss',
   standalone: true,
 })
-export class ComponentDetailsComponent implements OnInit {
+export class Bes3ComponentDetailsComponent implements OnInit {
   //
   // Injections
   //
@@ -117,7 +117,7 @@ export class ComponentDetailsComponent implements OnInit {
   constructor() {
     this.route.params.subscribe((params) => {
       if (params['id'] == undefined && params['id'].length == 0) {
-        this.router.navigate(['/ebikes']);
+        this.router.navigate(['/bes3/ebikes']);
       }
 
       this.initializeEbike(params['id']);

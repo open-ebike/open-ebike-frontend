@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ActivitiesComponent } from './activities.component';
+import { Bes3EbikesComponent } from './bes3-ebikes.component';
 
-describe('ActivitiesComponent', () => {
-  let component: ActivitiesComponent;
-  let fixture: ComponentFixture<ActivitiesComponent>;
+describe('Bes3EbikesComponent', () => {
+  let component: Bes3EbikesComponent;
+  let fixture: ComponentFixture<Bes3EbikesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ActivitiesComponent],
+      imports: [Bes3EbikesComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ActivitiesComponent);
+    fixture = TestBed.createComponent(Bes3EbikesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
