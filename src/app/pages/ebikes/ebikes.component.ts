@@ -7,7 +7,7 @@ import { combineLatest, first } from 'rxjs';
 import {
   EbikeProfile,
   EbikeProfileService,
-} from '../../services/api/ebike-profile.service';
+} from '../../services/api/bes3/ebike-profile.service';
 import {
   MatCard,
   MatCardActions,
@@ -22,7 +22,7 @@ import { MatRipple } from '@angular/material/core';
 import {
   EbikeRegistrationService,
   Registration,
-} from '../../services/api/ebike-registration.service';
+} from '../../services/api/bes3/ebike-registration.service';
 
 /**
  * Displays eBikes

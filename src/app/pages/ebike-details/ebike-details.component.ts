@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
   EbikeProfile,
   EbikeProfileService,
-} from '../../services/api/ebike-profile.service';
+} from '../../services/api/bes3/ebike-profile.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { Theme, ThemeService } from '../../services/theme.service';
 import { AuthenticationService } from '../../services/authentication.service';
@@ -23,28 +23,28 @@ import { DatePipe } from '@angular/common';
 import {
   BikePass,
   BikePassService,
-} from '../../services/api/bike-pass.service';
+} from '../../services/api/bes3/bike-pass.service';
 import {
   BulkConfigurationService,
   BulkInstallationReport,
-} from '../../services/api/bulk-configuration.service';
+} from '../../services/api/bes3/bulk-configuration.service';
 import { AttributeTreeComponent } from '../../components/attribute-tree/attribute-tree.component';
 import {
   DigitalServiceBookService,
   ServiceRecord,
-} from '../../services/api/digital-service-book.service';
+} from '../../services/api/bes3/digital-service-book.service';
 import {
   Case,
   RemoteConfigurationService,
-} from '../../services/api/remote-configuration.service';
+} from '../../services/api/bes3/remote-configuration.service';
 import {
   InstallationReport,
   ReleaseManagementService,
-} from '../../services/api/release-management.service';
+} from '../../services/api/bes3/release-management.service';
 import {
   EbikeRegistrationService,
   Registration,
-} from '../../services/api/ebike-registration.service';
+} from '../../services/api/bes3/ebike-registration.service';
 import { MatButton } from '@angular/material/button';
 
 /**

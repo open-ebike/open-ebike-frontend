@@ -13,7 +13,7 @@ import {
   EbikeProfileService,
   HeadUnit,
   RemoteControl,
-} from '../../services/api/ebike-profile.service';
+} from '../../services/api/bes3/ebike-profile.service';
 import { combineLatest, first } from 'rxjs';
 import {
   MatCard,
@@ -26,12 +26,12 @@ import { ThousandsSeparatorPipe } from '../../pipes/thousands-separator.pipe';
 import {
   CapacityTester,
   DiagnosisFieldDataService,
-} from '../../services/api/diagnosis-field-data.service';
+} from '../../services/api/bes3/diagnosis-field-data.service';
 import { AttributeTreeComponent } from '../../components/attribute-tree/attribute-tree.component';
 import {
   EbikeRegistrationService,
   Registration,
-} from '../../services/api/ebike-registration.service';
+} from '../../services/api/bes3/ebike-registration.service';
 
 /**
  * Displays component details

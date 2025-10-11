@@ -6,7 +6,7 @@ import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import {
   EbikeRegistrationService,
   Registration,
-} from '../../services/api/ebike-registration.service';
+} from '../../services/api/bes3/ebike-registration.service';
 import { DatePipe } from '@angular/common';
 import { MatRipple } from '@angular/material/core';
 import { combineLatest, first } from 'rxjs';

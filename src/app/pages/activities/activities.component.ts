@@ -16,7 +16,7 @@ import {
   ActivityRecordsService,
   ActivitySummary,
   ActivitySummarySort,
-} from '../../services/api/activity-records.service';
+} from '../../services/api/bes3/activity-records.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { combineLatest, first } from 'rxjs';
 import { MatList, MatListItem } from '@angular/material/list';

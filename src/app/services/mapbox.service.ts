@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { ActivityDetail } from './api/activity-records.service';
+import { ActivityDetail } from './api/bes3/activity-records.service';
 
 interface GeojsonFeatureCollection {
   type: 'FeatureCollection';
