@@ -94,6 +94,8 @@ export class EbikeProfileService {
 
   /**
    * Retrieves details for bikes
+   * @partNumber drive unit part number
+   * @serialNumber drive unit serial number
    */
   getAllBikes(
     partNumber?: string,

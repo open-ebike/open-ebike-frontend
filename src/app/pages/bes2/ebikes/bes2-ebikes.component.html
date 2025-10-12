@@ -5,7 +5,15 @@
         <h2>{{ t("title") }}</h2>
         <div class="grid wide">
           @for (ebikeProfile of ebikeProfiles(); track ebikeProfile) {
-            <mat-card mat-ripple>
+            <mat-card
+              mat-ripple
+              [routerLink]="['/bes2/ebike-details']"
+              [queryParams]="{
+                theme: themeService.theme(),
+                partNumber: ebikeProfile.driveUnit.partNumber,
+                serialNumber: ebikeProfile.driveUnit.serialNumber,
+              }"
+            >
               <mat-card-header>
                 <div mat-card-avatar>
                   <span class="material-symbols-outlined ebike icon">
@@ -13,6 +21,13 @@
                   </span>
                 </div>
                 <mat-card-title>{{ t("terms.ebike") }}</mat-card-title>
+                <mat-card-subtitle>
+                  {{ t("terms.drive-unit-part-number") }}
+                  {{ ebikeProfile.driveUnit.partNumber }}
+                  <span class="delimiter">·</span>
+                  {{ t("terms.drive-unit-serial-number") }}
+                  {{ ebikeProfile.driveUnit.serialNumber }}
+                </mat-card-subtitle>
               </mat-card-header>
               <mat-card-content></mat-card-content>
               <mat-card-actions></mat-card-actions>

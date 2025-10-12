@@ -1,6 +1,5 @@
-@use "../../../../../node_modules/@angular/material/index" as mat;
+@use "@angular/material/index" as mat;
 @import "../../../../styles";
-@import "../../../../sizes";
 
 .grid {
   display: grid;

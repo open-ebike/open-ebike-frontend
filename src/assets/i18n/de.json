@@ -51,7 +51,9 @@
       "title": "eBikes",
       "terms": {
         "ebike": "eBike",
-        "registered": "registriert"
+        "registered": "registriert",
+        "drive-unit-part-number": "Drive Unit Teilnummer",
+        "drive-unit-serial-number": "Drive Unit Seriennummer"
       },
       "messages": {
         "no-ebikes": "keine eBikes registriert"

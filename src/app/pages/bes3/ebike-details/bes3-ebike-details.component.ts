@@ -281,18 +281,4 @@ export class Bes3EbikeDetailsComponent implements OnInit {
         registration.componentRegistration?.serialNumber === serialNumber,
     );
   }
-
-  /**
-   * Updates query parameters
-   */
-  private updateQueryParameters() {
-    this.router
-      .navigate([], {
-        relativeTo: this.route,
-        queryParams: {
-          [this.QUERY_PARAM_THEME]: this.themeService.theme(),
-        },
-      })
-      .then();
-  }
 }

@@ -11,6 +11,7 @@ import { ImprintComponent } from './pages/imprint/imprint.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { ConfigurationComponent } from './pages/configuration/configuration.component';
 import { Bes2EbikesComponent } from './pages/bes2/ebikes/bes2-ebikes.component';
+import { Bes2EbikeDetailsComponent } from './pages/bes2/ebike-details/bes2-ebike-details.component';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,11 @@ export const routes: Routes = [
   {
     path: 'bes3/component-details/:id',
     component: Bes3ComponentDetailsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'bes2/ebike-details',
+    component: Bes2EbikeDetailsComponent,
     canActivate: [AuthGuard],
   },
   {

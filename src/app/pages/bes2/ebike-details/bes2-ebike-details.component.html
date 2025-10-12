@@ -1,0 +1,114 @@
+<ng-container *transloco="let t; lang: lang; prefix: 'pages.ebike-details'">
+  <div class="container flex-container-vertical">
+    @if (authenticationService.isLoggedIn()) {
+      <div class="inner-container">
+        <h2>
+          <span class="material-symbols-outlined ebike icon">
+            electric_bike
+          </span>
+          {{ t("title") }}
+          <span class="delimiter">·</span>
+          <button
+            mat-button
+            routerLink="/bes2/ebikes"
+            [queryParams]="{ theme: themeService.theme() }"
+          >
+            {{ t("actions.show-all") }}
+          </button>
+        </h2>
+
+        <h3>{{ t("terms.components") }}</h3>
+
+        <div class="grid wide">
+          @if (ebikeProfile()?.driveUnit) {
+            <mat-card mat-ripple>
+              <mat-card-header>
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined component icon">
+                    extension
+                  </span>
+                </div>
+                <mat-card-title
+                  >{{ ebikeProfile()?.driveUnit?.deviceName }}
+                </mat-card-title>
+                <mat-card-subtitle>
+                  {{ t("terms.drive-unit") }}
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{ t("terms.serial-number") }}</strong
+                    >: {{ ebikeProfile()?.driveUnit?.serialNumber }}
+                  </li>
+                  <li>
+                    <strong class="label">{{ t("terms.part-number") }}</strong
+                    >: {{ ebikeProfile()?.driveUnit?.partNumber }}
+                  </li>
+                </ul>
+              </mat-card-content>
+              <mat-card-actions></mat-card-actions>
+            </mat-card>
+          }
+
+          @for (battery of ebikeProfile()?.batteries; track battery) {
+            <mat-card mat-ripple>
+              <mat-card-header>
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined component icon">
+                    battery_charging_full
+                  </span>
+                </div>
+                <mat-card-title>{{ battery.deviceName }}</mat-card-title>
+                <mat-card-subtitle>{{ t("terms.battery") }}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{ t("terms.serial-number") }}</strong
+                    >: {{ battery.serialNumber }}
+                  </li>
+                  <li>
+                    <strong class="label">{{ t("terms.part-number") }}</strong
+                    >: {{ battery.partNumber }}
+                  </li>
+                </ul>
+              </mat-card-content>
+              <mat-card-actions></mat-card-actions>
+            </mat-card>
+          }
+
+          @for (headUnit of ebikeProfile()?.headUnits; track headUnit) {
+            <mat-card mat-ripple>
+              <mat-card-header>
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined component icon">
+                    tablet
+                  </span>
+                </div>
+                <mat-card-title>{{ headUnit.deviceName }} </mat-card-title>
+                <mat-card-subtitle
+                  >{{ t("terms.head-unit") }}
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{ t("terms.serial-number") }}</strong
+                    >: {{ headUnit.serialNumber }}
+                  </li>
+                  <li>
+                    <strong class="label">{{ t("terms.part-number") }}</strong
+                    >: {{ headUnit.partNumber }}
+                  </li>
+                </ul>
+              </mat-card-content>
+              <mat-card-actions></mat-card-actions>
+            </mat-card>
+          }
+        </div>
+      </div>
+      <div class="flex-box"></div>
+    }
+  </div>
+</ng-container>
