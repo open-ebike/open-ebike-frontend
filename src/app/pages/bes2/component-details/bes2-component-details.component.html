@@ -1,0 +1,252 @@
+<ng-container *transloco="let t; lang: lang; prefix: 'pages.component-details'">
+  <div class="container flex-container-vertical">
+    @if (authenticationService.isLoggedIn()) {
+      <div class="inner-container">
+        <h2>
+          @if (ebikeProfile()) {
+            <span
+              style="cursor: pointer; font-size: 24px"
+              [routerLink]="['/bes2/ebike-details']"
+              [queryParams]="{
+                theme: themeService.theme(),
+                duPartNumber: ebikeProfile()?.driveUnit?.partNumber,
+                duSerialNumber: ebikeProfile()?.driveUnit?.serialNumber,
+              }"
+            >
+              <span class="material-symbols-outlined ebike icon">
+                electric_bike
+              </span>
+              {{ t("terms.ebike") }}
+            </span>
+          }
+        </h2>
+        <h2>
+          @if (component()) {
+            @if (componentType() == "DRIVE_UNIT") {
+              <span class="material-symbols-outlined component icon">
+                extension
+              </span>
+              {{ t("terms.drive-unit") }}
+            }
+            @if (componentType() == "HEAD_UNIT") {
+              <span class="material-symbols-outlined component icon">
+                tablet
+              </span>
+              {{ t("terms.head-unit") }}
+            }
+            @if (componentType() == "BATTERY") {
+              <span class="material-symbols-outlined component icon">
+                battery_charging_full
+              </span>
+              {{ t("terms.battery") }}
+            }
+
+            {{ component()?.deviceName }}
+          }
+        </h2>
+
+        <ul class="list">
+          <li>
+            <strong class="label">{{ t("terms.serial-number") }}</strong
+            >:
+            @if (component()?.serialNumber) {
+              {{ component()?.serialNumber }}
+            } @else {
+              <em>{{ t("terms.undefined") }}</em>
+            }
+          </li>
+          <li>
+            <strong class="label">{{ t("terms.part-number") }}</strong
+            >:
+            @if (component()?.partNumber) {
+              {{ component()?.partNumber }}
+            } @else {
+              <em>{{ t("terms.undefined") }}</em>
+            }
+          </li>
+        </ul>
+
+        @if (componentType() == "DRIVE_UNIT" && driveUnit()) {
+          <ul class="list">
+            <li>
+              <strong class="label">{{ t("terms.product-line-name") }}</strong
+              >: {{ driveUnit()?.productLineName }}
+            </li>
+            <li>
+              <strong class="label">{{ t("terms.bike-manufacturer") }}</strong
+              >: {{ driveUnit()?.bikeManufacturer }}
+            </li>
+          </ul>
+          <ul class="list">
+            <li>
+              <strong class="label">{{ t("terms.features") }}</strong
+              >: {{ driveUnit()?.features?.join(" · ") }}
+            </li>
+          </ul>
+          <ul class="list">
+            <li>
+              <strong class="label">{{
+                t("terms.is-lock-feature-enabled")
+              }}</strong
+              >:
+              @if (driveUnit()?.isLockFeatureEnabled) {
+                {{ driveUnit()?.isLockFeatureEnabled }}
+              } @else {
+                <em>{{ t("terms.undefined") }}</em>
+              }
+            </li>
+            <li>
+              <strong class="label">{{ t("terms.is-spedelec") }}</strong
+              >: {{ driveUnit()?.isSpedelec }}
+            </li>
+          </ul>
+          <ul class="list">
+            <li>
+              <strong class="label">{{
+                t("terms.bike-settings-last-modified-at")
+              }}</strong
+              >:
+              @if (driveUnit()?.settingsLastModifiedAt?.bikeSettings) {
+                {{
+                  driveUnit()?.settingsLastModifiedAt?.bikeSettings
+                    | date: "medium"
+                }}
+              } @else {
+                <em>{{ t("terms.undefined") }}</em>
+              }
+            </li>
+            <li>
+              <strong class="label">{{
+                t("terms.custom-assistance-levels-last-modified-at")
+              }}</strong
+              >:
+              @if (
+                driveUnit()?.settingsLastModifiedAt?.customAssistanceLevels
+              ) {
+                {{
+                  driveUnit()?.settingsLastModifiedAt?.customAssistanceLevels
+                    | date: "medium"
+                }}
+              } @else {
+                <em>{{ t("terms.undefined") }}</em>
+              }
+            </li>
+          </ul>
+          <ul class="list">
+            <li>
+              <strong class="label">{{ t("terms.max-speed-for-udam") }}</strong
+              >:
+              @if (driveUnit()?.maxSpeedForUdam) {
+                {{ driveUnit()?.maxSpeedForUdam }}
+              } @else {
+                <em>{{ t("terms.undefined") }}</em>
+              }
+            </li>
+            <li>
+              <strong class="label">{{ t("terms.max-assist-factor") }}</strong
+              >:
+              @if (driveUnit()?.maxAssistFactor) {
+                {{ driveUnit()?.maxAssistFactor }}
+              } @else {
+                <em>{{ t("terms.undefined") }}</em>
+              }
+            </li>
+          </ul>
+
+          @if (driveUnit()?.customAssistanceLevels) {
+            <mat-card>
+              <mat-card-header>
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined capacity-tester icon">
+                    discover_tune
+                  </span>
+                </div>
+                <mat-card-title>{{
+                  t("terms.custom-assistance-levels")
+                }}</mat-card-title>
+              </mat-card-header>
+
+              @for (
+                customAssistanceLevel of driveUnit()?.customAssistanceLevels;
+                track customAssistanceLevel
+              ) {
+                <mat-card-content>
+                  @for (
+                    assistanceLevelMapping of customAssistanceLevel;
+                    track assistanceLevelMapping
+                  ) {
+                    <li class="list">
+                      <strong class="label">
+                        {{ t("terms.assistance-level-mapping-x") }}
+                        {{ assistanceLevelMapping.x }} </strong
+                      >: {{ t("terms.assistance-level-mapping-y") }}
+                      {{ assistanceLevelMapping.y }}
+                    </li>
+                  }
+                </mat-card-content>
+              }
+            </mat-card>
+          }
+
+          <ul class="list">
+            <li>
+              <strong class="label">{{
+                t("terms.is-service-lock-enabled")
+              }}</strong
+              >:
+              @if (driveUnit()?.isServiceLockEnabled) {
+                {{ driveUnit()?.isServiceLockEnabled }}
+              } @else {
+                <em>{{ t("terms.undefined") }}</em>
+              }
+            </li>
+          </ul>
+        }
+
+        @if (componentType() == "HEAD_UNIT" && headUnit()) {
+          <ul class="list">
+            <li>
+              <strong class="label">{{ t("terms.device-line-name") }}</strong
+              >:
+              {{ headUnit()?.deviceLineName }}
+            </li>
+            <li>
+              <strong class="label">{{ t("terms.map-version") }}</strong
+              >: {{ headUnit()?.mapVersion }}
+            </li>
+            <li>
+              <strong class="label">{{ t("terms.memory-capacity") }}</strong
+              >:
+              @if (headUnit()?.memoryCapacity) {
+                {{ headUnit()?.memoryCapacity }}
+              } @else {
+                <em>{{ t("terms.undefined") }}</em>
+              }
+            </li>
+            <li>
+              <strong class="label">{{ t("terms.last-synced-at") }}</strong
+              >:
+              @if (headUnit()?.lastSyncedAt) {
+                {{ headUnit()?.lastSyncedAt | date: "medium" }}
+              } @else {
+                <em>{{ t("terms.undefined") }}</em>
+              }
+            </li>
+            <li>
+              <strong class="label">{{
+                t("terms.last-activity-uploaded-at")
+              }}</strong
+              >:
+              @if (headUnit()?.lastActivityUploadedAt) {
+                {{ headUnit()?.lastActivityUploadedAt | date: "medium" }}
+              } @else {
+                <em>{{ t("terms.undefined") }}</em>
+              }
+            </li>
+          </ul>
+        }
+      </div>
+      <div class="flex-box"></div>
+    }
+  </div>
+</ng-container>

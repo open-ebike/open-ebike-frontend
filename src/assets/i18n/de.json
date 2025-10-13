@@ -184,7 +184,26 @@
         "charge-cycles-off-bike": "Ladezyklen standalone",
         "undefined": "nicht definiert",
         "field-data": "Field Data",
-        "capacity-tester": "Capacity Tester"
+        "capacity-tester": "Capacity Tester",
+        "product-line-name": "Produktreihenname",
+        "bike-manufacturer": "Fahrradhersteller",
+        "features": "Features",
+        "is-lock-feature-enabled": "Lock Feature eingeschaltet",
+        "is-spedelec": "S-Pedelec",
+        "bike-settings-last-modified-at": "Bike Settings zuletzt geändert",
+        "custom-assistance-levels-last-modified-at": "Custom Assistance Levels zuletzt geändert",
+        "max-speed-for-udam": "max. Geschwindigkeit für UDAM",
+        "max-assist-factor": "max. Assist Faktor",
+        "custom-assistance-levels": "Custom Assistance Levels",
+        "assistance-level-mapping": "Assistance Level Mapping",
+        "assistance-level-mapping-x": "x",
+        "assistance-level-mapping-y": "y",
+        "is-service-lock-enabled": "Service Lock eingeschaltet",
+        "device-line-name": "Baureihenname",
+        "map-version": "Kartenversion",
+        "memory-capacity": "Speicherkapazität",
+        "last-synced-at": "zuletzt synchronisiert",
+        "last-activity-uploaded-at": "zuletzt Aktivitäten hochgeladen"
       },
       "messages": {
         "no-field-data": "keine Field Data aufgezeichnet"

@@ -11,8 +11,6 @@ import {
   MatCardTitle,
 } from '@angular/material/card';
 import { MatRipple } from '@angular/material/core';
-import { DatePipe } from '@angular/common';
-import { AttributeTreeComponent } from '../../../components/attribute-tree/attribute-tree.component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatButton } from '@angular/material/button';
 import { Theme, ThemeService } from '../../../services/theme.service';
@@ -37,10 +35,7 @@ import { combineLatest, first } from 'rxjs';
     MatCardSubtitle,
     MatRipple,
     MatCardContent,
-    MatCardFooter,
     MatCardActions,
-    DatePipe,
-    AttributeTreeComponent,
     RouterLink,
     MatButton,
   ],
@@ -78,10 +73,10 @@ export class Bes2EbikeDetailsComponent implements OnInit {
 
   /** Query parameter theme */
   private QUERY_PARAM_THEME: string = 'theme';
-  /** Query parameter part number */
-  private QUERY_PARAM_PART_NUMBER: string = 'partNumber';
-  /** Query parameter serial number */
-  private QUERY_PARAM_SERIAL_NUMBER: string = 'serialNumber';
+  /** Query parameter drive unit part number */
+  private QUERY_PARAM_DU_PART_NUMBER: string = 'duPartNumber';
+  /** Query parameter drive unit serial number */
+  private QUERY_PARAM_DU_SERIAL_NUMBER: string = 'duSerialNumber';
 
   //
   // Lifecycle hooks
@@ -100,10 +95,12 @@ export class Bes2EbikeDetailsComponent implements OnInit {
 
   /**
    * Initializes eBike
+   * @param duPartNumber drive unit part number
+   * @param duSerialNumber drive unit serial number
    */
-  private initializeEbike(partNumber: string, serialNumber: string) {
+  private initializeEbike(duPartNumber: string, duSerialNumber: string) {
     this.ebikeProfileService
-      .getAllBikes(partNumber, serialNumber)
+      .getAllBikes(duPartNumber, duSerialNumber)
       .subscribe((eBikeProfiles) => {
         if (eBikeProfiles.bikes.length == 1) {
           this.ebikeProfile.set(eBikeProfiles.bikes[0]);
@@ -119,11 +116,11 @@ export class Bes2EbikeDetailsComponent implements OnInit {
       .pipe(first())
       .subscribe(([queryParams]) => {
         const theme = queryParams[this.QUERY_PARAM_THEME];
-        const partNumber = queryParams[this.QUERY_PARAM_PART_NUMBER];
-        const serialNumber = queryParams[this.QUERY_PARAM_SERIAL_NUMBER];
+        const duPartNumber = queryParams[this.QUERY_PARAM_DU_PART_NUMBER];
+        const duSerialNumber = queryParams[this.QUERY_PARAM_DU_SERIAL_NUMBER];
 
         this.themeService.switchTheme(theme ? theme : Theme.LIGHT);
-        this.initializeEbike(partNumber, serialNumber);
+        this.initializeEbike(duPartNumber, duSerialNumber);
       });
   }
 }

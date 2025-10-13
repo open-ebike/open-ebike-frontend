@@ -3,6 +3,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
+export type ComponentType = 'DRIVE_UNIT' | 'HEAD_UNIT' | 'BATTERY';
+
 /**
  * Represents a list of eBike profiles
  */
@@ -56,8 +58,8 @@ export interface DriveUnit extends BaseComponent {
 export type DriveUnitFeature = 'EMTB' | 'ELOCK';
 
 export interface DriveUnitSettingsLastModifiedAt {
-  bikeSettings?: string; // format: date-time
-  customAssistanceLevels?: string; // format: date-time
+  bikeSettings?: string;
+  customAssistanceLevels?: string;
 }
 
 export interface AssistanceLevelMapping {
@@ -75,9 +77,9 @@ export interface HeadUnit extends BaseComponent {
   /** Memory capacity of the head unit */
   memoryCapacity?: string;
   /** Timestamp of the most recent moment when the head unit was synced */
-  lastSyncedAt?: string; // format: date-time
+  lastSyncedAt?: string;
   /** Timestamp of the most recent uploaded activity */
-  lastActivityUploadedAt?: string; // format: date-time
+  lastActivityUploadedAt?: string;
 }
 
 export interface Battery extends BaseComponent {}

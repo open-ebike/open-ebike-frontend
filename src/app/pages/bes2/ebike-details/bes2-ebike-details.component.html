@@ -21,7 +21,17 @@
 
         <div class="grid wide">
           @if (ebikeProfile()?.driveUnit) {
-            <mat-card mat-ripple>
+            <mat-card
+              mat-ripple
+              [routerLink]="['/bes2/component-details']"
+              [queryParams]="{
+                theme: themeService.theme(),
+                duPartNumber: ebikeProfile()?.driveUnit?.partNumber,
+                duSerialNumber: ebikeProfile()?.driveUnit?.serialNumber,
+                partNumber: ebikeProfile()?.driveUnit?.partNumber,
+                serialNumber: ebikeProfile()?.driveUnit?.serialNumber,
+              }"
+            >
               <mat-card-header>
                 <div mat-card-avatar>
                   <span class="material-symbols-outlined component icon">
@@ -52,7 +62,17 @@
           }
 
           @for (battery of ebikeProfile()?.batteries; track battery) {
-            <mat-card mat-ripple>
+            <mat-card
+              mat-ripple
+              [routerLink]="['/bes2/component-details']"
+              [queryParams]="{
+                theme: themeService.theme(),
+                duPartNumber: ebikeProfile()?.driveUnit?.partNumber,
+                duSerialNumber: ebikeProfile()?.driveUnit?.serialNumber,
+                partNumber: battery.partNumber,
+                serialNumber: battery.serialNumber,
+              }"
+            >
               <mat-card-header>
                 <div mat-card-avatar>
                   <span class="material-symbols-outlined component icon">
@@ -79,14 +99,24 @@
           }
 
           @for (headUnit of ebikeProfile()?.headUnits; track headUnit) {
-            <mat-card mat-ripple>
+            <mat-card
+              mat-ripple
+              [routerLink]="['/bes2/component-details']"
+              [queryParams]="{
+                theme: themeService.theme(),
+                duPartNumber: ebikeProfile()?.driveUnit?.partNumber,
+                duSerialNumber: ebikeProfile()?.driveUnit?.serialNumber,
+                partNumber: headUnit.partNumber,
+                serialNumber: headUnit.serialNumber,
+              }"
+            >
               <mat-card-header>
                 <div mat-card-avatar>
                   <span class="material-symbols-outlined component icon">
                     tablet
                   </span>
                 </div>
-                <mat-card-title>{{ headUnit.deviceName }} </mat-card-title>
+                <mat-card-title>{{ headUnit.deviceName }}</mat-card-title>
                 <mat-card-subtitle
                   >{{ t("terms.head-unit") }}
                 </mat-card-subtitle>

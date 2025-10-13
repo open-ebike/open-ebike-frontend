@@ -186,7 +186,26 @@
         "charge-cycles-off-bike": "charge cycles off-bike",
         "undefined": "undefined",
         "field-data": "Field Data",
-        "capacity-tester": "Capacity Tester"
+        "capacity-tester": "Capacity Tester",
+        "product-line-name": "product line name",
+        "bike-manufacturer": "bike manufacturer",
+        "features": "features",
+        "is-lock-feature-enabled": "lock feature enabled",
+        "is-spedelec": "s-pedelec",
+        "bike-settings-last-modified-at": "bike settings last modified at",
+        "custom-assistance-levels-last-modified-at": "custom assistance levels last modified",
+        "max-speed-for-udam": "max speed for UDAM",
+        "max-assist-factor": "max assist factor",
+        "custom-assistance-levels": "custom assistance levels",
+        "assistance-level-mapping": "assistance level mapping",
+        "assistance-level-mapping-x": "x",
+        "assistance-level-mapping-y": "y",
+        "is-service-lock-enabled": "service lock enabled",
+        "device-line-name": "device line name",
+        "map-version": "map version",
+        "memory-capacity": "memory capacity",
+        "last-synced-at": "last synced at",
+        "last-activity-uploaded-at": "last activity uploaded at"
       },
       "messages": {
         "no-field-data": "no field data recorded"

@@ -12,6 +12,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { ConfigurationComponent } from './pages/configuration/configuration.component';
 import { Bes2EbikesComponent } from './pages/bes2/ebikes/bes2-ebikes.component';
 import { Bes2EbikeDetailsComponent } from './pages/bes2/ebike-details/bes2-ebike-details.component';
+import { Bes2ComponentDetailsComponent } from './pages/bes2/component-details/bes2-component-details.component';
 
 export const routes: Routes = [
   {
@@ -51,6 +52,11 @@ export const routes: Routes = [
   {
     path: 'bes2/ebikes',
     component: Bes2EbikesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'bes2/component-details',
+    component: Bes2ComponentDetailsComponent,
     canActivate: [AuthGuard],
   },
   {
