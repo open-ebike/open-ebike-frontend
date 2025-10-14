@@ -1,0 +1,40 @@
+{
+  "pagination": {
+    "offset": -2147483648,
+    "limit": -2147483648,
+    "total": -2147483648
+  },
+  "activities": [
+    {
+      "startTime": "2019-08-24T14:15:22Z",
+      "endTime": "2019-08-24T14:15:22Z",
+      "durationWithoutStops": -9007199254740991,
+      "isCompleted": true,
+      "totalDistance": -3.402823669209385e38,
+      "title": "string",
+      "id": 123456789012,
+      "type": "TRIP",
+      "bikeRides": [
+        {
+          "startTime": "2019-08-24T14:15:22Z",
+          "endTime": "2019-08-24T14:15:22Z",
+          "durationWithoutStops": -9007199254740991,
+          "isCompleted": true,
+          "totalDistance": -3.402823669209385e38,
+          "title": "string",
+          "type": "BIKE_RIDE",
+          "caloriesBurned": -3.402823669209385e38,
+          "avgSpeed": -3.402823669209385e38,
+          "maxSpeed": -3.402823669209385e38
+        }
+      ]
+    }
+  ],
+  "links": {
+    "self": "http://example.com",
+    "first": "http://example.com",
+    "prev": "http://example.com",
+    "next": "http://example.com",
+    "last": "http://example.com"
+  }
+}
