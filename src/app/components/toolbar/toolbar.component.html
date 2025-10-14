@@ -70,6 +70,15 @@
               >
                 {{ t("pages.ebikes.title") }}
               </button>
+              <button
+                mat-button
+                class="toolbar-menu-item"
+                routerLinkActive="toolbar-menu-item-active"
+                routerLink="/bes2/activities"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                {{ t("pages.activities.title") }}
+              </button>
             }
           }
         </div>

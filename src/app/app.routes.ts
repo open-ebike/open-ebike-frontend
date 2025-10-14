@@ -13,6 +13,7 @@ import { ConfigurationComponent } from './pages/configuration/configuration.comp
 import { Bes2EbikesComponent } from './pages/bes2/ebikes/bes2-ebikes.component';
 import { Bes2EbikeDetailsComponent } from './pages/bes2/ebike-details/bes2-ebike-details.component';
 import { Bes2ComponentDetailsComponent } from './pages/bes2/component-details/bes2-component-details.component';
+import { Bes2ActivitiesComponent } from './pages/bes2/activities/bes2-activities.component';
 
 export const routes: Routes = [
   {
@@ -57,6 +58,11 @@ export const routes: Routes = [
   {
     path: 'bes2/component-details',
     component: Bes2ComponentDetailsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'bes2/activities',
+    component: Bes2ActivitiesComponent,
     canActivate: [AuthGuard],
   },
   {
