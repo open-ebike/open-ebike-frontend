@@ -96,7 +96,7 @@ export class Bes3ActivitiesComponent implements OnInit {
   /** Signal providing the selected activity */
   selectedActivity: Signal<ActivitySummary | undefined> = computed(() => {
     return this.activitySummaries().find(
-      (activitySummary) => activitySummary.id === this.id(),
+      (activitySummary) => activitySummary.id == this.id(),
     );
   });
   /** Signal providing activity summaries */
@@ -104,8 +104,8 @@ export class Bes3ActivitiesComponent implements OnInit {
   /** Signal providing activity details */
   activityDetails = signal<ActivityDetail[]>([]);
 
-  drawerStart = viewChild(MatDrawer);
-  drawerEnd = viewChild(MatDrawer);
+  drawerStart = viewChild<MatDrawer>('drawerStart');
+  drawerEnd = viewChild<MatDrawer>('drawerEnd');
 
   //
   // Paginator
@@ -160,6 +160,7 @@ export class Bes3ActivitiesComponent implements OnInit {
         this.drawerEnd()?.open();
       } else {
         this.activityDetails.set([]);
+        this.drawerStart()?.open();
       }
     });
 

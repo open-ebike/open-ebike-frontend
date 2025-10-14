@@ -2,7 +2,7 @@
   <div>
     @if (authenticationService.isLoggedIn()) {
       <mat-drawer-container hasBackdrop="true" class="drawer-container">
-        <mat-drawer #drawerStart mode="over" class="drawer" [opened]="!id()">
+        <mat-drawer #drawerStart mode="over" class="drawer">
           <div class="flex-container-vertical" style="min-height: 100%">
             <div class="activity-summary">
               <h2>{{ t("terms.activities") }}</h2>
@@ -238,11 +238,10 @@
                 </span>
                 @if (selectedActivity()) {
                   {{ selectedActivity()?.title }}
-                  <span class="delimiter">·</span>
                 } @else {
                   {{ t("title") }}
-                  <span class="delimiter">·</span>
                 }
+                <span class="delimiter">·</span>
                 <button mat-button (click)="drawerStart.toggle()">
                   @if (drawerStart.opened) {
                     {{ t("actions.hide-all") }}

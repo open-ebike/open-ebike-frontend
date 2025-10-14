@@ -135,6 +135,9 @@
         "altitude": "Höhe",
         "latitude": "Breitengrad",
         "longitude": "Längengrad",
+        "is-completed": "abgeschlossen",
+        "total-distance": "Gesamtdistanz",
+        "bike-ride": "Fahrt",
         "undefined": "nicht definiert"
       },
       "messages": {

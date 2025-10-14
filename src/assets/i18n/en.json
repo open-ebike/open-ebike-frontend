@@ -114,8 +114,8 @@
         "start-time": "start time",
         "end-time": "end time",
         "timezone": "timezone",
-        "duration-without-stops": "duration without Stops",
-        "title": "Titel",
+        "duration-without-stops": "duration without stops",
+        "title": "Title",
         "bike-id": "Bike ID",
         "start-odometer": "start odometer",
         "speed": "speed",
@@ -135,6 +135,9 @@
         "altitude": "altitude",
         "latitude": "latitude",
         "longitude": "longitude",
+        "is-completed": "completed",
+        "total-distance": "total distance",
+        "bike-ride": "Bike Ride",
         "undefined": "undefined"
       },
       "messages": {

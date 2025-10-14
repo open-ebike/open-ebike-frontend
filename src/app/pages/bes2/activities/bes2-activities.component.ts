@@ -4,7 +4,9 @@ import {
   effect,
   inject,
   OnInit,
+  Signal,
   signal,
+  viewChild,
 } from '@angular/core';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { MatList, MatListItem } from '@angular/material/list';
@@ -18,12 +20,12 @@ import {
   MatCardContent,
   MatCardFooter,
 } from '@angular/material/card';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatButton } from '@angular/material/button';
 import { MapComponent } from '../../../components/map/map.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { RoundPipe } from '../../../pipes/round.pipe';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Theme, ThemeService } from '../../../services/theme.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { combineLatest, first } from 'rxjs';
@@ -66,6 +68,8 @@ export class Bes2ActivitiesComponent implements OnInit {
 
   /** Activated route */
   private route = inject(ActivatedRoute);
+  /** Router */
+  private router = inject(Router);
   /** Theme service */
   private themeService = inject(ThemeService);
   /** Authentication service */
@@ -78,9 +82,18 @@ export class Bes2ActivitiesComponent implements OnInit {
   //
 
   /** Signal providing the selected activity ID */
-  id = signal<string>('');
+  id = signal<number | undefined>(undefined);
+  /** Signal providing the selected activity */
+  selectedActivity: Signal<ActivitySummary | undefined> = computed(() => {
+    return this.activitySummaries().find(
+      (activitySummary) => activitySummary.id == this.id(),
+    );
+  });
   /** Signal providing activity summaries */
   activitySummaries = signal<ActivitySummary[]>([]);
+
+  drawerStart = viewChild<MatDrawer>('drawerStart');
+  drawerEnd = viewChild<MatDrawer>('drawerEnd');
 
   //
   // Paginator
@@ -102,6 +115,8 @@ export class Bes2ActivitiesComponent implements OnInit {
 
   /** Query parameter theme */
   private QUERY_PARAM_THEME: string = 'theme';
+  /** Query parameter activity ID */
+  private QUERY_ACTIVITY_ID: string = 'id';
 
   /**
    * Constructor
@@ -109,6 +124,15 @@ export class Bes2ActivitiesComponent implements OnInit {
   constructor() {
     effect(() => {
       this.initializeActivitiesSummaries(this.pageSize(), this.pageOffset());
+    });
+
+    effect(() => {
+      if (this.id() != undefined) {
+        this.updateQueryParameters();
+        this.drawerEnd()?.open();
+      } else {
+        this.drawerStart()?.open();
+      }
     });
   }
 
@@ -147,14 +171,27 @@ export class Bes2ActivitiesComponent implements OnInit {
       .pipe(first())
       .subscribe(([queryParams]) => {
         const theme = queryParams[this.QUERY_PARAM_THEME];
+        const id = queryParams[this.QUERY_ACTIVITY_ID];
 
         this.themeService.switchTheme(theme ? theme : Theme.LIGHT);
+        if (id?.trim().length > 0) {
+          this.id.set(id);
+        }
       });
   }
 
   //
   // Actions
   //
+
+  /**
+   * Handles click on an activity
+   * @param id ID
+   */
+  onActivityClicked(id: number) {
+    this.id.set(id);
+    this.drawerStart()?.close();
+  }
 
   /**
    * Handles page event
@@ -167,5 +204,24 @@ export class Bes2ActivitiesComponent implements OnInit {
     } else {
       this.pageIndex.set(event.pageIndex);
     }
+  }
+
+  //
+  // Helpers
+  //
+
+  /**
+   * Updates query parameters
+   */
+  private updateQueryParameters() {
+    this.router
+      .navigate([], {
+        relativeTo: this.route,
+        queryParams: {
+          [this.QUERY_PARAM_THEME]: this.themeService.theme(),
+          [this.QUERY_ACTIVITY_ID]: this.id() ? this.id() : null,
+        },
+      })
+      .then();
   }
 }

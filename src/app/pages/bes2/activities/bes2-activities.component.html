@@ -2,7 +2,7 @@
   <div>
     @if (authenticationService.isLoggedIn()) {
       <mat-drawer-container hasBackdrop="true" class="drawer-container">
-        <mat-drawer #drawerStart mode="over" class="drawer" [opened]="!id()">
+        <mat-drawer #drawerStart mode="over" class="drawer">
           <div class="flex-container-vertical" style="min-height: 100%">
             <div class="activity-summary">
               <h2>{{ t("terms.activities") }}</h2>
@@ -12,7 +12,11 @@
                 activitySummary of activitySummaries();
                 track activitySummary
               ) {
-                <mat-list-item mat-ripple class="list-item">
+                <mat-list-item
+                  mat-ripple
+                  class="list-item"
+                  (click)="onActivityClicked(activitySummary.id)"
+                >
                   <mat-icon
                     matListItemIcon
                     class="activity icon"
@@ -55,6 +59,104 @@
             </div>
           </div>
         </mat-drawer>
+        <mat-drawer #drawerEnd mode="over" class="drawer" position="end">
+          <div class="activity-summary">
+            @if (selectedActivity()) {
+              <h2>{{ t("terms.activity-summary") }}</h2>
+              <ul class="list">
+                <li>
+                  <strong class="label">{{ t("terms.start-time") }}</strong
+                  >:
+                  @if (selectedActivity()?.startTime) {
+                    {{ selectedActivity()?.startTime | date: "medium" }}
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+                <li>
+                  <strong class="label">{{ t("terms.is-completed") }}</strong
+                  >:
+                  @if (selectedActivity()?.isCompleted) {
+                    {{ selectedActivity()?.isCompleted }}
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+                <li>
+                  <strong class="label">{{ t("terms.total-distance") }}</strong
+                  >:
+                  @if (selectedActivity()?.totalDistance) {
+                    {{
+                      selectedActivity()?.totalDistance ?? 0
+                        | metersToKilometers
+                    }}
+                    km
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+                <li>
+                  <strong class="label">{{ t("terms.end-time") }}</strong
+                  >:
+                  @if (selectedActivity()?.endTime) {
+                    {{ selectedActivity()?.endTime | date: "medium" }}
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+                <li>
+                  <strong class="label">{{
+                    t("terms.duration-without-stops")
+                  }}</strong
+                  >:
+                  @if (selectedActivity()?.durationWithoutStops) {
+                    {{
+                      selectedActivity()?.durationWithoutStops
+                        | date: "H:mm:ss" : "UTC"
+                    }}
+                  } @else {
+                    <em>{{ t("terms.undefined") }}</em>
+                  }
+                </li>
+              </ul>
+
+              @for (bikeRide of selectedActivity()?.bikeRides; track bikeRide) {
+                <h3>{{ t("terms.bike-ride") }}</h3>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{
+                      t("terms.calories-burned")
+                    }}</strong
+                    >:
+                    @if (bikeRide.caloriesBurned) {
+                      {{ bikeRide.caloriesBurned }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{ t("terms.speed-average") }}</strong
+                    >:
+                    @if (bikeRide.avgSpeed) {
+                      {{ bikeRide.avgSpeed }} km/h
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{ t("terms.speed-maximum") }}</strong
+                    >:
+                    @if (bikeRide.maxSpeed) {
+                      {{ bikeRide.maxSpeed }} km/h
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                </ul>
+              }
+            }
+          </div>
+        </mat-drawer>
         <mat-drawer-content>
           <div class="container flex-container-vertical">
             <div class="inner-container" style="height: 124px">
@@ -62,7 +164,11 @@
                 <span class="material-symbols-outlined activity icon">
                   route
                 </span>
-                {{ t("title") }}
+                @if (selectedActivity()) {
+                  {{ selectedActivity()?.title }}
+                } @else {
+                  {{ t("title") }}
+                }
                 <span class="delimiter">·</span>
                 <button mat-button (click)="drawerStart.toggle()">
                   @if (drawerStart.opened) {
@@ -71,8 +177,19 @@
                     {{ t("actions.show-all") }}
                   }
                 </button>
+                @if (selectedActivity()) {
+                  <span class="delimiter">·</span>
+                  <button mat-button (click)="drawerEnd.toggle()">
+                    @if (drawerEnd.opened) {
+                      {{ t("actions.hide-summary") }}
+                    } @else {
+                      {{ t("actions.show-summary") }}
+                    }
+                  </button>
+                }
               </h2>
             </div>
+            <div class="flex-box"></div>
           </div>
         </mat-drawer-content>
       </mat-drawer-container>
