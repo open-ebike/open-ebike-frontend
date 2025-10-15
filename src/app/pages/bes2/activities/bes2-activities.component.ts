@@ -36,6 +36,7 @@ import {
   ActivityService,
   ActivitySummary,
 } from '../../../services/api/bes2/activity.service';
+import { MapboxService } from '../../../services/mapbox.service';
 
 /**
  * Displays activities
@@ -81,6 +82,8 @@ export class Bes2ActivitiesComponent implements OnInit {
   public authenticationService = inject(AuthenticationService);
   /** Activity service */
   private activityService = inject(ActivityService);
+  /** Mapbox service */
+  public mapboxService = inject(MapboxService);
 
   //
   // Signals
