@@ -57,6 +57,88 @@ export interface ActivitySummariesLinks {
   last?: string;
 }
 
+export interface ActivityDetail extends BaseActivity {
+  /** ID of the activity */
+  id?: number;
+  type: 'TRIP';
+  /** Total active time between the moment when activity was started and the moment was finished (ms) */
+  durationWithStops?: number;
+  /** Calories burned during the ride */
+  caloriesBurned?: number;
+  /** Total rider effort (%) during the bike ride */
+  totalRiderConsumption?: number;
+  /** Engine total contribution (%) during the bike ride */
+  totalBatteryConsumption?: number;
+  /** Shows all assistance levels (%) that were used over 3% */
+  significantAssistanceLevels?: AssistanceLevel[];
+  /** Sum of all assistance levels (%) that were used under 3% */
+  insignificantAssistanceLevelsSum?: number;
+  /** Average speed (km/h) measured during the activity */
+  avgSpeed?: number;
+  /** Average heart rate (bpm) measured during the activity */
+  avgHeartRate?: number;
+  /** Average cadence (rpm) measured during the activity */
+  avgCadence?: number;
+  /** Average altitude (m) */
+  avgAltitude?: number;
+  /** Max speed (km/h) registered during activity */
+  maxSpeed?: number;
+  /** Max heart rate (bpm) measured during the activity */
+  maxHeartRate?: number;
+  /** Average cadence (rpm) measured during the activity */
+  maxCadence?: number;
+  /** Maximum altitude (m) */
+  maxAltitude?: number;
+  /** Measured altitude (m). Array of arrays of altitude (double or null) values */
+  altitudes?: (number | null)[][];
+  /** Measured bike ride cadences (rpm). Array of arrays of cadence (int32 or null) values */
+  cadence?: (number | null)[][];
+  /** Measured bike rides heart rates (bpm). Array of arrays of heart rate (int32) values */
+  heartRate?: number[][];
+  /** Measured bike rides speeds (km/h). Array of arrays of speed (float) values */
+  speed?: number[][];
+  /** Latitudes and longitudes measured during the bike rides. Array of arrays of Coordinate objects or null */
+  coordinates?: (Coordinate | null)[][];
+  /** Motor power (W) during bike rides. Array of arrays of power (int32 or null) values */
+  powerOutput?: (number | null)[][];
+  /** Internal classification of the bike rider's fitness level */
+  fitnessLevel?: number;
+  /** Training related detail */
+  trainingEffect?: number;
+  /** Training related detail */
+  trainingLoadPeak?: number;
+  /** Weight factor for speed in the final formula of fitness level calculation */
+  speedWeight?: number;
+  /** Weight factor for cadence in the final formula of fitness level calculation */
+  cadenceWeight?: number;
+  /** Weight factor for heart rate in the final formula of fitness level calculation */
+  heartRateWeight?: number;
+  /** Weight factor for rider power weight (kg) in the final formula of fitness level calculation */
+  riderPowerWeight?: number;
+  /** Activity > 100m */
+  isSignificant?: boolean;
+  /** Total elevation gain (m) measured during the activity */
+  elevationGain?: number;
+  /** Total elevation loss (m) measured during the activity */
+  elevationLoss?: number;
+  /** Average power(W) output of the bike rider measured during the activity */
+  avgRiderPower?: number;
+  /** Drive unit decoded (ASCII) serial number */
+  driveUnitSerialNumber?: string;
+  /** Drive unit decoded (ASCII) part number */
+  driveUnitPartNumber?: string;
+}
+
+export interface AssistanceLevel {
+  level?: number;
+  value?: number;
+}
+
+export interface Coordinate {
+  latitude: number;
+  longitude: number;
+}
+
 /**
  * Handles activities
  */
@@ -78,6 +160,16 @@ export class ActivityService {
   ): Observable<ActivitySummaries> {
     return this.http.get<ActivitySummaries>(
       `${environment.eBikeApiUrl}/activity/ebike-system-2/v1/activities?limit=${limit}&offset=${offset}`,
+    );
+  }
+
+  /**
+   * Retrieve details of a single activity
+   * @param id activity ID
+   */
+  getActivityDetails(id: number): Observable<ActivityDetail> {
+    return this.http.get<ActivityDetail>(
+      `${environment.eBikeApiUrl}/activity/ebike-system-2/v1/activities/${id}`,
     );
   }
 }
