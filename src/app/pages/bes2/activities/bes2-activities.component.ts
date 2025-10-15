@@ -19,6 +19,8 @@ import {
   MatCardActions,
   MatCardContent,
   MatCardFooter,
+  MatCardHeader,
+  MatCardTitle,
 } from '@angular/material/card';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatButton } from '@angular/material/button';
@@ -30,6 +32,7 @@ import { Theme, ThemeService } from '../../../services/theme.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { combineLatest, first } from 'rxjs';
 import {
+  ActivityDetail,
   ActivityService,
   ActivitySummary,
 } from '../../../services/api/bes2/activity.service';
@@ -56,6 +59,8 @@ import {
     MatCardFooter,
     MatPaginator,
     RoundPipe,
+    MatCardHeader,
+    MatCardTitle,
   ],
   templateUrl: './bes2-activities.component.html',
   styleUrl: './bes2-activities.component.scss',
@@ -91,6 +96,8 @@ export class Bes2ActivitiesComponent implements OnInit {
   });
   /** Signal providing activity summaries */
   activitySummaries = signal<ActivitySummary[]>([]);
+  /** Signal providing activity details */
+  activityDetails = signal<ActivityDetail | undefined>(undefined);
 
   drawerStart = viewChild<MatDrawer>('drawerStart');
   drawerEnd = viewChild<MatDrawer>('drawerEnd');
@@ -128,6 +135,7 @@ export class Bes2ActivitiesComponent implements OnInit {
 
     effect(() => {
       if (this.id() != undefined) {
+        this.initializeActivityDetails(this.id() ?? 0);
         this.updateQueryParameters();
         this.drawerEnd()?.open();
       } else {
@@ -161,6 +169,15 @@ export class Bes2ActivitiesComponent implements OnInit {
         this.activitySummaries.set(activitySummaries.activities);
         this.pageTotalLength.set(activitySummaries.pagination.total);
       });
+  }
+
+  /**
+   * Initializes activity details
+   */
+  private initializeActivityDetails(id: number) {
+    this.activityService.getActivityDetails(id).subscribe((activityDetails) => {
+      this.activityDetails.set(activityDetails);
+    });
   }
 
   /**

@@ -154,6 +154,332 @@
                   </li>
                 </ul>
               }
+
+              @if (activityDetails()) {
+                <h2>{{ t("terms.activity-details") }}</h2>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{
+                      t("terms.duration-with-stops")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.durationWithStops) {
+                      {{
+                        activityDetails()?.durationWithStops
+                          | date: "H:mm:ss" : "UTC"
+                      }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                      t("terms.calories-burned")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.caloriesBurned) {
+                      {{ activityDetails()?.caloriesBurned }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                      t("terms.total-rider-consumption")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.totalRiderConsumption) {
+                      {{ activityDetails()?.totalRiderConsumption }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                      t("terms.total-battery-consumption")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.totalBatteryConsumption) {
+                      {{ activityDetails()?.totalBatteryConsumption }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                </ul>
+
+                @if (
+                  activityDetails()?.significantAssistanceLevels ||
+                  activityDetails()?.insignificantAssistanceLevelsSum
+                ) {
+                  <h3>{{ t("terms.assistance-levels") }}</h3>
+                  <ul class="list">
+                    @for (
+                      assistanceLevel of activityDetails()
+                        ?.significantAssistanceLevels;
+                      track assistanceLevel
+                    ) {
+                      <li>
+                        <strong class="label"
+                          >{{ t("terms.level") }}
+                          {{ assistanceLevel.level }}</strong
+                        >: {{ t("terms.value") }}
+                        {{ assistanceLevel.value }}
+                      </li>
+                    }
+                  </ul>
+                  <ul class="list">
+                    <li>
+                      <strong class="label">{{
+                        t("terms.insignificant-assistance-levels-sum")
+                      }}</strong
+                      >:
+                      @if (
+                        activityDetails()?.insignificantAssistanceLevelsSum
+                      ) {
+                        {{
+                          activityDetails()?.insignificantAssistanceLevelsSum
+                        }}
+                      } @else {
+                        <em>{{ t("terms.undefined") }}</em>
+                      }
+                    </li>
+                  </ul>
+                }
+
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{ t("terms.speed-average") }}</strong
+                    >:
+                    @if (activityDetails()?.avgSpeed) {
+                      {{ activityDetails()?.avgSpeed }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                      t("terms.heart-rate-average")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.avgHeartRate) {
+                      {{ activityDetails()?.avgHeartRate }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                      t("terms.cadence-average")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.avgCadence) {
+                      {{ activityDetails()?.avgCadence }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                      t("terms.cadence-average")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.avgAltitude) {
+                      {{ activityDetails()?.avgAltitude }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                </ul>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{ t("terms.speed-maximum") }}</strong
+                    >:
+                    @if (activityDetails()?.maxSpeed) {
+                      {{ activityDetails()?.maxSpeed }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                      t("terms.heart-rate-maximum")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.maxHeartRate) {
+                      {{ activityDetails()?.maxHeartRate }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                      t("terms.cadence-maximum")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.maxCadence) {
+                      {{ activityDetails()?.maxCadence }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                      t("terms.cadence-maximum")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.maxAltitude) {
+                      {{ activityDetails()?.maxAltitude }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                </ul>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{ t("terms.fitness-level") }}</strong
+                    >:
+                    @if (activityDetails()?.fitnessLevel) {
+                      {{ activityDetails()?.fitnessLevel }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{ t("terms.fitness-level") }}</strong
+                    >:
+                    @if (activityDetails()?.trainingEffect) {
+                      {{ activityDetails()?.trainingEffect }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                      t("terms.training-load-peak")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.trainingLoadPeak) {
+                      {{ activityDetails()?.trainingLoadPeak }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{ t("terms.speed-weight") }}</strong
+                    >:
+                    @if (activityDetails()?.speedWeight) {
+                      {{ activityDetails()?.speedWeight }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                      t("terms.cadence-weight")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.cadenceWeight) {
+                      {{ activityDetails()?.cadenceWeight }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                      t("terms.heart-rate-weight")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.heartRateWeight) {
+                      {{ activityDetails()?.heartRateWeight }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                      t("terms.rider-power-weight")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.riderPowerWeight) {
+                      {{ activityDetails()?.riderPowerWeight }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                </ul>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{
+                      t("terms.is-significant")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.isSignificant) {
+                      {{ activityDetails()?.isSignificant }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                </ul>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{
+                      t("terms.elevation-gain")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.elevationGain) {
+                      {{ activityDetails()?.elevationGain }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                      t("terms.elevation-loss")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.elevationLoss) {
+                      {{ activityDetails()?.elevationLoss }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                      t("terms.rider-power-average")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.avgRiderPower) {
+                      {{ activityDetails()?.avgRiderPower }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                </ul>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{
+                      t("terms.drive-unit-serial-number")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.driveUnitSerialNumber) {
+                      {{ activityDetails()?.driveUnitSerialNumber }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                      t("terms.drive-unit-part-number")
+                    }}</strong
+                    >:
+                    @if (activityDetails()?.driveUnitPartNumber) {
+                      {{ activityDetails()?.driveUnitPartNumber }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                </ul>
+              }
             }
           </div>
         </mat-drawer>
@@ -188,6 +514,12 @@
                   </button>
                 }
               </h2>
+            </div>
+
+            <div class="inner-container">
+              @if (activityDetails()) {
+                <div class="grid"></div>
+              }
             </div>
             <div class="flex-box"></div>
           </div>
