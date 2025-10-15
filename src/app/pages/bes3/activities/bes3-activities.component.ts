@@ -13,6 +13,7 @@ import { Theme, ThemeService } from '../../../services/theme.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import {
   ActivityDetail,
+  ActivityDetails,
   ActivityRecordsService,
   ActivitySummary,
   ActivitySummarySort,
@@ -123,7 +124,7 @@ export class Bes3ActivitiesComponent implements OnInit {
   //
 
   mapId = 'activities';
-  mapHeight = 'calc(100vh - 64px - 124px)';
+  mapHeight = 'calc(100vh - 64px - 128px)';
   mapStyle = MapBoxStyle.LIGHT_V10;
 
   overlays: Map<string, Overlay> = new Map<string, Overlay>();
@@ -218,43 +219,49 @@ export class Bes3ActivitiesComponent implements OnInit {
       .getActivityDetails(id)
       .subscribe((activityDetails) => {
         this.activityDetails.set(activityDetails.activityDetails);
-
-        const geojson = this.mapboxService.buildGeojson(
-          activityDetails.activityDetails,
-        );
-
-        const overlayId = 'activity-details';
-        const source = {
-          origin: Origin.INLINE,
-          name: overlayId,
-          value: JSON.stringify(geojson),
-        };
-        const layer = {
-          origin: Origin.INLINE,
-          name: `${overlayId}-layer`,
-          value: JSON.stringify({
-            id: `${overlayId}-layer`,
-            type: 'line',
-            source: overlayId,
-            layout: {
-              'line-join': 'round',
-              'line-cap': 'round',
-            },
-            paint: {
-              'line-color': '#d75b98',
-              'line-width': 8,
-            },
-          }),
-        };
-        const overlay = {
-          source,
-          layers: [layer],
-        };
-
-        this.overlays.set(id, overlay);
-        this.overlays = new Map(this.overlays);
-        this.boundingBox = geojson.features[0]['properties']['bounding-box'];
+        this.initializeMapOverlay(id, activityDetails.activityDetails);
       });
+  }
+
+  /**
+   * Initializes map overlay
+   * @param id activity ID
+   * @param activityDetails activity details
+   */
+  private initializeMapOverlay(id: string, activityDetails: ActivityDetail[]) {
+    const geojson = this.mapboxService.buildBes3Geojson(activityDetails);
+
+    const overlayId = 'activity-details';
+    const source = {
+      origin: Origin.INLINE,
+      name: overlayId,
+      value: JSON.stringify(geojson),
+    };
+    const layer = {
+      origin: Origin.INLINE,
+      name: `${overlayId}-layer`,
+      value: JSON.stringify({
+        id: `${overlayId}-layer`,
+        type: 'line',
+        source: overlayId,
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round',
+        },
+        paint: {
+          'line-color': '#d75b98',
+          'line-width': 8,
+        },
+      }),
+    };
+    const overlay = {
+      source,
+      layers: [layer],
+    };
+
+    this.overlays.set(id, overlay);
+    this.overlays = new Map(this.overlays);
+    this.boundingBox = geojson.features[0]['properties']['bounding-box'];
   }
 
   /**

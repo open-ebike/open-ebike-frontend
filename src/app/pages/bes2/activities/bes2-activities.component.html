@@ -517,6 +517,16 @@
             </div>
 
             @if (mapboxService.mapboxAccessToken()) {
+              <div class="map-container">
+                <app-map
+                  [id]="mapId"
+                  [height]="mapHeight"
+                  [style]="mapStyle"
+                  [interactiveEnabled]="false"
+                  [overlays]="overlays"
+                  [boundingBox]="boundingBox"
+                ></app-map>
+              </div>
             } @else {
               <div class="inner-container">
                 @if (activityDetails()) {

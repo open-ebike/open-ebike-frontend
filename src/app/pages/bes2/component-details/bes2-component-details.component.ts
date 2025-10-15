@@ -20,7 +20,6 @@ import {
   MatCardHeader,
   MatCardTitle,
 } from '@angular/material/card';
-import { MatRipple } from '@angular/material/core';
 
 /**
  * Displays component details
@@ -36,7 +35,6 @@ import { MatRipple } from '@angular/material/core';
     MatCardTitle,
     MatCardAvatar,
     MatCardContent,
-    MatRipple,
   ],
   templateUrl: './bes2-component-details.component.html',
   styleUrl: './bes2-component-details.component.scss',

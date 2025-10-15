@@ -14,19 +14,15 @@ import { MatIcon } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
 import { MatRipple } from '@angular/material/core';
 import { MetersToKilometersPipe } from '../../../pipes/meters-to-kilometers.pipe';
-import {
-  MatCard,
-  MatCardActions,
-  MatCardContent,
-  MatCardFooter,
-  MatCardHeader,
-  MatCardTitle,
-} from '@angular/material/card';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatButton } from '@angular/material/button';
-import { MapComponent } from '../../../components/map/map.component';
+import {
+  MapBoxStyle,
+  MapComponent,
+  Origin,
+  Overlay,
+} from '../../../components/map/map.component';
 import { MatPaginator } from '@angular/material/paginator';
-import { RoundPipe } from '../../../pipes/round.pipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Theme, ThemeService } from '../../../services/theme.service';
 import { AuthenticationService } from '../../../services/authentication.service';
@@ -37,6 +33,12 @@ import {
   ActivitySummary,
 } from '../../../services/api/bes2/activity.service';
 import { MapboxService } from '../../../services/mapbox.service';
+import {
+  MatCard,
+  MatCardActions,
+  MatCardContent,
+  MatCardFooter,
+} from '@angular/material/card';
 
 /**
  * Displays activities
@@ -51,17 +53,14 @@ import { MapboxService } from '../../../services/mapbox.service';
     DatePipe,
     MatRipple,
     MetersToKilometersPipe,
-    MatCard,
-    MatCardContent,
     MatSidenavModule,
     MatButton,
     MapComponent,
+    MatPaginator,
     MatCardActions,
     MatCardFooter,
-    MatPaginator,
-    RoundPipe,
-    MatCardHeader,
-    MatCardTitle,
+    MatCard,
+    MatCardContent,
   ],
   templateUrl: './bes2-activities.component.html',
   styleUrl: './bes2-activities.component.scss',
@@ -116,6 +115,17 @@ export class Bes2ActivitiesComponent implements OnInit {
 
   pageSizeOptions = [1, 20, 50, 100];
 
+  //
+  // Map
+  //
+
+  mapId = 'activities';
+  mapHeight = 'calc(100vh - 64px - 128px)';
+  mapStyle = MapBoxStyle.LIGHT_V10;
+
+  overlays: Map<string, Overlay> = new Map<string, Overlay>();
+  boundingBox: number[] | undefined;
+
   /** Language */
   lang = getBrowserLang();
 
@@ -145,6 +155,19 @@ export class Bes2ActivitiesComponent implements OnInit {
         this.drawerStart()?.open();
       }
     });
+
+    effect(() => {
+      switch (this.themeService.theme()) {
+        case Theme.LIGHT: {
+          this.mapStyle = MapBoxStyle.LIGHT_V10;
+          break;
+        }
+        case Theme.DARK: {
+          this.mapStyle = MapBoxStyle.DARK_V10;
+          break;
+        }
+      }
+    });
   }
 
   //
@@ -155,6 +178,7 @@ export class Bes2ActivitiesComponent implements OnInit {
    * Handles on-init phase
    */
   ngOnInit() {
+    this.mapboxService.restoreConfig();
     this.handleQueryParameters();
   }
 
@@ -180,7 +204,49 @@ export class Bes2ActivitiesComponent implements OnInit {
   private initializeActivityDetails(id: number) {
     this.activityService.getActivityDetails(id).subscribe((activityDetails) => {
       this.activityDetails.set(activityDetails);
+      this.initializeMapOverlay(id, activityDetails);
     });
+  }
+
+  /**
+   * Initializes map overlay
+   * @param id activity ID
+   * @param activityDetails activity details
+   */
+  private initializeMapOverlay(id: number, activityDetails: ActivityDetail) {
+    const geojson = this.mapboxService.buildBes2Geojson(activityDetails);
+
+    const overlayId = 'activity-details';
+    const source = {
+      origin: Origin.INLINE,
+      name: overlayId,
+      value: JSON.stringify(geojson),
+    };
+    const layer = {
+      origin: Origin.INLINE,
+      name: `${overlayId}-layer`,
+      value: JSON.stringify({
+        id: `${overlayId}-layer`,
+        type: 'line',
+        source: overlayId,
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round',
+        },
+        paint: {
+          'line-color': '#d75b98',
+          'line-width': 8,
+        },
+      }),
+    };
+    const overlay = {
+      source,
+      layers: [layer],
+    };
+
+    this.overlays.set(`${id}`, overlay);
+    this.overlays = new Map(this.overlays);
+    this.boundingBox = geojson.features[0]['properties']['bounding-box'];
   }
 
   /**
