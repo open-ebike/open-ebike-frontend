@@ -1,0 +1,55 @@
+{
+  "startTime": "2019-08-24T14:15:22Z",
+  "endTime": "2019-08-24T14:15:22Z",
+  "durationWithoutStops": -9007199254740991,
+  "isCompleted": true,
+  "totalDistance": -3.402823669209385e38,
+  "title": "string",
+  "id": -9007199254740991,
+  "type": "TRIP",
+  "durationWithStops": -9007199254740991,
+  "caloriesBurned": -3.402823669209385e38,
+  "totalRiderConsumption": -3.402823669209385e38,
+  "totalBatteryConsumption": -3.402823669209385e38,
+  "significantAssistanceLevels": [
+    {
+      "level": -2147483648,
+      "value": -1.7976931348623157e308
+    }
+  ],
+  "insignificantAssistanceLevelsSum": -1.7976931348623157e308,
+  "avgSpeed": -3.402823669209385e38,
+  "avgHeartRate": -3.402823669209385e38,
+  "avgCadence": -3.402823669209385e38,
+  "avgAltitude": -3.402823669209385e38,
+  "maxSpeed": -3.402823669209385e38,
+  "maxHeartRate": -2147483648,
+  "maxCadence": -2147483648,
+  "maxAltitude": -3.402823669209385e38,
+  "altitudes": [[-1.7976931348623157e308]],
+  "cadence": [[-2147483648]],
+  "heartRate": [[-2147483648]],
+  "speed": [[-3.402823669209385e38]],
+  "coordinates": [
+    [
+      {
+        "latitude": -1.7976931348623157e308,
+        "longitude": -1.7976931348623157e308
+      }
+    ]
+  ],
+  "powerOutput": [[-2147483648]],
+  "fitnessLevel": -2147483648,
+  "trainingEffect": -2147483648,
+  "trainingLoadPeak": -2147483648,
+  "speedWeight": -2147483648,
+  "cadenceWeight": -2147483648,
+  "heartRateWeight": -2147483648,
+  "riderPowerWeight": -2147483648,
+  "isSignificant": true,
+  "elevationGain": -3.402823669209385e38,
+  "elevationLoss": -3.402823669209385e38,
+  "avgRiderPower": -1.7976931348623157e308,
+  "driveUnitSerialNumber": "string",
+  "driveUnitPartNumber": "string"
+}
