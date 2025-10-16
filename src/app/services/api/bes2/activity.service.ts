@@ -139,6 +139,46 @@ export interface Coordinate {
   longitude: number;
 }
 
+export interface Statistics {
+  currentMonth?: MonthlyStatistics;
+  lastMonth?: MonthlyStatistics;
+  /** Best overall month for bike riding */
+  bestMonth?: number;
+  /** Month with the longest activity distance (m) uploaded */
+  bestMonthDistance?: number;
+  totalStatistics?: TotalStatistics;
+  /** Bike rider's first name */
+  firstName?: string;
+  /** Bike rider's last name */
+  lastName?: string;
+  /** Timestamp of the start time of the last activity uploaded */
+  lastActivityTimestamp?: string;
+  /** Activity length (m) of the activities uploaded in the last 30 days */
+  last30DaysDistances?: number[];
+}
+
+export interface MonthlyStatistics {
+  /** Month index, starting at 1 */
+  month?: number;
+  /** Total distance (m) covered across all activities completed in the month */
+  distance?: number;
+  /** Average speed (km/h) calculated across all activities completed in the month */
+  avgSpeed?: number;
+  /** Total calories burned covered across all activities completed in the month */
+  caloriesBurned?: number;
+  /** Total elevation gained (m) covered across all activities completed in the month */
+  elevationGain?: number;
+}
+
+export interface TotalStatistics {
+  /** Total distance (m) of all activities combined */
+  distance?: number;
+  /** Total elevation gained (m) of all activities combined */
+  elevationGain?: number;
+  /** Total distance (m) of all activities created in the current year combined */
+  yearlyDistance?: number;
+}
+
 /**
  * Handles activities
  */
@@ -170,6 +210,15 @@ export class ActivityService {
   getActivityDetails(id: number): Observable<ActivityDetail> {
     return this.http.get<ActivityDetail>(
       `${environment.eBikeApiUrl}/activity/ebike-system-2/v1/activities/${id}`,
+    );
+  }
+
+  /**
+   * Lists statistics
+   */
+  getStatistics(): Observable<Statistics> {
+    return this.http.get<Statistics>(
+      `${environment.eBikeApiUrl}/activity/ebike-system-2/v1/statistics`,
     );
   }
 }
