@@ -1,0 +1,57 @@
+{
+  "firstName": "Devs",
+  "lastName": "Devsnada",
+  "lastActivityTimestamp": "2025-06-01T12:00:00Z",
+  "last30DaysDistances": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1384,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    13540,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "currentMonth": {
+    "month": 12,
+    "distance": 0,
+    "averageSpeed": 0,
+    "caloriesBurned": 0,
+    "elevationGain": 0
+  },
+  "lastMonth": {
+    "month": 11,
+    "distance": 1384,
+    "avgSpeed": 16.708249496981892,
+    "caloriesBurned": 0,
+    "elevationGain": 0
+  },
+  "bestMonth": 11,
+  "bestMonthDistance": 14946,
+  "totalStatistics": {
+    "distance": 70909,
+    "elevationGain": 53
+  }
+}
