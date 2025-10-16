@@ -132,7 +132,7 @@
         "elevation": "Höhenunterschied",
         "elevation-gain": "Höhengewinn",
         "elevation-loss": "Höhenverlust",
-        "calories-burned": "Höhenunterschied",
+        "calories-burned": "verbrannte Kalorien",
         "altitude": "Höhe",
         "latitude": "Breitengrad",
         "longitude": "Längengrad",
@@ -170,6 +170,26 @@
         "hide-all": "alle verbergen",
         "show-summary": "Zusammenfassung anzeigen",
         "hide-summary": "Zusammenfassung verbergen"
+      }
+    },
+    "statistics": {
+      "title": "Statistiken",
+      "terms": {
+        "best-month": "bester Monat",
+        "best-month-distance": "bester Monat Distanz",
+        "first-name": "Vorname",
+        "last-name": "Nachname",
+        "last-activity-timestamp": "letzte Aktivität",
+        "current-month": "Aktueller Monat",
+        "total-statistics": "Gesamtstatistik",
+        "last-month": "Letzter Monat",
+        "month": "Monat",
+        "distance": "Distanz",
+        "speed-average": "Durchschnittsgeschwindigkeit",
+        "calories-burned": "verbrannte Kalorien",
+        "elevation-gain": "Höhengewinn",
+        "yearly-distance": "Jahresdistanz",
+        "undefined": "nicht definiert"
       }
     },
     "registrations": {

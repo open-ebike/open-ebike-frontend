@@ -1,0 +1,233 @@
+<ng-container *transloco="let t; lang: lang; prefix: 'pages.statistics'">
+  <div>
+    @if (authenticationService.isLoggedIn()) {
+      <div class="container flex-container-vertical">
+        <div class="inner-container">
+          <h2>
+                <span class="material-symbols-outlined activity icon">
+                  bar_chart
+                </span>
+            {{ t("title") }}
+          </h2>
+          <ul class="list">
+            <li>
+              <strong class="label">{{ t("terms.best-month") }}</strong
+              >:
+              @if (statistics()?.bestMonth) {
+                {{ statistics()?.bestMonth }}
+              } @else {
+                <em>{{ t("terms.undefined") }}</em>
+              }
+            </li>
+            <li>
+              <strong class="label">{{ t("terms.best-month-distance") }}</strong
+              >:
+              @if (statistics()?.bestMonthDistance) {
+                {{ statistics()?.bestMonthDistance ?? 0 | metersToKilometers }}
+              } @else {
+                <em>{{ t("terms.undefined") }}</em>
+              }
+            </li>
+            <li>
+              <strong class="label">{{ t("terms.first-name") }}</strong
+              >:
+              @if (statistics()?.firstName) {
+                {{ statistics()?.firstName }}
+              } @else {
+                <em>{{ t("terms.undefined") }}</em>
+              }
+            </li>
+            <li>
+              <strong class="label">{{ t("terms.last-name") }}</strong
+              >:
+              @if (statistics()?.lastName) {
+                {{ statistics()?.lastName }}
+              } @else {
+                <em>{{ t("terms.undefined") }}</em>
+              }
+            </li>
+            <li>
+              <strong class="label">{{ t("terms.last-activity-timestamp") }}</strong
+              >:
+              @if (statistics()?.lastActivityTimestamp) {
+                {{ statistics()?.lastActivityTimestamp }}
+              } @else {
+                <em>{{ t("terms.undefined") }}</em>
+              }
+            </li>
+          </ul>
+        </div>
+        <div class="grid-container">
+          <div class="grid wide">
+            @if (statistics()?.currentMonth) {
+              <mat-card mat-ripple>
+                <mat-card-header>
+                  <mat-card-title>
+                    {{ t("terms.current-month") }}
+                  </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <ul class="list">
+                    <li>
+                      <strong class="label">{{ t("terms.month") }}</strong
+                      >:
+                      @if (statistics()?.currentMonth?.month) {
+                        {{ statistics()?.currentMonth?.month }}
+                      } @else {
+                        <em>{{ t("terms.undefined") }}</em>
+                      }
+                    </li>
+                    <li>
+                      <strong class="label">{{ t("terms.distance") }}</strong
+                      >:
+                      @if (statistics()?.currentMonth?.distance) {
+                        {{ statistics()?.currentMonth?.distance ?? 0 | metersToKilometers }} km
+                      } @else {
+                        <em>{{ t("terms.undefined") }}</em>
+                      }
+                    </li>
+                    <li>
+                      <strong class="label">{{ t("terms.speed-average") }}</strong
+                      >:
+                      @if (statistics()?.currentMonth?.avgSpeed) {
+                        {{ statistics()?.currentMonth?.avgSpeed ?? 0 | round:2 }} km/h
+                      } @else {
+                        <em>{{ t("terms.undefined") }}</em>
+                      }
+                    </li>
+                    <li>
+                      <strong class="label">{{ t("terms.calories-burned") }}</strong
+                      >:
+                      @if (statistics()?.currentMonth?.caloriesBurned) {
+                        {{ statistics()?.currentMonth?.caloriesBurned }}
+                      } @else {
+                        <em>{{ t("terms.undefined") }}</em>
+                      }
+                    </li>
+                    <li>
+                      <strong class="label">{{ t("terms.elevation-gain") }}</strong
+                      >:
+                      @if (statistics()?.currentMonth?.elevationGain) {
+                        {{ statistics()?.currentMonth?.elevationGain }} m
+                      } @else {
+                        <em>{{ t("terms.undefined") }}</em>
+                      }
+                    </li>
+                  </ul>
+                </mat-card-content>
+                <mat-card-actions></mat-card-actions>
+                <mat-card-footer></mat-card-footer>
+              </mat-card>
+            }
+            @if (statistics()?.lastMonth) {
+              <mat-card mat-ripple>
+                <mat-card-header>
+                  <mat-card-title>
+                    {{ t("terms.last-month") }}
+                  </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <ul class="list">
+                    <li>
+                      <strong class="label">{{ t("terms.month") }}</strong
+                      >:
+                      @if (statistics()?.lastMonth?.month) {
+                        {{ statistics()?.lastMonth?.month }}
+                      } @else {
+                        <em>{{ t("terms.undefined") }}</em>
+                      }
+                    </li>
+                    <li>
+                      <strong class="label">{{ t("terms.distance") }}</strong
+                      >:
+                      @if (statistics()?.lastMonth?.distance) {
+                        {{ statistics()?.lastMonth?.distance ?? 0 | metersToKilometers }} km
+                      } @else {
+                        <em>{{ t("terms.undefined") }}</em>
+                      }
+                    </li>
+                    <li>
+                      <strong class="label">{{ t("terms.speed-average") }}</strong
+                      >:
+                      @if (statistics()?.lastMonth?.avgSpeed) {
+                        {{ statistics()?.lastMonth?.avgSpeed ?? 0 | round:2 }} km/h
+                      } @else {
+                        <em>{{ t("terms.undefined") }}</em>
+                      }
+                    </li>
+                    <li>
+                      <strong class="label">{{ t("terms.calories-burned") }}</strong
+                      >:
+                      @if (statistics()?.lastMonth?.caloriesBurned) {
+                        {{ statistics()?.lastMonth?.caloriesBurned }}
+                      } @else {
+                        <em>{{ t("terms.undefined") }}</em>
+                      }
+                    </li>
+                    <li>
+                      <strong class="label">{{ t("terms.elevation-gain") }}</strong
+                      >:
+                      @if (statistics()?.lastMonth?.elevationGain) {
+                        {{ statistics()?.lastMonth?.elevationGain }} m
+                      } @else {
+                        <em>{{ t("terms.undefined") }}</em>
+                      }
+                    </li>
+                  </ul>
+                </mat-card-content>
+                <mat-card-actions></mat-card-actions>
+                <mat-card-footer></mat-card-footer>
+              </mat-card>
+            }
+            @if (statistics()?.totalStatistics) {
+              <mat-card mat-ripple>
+                <mat-card-header>
+                  <mat-card-title>
+                    {{ t("terms.total-statistics") }}
+                  </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <ul class="list">
+                    <li>
+                      <strong class="label">{{ t("terms.distance") }}</strong
+                      >:
+                      @if (statistics()?.totalStatistics?.distance) {
+                        {{ statistics()?.totalStatistics?.distance ?? 0 | metersToKilometers }} km
+                      } @else {
+                        <em>{{ t("terms.undefined") }}</em>
+                      }
+                    </li>
+                    <li>
+                      <strong class="label">{{ t("terms.elevation-gain") }}</strong
+                      >:
+                      @if (statistics()?.lastMonth?.elevationGain) {
+                        {{ statistics()?.lastMonth?.elevationGain }} m
+                      } @else {
+                        <em>{{ t("terms.undefined") }}</em>
+                      }
+                    </li>
+                    <li>
+                      <strong class="label">{{ t("terms.yearly-distance") }}</strong
+                      >:
+                      @if (statistics()?.totalStatistics?.yearlyDistance) {
+                        {{ statistics()?.totalStatistics?.yearlyDistance ?? 0 | metersToKilometers }} km
+                      } @else {
+                        <em>{{ t("terms.undefined") }}</em>
+                      }
+                    </li>
+                  </ul>
+                </mat-card-content>
+                <mat-card-actions></mat-card-actions>
+                <mat-card-footer></mat-card-footer>
+              </mat-card>
+            }
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="bar-chart"></canvas>
+        </div>
+        <div class="flex-box"></div>
+      </div>
+    }
+  </div>
+</ng-container>

@@ -172,6 +172,26 @@
         "hide-summary": "hide summary"
       }
     },
+    "statistics": {
+      "title": "Statistics",
+      "terms": {
+        "best-month": "best month",
+        "best-month-distance": "best month distance",
+        "first-name": "first name",
+        "last-name": "last name",
+        "last-activity-timestamp": "last activity timestamp",
+        "current-month": "Current Month",
+        "last-month": "Last Month",
+        "total-statistics": "Total Statistics",
+        "month": "month",
+        "distance": "distance",
+        "speed-average": "speed (avg.)",
+        "calories-burned": "calories burned",
+        "elevation-gain": "elevation gain",
+        "yearly-distance": "yearly distance",
+        "undefined": "undefined"
+      }
+    },
     "registrations": {
       "title": "Registrations",
       "terms": {

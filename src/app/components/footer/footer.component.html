@@ -47,6 +47,13 @@
                 >{{ t("pages.activities.title") }}</a
               >
             </li>
+            <li>
+              <a
+                routerLink="/bes2/statistics"
+                [queryParams]="{ theme: themeService.theme() }"
+                >{{ t("pages.statistics.title") }}</a
+              >
+            </li>
           </ul>
         </div>
       }

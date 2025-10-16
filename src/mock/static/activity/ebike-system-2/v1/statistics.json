@@ -37,7 +37,7 @@
   "currentMonth": {
     "month": 12,
     "distance": 0,
-    "averageSpeed": 0,
+    "avgSpeed": 0,
     "caloriesBurned": 0,
     "elevationGain": 0
   },
