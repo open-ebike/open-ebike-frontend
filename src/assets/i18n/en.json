@@ -189,6 +189,7 @@
         "calories-burned": "calories burned",
         "elevation-gain": "elevation gain",
         "yearly-distance": "yearly distance",
+        "last-30-days-distances": "Last 30 days distances",
         "undefined": "undefined"
       }
     },

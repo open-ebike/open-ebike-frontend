@@ -1,5 +1,9 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
+import {
+  getBrowserLang,
+  TranslocoDirective,
+  TranslocoService,
+} from '@jsverse/transloco';
 import { MatIcon } from '@angular/material/icon';
 import { MatRipple } from '@angular/material/core';
 import { MatButton } from '@angular/material/button';
@@ -22,6 +26,8 @@ import { combineLatest, first } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { MetersToKilometersPipe } from '../../../pipes/meters-to-kilometers.pipe';
 import { RoundPipe } from '../../../pipes/round.pipe';
+import Chart from 'chart.js/auto';
+import { ChartData, ChartOptions } from 'chart.js';
 
 /**
  * Displays statistics
@@ -58,6 +64,8 @@ export class Bes2StatisticsComponent implements OnInit {
   private router = inject(Router);
   /** Theme service */
   private themeService = inject(ThemeService);
+  /** Transloco service */
+  private translocoService = inject(TranslocoService);
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
   /** Activity service */
@@ -70,6 +78,15 @@ export class Bes2StatisticsComponent implements OnInit {
   /** Signal providing statistics */
   statistics = signal<Statistics | undefined>(undefined);
 
+  //
+  // Chart
+  //
+
+  /** Chart data */
+  chartData: ChartData | undefined = undefined;
+  /** Chart options */
+  chartOptions: ChartOptions | undefined = undefined;
+
   /** Language */
   lang = getBrowserLang();
 
@@ -79,6 +96,15 @@ export class Bes2StatisticsComponent implements OnInit {
 
   /** Query parameter theme */
   private QUERY_PARAM_THEME: string = 'theme';
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    effect(() => {
+      this.initializeChart(this.themeService.theme(), this.statistics());
+    });
+  }
 
   //
   // Lifecycle hooks
@@ -103,6 +129,103 @@ export class Bes2StatisticsComponent implements OnInit {
     this.activityService.getStatistics().subscribe((statistics) => {
       this.statistics.set(statistics);
     });
+  }
+
+  /**
+   * Initializes chart
+   * @param theme theme
+   * @param statistics statistics
+   */
+  private initializeChart(theme: Theme, statistics?: Statistics) {
+    if (!statistics) return;
+
+    let chartId = 'bar-chart';
+    let chart = Chart.getChart(chartId);
+
+    // Initialize chart
+    if (!chart) {
+      chart = new Chart(chartId, {
+        type: 'bar',
+        data: {
+          labels: [],
+          datasets: [],
+        },
+        options: {},
+      });
+    }
+
+    this.chartData = {
+      labels: statistics.last30DaysDistances?.map((_, index) => {
+        return index;
+      }),
+      datasets: [
+        {
+          type: 'bar',
+          label: this.translocoService.translate(
+            `pages.statistics.terms.distance`,
+          ),
+          data:
+            statistics.last30DaysDistances?.map((distance) => {
+              return distance != undefined ? distance / 1_000 : 0;
+            }) ?? [],
+          backgroundColor: statistics.last30DaysDistances?.map(() => '#d75b98'),
+          hoverBackgroundColor: statistics.last30DaysDistances?.map(
+            () => 'hsl(330, 61%, 80%)',
+          ),
+        },
+      ],
+    };
+
+    this.chartOptions = {
+      animation: {
+        duration: 0,
+      },
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: {
+            color: theme == Theme.DARK ? '#fefefe' : '#000000',
+          },
+          // @ts-ignore
+          onClick: null,
+        },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              return `${context.dataset.label}: ${context.formattedValue} km`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          display: false,
+          ticks: {
+            color: theme == Theme.DARK ? '#fefefe' : '#000000',
+          },
+          grid: {
+            color: theme == Theme.DARK ? '#fefefe' : '#E0E0DE',
+          },
+        },
+        y: {
+          ticks: {
+            color: theme == Theme.DARK ? '#fefefe' : '#000000',
+          },
+          grid: {
+            color: theme == Theme.DARK ? '#fefefe' : '#E0E0DE',
+          },
+        },
+      },
+    };
+
+    // Update chart data and options
+    chart.data = this.chartData;
+    // @ts-ignore
+    chart.options = this.chartOptions;
+
+    try {
+      chart.update();
+    } catch (_) {}
   }
 
   /**
