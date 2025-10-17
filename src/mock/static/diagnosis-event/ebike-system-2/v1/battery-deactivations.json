@@ -1,0 +1,12 @@
+{
+  "batteryDeactivations": [
+    {
+      "timestamp": "2025-09-12T14:04:54.846Z",
+      "partNumber": 12345678914,
+      "serialNumber": "1707261/0447",
+      "productCode": "COMP_BDU250",
+      "softwareVersion": "4.14.2",
+      "hardwareVersion": "3.1.0"
+    }
+  ]
+}
