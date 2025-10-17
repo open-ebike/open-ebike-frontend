@@ -249,7 +249,15 @@
         "map-version": "Kartenversion",
         "memory-capacity": "Speicherkapazität",
         "last-synced-at": "zuletzt synchronisiert",
-        "last-activity-uploaded-at": "zuletzt Aktivitäten hochgeladen"
+        "last-activity-uploaded-at": "zuletzt Aktivitäten hochgeladen",
+        "diagnosis-events": "Diagnose Events",
+        "tuning-reset-event": "Tuning Reset Event",
+        "battery-deactivation-event": "Battery Deactivation Event",
+        "lock-reset-event": "Lock Reset Event",
+        "timestamp":  "Zeitstempel",
+        "product-code": "Produktcode",
+        "software-version":  "Software-Version",
+        "hardware-version": "Hardware-Version"
       },
       "messages": {
         "no-field-data": "keine Field Data aufgezeichnet"

@@ -95,9 +95,7 @@
                     <strong class="label">{{ t("terms.speed-average") }}</strong
                     >:
                     @if (statistics()?.currentMonth?.avgSpeed) {
-                      {{
-                        statistics()?.currentMonth?.avgSpeed ?? 0 | round: 2
-                      }}
+                      {{ statistics()?.currentMonth?.avgSpeed ?? 0 | round: 2 }}
                       km/h
                     } @else {
                       <em>{{ t("terms.undefined") }}</em>
@@ -166,9 +164,7 @@
                     <strong class="label">{{ t("terms.speed-average") }}</strong
                     >:
                     @if (statistics()?.lastMonth?.avgSpeed) {
-                      {{
-                        statistics()?.lastMonth?.avgSpeed ?? 0 | round: 2
-                      }}
+                      {{ statistics()?.lastMonth?.avgSpeed ?? 0 | round: 2 }}
                       km/h
                     } @else {
                       <em>{{ t("terms.undefined") }}</em>

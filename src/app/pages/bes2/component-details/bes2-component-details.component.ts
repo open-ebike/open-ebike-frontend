@@ -15,11 +15,18 @@ import { combineLatest, first } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import {
   MatCard,
+  MatCardActions,
   MatCardAvatar,
   MatCardContent,
+  MatCardFooter,
   MatCardHeader,
   MatCardTitle,
 } from '@angular/material/card';
+import {
+  DiagnosisEventService,
+  Event,
+} from '../../../services/api/bes2/diagnosis-event.service';
+import { MatRipple } from '@angular/material/core';
 
 /**
  * Displays component details
@@ -35,6 +42,9 @@ import {
     MatCardTitle,
     MatCardAvatar,
     MatCardContent,
+    MatCardActions,
+    MatCardFooter,
+    MatRipple,
   ],
   templateUrl: './bes2-component-details.component.html',
   styleUrl: './bes2-component-details.component.scss',
@@ -55,6 +65,8 @@ export class Bes2ComponentDetailsComponent implements OnInit {
   public authenticationService = inject(AuthenticationService);
   /** eBike profile service */
   private ebikeProfileService = inject(EbikeProfileService);
+  /** Diagnosis event service */
+  private diagnosisEventService = inject(DiagnosisEventService);
 
   //
   // Signals
@@ -73,6 +85,13 @@ export class Bes2ComponentDetailsComponent implements OnInit {
   headUnit = signal<HeadUnit | undefined>(undefined);
   battery = signal<Battery | undefined>(undefined);
   componentType = signal<ComponentType | undefined>(undefined);
+
+  /** Signal providing tuning resets */
+  tuningResetEvents = signal<Event[]>([]);
+  /** Signal providing battery deactivations */
+  batteryDeactivationEvents = signal<Event[]>([]);
+  /** Signal providing lock reset */
+  lockResetEvents = signal<Event[]>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -97,19 +116,35 @@ export class Bes2ComponentDetailsComponent implements OnInit {
    */
   constructor() {
     effect(() => {
-      if (this.duPartNumber() != null && this.duSerialNumber() != null) {
+      if (
+        this.duPartNumber() != undefined &&
+        this.duSerialNumber() != undefined
+      ) {
         this.initializeEbike(this.duPartNumber(), this.duSerialNumber());
       }
     });
 
     effect(() => {
       if (
-        this.ebikeProfile() != null &&
-        this.partNumber() != null &&
-        this.serialNumber() != null
+        this.ebikeProfile() != undefined &&
+        this.partNumber() != undefined &&
+        this.serialNumber() != undefined
       ) {
         this.initializeComponent(
           this.ebikeProfile(),
+          this.duPartNumber(),
+          this.duSerialNumber(),
+        );
+
+        this.initializeTuningResetEvents(
+          this.duPartNumber(),
+          this.duSerialNumber(),
+        );
+        this.initializeBatteryDeactivationEvents(
+          this.duPartNumber(),
+          this.duSerialNumber(),
+        );
+        this.initializeLockResetEvents(
           this.duPartNumber(),
           this.duSerialNumber(),
         );
@@ -118,10 +153,10 @@ export class Bes2ComponentDetailsComponent implements OnInit {
 
     effect(() => {
       if (
-        this.duPartNumber() == null ||
-        this.duSerialNumber() == null ||
-        this.partNumber() == null ||
-        this.serialNumber() == null
+        this.duPartNumber() == undefined ||
+        this.duSerialNumber() == undefined ||
+        this.partNumber() == undefined ||
+        this.serialNumber() == undefined
       ) {
         this.router.navigate(['/bes2/ebikes']);
       }
@@ -227,6 +262,56 @@ export class Bes2ComponentDetailsComponent implements OnInit {
       );
       this.componentType.set('BATTERY');
     }
+  }
+
+  /**
+   * Initializes tuning events
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  private initializeTuningResetEvents(
+    partNumber?: string,
+    serialNumber?: string,
+  ) {
+    this.diagnosisEventService
+      .getAllTuningResetEvents(partNumber, serialNumber)
+      .subscribe((tuningResets) => {
+        this.tuningResetEvents.set(tuningResets.tuningResets);
+      });
+  }
+
+  /**
+   * Initializes battery deactivation events
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  private initializeBatteryDeactivationEvents(
+    partNumber?: string,
+    serialNumber?: string,
+  ) {
+    this.diagnosisEventService
+      .getAllBatteryDeactivationEvents(partNumber, serialNumber)
+      .subscribe((batteryDeactivations) => {
+        this.batteryDeactivationEvents.set(
+          batteryDeactivations.batteryDeactivations,
+        );
+      });
+  }
+
+  /**
+   * Initializes lock reset events
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  private initializeLockResetEvents(
+    partNumber?: string,
+    serialNumber?: string,
+  ) {
+    this.diagnosisEventService
+      .getAllLockResetEvents(partNumber, serialNumber)
+      .subscribe((lockResets) => {
+        this.lockResetEvents.set(lockResets.lockResets);
+      });
   }
 
   /**

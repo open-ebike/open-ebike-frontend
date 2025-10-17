@@ -86,8 +86,8 @@
           <ul class="list">
             <li>
               <strong class="label">{{
-                t("terms.is-lock-feature-enabled")
-              }}</strong
+                  t("terms.is-lock-feature-enabled")
+                }}</strong
               >:
               @if (driveUnit()?.isLockFeatureEnabled) {
                 {{ driveUnit()?.isLockFeatureEnabled }}
@@ -103,8 +103,8 @@
           <ul class="list">
             <li>
               <strong class="label">{{
-                t("terms.bike-settings-last-modified-at")
-              }}</strong
+                  t("terms.bike-settings-last-modified-at")
+                }}</strong
               >:
               @if (driveUnit()?.settingsLastModifiedAt?.bikeSettings) {
                 {{
@@ -117,12 +117,10 @@
             </li>
             <li>
               <strong class="label">{{
-                t("terms.custom-assistance-levels-last-modified-at")
-              }}</strong
+                  t("terms.custom-assistance-levels-last-modified-at")
+                }}</strong
               >:
-              @if (
-                driveUnit()?.settingsLastModifiedAt?.customAssistanceLevels
-              ) {
+              @if (driveUnit()?.settingsLastModifiedAt?.customAssistanceLevels) {
                 {{
                   driveUnit()?.settingsLastModifiedAt?.customAssistanceLevels
                     | date: "medium"
@@ -157,24 +155,21 @@
             <mat-card>
               <mat-card-header>
                 <div mat-card-avatar>
-                  <span class="material-symbols-outlined capacity-tester icon">
+                  <span class="material-symbols-outlined component icon">
                     discover_tune
                   </span>
                 </div>
                 <mat-card-title>{{
-                  t("terms.custom-assistance-levels")
-                }}</mat-card-title>
+                    t("terms.custom-assistance-levels")
+                  }}
+                </mat-card-title>
               </mat-card-header>
 
-              @for (
-                customAssistanceLevel of driveUnit()?.customAssistanceLevels;
-                track customAssistanceLevel
-              ) {
+              @for (customAssistanceLevel of driveUnit()?.customAssistanceLevels;
+                track customAssistanceLevel) {
                 <mat-card-content>
-                  @for (
-                    assistanceLevelMapping of customAssistanceLevel;
-                    track assistanceLevelMapping
-                  ) {
+                  @for (assistanceLevelMapping of customAssistanceLevel;
+                    track assistanceLevelMapping) {
                     <li class="list">
                       <strong class="label">
                         {{ t("terms.assistance-level-mapping-x") }}
@@ -191,8 +186,8 @@
           <ul class="list">
             <li>
               <strong class="label">{{
-                t("terms.is-service-lock-enabled")
-              }}</strong
+                  t("terms.is-service-lock-enabled")
+                }}</strong
               >:
               @if (driveUnit()?.isServiceLockEnabled) {
                 {{ driveUnit()?.isServiceLockEnabled }}
@@ -234,8 +229,8 @@
             </li>
             <li>
               <strong class="label">{{
-                t("terms.last-activity-uploaded-at")
-              }}</strong
+                  t("terms.last-activity-uploaded-at")
+                }}</strong
               >:
               @if (headUnit()?.lastActivityUploadedAt) {
                 {{ headUnit()?.lastActivityUploadedAt | date: "medium" }}
@@ -245,6 +240,265 @@
             </li>
           </ul>
         }
+
+        <h3>{{ t("terms.diagnosis-events") }}</h3>
+
+        <div class="grid">
+          @for (event of tuningResetEvents(); track event) {
+            <mat-card mat-ripple>
+              <mat-card-header>
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined component icon">
+                    event_repeat
+                  </span>
+                </div>
+                <mat-card-title>{{ t("terms.tuning-reset-event") }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{
+                        t("terms.timestamp")
+                      }}</strong
+                    >:
+                    @if (event?.timestamp) {
+                      {{ event?.timestamp | date: "H:mm:ss" : "UTC" }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                        t("terms.part-number")
+                      }}</strong
+                    >:
+                    @if (event?.partNumber) {
+                      {{ event?.partNumber }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                        t("terms.serial-number")
+                      }}</strong
+                    >:
+                    @if (event?.serialNumber) {
+                      {{ event?.serialNumber }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                        t("terms.product-code")
+                      }}</strong
+                    >:
+                    @if (event?.productCode) {
+                      {{ event?.productCode }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                        t("terms.software-version")
+                      }}</strong
+                    >:
+                    @if (event?.softwareVersion) {
+                      {{ event?.softwareVersion }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                        t("terms.hardware-version")
+                      }}</strong
+                    >:
+                    @if (event?.hardwareVersion) {
+                      {{ event?.hardwareVersion }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                </ul>
+              </mat-card-content>
+              <mat-card-actions></mat-card-actions>
+              <mat-card-footer></mat-card-footer>
+            </mat-card>
+          }
+
+          @for (event of batteryDeactivationEvents(); track event) {
+            <mat-card mat-ripple>
+              <mat-card-header>
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined component icon">
+                    event
+                  </span>
+                </div>
+                <mat-card-title>{{ t("terms.battery-deactivation-event") }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{
+                        t("terms.timestamp")
+                      }}</strong
+                    >:
+                    @if (event?.timestamp) {
+                      {{ event?.timestamp | date: "H:mm:ss" : "UTC" }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                        t("terms.part-number")
+                      }}</strong
+                    >:
+                    @if (event?.partNumber) {
+                      {{ event?.partNumber }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                        t("terms.serial-number")
+                      }}</strong
+                    >:
+                    @if (event?.serialNumber) {
+                      {{ event?.serialNumber }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                        t("terms.product-code")
+                      }}</strong
+                    >:
+                    @if (event?.productCode) {
+                      {{ event?.productCode }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                        t("terms.software-version")
+                      }}</strong
+                    >:
+                    @if (event?.softwareVersion) {
+                      {{ event?.softwareVersion }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                        t("terms.hardware-version")
+                      }}</strong
+                    >:
+                    @if (event?.hardwareVersion) {
+                      {{ event?.hardwareVersion }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                </ul>
+              </mat-card-content>
+              <mat-card-actions></mat-card-actions>
+              <mat-card-footer></mat-card-footer>
+            </mat-card>
+          }
+
+          @for (event of lockResetEvents(); track event) {
+            <mat-card mat-ripple>
+              <mat-card-header>
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined component icon">
+                    calendar_lock
+                  </span>
+                </div>
+                <mat-card-title>{{ t("terms.lock-reset-event") }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <ul class="list">
+                  <li>
+                    <strong class="label">{{
+                        t("terms.timestamp")
+                      }}</strong
+                    >:
+                    @if (event?.timestamp) {
+                      {{ event?.timestamp | date: "H:mm:ss" : "UTC" }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                        t("terms.part-number")
+                      }}</strong
+                    >:
+                    @if (event?.partNumber) {
+                      {{ event?.partNumber }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                        t("terms.serial-number")
+                      }}</strong
+                    >:
+                    @if (event?.serialNumber) {
+                      {{ event?.serialNumber }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                        t("terms.product-code")
+                      }}</strong
+                    >:
+                    @if (event?.productCode) {
+                      {{ event?.productCode }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                        t("terms.software-version")
+                      }}</strong
+                    >:
+                    @if (event?.softwareVersion) {
+                      {{ event?.softwareVersion }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                  <li>
+                    <strong class="label">{{
+                        t("terms.hardware-version")
+                      }}</strong
+                    >:
+                    @if (event?.hardwareVersion) {
+                      {{ event?.hardwareVersion }}
+                    } @else {
+                      <em>{{ t("terms.undefined") }}</em>
+                    }
+                  </li>
+                </ul>
+              </mat-card-content>
+              <mat-card-actions></mat-card-actions>
+              <mat-card-footer></mat-card-footer>
+            </mat-card>
+          }
+        </div>
       </div>
       <div class="flex-box"></div>
     }

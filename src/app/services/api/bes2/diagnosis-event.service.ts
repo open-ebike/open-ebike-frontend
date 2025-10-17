@@ -52,12 +52,16 @@ export class DiagnosisEventService {
    * @param serialNumber serial number
    */
   getAllTuningResetEvents(
-    partNumber: string,
-    serialNumber: string,
+    partNumber?: string,
+    serialNumber?: string,
   ): Observable<TuningResets> {
     let params = new HttpParams();
-    params.set('partNumber', partNumber);
-    params.set('serialNumber', serialNumber);
+    if (partNumber != undefined) {
+      params.set('partNumber', partNumber);
+    }
+    if (serialNumber != undefined) {
+      params.set('serialNumber', serialNumber);
+    }
 
     return this.http.get<TuningResets>(
       `${environment.eBikeApiUrl}/diagnosis-event/ebike-system-2/v1/tuning-resets`,
@@ -71,12 +75,16 @@ export class DiagnosisEventService {
    * @param serialNumber serial number
    */
   getAllBatteryDeactivationEvents(
-    partNumber: string,
-    serialNumber: string,
+    partNumber?: string,
+    serialNumber?: string,
   ): Observable<BatteryDeactivations> {
     let params = new HttpParams();
-    params.set('partNumber', partNumber);
-    params.set('serialNumber', serialNumber);
+    if (partNumber != undefined) {
+      params.set('partNumber', partNumber);
+    }
+    if (serialNumber != undefined) {
+      params.set('serialNumber', serialNumber);
+    }
 
     return this.http.get<BatteryDeactivations>(
       `${environment.eBikeApiUrl}/diagnosis-event/ebike-system-2/v1/battery-deactivations`,
@@ -90,12 +98,16 @@ export class DiagnosisEventService {
    * @param serialNumber serial number
    */
   getAllLockResetEvents(
-    partNumber: string,
-    serialNumber: string,
+    partNumber?: string,
+    serialNumber?: string,
   ): Observable<LockResets> {
     let params = new HttpParams();
-    params.set('partNumber', partNumber);
-    params.set('serialNumber', serialNumber);
+    if (partNumber != undefined) {
+      params.set('partNumber', partNumber);
+    }
+    if (serialNumber != undefined) {
+      params.set('serialNumber', serialNumber);
+    }
 
     return this.http.get<LockResets>(
       `${environment.eBikeApiUrl}/diagnosis-event/ebike-system-2/v1/battery-deactivations`,

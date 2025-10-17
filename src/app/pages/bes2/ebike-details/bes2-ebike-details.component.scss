@@ -1,12 +1,6 @@
 @use "@angular/material/index" as mat;
 @import "../../../../styles";
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
-
 @media #{$breakpoint-large} {
   .grid.wide {
     grid-template-columns: 1fr 1fr;

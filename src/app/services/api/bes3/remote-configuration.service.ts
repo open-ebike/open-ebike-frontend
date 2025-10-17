@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 
 export interface Cases {
@@ -194,8 +194,12 @@ export class RemoteConfigurationService {
    * @param bikeId bike ID
    */
   getRemoteConfigurationCases(bikeId: string) {
+    let params = new HttpParams();
+    params.set('bikeId', bikeId);
+
     return this.http.get<Cases>(
-      `${environment.eBikeApiUrl}/remote-configuration/smart-system/v1/cases?bikeId=${bikeId}`,
+      `${environment.eBikeApiUrl}/remote-configuration/smart-system/v1/cases`,
+      { params: params },
     );
   }
 }
