@@ -27,6 +27,13 @@ import {
   Event,
 } from '../../../services/api/bes2/diagnosis-event.service';
 import { MatRipple } from '@angular/material/core';
+import {
+  BatteryFieldData,
+  CapacityTesterFieldData,
+  DiagnosisFieldDataService,
+  DriveUnitFieldData,
+} from '../../../services/api/bes2/diagnosis-field-data.service';
+import { AttributeTreeComponent } from '../../../components/attribute-tree/attribute-tree.component';
 
 /**
  * Displays component details
@@ -45,6 +52,7 @@ import { MatRipple } from '@angular/material/core';
     MatCardActions,
     MatCardFooter,
     MatRipple,
+    AttributeTreeComponent,
   ],
   templateUrl: './bes2-component-details.component.html',
   styleUrl: './bes2-component-details.component.scss',
@@ -67,6 +75,8 @@ export class Bes2ComponentDetailsComponent implements OnInit {
   private ebikeProfileService = inject(EbikeProfileService);
   /** Diagnosis event service */
   private diagnosisEventService = inject(DiagnosisEventService);
+  /** Diagnosis field data service */
+  private diagnosisFieldDataService = inject(DiagnosisFieldDataService);
 
   //
   // Signals
@@ -92,6 +102,13 @@ export class Bes2ComponentDetailsComponent implements OnInit {
   batteryDeactivationEvents = signal<Event[]>([]);
   /** Signal providing lock reset */
   lockResetEvents = signal<Event[]>([]);
+
+  /** Signal providing battery management field data */
+  batteryMeasurementFieldData = signal<CapacityTesterFieldData[]>([]);
+  /** Signal providing battery field data */
+  batteryFieldData = signal<BatteryFieldData[]>([]);
+  /** Signal providing drive unit field data */
+  driveUnitFieldData = signal<DriveUnitFieldData[]>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -145,6 +162,19 @@ export class Bes2ComponentDetailsComponent implements OnInit {
           this.duSerialNumber(),
         );
         this.initializeLockResetEvents(
+          this.duPartNumber(),
+          this.duSerialNumber(),
+        );
+
+        this.initializeBatteryMeasurementFieldData(
+          this.duPartNumber(),
+          this.duSerialNumber(),
+        );
+        this.initializeBatteryFieldData(
+          this.duPartNumber(),
+          this.duSerialNumber(),
+        );
+        this.initializeDriveUnitFieldData(
           this.duPartNumber(),
           this.duSerialNumber(),
         );
@@ -311,6 +341,56 @@ export class Bes2ComponentDetailsComponent implements OnInit {
       .getAllLockResetEvents(partNumber, serialNumber)
       .subscribe((lockResets) => {
         this.lockResetEvents.set(lockResets.lockResets);
+      });
+  }
+
+  /**
+   * Initializes battery measurement field data
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  private initializeBatteryMeasurementFieldData(
+    partNumber?: string,
+    serialNumber?: string,
+  ) {
+    this.diagnosisFieldDataService
+      .getAllBatteryMeasurementFieldData(partNumber, serialNumber)
+      .subscribe((batteryMeasurementFieldData) => {
+        this.batteryMeasurementFieldData.set(
+          batteryMeasurementFieldData.capacityTesters,
+        );
+      });
+  }
+
+  /**
+   * Initializes battery field data
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  private initializeBatteryFieldData(
+    partNumber?: string,
+    serialNumber?: string,
+  ) {
+    this.diagnosisFieldDataService
+      .getAllBatteryFieldData(partNumber, serialNumber)
+      .subscribe((batteryFieldData) => {
+        this.batteryFieldData.set(batteryFieldData.batteries);
+      });
+  }
+
+  /**
+   * Initializes drive unit field data
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  private initializeDriveUnitFieldData(
+    partNumber?: string,
+    serialNumber?: string,
+  ) {
+    this.diagnosisFieldDataService
+      .getAllDriveUnitFieldData(partNumber, serialNumber)
+      .subscribe((driveUnitFieldData) => {
+        this.driveUnitFieldData.set(driveUnitFieldData.driveUnits);
       });
   }
 

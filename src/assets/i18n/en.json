@@ -256,10 +256,14 @@
         "tuning-reset-event": "Tuning Reset Event",
         "battery-deactivation-event": "Battery Deactivation Event",
         "lock-reset-event": "Lock Reset Event",
-        "timestamp":  "timestamp",
+        "timestamp": "timestamp",
         "product-code": "product code",
-        "software-version":  "software version",
-        "hardware-version": "hardware version"
+        "software-version": "software version",
+        "hardware-version": "hardware version",
+        "diagnosis-field-data": "Diagnosis Field Data",
+        "battery-measurement-field-data": "Battery Measurement Field Data",
+        "battery-field-data": "Battery Field Data",
+        "drive-unit-field-data": "Drive Unit Field Data"
       },
       "messages": {
         "no-field-data": "no field data recorded"

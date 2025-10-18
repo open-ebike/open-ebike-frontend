@@ -254,10 +254,14 @@
         "tuning-reset-event": "Tuning Reset Event",
         "battery-deactivation-event": "Battery Deactivation Event",
         "lock-reset-event": "Lock Reset Event",
-        "timestamp":  "Zeitstempel",
+        "timestamp": "Zeitstempel",
         "product-code": "Produktcode",
-        "software-version":  "Software-Version",
-        "hardware-version": "Hardware-Version"
+        "software-version": "Software-Version",
+        "hardware-version": "Hardware-Version",
+        "diagnosis-field-data": "Diagnosis Felddaten",
+        "battery-measurement-field-data": "Batteriemessung Felddaten",
+        "battery-field-data": "Battery Fielddaten",
+        "drive-unit-field-data": "Drive Unit Felddaten"
       },
       "messages": {
         "no-field-data": "keine Field Data aufgezeichnet"

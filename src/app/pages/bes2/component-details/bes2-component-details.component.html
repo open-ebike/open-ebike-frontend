@@ -86,8 +86,8 @@
           <ul class="list">
             <li>
               <strong class="label">{{
-                  t("terms.is-lock-feature-enabled")
-                }}</strong
+                t("terms.is-lock-feature-enabled")
+              }}</strong
               >:
               @if (driveUnit()?.isLockFeatureEnabled) {
                 {{ driveUnit()?.isLockFeatureEnabled }}
@@ -103,8 +103,8 @@
           <ul class="list">
             <li>
               <strong class="label">{{
-                  t("terms.bike-settings-last-modified-at")
-                }}</strong
+                t("terms.bike-settings-last-modified-at")
+              }}</strong
               >:
               @if (driveUnit()?.settingsLastModifiedAt?.bikeSettings) {
                 {{
@@ -117,10 +117,12 @@
             </li>
             <li>
               <strong class="label">{{
-                  t("terms.custom-assistance-levels-last-modified-at")
-                }}</strong
+                t("terms.custom-assistance-levels-last-modified-at")
+              }}</strong
               >:
-              @if (driveUnit()?.settingsLastModifiedAt?.customAssistanceLevels) {
+              @if (
+                driveUnit()?.settingsLastModifiedAt?.customAssistanceLevels
+              ) {
                 {{
                   driveUnit()?.settingsLastModifiedAt?.customAssistanceLevels
                     | date: "medium"
@@ -159,17 +161,20 @@
                     discover_tune
                   </span>
                 </div>
-                <mat-card-title>{{
-                    t("terms.custom-assistance-levels")
-                  }}
+                <mat-card-title
+                  >{{ t("terms.custom-assistance-levels") }}
                 </mat-card-title>
               </mat-card-header>
 
-              @for (customAssistanceLevel of driveUnit()?.customAssistanceLevels;
-                track customAssistanceLevel) {
+              @for (
+                customAssistanceLevel of driveUnit()?.customAssistanceLevels;
+                track customAssistanceLevel
+              ) {
                 <mat-card-content>
-                  @for (assistanceLevelMapping of customAssistanceLevel;
-                    track assistanceLevelMapping) {
+                  @for (
+                    assistanceLevelMapping of customAssistanceLevel;
+                    track assistanceLevelMapping
+                  ) {
                     <li class="list">
                       <strong class="label">
                         {{ t("terms.assistance-level-mapping-x") }}
@@ -186,8 +191,8 @@
           <ul class="list">
             <li>
               <strong class="label">{{
-                  t("terms.is-service-lock-enabled")
-                }}</strong
+                t("terms.is-service-lock-enabled")
+              }}</strong
               >:
               @if (driveUnit()?.isServiceLockEnabled) {
                 {{ driveUnit()?.isServiceLockEnabled }}
@@ -229,8 +234,8 @@
             </li>
             <li>
               <strong class="label">{{
-                  t("terms.last-activity-uploaded-at")
-                }}</strong
+                t("terms.last-activity-uploaded-at")
+              }}</strong
               >:
               @if (headUnit()?.lastActivityUploadedAt) {
                 {{ headUnit()?.lastActivityUploadedAt | date: "medium" }}
@@ -252,14 +257,14 @@
                     event_repeat
                   </span>
                 </div>
-                <mat-card-title>{{ t("terms.tuning-reset-event") }}</mat-card-title>
+                <mat-card-title>{{
+                  t("terms.tuning-reset-event")
+                }}</mat-card-title>
               </mat-card-header>
               <mat-card-content>
                 <ul class="list">
                   <li>
-                    <strong class="label">{{
-                        t("terms.timestamp")
-                      }}</strong
+                    <strong class="label">{{ t("terms.timestamp") }}</strong
                     >:
                     @if (event?.timestamp) {
                       {{ event?.timestamp | date: "H:mm:ss" : "UTC" }}
@@ -268,9 +273,7 @@
                     }
                   </li>
                   <li>
-                    <strong class="label">{{
-                        t("terms.part-number")
-                      }}</strong
+                    <strong class="label">{{ t("terms.part-number") }}</strong
                     >:
                     @if (event?.partNumber) {
                       {{ event?.partNumber }}
@@ -279,9 +282,7 @@
                     }
                   </li>
                   <li>
-                    <strong class="label">{{
-                        t("terms.serial-number")
-                      }}</strong
+                    <strong class="label">{{ t("terms.serial-number") }}</strong
                     >:
                     @if (event?.serialNumber) {
                       {{ event?.serialNumber }}
@@ -290,9 +291,7 @@
                     }
                   </li>
                   <li>
-                    <strong class="label">{{
-                        t("terms.product-code")
-                      }}</strong
+                    <strong class="label">{{ t("terms.product-code") }}</strong
                     >:
                     @if (event?.productCode) {
                       {{ event?.productCode }}
@@ -302,8 +301,8 @@
                   </li>
                   <li>
                     <strong class="label">{{
-                        t("terms.software-version")
-                      }}</strong
+                      t("terms.software-version")
+                    }}</strong
                     >:
                     @if (event?.softwareVersion) {
                       {{ event?.softwareVersion }}
@@ -313,8 +312,8 @@
                   </li>
                   <li>
                     <strong class="label">{{
-                        t("terms.hardware-version")
-                      }}</strong
+                      t("terms.hardware-version")
+                    }}</strong
                     >:
                     @if (event?.hardwareVersion) {
                       {{ event?.hardwareVersion }}
@@ -337,14 +336,14 @@
                     event
                   </span>
                 </div>
-                <mat-card-title>{{ t("terms.battery-deactivation-event") }}</mat-card-title>
+                <mat-card-title>{{
+                  t("terms.battery-deactivation-event")
+                }}</mat-card-title>
               </mat-card-header>
               <mat-card-content>
                 <ul class="list">
                   <li>
-                    <strong class="label">{{
-                        t("terms.timestamp")
-                      }}</strong
+                    <strong class="label">{{ t("terms.timestamp") }}</strong
                     >:
                     @if (event?.timestamp) {
                       {{ event?.timestamp | date: "H:mm:ss" : "UTC" }}
@@ -353,9 +352,7 @@
                     }
                   </li>
                   <li>
-                    <strong class="label">{{
-                        t("terms.part-number")
-                      }}</strong
+                    <strong class="label">{{ t("terms.part-number") }}</strong
                     >:
                     @if (event?.partNumber) {
                       {{ event?.partNumber }}
@@ -364,9 +361,7 @@
                     }
                   </li>
                   <li>
-                    <strong class="label">{{
-                        t("terms.serial-number")
-                      }}</strong
+                    <strong class="label">{{ t("terms.serial-number") }}</strong
                     >:
                     @if (event?.serialNumber) {
                       {{ event?.serialNumber }}
@@ -375,9 +370,7 @@
                     }
                   </li>
                   <li>
-                    <strong class="label">{{
-                        t("terms.product-code")
-                      }}</strong
+                    <strong class="label">{{ t("terms.product-code") }}</strong
                     >:
                     @if (event?.productCode) {
                       {{ event?.productCode }}
@@ -387,8 +380,8 @@
                   </li>
                   <li>
                     <strong class="label">{{
-                        t("terms.software-version")
-                      }}</strong
+                      t("terms.software-version")
+                    }}</strong
                     >:
                     @if (event?.softwareVersion) {
                       {{ event?.softwareVersion }}
@@ -398,8 +391,8 @@
                   </li>
                   <li>
                     <strong class="label">{{
-                        t("terms.hardware-version")
-                      }}</strong
+                      t("terms.hardware-version")
+                    }}</strong
                     >:
                     @if (event?.hardwareVersion) {
                       {{ event?.hardwareVersion }}
@@ -422,14 +415,14 @@
                     calendar_lock
                   </span>
                 </div>
-                <mat-card-title>{{ t("terms.lock-reset-event") }}</mat-card-title>
+                <mat-card-title>{{
+                  t("terms.lock-reset-event")
+                }}</mat-card-title>
               </mat-card-header>
               <mat-card-content>
                 <ul class="list">
                   <li>
-                    <strong class="label">{{
-                        t("terms.timestamp")
-                      }}</strong
+                    <strong class="label">{{ t("terms.timestamp") }}</strong
                     >:
                     @if (event?.timestamp) {
                       {{ event?.timestamp | date: "H:mm:ss" : "UTC" }}
@@ -438,9 +431,7 @@
                     }
                   </li>
                   <li>
-                    <strong class="label">{{
-                        t("terms.part-number")
-                      }}</strong
+                    <strong class="label">{{ t("terms.part-number") }}</strong
                     >:
                     @if (event?.partNumber) {
                       {{ event?.partNumber }}
@@ -449,9 +440,7 @@
                     }
                   </li>
                   <li>
-                    <strong class="label">{{
-                        t("terms.serial-number")
-                      }}</strong
+                    <strong class="label">{{ t("terms.serial-number") }}</strong
                     >:
                     @if (event?.serialNumber) {
                       {{ event?.serialNumber }}
@@ -460,9 +449,7 @@
                     }
                   </li>
                   <li>
-                    <strong class="label">{{
-                        t("terms.product-code")
-                      }}</strong
+                    <strong class="label">{{ t("terms.product-code") }}</strong
                     >:
                     @if (event?.productCode) {
                       {{ event?.productCode }}
@@ -472,8 +459,8 @@
                   </li>
                   <li>
                     <strong class="label">{{
-                        t("terms.software-version")
-                      }}</strong
+                      t("terms.software-version")
+                    }}</strong
                     >:
                     @if (event?.softwareVersion) {
                       {{ event?.softwareVersion }}
@@ -483,8 +470,8 @@
                   </li>
                   <li>
                     <strong class="label">{{
-                        t("terms.hardware-version")
-                      }}</strong
+                      t("terms.hardware-version")
+                    }}</strong
                     >:
                     @if (event?.hardwareVersion) {
                       {{ event?.hardwareVersion }}
@@ -496,6 +483,64 @@
               </mat-card-content>
               <mat-card-actions></mat-card-actions>
               <mat-card-footer></mat-card-footer>
+            </mat-card>
+          }
+        </div>
+
+        <h3>{{ t("terms.diagnosis-field-data") }}</h3>
+
+        <div class="grid">
+          @for (fieldData of batteryMeasurementFieldData(); track fieldData) {
+            <mat-card>
+              <mat-card-header>
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined component icon">
+                    diagnosis
+                  </span>
+                </div>
+                <mat-card-title>{{
+                  t("terms.battery-measurement-field-data")
+                }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <app-attribute-tree [object]="fieldData"></app-attribute-tree>
+              </mat-card-content>
+            </mat-card>
+          }
+
+          @for (fieldData of batteryFieldData(); track fieldData) {
+            <mat-card>
+              <mat-card-header>
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined component icon">
+                    diagnosis
+                  </span>
+                </div>
+                <mat-card-title>{{
+                  t("terms.battery-field-data")
+                }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <app-attribute-tree [object]="fieldData"></app-attribute-tree>
+              </mat-card-content>
+            </mat-card>
+          }
+
+          @for (fieldData of driveUnitFieldData(); track fieldData) {
+            <mat-card>
+              <mat-card-header>
+                <div mat-card-avatar>
+                  <span class="material-symbols-outlined component icon">
+                    diagnosis
+                  </span>
+                </div>
+                <mat-card-title>{{
+                  t("terms.drive-unit-field-data")
+                }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <app-attribute-tree [object]="fieldData"></app-attribute-tree>
+              </mat-card-content>
             </mat-card>
           }
         </div>
