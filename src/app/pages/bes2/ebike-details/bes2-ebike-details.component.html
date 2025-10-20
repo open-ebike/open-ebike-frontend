@@ -137,6 +137,28 @@
             </mat-card>
           }
         </div>
+
+        <h3>{{ t("terms.installation-reports") }}</h3>
+
+        <div class="grid">
+          @for(installationReport of installationReports(); track installationReport) {
+            <mat-card>
+              <mat-card-header>
+                <div mat-card-avatar>
+                  <span
+                    class="material-symbols-outlined installation-report icon"
+                  >
+                    assignment
+                  </span>
+                </div>
+                <mat-card-title>{{ t("terms.installation-report") }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <app-attribute-tree [object]="installationReport"></app-attribute-tree>
+              </mat-card-content>
+            </mat-card>
+          }
+        </div>
       </div>
       <div class="flex-box"></div>
     }

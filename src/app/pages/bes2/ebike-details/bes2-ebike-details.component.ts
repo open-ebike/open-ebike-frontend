@@ -20,6 +20,11 @@ import {
   EbikeProfileService,
 } from '../../../services/api/bes2/ebike-profile.service';
 import { combineLatest, first } from 'rxjs';
+import {
+  InstallationReport,
+  ReleaseManagementService,
+} from '../../../services/api/bes2/release-management.service';
+import { AttributeTreeComponent } from '../../../components/attribute-tree/attribute-tree.component';
 
 /**
  * Displays eBike details
@@ -38,6 +43,7 @@ import { combineLatest, first } from 'rxjs';
     MatCardActions,
     RouterLink,
     MatButton,
+    AttributeTreeComponent,
   ],
   templateUrl: './bes2-ebike-details.component.html',
   styleUrl: './bes2-ebike-details.component.scss',
@@ -56,6 +62,8 @@ export class Bes2EbikeDetailsComponent implements OnInit {
   public authenticationService = inject(AuthenticationService);
   /** eBike profile service */
   private ebikeProfileService = inject(EbikeProfileService);
+  /** Release management service */
+  private releaseManagementService = inject(ReleaseManagementService);
 
   //
   // Signals
@@ -63,6 +71,8 @@ export class Bes2EbikeDetailsComponent implements OnInit {
 
   /** Signal providing eBike profile */
   ebikeProfile = signal<EbikeProfile | null>(null);
+  /** Signal providing installation report */
+  installationReports = signal<InstallationReport[]>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -109,6 +119,22 @@ export class Bes2EbikeDetailsComponent implements OnInit {
   }
 
   /**
+   * Initializes installation reports
+   * @param duPartNumber drive unit part number
+   * @param duSerialNumber drive unit serial number
+   */
+  private initializeInstallationReports(
+    duPartNumber: string,
+    duSerialNumber: string,
+  ) {
+    this.releaseManagementService
+      .getInstallationReports(duPartNumber, duSerialNumber)
+      .subscribe((installationReports) => {
+        this.installationReports.set(installationReports.installationReports);
+      });
+  }
+
+  /**
    * Handles query parameters
    */
   private handleQueryParameters() {
@@ -121,6 +147,7 @@ export class Bes2EbikeDetailsComponent implements OnInit {
 
         this.themeService.switchTheme(theme ? theme : Theme.LIGHT);
         this.initializeEbike(duPartNumber, duSerialNumber);
+        this.initializeInstallationReports(duPartNumber, duSerialNumber);
       });
   }
 }
