@@ -1,0 +1,51 @@
+{
+  "installationReports": [
+    {
+      "createdAt": "2020-01-01T00:00:00.000Z",
+      "updateSetId": "d3fb68f6-2974-4afd-804b-4299178ae1a3",
+      "status": "string",
+      "bikeIdentifier": {
+        "driveUnitSerialNumber": "1707261/0447",
+        "driveUnitPartNumber": 12345678914
+      },
+      "bikeProfileBeforeUpdate": {
+        "application": "A15463",
+        "components": [
+          {
+            "productCode": "COMP_BDU250",
+            "productLine": "PRDL_ABCDEFG",
+            "serialNumber": "1707261/0447",
+            "partNumber": 12345678914,
+            "softwareVersion": "1.0.0.1",
+            "hardwareVersion": "1.0.2.3"
+          }
+        ]
+      },
+      "bikeProfileAfterUpdate": {
+        "application": "A15463",
+        "components": [
+          {
+            "productCode": "COMP_BDU250",
+            "productLine": "PRDL_ABCDEFG",
+            "serialNumber": "1707261/0447",
+            "partNumber": 12345678914,
+            "softwareVersion": "1.0.0.1",
+            "hardwareVersion": "1.0.2.3"
+          }
+        ]
+      }
+    }
+  ],
+  "pagination": {
+    "limit": 10,
+    "offset": 0,
+    "total": 20
+  },
+  "links": {
+    "self": "https://api.bosch-ebike.com/software-update/v1/ebike-system-2/installation-reports?serialNumber=1707261/0447&partNumber=012345678914&limit=10&offset=10",
+    "first": "https://api.bosch-ebike.com/software-update/v1/ebike-system-2/installation-reports?serialNumber=1707261/0447&partNumber=012345678914&limit=10&offset=0",
+    "prev": "https://api.bosch-ebike.com/software-update/v1/ebike-system-2/installation-reports?serialNumber=1707261/0447&partNumber=012345678914&limit=10&offset=0",
+    "next": "https://api.bosch-ebike.com/software-update/v1/ebike-system-2/installation-reports?serialNumber=1707261/0447&partNumber=012345678914&limit=10&offset=20",
+    "last": "https://api.bosch-ebike.com/software-update/v1/ebike-system-2/installation-reports?serialNumber=1707261/0447&partNumber=012345678914&limit=10&offset=100"
+  }
+}
