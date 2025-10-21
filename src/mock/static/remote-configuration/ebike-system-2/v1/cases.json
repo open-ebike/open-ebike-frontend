@@ -1,0 +1,170 @@
+{
+  "cases": [
+    {
+      "caseId": "1234-5678-9012",
+      "createdAt": "2023-04-05T08:08:08.12345Z",
+      "lastModified": "2023-04-05T08:08:08.12345Z",
+      "manufacturerBikeId": "string",
+      "bikeGeneration": "NONE",
+      "bikeDealer": "string",
+      "denyingReason": "string",
+      "state": "OPEN",
+      "manufacturerMetaData": "string",
+      "originalConfiguration": {
+        "schemaVersion": -2147483648,
+        "originalConfiguration": {
+          "batteryLockNumber": "string",
+          "lightEquipped": true,
+          "lightSwitching": "ALWAYS_OFF",
+          "lightOutput": "INVALID",
+          "lightPower": -1.7976931348623157e+308,
+          "highPowerPortEnabled": true,
+          "driveOffEnabled": true,
+          "walkAssistEnabled": true,
+          "language": "GERMAN",
+          "distanceUnit": "KILOMETRE",
+          "defaultStartGear": -2147483648,
+          "manufactureDate": "2019-08-24",
+          "manufacturerBikeId": "string",
+          "manufactureLocation": "string",
+          "maximumGearRatio": -1.7976931348623157e+308,
+          "minimumGearRatio": -1.7976931348623157e+308,
+          "rearWheelCircumference": -2147483648,
+          "antiLockBrakingSystemVariant": 0,
+          "freeText": "string",
+          "applicationId": "string"
+        },
+        "componentIdentifications": {
+          "remoteControl": {
+            "componentType": "string",
+            "serialNumber": "1707261/0447",
+            "partNumber": 12345678914,
+            "softwareVersion": "4.14.2",
+            "hardwareVersion": "3.1.0",
+            "inBootloaderMode": false
+          },
+          "driveUnit": {
+            "componentType": "string",
+            "serialNumber": "1707261/0447",
+            "partNumber": 12345678914,
+            "softwareVersion": "4.14.2",
+            "hardwareVersion": "3.1.0",
+            "inBootloaderMode": false
+          },
+          "batteryPack1": {
+            "componentType": "string",
+            "serialNumber": "1707261/0447",
+            "partNumber": 12345678914,
+            "softwareVersion": "4.14.2",
+            "hardwareVersion": "3.1.0",
+            "inBootloaderMode": false
+          },
+          "batteryPack2": {
+            "componentType": "string",
+            "serialNumber": "1707261/0447",
+            "partNumber": 12345678914,
+            "softwareVersion": "4.14.2",
+            "hardwareVersion": "3.1.0",
+            "inBootloaderMode": false
+          },
+          "headUnit": {
+            "componentType": "string",
+            "serialNumber": "1707261/0447",
+            "partNumber": 12345678914,
+            "softwareVersion": "4.14.2",
+            "hardwareVersion": "3.1.0",
+            "inBootloaderMode": false
+          },
+          "connectModule": {
+            "componentType": "string",
+            "serialNumber": "1707261/0447",
+            "partNumber": 12345678914,
+            "softwareVersion": "4.14.2",
+            "hardwareVersion": "3.1.0",
+            "inBootloaderMode": false
+          },
+          "antiLockBrakingSystem": {
+            "componentType": "string",
+            "serialNumber": "1707261/0447",
+            "partNumber": 12345678914,
+            "softwareVersion": "4.14.2",
+            "hardwareVersion": "3.1.0",
+            "inBootloaderMode": false
+          }
+        },
+        "driveUnitProductLine": "string",
+        "driveUnitBikeCategory": "string",
+        "lightSettingConfigurable": true,
+        "autoDownshiftSupported": true,
+        "numberOfGears": -2147483648
+      },
+      "updatedConfiguration": {
+        "schemaVersion": -2147483648,
+        "configuration": {},
+        "componentIdentifications": {
+          "remoteControl": {
+            "componentType": "string",
+            "serialNumber": "1707261/0447",
+            "partNumber": 12345678914,
+            "softwareVersion": "4.14.2",
+            "hardwareVersion": "3.1.0",
+            "inBootloaderMode": false
+          },
+          "driveUnit": {
+            "componentType": "string",
+            "serialNumber": "1707261/0447",
+            "partNumber": 12345678914,
+            "softwareVersion": "4.14.2",
+            "hardwareVersion": "3.1.0",
+            "inBootloaderMode": false
+          },
+          "batteryPack1": {
+            "componentType": "string",
+            "serialNumber": "1707261/0447",
+            "partNumber": 12345678914,
+            "softwareVersion": "4.14.2",
+            "hardwareVersion": "3.1.0",
+            "inBootloaderMode": false
+          },
+          "batteryPack2": {
+            "componentType": "string",
+            "serialNumber": "1707261/0447",
+            "partNumber": 12345678914,
+            "softwareVersion": "4.14.2",
+            "hardwareVersion": "3.1.0",
+            "inBootloaderMode": false
+          },
+          "headUnit": {
+            "componentType": "string",
+            "serialNumber": "1707261/0447",
+            "partNumber": 12345678914,
+            "softwareVersion": "4.14.2",
+            "hardwareVersion": "3.1.0",
+            "inBootloaderMode": false
+          },
+          "connectModule": {
+            "componentType": "string",
+            "serialNumber": "1707261/0447",
+            "partNumber": 12345678914,
+            "softwareVersion": "4.14.2",
+            "hardwareVersion": "3.1.0",
+            "inBootloaderMode": false
+          },
+          "antiLockBrakingSystem": {
+            "componentType": "string",
+            "serialNumber": "1707261/0447",
+            "partNumber": 12345678914,
+            "softwareVersion": "4.14.2",
+            "hardwareVersion": "3.1.0",
+            "inBootloaderMode": false
+          }
+        },
+        "driveUnitProductLine": "string",
+        "driveUnitBikeCategory": "string",
+        "lightSettingConfigurable": true,
+        "autoDownshiftSupported": true,
+        "numberOfGears": -2147483648
+      }
+    }
+  ]
+}
