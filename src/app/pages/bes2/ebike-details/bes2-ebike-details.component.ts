@@ -25,6 +25,10 @@ import {
   ReleaseManagementService,
 } from '../../../services/api/bes2/release-management.service';
 import { AttributeTreeComponent } from '../../../components/attribute-tree/attribute-tree.component';
+import {
+  Case,
+  RemoteConfigurationService,
+} from '../../../services/api/bes2/remote-configuration.service';
 
 /**
  * Displays eBike details
@@ -64,6 +68,8 @@ export class Bes2EbikeDetailsComponent implements OnInit {
   private ebikeProfileService = inject(EbikeProfileService);
   /** Release management service */
   private releaseManagementService = inject(ReleaseManagementService);
+  /** Remote configuration service */
+  private remoteConfigurationService = inject(RemoteConfigurationService);
 
   //
   // Signals
@@ -73,6 +79,8 @@ export class Bes2EbikeDetailsComponent implements OnInit {
   ebikeProfile = signal<EbikeProfile | null>(null);
   /** Signal providing installation report */
   installationReports = signal<InstallationReport[]>([]);
+  /** Signal providing remote configuration cases */
+  remoteConfigurationCases = signal<Case[]>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -135,6 +143,22 @@ export class Bes2EbikeDetailsComponent implements OnInit {
   }
 
   /**
+   * Initializes remote configuration cases
+   * @param duPartNumber drive unit part number
+   * @param duSerialNumber drive unit serial number
+   */
+  private initializeRemoteConfigurationCases(
+    duPartNumber: string,
+    duSerialNumber: string,
+  ) {
+    this.remoteConfigurationService
+      .getAllRemoteConfigurationCases(duPartNumber, duSerialNumber)
+      .subscribe((remoteConfigurationCases) => {
+        this.remoteConfigurationCases.set(remoteConfigurationCases.cases);
+      });
+  }
+
+  /**
    * Handles query parameters
    */
   private handleQueryParameters() {
@@ -148,6 +172,7 @@ export class Bes2EbikeDetailsComponent implements OnInit {
         this.themeService.switchTheme(theme ? theme : Theme.LIGHT);
         this.initializeEbike(duPartNumber, duSerialNumber);
         this.initializeInstallationReports(duPartNumber, duSerialNumber);
+        this.initializeRemoteConfigurationCases(duPartNumber, duSerialNumber);
       });
   }
 }
