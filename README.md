@@ -21,6 +21,7 @@ The aim of this project is to display the data retrieved via the [EU Data Act AP
 ### Built With
 
 - [Angular](https://angular.io/)
+- [Mapbox](https://mapbox.com/)
 
 ## Usage
 
