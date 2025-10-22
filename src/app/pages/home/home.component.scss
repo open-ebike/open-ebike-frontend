@@ -37,14 +37,26 @@ li {
   margin: 8px 0;
 }
 
+.app-title {
+  font-weight: 900;
+}
+
 ::ng-deep .theme-light {
-  .app-title {
-    color: mat.m2-get-color-from-palette($open-ebike-primary, 500);
+  .app-title > .color-gradient {
+    background-image: radial-gradient(circle, $color-liberty-blue, $color-chinese-blue);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
 }
 
 ::ng-deep .theme-dark {
-  .app-title {
-    color: mat.m2-get-color-from-palette($open-ebike-primary, 300);
+  .app-title > .color-gradient {
+    background-image: radial-gradient(circle, $color-pale-cyan, $color-celestial-blue);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
 }

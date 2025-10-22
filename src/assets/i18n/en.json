@@ -9,7 +9,7 @@
       "terms": {
         "welcome-to": "Welcome to",
         "app-title": "Open eBike",
-        "app-description": "This app showcases the usage of the EUDA API of Bosch eBike Systems",
+        "app-description": "This app showcases the usage of the <a href='https://www.bosch-ebike.com/us/data-act' target='_blank'>EUDA API of Bosch eBike Systems</a>",
         "getting-started-1": "Select one of the options depending on the Bosch eBike System you use",
         "getting-started-2": "Follow these steps to get started:",
         "option-a-title": "Option A - SingleKey ID Account + eBike Flow App",

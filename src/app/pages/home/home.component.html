@@ -25,9 +25,10 @@
       <div class="inner-container">
         <h1>
           {{ t("terms.welcome-to") }}
-          <span class="app-title">{{ t("terms.app-title") }}</span>
+          <span class="app-title">OPEN
+            <span class="color-gradient">EBIKE</span></span>
         </h1>
-        <h2>{{ t("terms.app-description") }}</h2>
+        <h2 [innerHTML]="t('terms.app-description')"></h2>
         <h2>{{ t("terms.getting-started-1") }}</h2>
       </div>
       <div class="grid-container">
