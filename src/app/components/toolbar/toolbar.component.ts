@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { getBrowserLang, TranslocoModule } from '@jsverse/transloco';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Media, MediaService } from '../../services/media.service';
+import { environment } from '../../../environments/environment';
 
 /**
  * Displays toolbar
@@ -95,4 +96,6 @@ export class ToolbarComponent {
       })
       .then();
   }
+
+  protected readonly environment = environment;
 }

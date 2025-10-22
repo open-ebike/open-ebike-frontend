@@ -39,7 +39,7 @@
                   </span>
                 </div>
                 <mat-card-title
-                >{{ ebikeProfile()?.driveUnit?.deviceName }}
+                  >{{ ebikeProfile()?.driveUnit?.deviceName }}
                 </mat-card-title>
                 <mat-card-subtitle>
                   {{ t("terms.drive-unit") }}
@@ -118,7 +118,7 @@
                 </div>
                 <mat-card-title>{{ headUnit.deviceName }}</mat-card-title>
                 <mat-card-subtitle
-                >{{ t("terms.head-unit") }}
+                  >{{ t("terms.head-unit") }}
                 </mat-card-subtitle>
               </mat-card-header>
               <mat-card-content>
@@ -141,7 +141,10 @@
         <h3>{{ t("terms.installation-reports") }}</h3>
 
         <div class="grid">
-          @for (installationReport of installationReports(); track installationReport) {
+          @for (
+            installationReport of installationReports();
+            track installationReport
+          ) {
             <mat-card>
               <mat-card-header>
                 <div mat-card-avatar>
@@ -151,10 +154,14 @@
                     assignment
                   </span>
                 </div>
-                <mat-card-title>{{ t("terms.installation-report") }}</mat-card-title>
+                <mat-card-title>{{
+                  t("terms.installation-report")
+                }}</mat-card-title>
               </mat-card-header>
               <mat-card-content>
-                <app-attribute-tree [object]="installationReport"></app-attribute-tree>
+                <app-attribute-tree
+                  [object]="installationReport"
+                ></app-attribute-tree>
               </mat-card-content>
             </mat-card>
           }
@@ -163,8 +170,10 @@
         <h3>{{ t("terms.remote-configuration-cases") }}</h3>
 
         <div class="grid">
-          @for (remoteConfigurationCase of remoteConfigurationCases();
-            track remoteConfigurationCase) {
+          @for (
+            remoteConfigurationCase of remoteConfigurationCases();
+            track remoteConfigurationCase
+          ) {
             <mat-card>
               <mat-card-header>
                 <div mat-card-avatar>
@@ -175,7 +184,7 @@
                   </span>
                 </div>
                 <mat-card-title
-                >{{ t("terms.remote-configuration-case") }}
+                  >{{ t("terms.remote-configuration-case") }}
                 </mat-card-title>
               </mat-card-header>
               <mat-card-content>

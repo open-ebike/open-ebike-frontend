@@ -17,4 +17,5 @@ export const environment = {
     strictDiscoveryDocumentValidation: false,
     useSilentRefresh: true,
   },
+  mapboxAccessToken: null,
 };

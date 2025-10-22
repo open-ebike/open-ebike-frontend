@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { ThemeService } from './services/theme.service';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { environment } from '../environments/environment';
 
 /**
  * Displays app component
@@ -21,4 +22,10 @@ export class AppComponent {
 
   /** Theme service */
   public themeService = inject(ThemeService);
+
+  constructor() {
+    if (environment.mapboxAccessToken) {
+      localStorage.setItem('mapboxAccessToken', environment.mapboxAccessToken);
+    }
+  }
 }

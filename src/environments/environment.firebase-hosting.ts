@@ -16,4 +16,6 @@ export const environment = {
     strictDiscoveryDocumentValidation: false,
     useSilentRefresh: true,
   },
+  mapboxAccessToken:
+    'pk.eyJ1Ijoib3BlbmViaWtlIiwiYSI6ImNtZnpiejU0ZjAwOWsya3F3bWx3bDRobHEifQ.mWyg2Y55CEJZ7TDvRKZM-g',
 };

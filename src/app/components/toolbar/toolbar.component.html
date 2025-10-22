@@ -93,7 +93,10 @@
         </div>
         <div class="flex-box"></div>
         <div class="toolbar-block end">
-          @if (authenticationService.isLoggedIn()) {
+          @if (
+            authenticationService.isLoggedIn() &&
+            environment.mapboxAccessToken == null
+          ) {
             <button
               mat-button
               class="toolbar-menu-item"
