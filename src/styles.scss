@@ -117,14 +117,6 @@
     ) !important;
   }
 
-  .mapboxgl-ctrl-bottom-right {
-    background: #343332;
-  }
-
-  .mapboxgl-ctrl.mapboxgl-ctrl-attrib {
-    background-color: transparent;
-  }
-
   @include mat.all-component-colors(theme-dark.$theme-dark);
 }
 
