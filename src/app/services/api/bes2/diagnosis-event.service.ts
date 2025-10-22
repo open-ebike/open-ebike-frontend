@@ -57,10 +57,10 @@ export class DiagnosisEventService {
   ): Observable<TuningResets> {
     let params = new HttpParams();
     if (partNumber != undefined) {
-      params.set('partNumber', partNumber);
+      params = params.set('partNumber', partNumber);
     }
     if (serialNumber != undefined) {
-      params.set('serialNumber', serialNumber);
+      params = params.set('serialNumber', serialNumber);
     }
 
     return this.http.get<TuningResets>(
@@ -80,10 +80,10 @@ export class DiagnosisEventService {
   ): Observable<BatteryDeactivations> {
     let params = new HttpParams();
     if (partNumber != undefined) {
-      params.set('partNumber', partNumber);
+      params = params.set('partNumber', partNumber);
     }
     if (serialNumber != undefined) {
-      params.set('serialNumber', serialNumber);
+      params = params.set('serialNumber', serialNumber);
     }
 
     return this.http.get<BatteryDeactivations>(
@@ -103,10 +103,10 @@ export class DiagnosisEventService {
   ): Observable<LockResets> {
     let params = new HttpParams();
     if (partNumber != undefined) {
-      params.set('partNumber', partNumber);
+      params = params.set('partNumber', partNumber);
     }
     if (serialNumber != undefined) {
-      params.set('serialNumber', serialNumber);
+      params = params.set('serialNumber', serialNumber);
     }
 
     return this.http.get<LockResets>(

@@ -336,10 +336,10 @@ export class DiagnosisFieldDataService {
   ): Observable<CapacityTesterFieldDataResponse> {
     let params = new HttpParams();
     if (partNumber != undefined) {
-      params.set('partNumber', partNumber);
+      params = params.set('partNumber', partNumber);
     }
     if (serialNumber != undefined) {
-      params.set('serialNumber', serialNumber);
+      params = params.set('serialNumber', serialNumber);
     }
 
     return this.http.get<CapacityTesterFieldDataResponse>(
@@ -359,10 +359,10 @@ export class DiagnosisFieldDataService {
   ): Observable<BatteryFieldDataResponse> {
     let params = new HttpParams();
     if (partNumber != undefined) {
-      params.set('partNumber', partNumber);
+      params = params.set('partNumber', partNumber);
     }
     if (serialNumber != undefined) {
-      params.set('serialNumber', serialNumber);
+      params = params.set('serialNumber', serialNumber);
     }
 
     return this.http.get<BatteryFieldDataResponse>(
@@ -382,10 +382,10 @@ export class DiagnosisFieldDataService {
   ): Observable<DriveUnitFieldDataResponse> {
     let params = new HttpParams();
     if (partNumber != undefined) {
-      params.set('partNumber', partNumber);
+      params = params.set('partNumber', partNumber);
     }
     if (serialNumber != undefined) {
-      params.set('serialNumber', serialNumber);
+      params = params.set('serialNumber', serialNumber);
     }
 
     return this.http.get<DriveUnitFieldDataResponse>(

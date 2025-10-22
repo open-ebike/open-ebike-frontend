@@ -108,8 +108,8 @@ export class ReleaseManagementService {
     offset?: number,
   ): Observable<InstallationReports> {
     let params = new HttpParams();
-    params.set('partNumber', partNumber);
-    params.set('serialNumber', serialNumber);
+    params = params.set('partNumber', partNumber);
+    params = params.set('serialNumber', serialNumber);
 
     if (createdAfter) {
       params = params.set('createdAfter', createdAfter);

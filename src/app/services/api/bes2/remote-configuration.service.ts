@@ -230,8 +230,8 @@ export class RemoteConfigurationService {
     serialNumber: string,
   ): Observable<Cases> {
     let params = new HttpParams();
-    params.set('partNumber', partNumber);
-    params.set('serialNumber', serialNumber);
+    params = params.set('partNumber', partNumber);
+    params = params.set('serialNumber', serialNumber);
 
     return this.http.get<Cases>(
       `${environment.eBikeApiUrl}/remote-configuration/ebike-system-2/v1/cases`,
