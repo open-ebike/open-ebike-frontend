@@ -139,7 +139,11 @@ export class MapboxService {
               coordinates:
                 outer
                   ?.filter((inner) => {
-                    return inner?.latitude != 0 && inner?.longitude != 0;
+                    return (
+                      inner != null &&
+                      inner?.latitude != 0 &&
+                      inner?.longitude != 0
+                    );
                   })
                   ?.map((inner) => [
                     inner?.longitude ?? 0,
