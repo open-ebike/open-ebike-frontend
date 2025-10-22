@@ -49,6 +49,12 @@ or
 npm run start-mock-bes2
 ```
 
+or
+
+```
+npm run start-mock-cobi
+```
+
 ## Attribution
 
 Icon made by Freepik from [flaticon.com](https://flaticon.com)

@@ -1,1 +1,1 @@
-export type EbikeGeneration = 'BES2' | 'BES3';
+export type EbikeGeneration = 'BES3' | 'BES2' | 'COBI';

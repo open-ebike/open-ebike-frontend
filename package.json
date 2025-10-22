@@ -4,8 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start-mock-bes2": "ng serve --configuration development-mock-bes2 --host=127.0.0.1 --verbose",
     "start-mock-bes3": "ng serve --configuration development-mock-bes3 --host=127.0.0.1 --verbose",
+    "start-mock-bes2": "ng serve --configuration development-mock-bes2 --host=127.0.0.1 --verbose",
+    "start-mock-cobi": "ng serve --configuration development-mock-cobi --host=127.0.0.1 --verbose",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",

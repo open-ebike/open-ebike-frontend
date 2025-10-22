@@ -20,7 +20,7 @@
     grid-template-columns: 10fr 1fr 10fr;
   }
   .grid-2 {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 }
 
@@ -43,7 +43,11 @@ li {
 
 ::ng-deep .theme-light {
   .app-title > .color-gradient {
-    background-image: radial-gradient(circle, $color-liberty-blue, $color-chinese-blue);
+    background-image: radial-gradient(
+      circle,
+      $color-liberty-blue,
+      $color-chinese-blue
+    );
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -53,7 +57,11 @@ li {
 
 ::ng-deep .theme-dark {
   .app-title > .color-gradient {
-    background-image: radial-gradient(circle, $color-pale-cyan, $color-celestial-blue);
+    background-image: radial-gradient(
+      circle,
+      $color-pale-cyan,
+      $color-celestial-blue
+    );
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

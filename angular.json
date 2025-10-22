@@ -84,6 +84,16 @@
               "extractLicenses": false,
               "sourceMap": true
             },
+            "mock-bes3": {
+              "assets": ["src/favicon.ico", "src/assets", "src/mock/static"],
+              "fileReplacements": [
+                {
+                  "replace": "src/app/services/authentication.service.ts",
+                  "with": "src/app/services/authentication-mock-bes3.service.ts"
+                }
+              ],
+              "scripts": ["src/mock/config/init-mock.js"]
+            },
             "mock-bes2": {
               "assets": ["src/favicon.ico", "src/assets", "src/mock/static"],
               "fileReplacements": [
@@ -94,12 +104,12 @@
               ],
               "scripts": ["src/mock/config/init-mock.js"]
             },
-            "mock-bes3": {
+            "mock-cobi": {
               "assets": ["src/favicon.ico", "src/assets", "src/mock/static"],
               "fileReplacements": [
                 {
                   "replace": "src/app/services/authentication.service.ts",
-                  "with": "src/app/services/authentication-mock-bes3.service.ts"
+                  "with": "src/app/services/authentication-mock-cobi.service.ts"
                 }
               ],
               "scripts": ["src/mock/config/init-mock.js"]
@@ -122,12 +132,16 @@
             "development": {
               "buildTarget": "open-ebike-frontend:build:development"
             },
+            "development-mock-bes3": {
+              "buildTarget": "open-ebike-frontend:build:development,mock-bes3",
+              "proxyConfig": "src/mock/config/proxy.conf.mjs"
+            },
             "development-mock-bes2": {
               "buildTarget": "open-ebike-frontend:build:development,mock-bes2",
               "proxyConfig": "src/mock/config/proxy.conf.mjs"
             },
-            "development-mock-bes3": {
-              "buildTarget": "open-ebike-frontend:build:development,mock-bes3",
+            "development-mock-cobi": {
+              "buildTarget": "open-ebike-frontend:build:development,mock-cobi",
               "proxyConfig": "src/mock/config/proxy.conf.mjs"
             }
           },

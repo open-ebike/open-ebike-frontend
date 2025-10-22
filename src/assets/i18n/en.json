@@ -279,6 +279,7 @@
         "save": "Save",
         "save-and-login-bes3": "Save and Login Smart System",
         "save-and-login-bes2": "Save and Login Bosch eBike System 2",
+        "save-and-login-cobi": "Save and Login COBI",
         "login": "Login",
         "login-with-singlekey-id": "Login with SingleKey ID"
       }

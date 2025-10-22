@@ -45,6 +45,15 @@
       >
         {{ t("actions.save-and-login-bes2") }}
       </button>
+      <button
+        mat-flat-button
+        color="primary"
+        class="button"
+        [disabled]="!authenticationService.clientId()"
+        (click)="onSaveAndLoginClicked(input.value, 'COBI')"
+      >
+        {{ t("actions.save-and-login-cobi") }}
+      </button>
     </div>
     <div class="flex-box"></div>
   </div>

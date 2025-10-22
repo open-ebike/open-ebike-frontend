@@ -4,6 +4,13 @@
       <div class="inner-container">
         <h2>
           @switch (authenticationService.ebikeGeneration()) {
+            @case ("BES3") {
+              {{
+                t("terms.hello", {
+                  username: authenticationService.getIdentityClaims().email,
+                })
+              }}
+            }
             @case ("BES2") {
               {{
                 t("terms.hello", {
@@ -11,7 +18,7 @@
                 })
               }}
             }
-            @case ("BES3") {
+            @case ("COBI") {
               {{
                 t("terms.hello", {
                   username: authenticationService.getIdentityClaims().email,
@@ -25,8 +32,9 @@
       <div class="inner-container">
         <h1>
           {{ t("terms.welcome-to") }}
-          <span class="app-title">OPEN
-            <span class="color-gradient">EBIKE</span></span>
+          <span class="app-title"
+            >OPEN <span class="color-gradient">EBIKE</span></span
+          >
         </h1>
         <h2 [innerHTML]="t('terms.app-description')"></h2>
         <h2>{{ t("terms.getting-started-1") }}</h2>

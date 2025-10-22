@@ -1,6 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
-import { environment } from '../../environments/environment';
+import { OAuthService } from 'angular-oauth2-oidc';
 import { EbikeGeneration } from './auth/ebike-generation.type';
 
 /**
@@ -66,30 +65,17 @@ export class AuthenticationService {
   /** Signal providing client ID */
   public clientId = signal<string>('');
   /** Signal providing eBike generation */
-  public ebikeGeneration = signal<EbikeGeneration | null>(null);
+  public ebikeGeneration = signal<EbikeGeneration | null>('COBI');
 
   /**
    * Restores client ID from local storage
    */
-  async restoreConfig() {
-    const clientId = localStorage.getItem('clientId');
-    const ebikeGeneration = localStorage.getItem('ebikeGeneration');
-
-    if (!clientId) return false;
-
-    this.clientId.set(clientId);
-    this.ebikeGeneration.set(ebikeGeneration as EbikeGeneration);
-
-    await this.configure(clientId, ebikeGeneration as EbikeGeneration);
-    return true;
-  }
+  async restoreConfig() {}
 
   /**
    * Process login callback
    */
-  async processLoginCallback() {
-    await this.oauthService.tryLoginCodeFlow();
-  }
+  async processLoginCallback() {}
 
   /**
    * Saves the client ID provided by the user
@@ -117,66 +103,51 @@ export class AuthenticationService {
   async configure(
     clientId: string,
     ebikeGeneration: EbikeGeneration,
-  ): Promise<void> {
-    // Set client ID auth config
-    const authConfig = { ...environment.authConfig } as AuthConfig;
-    authConfig.clientId = clientId;
-
-    if (ebikeGeneration == 'BES2') {
-      authConfig.logoutUrl =
-        'https://www.ebike-connect.com/ebikeconnect/connect/logout';
-    }
-
-    // Configure auth config
-    this.oauthService.configure(authConfig);
-
-    // Fetch token endpoint
-    await this.oauthService.loadDiscoveryDocument();
-  }
+  ): Promise<void> {}
 
   /**
    * Logs in the user
    * @param ebikeGeneration eBike generation
    */
-  login(ebikeGeneration: EbikeGeneration) {
-    // Add IdP hint if needed
-    switch (ebikeGeneration) {
-      case 'BES3': {
-        this.oauthService.customQueryParams = {};
-        break;
-      }
-      case 'BES2': {
-        this.oauthService.customQueryParams = {
-          kc_idp_hint: 'ebike-connect',
-        };
-        break;
-      }
-      case 'COBI': {
-        this.oauthService.customQueryParams = {};
-        break;
-      }
-    }
-    this.oauthService.initCodeFlow();
-  }
+  login(ebikeGeneration: EbikeGeneration) {}
 
   /**
    * Logs out the user
    */
-  logout() {
-    this.oauthService.logOut();
-  }
+  logout() {}
 
   /**
    * Checks if the user is logged in
    */
   isLoggedIn() {
-    return this.oauthService.hasValidAccessToken();
+    return true;
   }
 
   /**
    * Retrieves the user's identity claims
    */
   getIdentityClaims(): IdentityClaims {
-    return this.oauthService.getIdentityClaims() as IdentityClaims;
+    return {
+      exp: '',
+      iat: '',
+      auth_time: '',
+      jti: '',
+      iss: '',
+      aud: '',
+      sub: '',
+      typ: '',
+      azp: '',
+      nonce: '',
+      sid: '',
+      at_hash: '',
+      acr: '',
+      email_verified: '',
+      preferred_username: '',
+      email: 'mock@local.com',
+      ebike_connect_id: '',
+      name: 'Mock Local',
+      given_name: 'Mock',
+      family_name: 'Local',
+    };
   }
 }
