@@ -17,7 +17,7 @@
 
 @media #{$breakpoint-large} {
   .grid-1 {
-    grid-template-columns: 10fr 1fr 10fr;
+    grid-template-columns: 10fr 1fr 10fr 1fr 10fr;
   }
   .grid-2 {
     grid-template-columns: 1fr;

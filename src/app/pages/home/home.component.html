@@ -88,6 +88,32 @@
               </ul>
             </mat-card-content>
           </mat-card>
+          <div style="align-content: center; text-align: center">
+            <h2>
+              {{ t("terms.or") }}
+            </h2>
+          </div>
+          <mat-card>
+            <mat-card-header>
+              <div mat-card-avatar>
+                <span class="material-symbols-outlined component icon">
+                  mobile
+                </span>
+              </div>
+              <mat-card-title>{{ t("terms.option-c-title") }}</mat-card-title>
+              <mat-card-subtitle>{{
+                t("terms.option-c-subtitle")
+              }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <ul class="list">
+                <li [innerHTML]="t('terms.option-c-content-1')"></li>
+                <li [innerHTML]="t('terms.option-c-content-2')"></li>
+                <li [innerHTML]="t('terms.option-c-content-3')"></li>
+                <li [innerHTML]="t('terms.option-c-content-4')"></li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
         </div>
       </div>
       <div class="inner-container">
