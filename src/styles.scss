@@ -61,6 +61,20 @@
     ) !important;
   }
 
+  .bes3 {
+    .icon {
+      color: theme-colors.$color-chinese-blue;
+      background: color.mix(
+        theme-colors.$color-chinese-blue,
+        transparent,
+        20%
+      ) !important;
+    }
+    .highlight {
+      color: theme-colors.$color-chinese-blue;
+    }
+  }
+
   --mat-toolbar-container-background-color: #ffffff;
 }
 
@@ -117,6 +131,20 @@
     ) !important;
   }
 
+  .bes3 {
+    .icon {
+      color: color.mix(theme-colors.$color-chinese-blue, white, 50%) !important;
+      background: color.mix(
+        theme-colors.$color-chinese-blue,
+        transparent,
+        20%
+      ) !important;
+    }
+    .highlight {
+      color: color.mix(theme-colors.$color-chinese-blue, white, 50%) !important;
+    }
+  }
+
   @include mat.all-component-colors(theme-dark.$theme-dark);
 }
 
@@ -135,6 +163,34 @@
   --celestial-blue-color: #{theme-colors.$color-celestial-blue};
   --pale-cyan-color: #{theme-colors.$color-pale-cyan};
   --raspberry-pink-color: #{theme-colors.$color-raspberry-pink};
+
+  .bes2 {
+    .icon {
+      color: theme-colors.$color-celestial-blue;
+      background: color.mix(
+        theme-colors.$color-celestial-blue,
+        transparent,
+        20%
+      ) !important;
+    }
+    .highlight {
+      color: theme-colors.$color-celestial-blue;
+    }
+  }
+
+  .cobi {
+    .icon {
+      color: theme-colors.$color-raspberry-pink;
+      background: color.mix(
+        theme-colors.$color-raspberry-pink,
+        transparent,
+        20%
+      ) !important;
+    }
+    .highlight {
+      color: theme-colors.$color-raspberry-pink;
+    }
+  }
 }
 
 //
@@ -145,6 +201,7 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;

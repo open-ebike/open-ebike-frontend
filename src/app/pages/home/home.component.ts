@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Theme, ThemeService } from '../../services/theme.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
@@ -6,12 +6,15 @@ import { combineLatest, first } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
 import {
   MatCard,
+  MatCardActions,
   MatCardAvatar,
   MatCardContent,
   MatCardHeader,
   MatCardSubtitle,
   MatCardTitle,
 } from '@angular/material/card';
+import { EbikeGeneration } from '../../services/auth/ebike-generation.type';
+import { MatButton } from '@angular/material/button';
 
 /**
  * Displays home component
@@ -26,6 +29,8 @@ import {
     MatCardTitle,
     MatCardSubtitle,
     MatCardContent,
+    MatCardActions,
+    MatButton,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -45,8 +50,12 @@ export class HomeComponent implements OnInit {
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
 
-  /** Language */
-  lang = getBrowserLang();
+  //
+  // Signals
+  //
+
+  /** Selected eBike generation */
+  selectedEbikeGeneration = signal<EbikeGeneration | undefined>(undefined);
 
   //
   // Constants
@@ -54,6 +63,9 @@ export class HomeComponent implements OnInit {
 
   /** Query parameter theme */
   private QUERY_PARAM_THEME: string = 'theme';
+
+  /** Language */
+  lang = getBrowserLang();
 
   //
   // Lifecycle hooks
