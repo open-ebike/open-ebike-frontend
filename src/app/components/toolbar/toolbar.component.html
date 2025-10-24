@@ -89,6 +89,17 @@
                 {{ t("pages.statistics.title") }}
               </button>
             }
+            @if (authenticationService.ebikeGeneration() == "COBI") {
+              <button
+                mat-button
+                class="toolbar-menu-item"
+                routerLinkActive="toolbar-menu-item-active"
+                routerLink="/cobi/hubs"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                {{ t("pages.hubs.title") }}
+              </button>
+            }
           }
         </div>
         <div class="flex-box"></div>
@@ -224,6 +235,35 @@
                   [queryParams]="{ theme: themeService.theme() }"
                 >
                   {{ t("pages.ebikes.title") }}
+                </button>
+                <button
+                  mat-menu-item
+                  class="toolbar-menu-item"
+                  routerLinkActive="toolbar-menu-item-active"
+                  routerLink="/bes2/activities"
+                  [queryParams]="{ theme: themeService.theme() }"
+                >
+                  {{ t("pages.activities.title") }}
+                </button>
+                <button
+                  mat-menu-item
+                  class="toolbar-menu-item"
+                  routerLinkActive="toolbar-menu-item-active"
+                  routerLink="/bes2/statistics"
+                  [queryParams]="{ theme: themeService.theme() }"
+                >
+                  {{ t("pages.statistics.title") }}
+                </button>
+              }
+              @if (authenticationService.ebikeGeneration() == "COBI") {
+                <button
+                  mat-menu-item
+                  class="toolbar-menu-item"
+                  routerLinkActive="toolbar-menu-item-active"
+                  routerLink="/cobi/hubs"
+                  [queryParams]="{ theme: themeService.theme() }"
+                >
+                  {{ t("pages.hubs.title") }}
                 </button>
               }
               <button

@@ -273,6 +273,20 @@
         "no-field-data": "keine Field Data aufgezeichnet"
       }
     },
+    "hubs": {
+      "title": "Hubs",
+      "terms": {
+        "hub": "Hub",
+        "serial-number": "Seriennummer",
+        "part-number": "Teilnummer",
+        "role": "Rolle",
+        "activated-at": "aktiviert am",
+        "undefined": "nicht definiert"
+      },
+      "messages": {
+        "no-hubs": "keine Hubs registriert"
+      }
+    },
     "login": {
       "title": "Login",
       "terms": {

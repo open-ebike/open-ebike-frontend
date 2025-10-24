@@ -1,0 +1,20 @@
+@use "@angular/material/index" as mat;
+@import "../../../../styles";
+
+@media #{$breakpoint-large} {
+  .grid.wide {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+mat-card {
+  cursor: pointer;
+}
+
+mat-card-content {
+  margin-bottom: 0 !important;
+}
+
+.mat-mdc-card-content:last-child {
+  padding-bottom: 16px;
+}

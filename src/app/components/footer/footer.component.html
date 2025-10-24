@@ -57,6 +57,20 @@
           </ul>
         </div>
       }
+      @if (authenticationService.ebikeGeneration() == "COBI") {
+        <div class="footer-section">
+          <strong>{{ t("terms.features") }}</strong>
+          <ul class="list">
+            <li>
+              <a
+                routerLink="/cobi/hubs"
+                [queryParams]="{ theme: themeService.theme() }"
+                >{{ t("pages.hubs.title") }}</a
+              >
+            </li>
+          </ul>
+        </div>
+      }
     }
 
     <div class="footer-section">
