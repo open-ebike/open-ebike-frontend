@@ -166,6 +166,7 @@
         "significant": "signifikant",
         "drive-unit-part-number": "Drive Unit Teilnummer",
         "drive-unit-serial-number": "Drive Unit Seriennummer",
+        "bike-type": "eBike Typ",
         "undefined": "nicht definiert"
       },
       "messages": {

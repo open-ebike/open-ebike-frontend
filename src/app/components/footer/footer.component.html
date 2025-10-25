@@ -68,6 +68,13 @@
                 >{{ t("pages.hubs.title") }}</a
               >
             </li>
+            <li>
+              <a
+                routerLink="/cobi/activities"
+                [queryParams]="{ theme: themeService.theme() }"
+                >{{ t("pages.activities.title") }}</a
+              >
+            </li>
           </ul>
         </div>
       }

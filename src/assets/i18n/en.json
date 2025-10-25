@@ -166,6 +166,7 @@
         "is-significant": "significant",
         "drive-unit-part-number": "drive unit part number",
         "drive-unit-serial-number": "drive unit serial number",
+        "bike-type": "bike type",
         "undefined": "undefined"
       },
       "messages": {

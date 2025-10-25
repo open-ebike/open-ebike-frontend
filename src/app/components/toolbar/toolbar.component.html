@@ -99,6 +99,15 @@
               >
                 {{ t("pages.hubs.title") }}
               </button>
+              <button
+                mat-button
+                class="toolbar-menu-item"
+                routerLinkActive="toolbar-menu-item-active"
+                routerLink="/cobi/activities"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                {{ t("pages.activities.title") }}
+              </button>
             }
           }
         </div>
@@ -264,6 +273,15 @@
                   [queryParams]="{ theme: themeService.theme() }"
                 >
                   {{ t("pages.hubs.title") }}
+                </button>
+                <button
+                  mat-menu-item
+                  class="toolbar-menu-item"
+                  routerLinkActive="toolbar-menu-item-active"
+                  routerLink="/cobi/activities"
+                  [queryParams]="{ theme: themeService.theme() }"
+                >
+                  {{ t("pages.activities.title") }}
                 </button>
               }
               <button
