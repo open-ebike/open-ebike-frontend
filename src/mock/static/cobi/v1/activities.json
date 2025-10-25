@@ -1,0 +1,15 @@
+{
+  "activities": [
+    {
+      "id": "string",
+      "startTime": "2021-06-04T10:23:12.000Z",
+      "endTime": "2021-06-04T10:23:12.000Z",
+      "totalDistance": 42,
+      "bikeType": "BIOBIKE",
+      "elevationGain": 42,
+      "avgSpeed": 40,
+      "maxSpeed": 80,
+      "durationWithoutStops": 42
+    }
+  ]
+}
