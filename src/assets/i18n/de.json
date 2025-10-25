@@ -296,9 +296,9 @@
       "actions": {
         "enter-client-id": "Gib die Client ID deiner Client Application ein",
         "save": "Speichern",
-        "save-and-login-bes3": "Speichern und Login Smart System",
-        "save-and-login-bes2": "Speichern und Login Bosch eBike System 2",
-        "save-and-login-cobi": "Speichern und Login COBI",
+        "login-bes3": "Login Smart System",
+        "login-bes2": "Login Bosch eBike System 2",
+        "login-cobi": "Login COBI",
         "login": "Login",
         "login-with-singlekey-id": "Login mit SingleKey ID"
       }
