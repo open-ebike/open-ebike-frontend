@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Theme, ThemeService } from '../../../services/theme.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
@@ -35,7 +35,6 @@ import { MetersToKilometersPipe } from '../../../pipes/meters-to-kilometers.pipe
     MatCardTitle,
     MatCardSubtitle,
     MatRipple,
-    RouterLink,
     MatCardContent,
     MatCardActions,
     MatCardFooter,

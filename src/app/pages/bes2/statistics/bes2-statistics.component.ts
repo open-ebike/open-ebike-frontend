@@ -4,9 +4,7 @@ import {
   TranslocoDirective,
   TranslocoService,
 } from '@jsverse/transloco';
-import { MatIcon } from '@angular/material/icon';
 import { MatRipple } from '@angular/material/core';
-import { MatButton } from '@angular/material/button';
 import {
   MatCard,
   MatCardActions,
@@ -23,7 +21,6 @@ import {
   Statistics,
 } from '../../../services/api/bes2/activity.service';
 import { combineLatest, first } from 'rxjs';
-import { DatePipe } from '@angular/common';
 import { MetersToKilometersPipe } from '../../../pipes/meters-to-kilometers.pipe';
 import { RoundPipe } from '../../../pipes/round.pipe';
 import Chart from 'chart.js/auto';
@@ -36,16 +33,13 @@ import { ChartData, ChartOptions } from 'chart.js';
   selector: 'app-statistics',
   imports: [
     TranslocoDirective,
-    MatIcon,
     MatRipple,
-    MatButton,
     MatCardActions,
     MatCardFooter,
     MatCard,
     MatCardContent,
     MatCardTitle,
     MatCardHeader,
-    DatePipe,
     MetersToKilometersPipe,
     RoundPipe,
   ],
