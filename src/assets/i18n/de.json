@@ -32,7 +32,7 @@
         "option-c-content-4": "Verbinde dein eBike mit der COBI.Bike App dreh eine Runde",
         "or": "oder",
         "step-1-title": "Schritt 1 - Datenzugriff beantragen",
-        "step-1-content-1": "Erstelle einen <a href='https://singlekey-id.com/de-de/login' target='_blank'>SingleKey ID Account</a> (falls du das noch nicht als Teil von Option A getan hast)",
+        "step-1-content-1": "Erstelle einen <a href='https://singlekey-id.com/de-de/login' target='_blank'>SingleKey ID Account</a> (falls du das noch nicht als Teil von Option A oder C getan hast)",
         "step-1-content-2": "Melde dich mit deinem SingleKey ID Account bei <a href='https://portal.bosch-ebike.com' target='_blank'>https://portal.bosch-ebike.com</a> an",
         "step-1-content-3": "Akzeptiere die allgemeinen Geschäftsbedingungen und wähle die Option<strong class='highlight'>I am a user</strong> aus",
         "step-1-content-4": "Lege eine Client Application mit folgenden Werten an",
