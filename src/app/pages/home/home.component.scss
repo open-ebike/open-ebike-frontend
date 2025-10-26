@@ -1,5 +1,4 @@
-@use "@angular/material" as mat;
-@import "../../../styles";
+@use "../../../sizes";
 
 .text {
   max-width: 960px;
@@ -15,7 +14,7 @@
   margin-top: 32px;
 }
 
-@media #{$breakpoint-large} {
+@media #{sizes.$breakpoint-large} {
   .grid-1 {
     grid-template-columns: 10fr 1fr 10fr 1fr 10fr;
   }
@@ -45,8 +44,8 @@ li {
   .app-title > .color-gradient {
     background-image: radial-gradient(
       circle,
-      $color-liberty-blue,
-      $color-chinese-blue
+      var(--liberty-blue-color),
+      var(--chinese-blue-color)
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -59,8 +58,8 @@ li {
   .app-title > .color-gradient {
     background-image: radial-gradient(
       circle,
-      $color-pale-cyan,
-      $color-celestial-blue
+      var(--pale-cyan-color),
+      var(--celestial-blue-color)
     );
     -webkit-background-clip: text;
     background-clip: text;

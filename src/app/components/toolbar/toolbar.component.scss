@@ -1,29 +1,23 @@
-@use "@angular/material" as mat;
-@import "../../../styles";
+@use "../../../sizes";
 
 //
 // Custom
 //
 
-.toolbar {
-  background: transparent;
-}
-
 .toolbar-menu-item {
-  @media #{$breakpoint-small} {
+  @media #{sizes.$breakpoint-small} {
     padding: 0 10px;
   }
-  @media #{$breakpoint-medium} {
+  @media #{sizes.$breakpoint-medium} {
     padding: 0 10px;
   }
-  @media #{$breakpoint-large} {
+  @media #{sizes.$breakpoint-large} {
     padding: 0 20px;
   }
 }
 
 .toolbar-menu-item-active {
-  color: mat.m2-get-color-from-palette($open-ebike-primary, 400) !important;
-  background-color: transparent !important;
+  color: var(--toolbar-menu-item-active-color) !important;
 }
 
 .toolbar-block {
@@ -59,14 +53,12 @@
 //
 
 mat-toolbar {
-  background-color: white !important;
-  // box-shadow: 0 3px 5px -1px rgba(250, 250, 250, 1.2), 0 6px 10px 0 rgba(250, 250, 250, 1.14), 0 1px 18px 0 rgba(250, 250, 250, 1.12);
   box-shadow: 0 0 0 0 transparent !important;
   font-weight: bolder;
 }
 
 mat-toolbar {
-  @media #{$breakpoint-small} {
+  @media #{sizes.$breakpoint-small} {
     padding: 0 !important;
   }
 }

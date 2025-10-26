@@ -1,19 +1,18 @@
 @use "@angular/material" as mat;
+@use "theme-light";
+@use "theme-dark";
+@use "theme-colors";
+@use "sizes";
+
 @use "sass:color";
 
-@import "theme.scss";
-@import "sizes.scss";
-@import "flex.scss";
-
-@include mat.all-component-themes($theme-light);
+@include mat.all-component-themes(theme-light.$theme-light);
 
 //
 // Light theme
 //
 
 .theme-light {
-  //@include mat.all-component-themes($theme-light);
-
   a {
     color: #424242;
     text-decoration-style: dotted;
@@ -26,13 +25,13 @@
   .ebike,
   .ebike-registered,
   .activity {
-    color: mat.m2-get-color-from-palette($open-ebike-accent, 500);
+    color: mat.m2-get-color-from-palette(theme-light.$open-ebike-accent, 500);
   }
 
   .ebike.icon,
   .activity.icon {
     background: color.mix(
-      mat.m2-get-color-from-palette($open-ebike-accent, 500),
+      mat.m2-get-color-from-palette(theme-light.$open-ebike-accent, 500),
       transparent,
       20%
     ) !important;
@@ -46,7 +45,7 @@
   .installation-report,
   .service-record,
   .remote-configuration-case {
-    color: mat.m2-get-color-from-palette($open-ebike-primary, 500);
+    color: mat.m2-get-color-from-palette(theme-light.$open-ebike-primary, 500);
   }
 
   .component.icon,
@@ -56,11 +55,13 @@
   .service-record.icon,
   .remote-configuration-case.icon {
     background: color.mix(
-      mat.m2-get-color-from-palette($open-ebike-primary, 500),
+      mat.m2-get-color-from-palette(theme-light.$open-ebike-primary, 500),
       transparent,
       20%
     ) !important;
   }
+
+  --mat-toolbar-container-background-color: #ffffff;
 }
 
 //
@@ -68,8 +69,6 @@
 //
 
 .theme-dark {
-  @include mat.all-component-colors($theme-dark);
-
   a {
     color: #ffffff;
     text-decoration-style: dotted;
@@ -82,13 +81,13 @@
   .ebike,
   .ebike-registered,
   .activity {
-    color: mat.m2-get-color-from-palette($open-ebike-accent, 300);
+    color: mat.m2-get-color-from-palette(theme-dark.$open-ebike-accent, 300);
   }
 
   .ebike.icon,
   .activity.icon {
     background: color.mix(
-      mat.m2-get-color-from-palette($open-ebike-accent, 300),
+      mat.m2-get-color-from-palette(theme-dark.$open-ebike-accent, 300),
       transparent,
       20%
     ) !important;
@@ -102,7 +101,7 @@
   .installation-report,
   .service-record,
   .remote-configuration-case {
-    color: mat.m2-get-color-from-palette($open-ebike-primary, 300);
+    color: mat.m2-get-color-from-palette(theme-dark.$open-ebike-primary, 300);
   }
 
   .component.icon,
@@ -112,28 +111,82 @@
   .service-record.icon,
   .remote-configuration-case.icon {
     background: color.mix(
-      mat.m2-get-color-from-palette($open-ebike-primary, 300),
+      mat.m2-get-color-from-palette(theme-dark.$open-ebike-primary, 300),
       transparent,
       20%
     ) !important;
   }
 
-  // FIXME: Figure out why these overrides are necessary
-
-  .mat-toolbar {
-    color: #ffffff !important;
-    background: #212121 !important;
+  .mapboxgl-ctrl-bottom-right {
+    background: #343332;
   }
 
-  .mat-button {
-    color: #ffffff !important;
-    background: transparent !important;
+  .mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+    background-color: transparent;
   }
+
+  @include mat.all-component-colors(theme-dark.$theme-dark);
 }
 
 //
-// Other elements
+// Both themes
 //
+
+:root {
+  --toolbar-menu-item-active-color: #{mat.m2-get-color-from-palette(
+      theme-dark.$open-ebike-primary,
+      400
+    )};
+
+  --chinese-blue-color: #{theme-colors.$color-chinese-blue};
+  --liberty-blue-color: #{theme-colors.$color-liberty-blue};
+  --celestial-blue-color: #{theme-colors.$color-celestial-blue};
+  --pale-cyan-color: #{theme-colors.$color-pale-cyan};
+  --raspberry-pink-color: #{theme-colors.$color-raspberry-pink};
+}
+
+//
+// General
+//
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+h1 {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 40pt;
+  line-height: 1.2em;
+}
+
+h2 {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: lighter;
+  margin: 0.25em 0;
+  margin-top: 2em;
+  font-size: 18pt;
+  line-height: 1.2em;
+}
+
+h3 {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  text-decoration: underline;
+  margin: 0.75em 0 0.25em !important;
+  line-height: 1.2em !important;
+}
+
+a:hover {
+  color: mat.m2-get-color-from-palette(mat.$m2-grey-palette, 600);
+}
+
+*:focus {
+  outline: none;
+}
 
 .container {
   min-height: calc(100vh - 64px);
@@ -147,19 +200,19 @@
   box-sizing: border-box;
 }
 
-@media #{$breakpoint-small} {
+@media #{sizes.$breakpoint-small} {
   .inner-container {
     width: 100%;
   }
 }
 
-@media #{$breakpoint-medium} {
+@media #{sizes.$breakpoint-medium} {
   .inner-container {
     width: 960px;
   }
 }
 
-@media #{$breakpoint-large} {
+@media #{sizes.$breakpoint-large} {
   .inner-container {
     width: 960px;
   }
@@ -189,17 +242,8 @@
   border-radius: 100%;
 }
 
-h2,
-h3 {
-  margin-top: 32px;
-}
-
 h2 .icon {
   margin-right: 8px;
-}
-
-a:hover {
-  color: mat.m2-get-color-from-palette(mat.$m2-grey-palette, 600);
 }
 
 .list {
@@ -234,11 +278,19 @@ li {
   vertical-align: sub;
 }
 
-html,
-body {
-  height: 100%;
+//
+// Flex
+//
+
+.flex-container {
+  display: flex !important;
 }
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+.flex-container-vertical {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.flex-box {
+  flex-grow: 1 !important;
 }

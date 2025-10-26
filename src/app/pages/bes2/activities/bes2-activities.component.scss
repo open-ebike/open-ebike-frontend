@@ -1,5 +1,4 @@
-@use "@angular/material/index" as mat;
-@import "../../../../styles";
+@use "../../../../sizes";
 
 //
 // Overlays
@@ -20,15 +19,15 @@ $toolbar-height: 64px;
     0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   max-height: calc(100vh - $toolbar-height - (2 * $overlay-margin));
 
-  @media #{$breakpoint-large} {
+  @media #{sizes.$breakpoint-large} {
     width: 450px;
   }
 
-  @media #{$breakpoint-medium} {
+  @media #{sizes.$breakpoint-medium} {
     width: 450px;
   }
 
-  @media #{$breakpoint-small} {
+  @media #{sizes.$breakpoint-small} {
     width: calc(100% - 60px);
   }
 }

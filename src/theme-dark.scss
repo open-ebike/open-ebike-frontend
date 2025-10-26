@@ -1,184 +1,24 @@
 @use "@angular/material" as mat;
+@use "theme-colors";
 
-$color-chinese-blue: #3c5297;
-$color-liberty-blue: #5261ac;
-$color-celestial-blue: #4e9dce;
-$color-pale-cyan: #8bd2fb;
-$color-raspberry-pink: #d75b98;
-
-$mat-chinese-blue: (
-  50: hsl(225, 43%, 90%),
-  100: hsl(225, 43%, 80%),
-  200: hsl(225, 43%, 70%),
-  300: hsl(225, 43%, 60%),
-  400: hsl(225, 43%, 50%),
-  500: hsl(225, 43%, 40%),
-  600: hsl(225, 43%, 30%),
-  700: hsl(225, 43%, 20%),
-  800: hsl(225, 43%, 10%),
-  900: hsl(225, 43%, 0%),
-  A100: $color-chinese-blue,
-  A200: $color-chinese-blue,
-  A400: $color-chinese-blue,
-  A700: $color-chinese-blue,
-  contrast: (
-    50: rgba(black, 0.87),
-    100: rgba(black, 0.87),
-    200: rgba(black, 0.87),
-    300: rgba(black, 0.87),
-    400: white,
-    500: white,
-    600: white,
-    700: white,
-    800: white,
-    900: white,
-    A100: white,
-    A200: white,
-    A400: white,
-    A700: white,
-  ),
-);
-
-$mat-liberty-blue: (
-  50: hsl(230, 35%, 90%),
-  100: hsl(230, 35%, 80%),
-  200: hsl(230, 35%, 70%),
-  300: hsl(230, 35%, 60%),
-  400: hsl(230, 35%, 50%),
-  500: hsl(230, 35%, 40%),
-  600: hsl(230, 35%, 30%),
-  700: hsl(230, 35%, 20%),
-  800: hsl(230, 35%, 10%),
-  900: hsl(230, 35%, 0%),
-  A100: $color-liberty-blue,
-  A200: $color-liberty-blue,
-  A400: $color-liberty-blue,
-  A700: $color-liberty-blue,
-  contrast: (
-    50: rgba(black, 0.87),
-    100: rgba(black, 0.87),
-    200: rgba(black, 0.87),
-    300: rgba(black, 0.87),
-    400: white,
-    500: white,
-    600: white,
-    700: white,
-    800: white,
-    900: white,
-    A100: white,
-    A200: white,
-    A400: white,
-    A700: white,
-  ),
-);
-
-$mat-celestial-blue: (
-  50: hsl(203, 57%, 96%),
-  100: hsl(203, 57%, 86%),
-  200: hsl(203, 57%, 76%),
-  300: hsl(203, 57%, 66%),
-  400: hsl(203, 57%, 56%),
-  500: hsl(203, 57%, 46%),
-  600: hsl(203, 57%, 36%),
-  700: hsl(203, 57%, 26%),
-  800: hsl(203, 57%, 16%),
-  900: hsl(203, 57%, 6%),
-  A100: $color-celestial-blue,
-  A200: $color-celestial-blue,
-  A400: $color-celestial-blue,
-  A700: $color-celestial-blue,
-  contrast: (
-    50: rgba(black, 0.87),
-    100: rgba(black, 0.87),
-    200: rgba(black, 0.87),
-    300: rgba(black, 0.87),
-    400: white,
-    500: white,
-    600: white,
-    700: white,
-    800: white,
-    900: white,
-    A100: rgba(black, 0.87),
-    A200: rgba(black, 0.87),
-    A400: rgba(black, 0.87),
-    A700: rgba(black, 0.87),
-  ),
-);
-
-$mat-pale-cyan: (
-  50: hsl(202, 93%, 96%),
-  100: hsl(202, 93%, 86%),
-  200: hsl(202, 93%, 76%),
-  300: hsl(202, 93%, 66%),
-  400: hsl(202, 93%, 56%),
-  500: hsl(202, 93%, 46%),
-  600: hsl(202, 93%, 36%),
-  700: hsl(202, 93%, 26%),
-  800: hsl(202, 93%, 16%),
-  900: hsl(202, 93%, 6%),
-  A100: $color-pale-cyan,
-  A200: $color-pale-cyan,
-  A400: $color-pale-cyan,
-  A700: $color-pale-cyan,
-  contrast: (
-    50: rgba(black, 0.87),
-    100: rgba(black, 0.87),
-    200: rgba(black, 0.87),
-    300: rgba(black, 0.87),
-    400: rgba(black, 0.87),
-    500: white,
-    600: white,
-    700: white,
-    800: white,
-    900: white,
-    A100: rgba(black, 0.87),
-    A200: rgba(black, 0.87),
-    A400: rgba(black, 0.87),
-    A700: rgba(black, 0.87),
-  ),
-);
-
-$mat-raspberry-pink: (
-  50: hsl(330, 61%, 90%),
-  100: hsl(330, 61%, 80%),
-  200: hsl(330, 61%, 70%),
-  300: hsl(330, 61%, 60%),
-  400: hsl(330, 61%, 50%),
-  500: hsl(330, 61%, 40%),
-  600: hsl(330, 61%, 30%),
-  700: hsl(330, 61%, 20%),
-  800: hsl(330, 61%, 10%),
-  900: hsl(330, 61%, 0%),
-  A100: $color-raspberry-pink,
-  A200: $color-raspberry-pink,
-  A400: $color-raspberry-pink,
-  A700: $color-raspberry-pink,
-  contrast: (
-    50: rgba(black, 0.87),
-    100: rgba(black, 0.87),
-    200: rgba(black, 0.87),
-    300: rgba(black, 0.87),
-    400: white,
-    500: white,
-    600: white,
-    700: white,
-    800: white,
-    900: white,
-    A100: white,
-    A200: white,
-    A400: white,
-    A700: white,
-  ),
-);
-
-$open-ebike-primary: mat.m2-define-palette($mat-celestial-blue, 400, 300, 500);
-$open-ebike-secondary: mat.m2-define-palette(
-  $mat-celestial-blue,
+$open-ebike-primary: mat.m2-define-palette(
+  theme-colors.$mat-celestial-blue,
   400,
   300,
   500
 );
-$open-ebike-accent: mat.m2-define-palette($mat-raspberry-pink, 300, 200, 400);
+$open-ebike-secondary: mat.m2-define-palette(
+  theme-colors.$mat-celestial-blue,
+  400,
+  300,
+  500
+);
+$open-ebike-accent: mat.m2-define-palette(
+  theme-colors.$mat-raspberry-pink,
+  300,
+  200,
+  400
+);
 $open-ebike-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
 $theme-dark: mat.m2-define-dark-theme(
