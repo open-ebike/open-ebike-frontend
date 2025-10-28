@@ -108,10 +108,10 @@ export class Bes3ComponentDetailsComponent implements OnInit {
 
   /** Query parameter theme */
   private QUERY_PARAM_THEME: string = 'theme';
-  /** Query parameter serial number */
-  private QUERY_PARAM_SERIAL_NUMBER: string = 'serialNumber';
   /** Query parameter part number */
   private QUERY_PARAM_PART_NUMBER: string = 'partNumber';
+  /** Query parameter serial number */
+  private QUERY_PARAM_SERIAL_NUMBER: string = 'serialNumber';
 
   /**
    * Constructor
@@ -181,13 +181,13 @@ export class Bes3ComponentDetailsComponent implements OnInit {
   /**
    * Initializes component
    * @param ebikeProfile eBike profile
-   * @param partNumber part number
    * @param serialNumber serial number
+   * @param partNumber part number
    */
   private initializeComponent(
     ebikeProfile?: EbikeProfile,
-    partNumber?: string,
     serialNumber?: string,
+    partNumber?: string,
   ) {
     if (
       ebikeProfile?.driveUnit.serialNumber == serialNumber &&
