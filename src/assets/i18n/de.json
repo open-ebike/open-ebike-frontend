@@ -270,6 +270,9 @@
         "battery-field-data": "Battery Fielddaten",
         "drive-unit-field-data": "Drive Unit Felddaten"
       },
+      "actions": {
+        "go-back": "zurück"
+      },
       "messages": {
         "no-field-data": "keine Field Data aufgezeichnet"
       }

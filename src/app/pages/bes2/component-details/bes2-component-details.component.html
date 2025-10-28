@@ -4,8 +4,13 @@
       <div class="inner-container">
         <h2>
           @if (ebikeProfile()) {
-            <span
-              style="cursor: pointer; font-size: 24px"
+            <span class="material-symbols-outlined ebike icon">
+              electric_bike
+            </span>
+            {{ t("terms.ebike") }}
+            <span class="delimiter">·</span>
+            <button
+              mat-button
               [routerLink]="['/bes2/ebike-details']"
               [queryParams]="{
                 theme: themeService.theme(),
@@ -13,11 +18,8 @@
                 duSerialNumber: ebikeProfile()?.driveUnit?.serialNumber,
               }"
             >
-              <span class="material-symbols-outlined ebike icon">
-                electric_bike
-              </span>
-              {{ t("terms.ebike") }}
-            </span>
+              {{ t("actions.go-back") }}
+            </button>
           }
         </h2>
         <h2>
@@ -257,9 +259,9 @@
                     event_repeat
                   </span>
                 </div>
-                <mat-card-title>{{
-                  t("terms.tuning-reset-event")
-                }}</mat-card-title>
+                <mat-card-title
+                  >{{ t("terms.tuning-reset-event") }}
+                </mat-card-title>
               </mat-card-header>
               <mat-card-content>
                 <ul class="list">
@@ -336,9 +338,9 @@
                     event
                   </span>
                 </div>
-                <mat-card-title>{{
-                  t("terms.battery-deactivation-event")
-                }}</mat-card-title>
+                <mat-card-title
+                  >{{ t("terms.battery-deactivation-event") }}
+                </mat-card-title>
               </mat-card-header>
               <mat-card-content>
                 <ul class="list">
@@ -415,9 +417,9 @@
                     calendar_lock
                   </span>
                 </div>
-                <mat-card-title>{{
-                  t("terms.lock-reset-event")
-                }}</mat-card-title>
+                <mat-card-title
+                  >{{ t("terms.lock-reset-event") }}
+                </mat-card-title>
               </mat-card-header>
               <mat-card-content>
                 <ul class="list">
@@ -498,9 +500,9 @@
                     diagnosis
                   </span>
                 </div>
-                <mat-card-title>{{
-                  t("terms.battery-measurement-field-data")
-                }}</mat-card-title>
+                <mat-card-title
+                  >{{ t("terms.battery-measurement-field-data") }}
+                </mat-card-title>
               </mat-card-header>
               <mat-card-content>
                 <app-attribute-tree [object]="fieldData"></app-attribute-tree>
@@ -516,9 +518,9 @@
                     diagnosis
                   </span>
                 </div>
-                <mat-card-title>{{
-                  t("terms.battery-field-data")
-                }}</mat-card-title>
+                <mat-card-title
+                  >{{ t("terms.battery-field-data") }}
+                </mat-card-title>
               </mat-card-header>
               <mat-card-content>
                 <app-attribute-tree [object]="fieldData"></app-attribute-tree>
@@ -534,9 +536,9 @@
                     diagnosis
                   </span>
                 </div>
-                <mat-card-title>{{
-                  t("terms.drive-unit-field-data")
-                }}</mat-card-title>
+                <mat-card-title
+                  >{{ t("terms.drive-unit-field-data") }}
+                </mat-card-title>
               </mat-card-header>
               <mat-card-content>
                 <app-attribute-tree [object]="fieldData"></app-attribute-tree>

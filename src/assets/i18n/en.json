@@ -272,6 +272,9 @@
         "battery-field-data": "Battery Field Data",
         "drive-unit-field-data": "Drive Unit Field Data"
       },
+      "actions": {
+        "go-back": "go back"
+      },
       "messages": {
         "no-field-data": "no field data recorded"
       }

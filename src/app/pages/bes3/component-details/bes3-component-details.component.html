@@ -4,16 +4,18 @@
       <div class="inner-container">
         <h2>
           @if (ebikeProfile()) {
-            <span
-              style="cursor: pointer; font-size: 24px"
+            <span class="material-symbols-outlined ebike icon">
+              electric_bike
+            </span>
+            {{ t("terms.ebike") }}
+            {{ ebikeProfile()?.id }}
+            <span class="delimiter">·</span>
+            <button
+              mat-button
               [routerLink]="['/bes3/ebike-details', ebikeProfile()?.id]"
             >
-              <span class="material-symbols-outlined ebike icon">
-                electric_bike
-              </span>
-              {{ t("terms.ebike") }}
-              {{ ebikeProfile()?.id }}
-            </span>
+              {{ t("actions.go-back") }}
+            </button>
           }
         </h2>
         <h2>
@@ -206,7 +208,7 @@
                   assignment
                 </span>
               </div>
-              <mat-card-title>{{ t("terms.capacity-tester") }} </mat-card-title>
+              <mat-card-title>{{ t("terms.capacity-tester") }}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <app-attribute-tree

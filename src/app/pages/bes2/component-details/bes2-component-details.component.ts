@@ -34,6 +34,7 @@ import {
   DriveUnitFieldData,
 } from '../../../services/api/bes2/diagnosis-field-data.service';
 import { AttributeTreeComponent } from '../../../components/attribute-tree/attribute-tree.component';
+import { MatButton } from '@angular/material/button';
 
 /**
  * Displays component details
@@ -53,6 +54,7 @@ import { AttributeTreeComponent } from '../../../components/attribute-tree/attri
     MatCardFooter,
     MatRipple,
     AttributeTreeComponent,
+    MatButton,
   ],
   templateUrl: './bes2-component-details.component.html',
   styleUrl: './bes2-component-details.component.scss',

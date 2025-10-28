@@ -32,6 +32,7 @@ import {
   EbikeRegistrationService,
   Registration,
 } from '../../../services/api/bes3/ebike-registration.service';
+import { MatButton } from '@angular/material/button';
 
 /**
  * Displays component details
@@ -48,6 +49,7 @@ import {
     MatCardContent,
     MatCardHeader,
     MatCardTitle,
+    MatButton,
   ],
   templateUrl: './bes3-component-details.component.html',
   styleUrl: './bes3-component-details.component.scss',
