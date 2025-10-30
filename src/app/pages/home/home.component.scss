@@ -41,29 +41,54 @@ li {
 }
 
 ::ng-deep .theme-light {
-  .app-title > .color-gradient {
-    background-image: radial-gradient(
-      circle,
-      var(--liberty-blue-color),
-      var(--chinese-blue-color)
+  .shimmer-text {
+    background: linear-gradient(
+      90deg,
+      black 0%,
+      var(--chinese-blue-color) 20%,
+      var(--celestial-blue-color) 40%,
+      var(--raspberry-pink-color) 60%,
+      black 80%,
+      black 100%
     );
+
+    background-size: 400% 100%;
+
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: transparent;
+
+    animation: shimmer 10s infinite linear;
   }
 }
 
 ::ng-deep .theme-dark {
-  .app-title > .color-gradient {
-    background-image: radial-gradient(
-      circle,
-      var(--pale-cyan-color),
-      var(--celestial-blue-color)
+  .shimmer-text {
+    background: linear-gradient(
+      90deg,
+      white 0%,
+      var(--chinese-blue-color) 20%,
+      var(--celestial-blue-color) 40%,
+      var(--raspberry-pink-color) 60%,
+      white 80%,
+      white 100%
     );
+
+    background-size: 400% 100%;
+
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: transparent;
+
+    animation: shimmer 10s infinite linear;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0% 0;
   }
 }
