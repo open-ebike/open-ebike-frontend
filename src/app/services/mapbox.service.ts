@@ -17,6 +17,9 @@ interface GeojsonFeatureCollection {
   }>;
 }
 
+/** Represents a bounding box */
+export type BoundingBox = [number, number, number, number];
+
 /**
  * Handles interaction with Mapbox
  */
@@ -189,5 +192,24 @@ export class MapboxService {
       });
 
     return [minLon, minLat, maxLon, maxLat];
+  }
+
+  /**
+   * Add a padding to a given bounding box
+   * @param boundingBox bounding box
+   * @param paddingHorizontal horizontal padding
+   * @param padddingVertical vertical padding
+   */
+  buildBoundingBoxWithPadding(
+    boundingBox: BoundingBox,
+    paddingHorizontal: number,
+    padddingVertical: number,
+  ): BoundingBox {
+    return [
+      boundingBox[0] - paddingHorizontal,
+      boundingBox[1] - padddingVertical,
+      boundingBox[2] + paddingHorizontal,
+      boundingBox[3] + padddingVertical,
+    ] as BoundingBox;
   }
 }

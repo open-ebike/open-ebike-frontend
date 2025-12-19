@@ -115,7 +115,7 @@
         <div class="toolbar-block end">
           @if (
             authenticationService.isLoggedIn() &&
-            environment.mapboxAccessToken == null
+            environment.mapbox.accessToken == null
           ) {
             <button
               mat-button

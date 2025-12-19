@@ -42,6 +42,7 @@ import {
 import { MapboxService } from '../../../services/mapbox.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { RoundPipe } from '../../../pipes/round.pipe';
+import { environment } from '../../../../environments/environment';
 
 /**
  * Displays activities
@@ -261,7 +262,11 @@ export class Bes3ActivitiesComponent implements OnInit {
 
     this.overlays.set(id, overlay);
     this.overlays = new Map(this.overlays);
-    this.boundingBox = geojson.features[0]['properties']['bounding-box'];
+    this.boundingBox = this.mapboxService.buildBoundingBoxWithPadding(
+      geojson.features[0]['properties']['bounding-box'],
+      environment.mapbox.boundBoxPaddingHorizontal,
+      environment.mapbox.boundBoxPaddingVertical,
+    );
   }
 
   /**

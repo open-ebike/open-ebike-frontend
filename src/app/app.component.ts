@@ -24,8 +24,8 @@ export class AppComponent {
   public themeService = inject(ThemeService);
 
   constructor() {
-    if (environment.mapboxAccessToken) {
-      localStorage.setItem('mapboxAccessToken', environment.mapboxAccessToken);
+    if (environment.mapbox.accessToken) {
+      localStorage.setItem('mapboxAccessToken', environment.mapbox.accessToken);
     }
   }
 }

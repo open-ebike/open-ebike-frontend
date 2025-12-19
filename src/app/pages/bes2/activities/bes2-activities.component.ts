@@ -39,6 +39,7 @@ import {
   MatCardContent,
   MatCardFooter,
 } from '@angular/material/card';
+import { environment } from '../../../../environments/environment';
 
 /**
  * Displays activities
@@ -246,7 +247,11 @@ export class Bes2ActivitiesComponent implements OnInit {
 
     this.overlays.set(`${id}`, overlay);
     this.overlays = new Map(this.overlays);
-    this.boundingBox = geojson.features[0]['properties']['bounding-box'];
+    this.boundingBox = this.mapboxService.buildBoundingBoxWithPadding(
+      geojson.features[0]['properties']['bounding-box'],
+      environment.mapbox.boundBoxPaddingHorizontal,
+      environment.mapbox.boundBoxPaddingVertical,
+    );
   }
 
   /**
