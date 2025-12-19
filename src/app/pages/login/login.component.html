@@ -18,42 +18,44 @@
           />
         </mat-form-field>
       </form>
-      <button
-        mat-button
-        color="primary"
-        class="button"
-        [disabled]="input.value.length == 0"
-        (click)="onSaveClicked(input.value)"
-      >
-        {{ t("actions.save") }}
-      </button>
-      <button
-        mat-flat-button
-        color="primary"
-        class="button"
-        [disabled]="!authenticationService.clientId()"
-        (click)="onSaveAndLoginClicked(input.value, 'BES3')"
-      >
-        {{ t("actions.login-bes3") }}
-      </button>
-      <button
-        mat-flat-button
-        color="primary"
-        class="button"
-        [disabled]="!authenticationService.clientId()"
-        (click)="onSaveAndLoginClicked(input.value, 'BES2')"
-      >
-        {{ t("actions.login-bes2") }}
-      </button>
-      <button
-        mat-flat-button
-        color="primary"
-        class="button"
-        [disabled]="!authenticationService.clientId()"
-        (click)="onSaveAndLoginClicked(input.value, 'COBI')"
-      >
-        {{ t("actions.login-cobi") }}
-      </button>
+      <div class="grid wide">
+        <button
+          mat-button
+          color="primary"
+          class="button"
+          [disabled]="input.value.length == 0"
+          (click)="onSaveClicked(input.value)"
+        >
+          {{ t("actions.save") }}
+        </button>
+        <button
+          mat-flat-button
+          color="primary"
+          class="button"
+          [disabled]="!authenticationService.clientId()"
+          (click)="onSaveAndLoginClicked(input.value, 'BES3')"
+        >
+          {{ t("actions.login-bes3") }}
+        </button>
+        <button
+          mat-flat-button
+          color="primary"
+          class="button"
+          [disabled]="!authenticationService.clientId()"
+          (click)="onSaveAndLoginClicked(input.value, 'BES2')"
+        >
+          {{ t("actions.login-bes2") }}
+        </button>
+        <button
+          mat-flat-button
+          color="primary"
+          class="button"
+          [disabled]="!authenticationService.clientId()"
+          (click)="onSaveAndLoginClicked(input.value, 'COBI')"
+        >
+          {{ t("actions.login-cobi") }}
+        </button>
+      </div>
     </div>
     <div class="flex-box"></div>
   </div>

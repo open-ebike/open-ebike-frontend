@@ -1,3 +1,5 @@
+@use "../../../sizes";
+
 .question {
   font-weight: bolder;
 }
@@ -11,6 +13,8 @@ mat-form-field {
   width: 100%;
 }
 
-.button {
-  margin-right: 32px;
+@media #{sizes.$breakpoint-large} {
+  .grid.wide {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }
