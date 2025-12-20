@@ -44,6 +44,15 @@
                   >{{ t("messages.no-activities") }}
                 </mat-list-item>
               }
+              <div class="context-box" style="margin: 24px 24px 24px">
+                <div
+                  [innerHTML]="
+                    t('messages.missing-activities', {
+                      clientId: authenticationService.clientId(),
+                    })
+                  "
+                ></div>
+              </div>
             </mat-list>
             <div class="flex-box"></div>
             <div class="activities-paginator">

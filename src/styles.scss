@@ -2,9 +2,9 @@
 @use "theme-light";
 @use "theme-dark";
 @use "theme-colors";
-@use "sizes";
-
 @use "sass:color";
+
+@use "sizes";
 
 @include mat.all-component-themes(theme-light.$theme-light);
 
@@ -17,6 +17,11 @@
     color: #424242;
     text-decoration-style: dotted;
   }
+
+  --context-box-color: #{color.adjust(
+      theme-colors.$color-celestial-blue,
+      $lightness: -25%
+    )};
 
   .container {
     background: #f6f6f4;
@@ -87,6 +92,11 @@
     color: #ffffff;
     text-decoration-style: dotted;
   }
+
+  --context-box-color: #{color.adjust(
+      theme-colors.$color-celestial-blue,
+      $lightness: 25%
+    )};
 
   .container {
     background: #343332;
@@ -163,6 +173,8 @@
   --celestial-blue-color: #{theme-colors.$color-celestial-blue};
   --pale-cyan-color: #{theme-colors.$color-pale-cyan};
   --raspberry-pink-color: #{theme-colors.$color-raspberry-pink};
+
+  --context-box-background: #{rgba(theme-colors.$color-celestial-blue, 0.1)};
 
   .bes2 {
     .icon {
@@ -325,6 +337,16 @@ li {
   font-size: 18px;
   padding-left: 0;
   vertical-align: sub;
+}
+
+.context-box {
+  padding: 8px;
+  border-radius: 4px;
+  display: flex;
+  color: var(--context-box-color);
+  background: var(--context-box-background);
+  flex-wrap: wrap;
+  text-wrap: auto;
 }
 
 //

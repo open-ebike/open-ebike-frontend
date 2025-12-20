@@ -82,7 +82,8 @@
         "drive-unit-serial-number": "Drive Unit Seriennummer"
       },
       "messages": {
-        "no-ebikes": "keine eBikes registriert"
+        "no-ebikes": "keine eBikes registriert",
+        "missing-activities": "Vermisst du eBikes? Gib im <a href='https://flow.bosch-ebike.com/data-act' target='_blank'>Flow Portal</a> die Daten deines eBikes für die Client Application {{clientId}} frei"
       }
     },
     "ebike-details": {
@@ -192,7 +193,8 @@
         "undefined": "nicht definiert"
       },
       "messages": {
-        "no-activities": "keine Activities aufgezeichnet"
+        "no-activities": "keine Activities aufgezeichnet",
+        "missing-activities": "Vermisst du Aktivitäten? Gib im <a href='https://flow.bosch-ebike.com/data-act' target='_blank'>Flow Portal</a> die Daten deines eBikes für die Client Application {{clientId}} frei"
       },
       "actions": {
         "show-all": "alle anzeigen",

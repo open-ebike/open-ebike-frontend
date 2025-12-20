@@ -18,7 +18,7 @@
                     electric_bike
                   </span>
                 </div>
-                <mat-card-title>{{ t("terms.ebike") }} </mat-card-title>
+                <mat-card-title>{{ t("terms.ebike") }}</mat-card-title>
                 <mat-card-subtitle>
                   @if (isEbikeRegistered(ebikeProfile.id)) {
                     <span
@@ -41,6 +41,15 @@
           } @empty {
             {{ t("messages.no-ebikes") }}
           }
+        </div>
+        <div class="context-box" style="margin-top: 24px">
+          <div
+            [innerHTML]="
+              t('messages.missing-ebikes', {
+                clientId: authenticationService.clientId(),
+              })
+            "
+          ></div>
         </div>
       </div>
       <div class="flex-box"></div>
