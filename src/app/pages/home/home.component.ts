@@ -77,7 +77,6 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {
     this.handleQueryParameters();
 
-    await this.authenticationService.restoreConfig();
     await this.authenticationService.processLoginCallback();
   }
 
