@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { Observable } from 'rxjs';
+import { EMPTY, expand, map, max, min, Observable, reduce } from 'rxjs';
 
 /** Valid sort values for activity summary */
 export type ActivitySummarySort =
@@ -132,12 +132,60 @@ export class ActivityRecordsService {
    * @param sort sort
    */
   getAllActivitySummaries(
-    limit: number,
-    offset: number,
-    sort: ActivitySummarySort,
+    limit?: number,
+    offset?: number,
+    sort?: ActivitySummarySort,
   ): Observable<ActivitySummaries> {
+    let params = new HttpParams();
+    if (limit != undefined) {
+      params = params.set('limit', limit);
+    }
+    if (offset != undefined) {
+      params = params.set('offset', offset);
+    }
+    if (sort != undefined) {
+      params = params.set('sort', sort);
+    }
+
     return this.http.get<ActivitySummaries>(
-      `${environment.eBikeApiUrl}/activity/smart-system/v1/activities?limit=${limit}&offset=${offset}&sort=${sort}`,
+      `${environment.eBikeApiUrl}/activity/smart-system/v1/activities`,
+      { params: params },
+    );
+  }
+
+  /** Maximum limit of activity API calls */
+  MAX_LIMIT = 100;
+
+  /**
+   * Lists all activity summaries
+   * @param chunkSize chunk size
+   * @param sort sort
+   */
+  getAllActivitySummariesRecursively(
+    chunkSize: number = this.MAX_LIMIT,
+    sort?: ActivitySummarySort,
+  ): Observable<ActivitySummary[]> {
+    chunkSize = Math.min(chunkSize, this.MAX_LIMIT);
+
+    let offset = 0;
+    let total = 0;
+
+    return this.getAllActivitySummaries(chunkSize, offset, sort).pipe(
+      expand((response) => {
+        total = response.pagination.total || 0;
+        offset = offset + chunkSize;
+
+        if (offset < total) {
+          return this.getAllActivitySummaries(chunkSize, offset, sort);
+        } else {
+          return EMPTY;
+        }
+      }),
+
+      map((response) => response.activitySummaries),
+      reduce((acc: ActivitySummary[], pageData: ActivitySummary[]) => {
+        return acc.concat(pageData);
+      }, []),
     );
   }
 
