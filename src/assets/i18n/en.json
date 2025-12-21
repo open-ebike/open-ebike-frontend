@@ -317,6 +317,9 @@
         "no-hubs": "no hubs registered"
       }
     },
+    "achievements": {
+      "title": "Achievements"
+    },
     "login": {
       "title": "Login",
       "terms": {

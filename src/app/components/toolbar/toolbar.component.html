@@ -59,6 +59,15 @@
               >
                 {{ t("pages.registrations.title") }}
               </button>
+              <button
+                mat-button
+                class="toolbar-menu-item"
+                routerLinkActive="toolbar-menu-item-active"
+                routerLink="/bes3/achievements"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                {{ t("pages.achievements.title") }}
+              </button>
             }
             @if (authenticationService.ebikeGeneration() == "BES2") {
               <button

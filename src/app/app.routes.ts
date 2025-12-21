@@ -17,6 +17,7 @@ import { Bes2ActivitiesComponent } from './pages/bes2/activities/bes2-activities
 import { Bes2StatisticsComponent } from './pages/bes2/statistics/bes2-statistics.component';
 import { CobiHubsComponent } from './pages/cobi/hubs/cobi-hubs.component';
 import { CobiActivitiesComponent } from './pages/cobi/activities/cobi-activities.component';
+import { Bes3AchievementsComponent } from './pages/bes3/achievements/bes3-achievements.component';
 
 export const routes: Routes = [
   {
@@ -46,6 +47,11 @@ export const routes: Routes = [
   {
     path: 'bes3/component-details/:id',
     component: Bes3ComponentDetailsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'bes3/achievements',
+    component: Bes3AchievementsComponent,
     canActivate: [AuthGuard],
   },
   {
