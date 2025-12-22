@@ -316,7 +316,12 @@
       }
     },
     "achievements": {
-      "title": "Errungenschaften"
+      "title": "Errungenschaften",
+      "terms": {
+        "one-activity-completed": "1 Activität abgeschlossen",
+        "ten-activities-completed": "10 Aktivitäten abgeschlossen",
+        "unknown": "???"
+      }
     },
     "login": {
       "title": "Login",

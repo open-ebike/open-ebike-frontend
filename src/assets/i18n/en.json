@@ -318,7 +318,12 @@
       }
     },
     "achievements": {
-      "title": "Achievements"
+      "title": "Achievements",
+      "terms": {
+        "one-activity-completed": "1 activity completed",
+        "ten-activities-completed": "10 activities completed",
+        "unknown": "???"
+      }
     },
     "login": {
       "title": "Login",

@@ -1,3 +1,35 @@
+@use "../../../../styles";
+@use "../../../../sizes";
+
 .container {
   height: calc(100vh - 64px);
+}
+
+@media #{sizes.$breakpoint-large} {
+  .grid.wide {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media #{sizes.$breakpoint-medium} {
+  .grid.wide {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.badge {
+  padding: 16px;
+  cursor: pointer;
+  align-items: center;
+
+  .title {
+    margin-top: 8px;
+    text-align: center;
+  }
+}
+
+.grey {
+  img {
+    filter: grayscale(1);
+  }
 }
