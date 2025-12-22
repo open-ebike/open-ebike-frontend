@@ -320,6 +320,9 @@
       "terms": {
         "one-activity-completed": "1 Activität abgeschlossen",
         "ten-activities-completed": "10 Aktivitäten abgeschlossen",
+        "ten-kilometers-completed": "10 Kilometer gefahren",
+        "hundred-kilometers-completed": "100 Kilometer gefahren",
+        "thousand-kilometers-completed": "1000 Kilometer gefahren",
         "unknown": "???"
       }
     },

@@ -1,14 +1,12 @@
 import { Component, inject } from '@angular/core';
-import {
-  AchievementService,
-  AchievementType,
-} from '../../../services/other/bes3/achievement.service';
+import { AchievementService } from '../../../services/other/bes3/achievement.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { MatCard } from '@angular/material/card';
 import { MatRipple } from '@angular/material/core';
 import {
   DatePipe,
+  KeyValue,
   KeyValuePipe,
   NgClass,
   TitleCasePipe,
@@ -41,6 +39,11 @@ export class Bes3AchievementsComponent {
   /** Language */
   lang = getBrowserLang();
 
-  /** Achievement type enum */
-  achievementTypeEnum = AchievementType;
+  /** Key value order */
+  public keyValueOrder = (
+    a: KeyValue<any, any>,
+    b: KeyValue<any, any>,
+  ): number => {
+    return 0;
+  };
 }

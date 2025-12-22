@@ -322,6 +322,9 @@
       "terms": {
         "one-activity-completed": "1 activity completed",
         "ten-activities-completed": "10 activities completed",
+        "ten-kilometers-completed": "10 kilometers completed",
+        "hundred-kilometers-completed": "100 kilometers completed",
+        "thousand-kilometers-completed": "1000 kilometers completed",
         "unknown": "???"
       }
     },

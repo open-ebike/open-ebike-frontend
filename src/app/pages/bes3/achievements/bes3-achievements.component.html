@@ -5,24 +5,25 @@
         <h2>{{ t("title") }}</h2>
         <div class="grid wide">
           @for (
-            achievement of achievementService.achievements | keyvalue;
+            achievement of achievementService.achievements
+              | keyvalue: keyValueOrder;
             track achievement
           ) {
             <mat-card
               mat-ripple
               class="badge"
-              [ngClass]="{ grey: !achievement.value?.date }"
+              [ngClass]="{ grey: !achievement.value.date }"
             >
               <img
-                [src]="achievement.value?.icon"
+                [src]="achievement.value.icon"
                 style="width: 96px"
                 alt="icon"
               />
-              @if (achievement.value?.date) {
+              @if (achievement.value.date) {
                 <strong class="title">{{
-                  t(achievement.value?.translation ?? "") | titlecase
+                  t(achievement.value.translation ?? "") | titlecase
                 }}</strong>
-                {{ achievement.value?.date | date: "mediumDate" }}
+                {{ achievement.value.date | date: "mediumDate" }}
               } @else {
                 <strong class="title">{{ t("terms.unknown") }}</strong>
               }
