@@ -318,11 +318,13 @@
     "achievements": {
       "title": "Errungenschaften",
       "terms": {
-        "one-activity-completed": "1 Activität abgeschlossen",
-        "ten-activities-completed": "10 Aktivitäten abgeschlossen",
-        "ten-kilometers-completed": "10 Kilometer gefahren",
-        "hundred-kilometers-completed": "100 Kilometer gefahren",
-        "thousand-kilometers-completed": "1000 Kilometer gefahren",
+        "activities-1": "1 Activität abgeschlossen",
+        "activities-10": "10 Aktivitäten abgeschlossen",
+        "distance-10km": "10 Kilometer gefahren",
+        "distance-100km": "100 Kilometer gefahren",
+        "distance-1000km": "1000 Kilometer gefahren",
+        "elevation-gain-4806m": "Mont Blanc erklommen (4806m)",
+        "elevation-gain-8848m": "Mount Everest erklommen (8848m)",
         "unknown": "???"
       }
     },

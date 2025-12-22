@@ -5,11 +5,13 @@ import { ActivityRecordsService } from '../../api/bes3/activity-records.service'
  * Types of achievements
  */
 export enum AchievementType {
-  ONE_ACTIVITY_COMPLETED = 'ONE_ACTIVITY_COMPLETED',
-  TEN_ACTIVITIES_COMPLETED = 'TEN_ACTIVITIES_COMPLETED',
-  TEN_KILOMETERS_COMPLETED = 'TEN_KILOMETERS_COMPLETED',
-  HUNDRED_KILOMETERS_COMPLETED = 'HUNDRED_KILOMETERS_COMPLETED',
-  THOUSAND_KILOMETERS_COMPLETED = 'THOUSAND_KILOMETERS_COMPLETED',
+  ACTIVITIES_1 = 'ACTIVITIES_1',
+  ACTIVITIES_10 = 'ACTIVITIES_10',
+  DISTANCE_10KM = 'DISTANCE_10KM',
+  DISTANCE_100KM = 'DISTANCE_100KM',
+  DISTANCE_1000KM = 'DISTANCE_1000KM',
+  ELEVATION_GAIN_4806M = 'ELEVATION_GAIN_4806M',
+  ELEVATION_GAIN_8848_M = 'ELEVATION_GAIN_8848_M',
 }
 
 /**
@@ -41,38 +43,52 @@ export class AchievementService {
   /** Achievements and their date of achieval */
   achievements = new Map<AchievementType, Achievement>([
     [
-      AchievementType.ONE_ACTIVITY_COMPLETED,
+      AchievementType.ACTIVITIES_1,
       {
         icon: 'assets/achievements/medal.png',
-        translation: 'terms.one-activity-completed',
+        translation: 'terms.activities-1',
       },
     ],
     [
-      AchievementType.TEN_ACTIVITIES_COMPLETED,
+      AchievementType.ACTIVITIES_10,
       {
         icon: 'assets/achievements/medal.png',
-        translation: 'terms.ten-activities-completed',
+        translation: 'terms.activities-10',
       },
     ],
     [
-      AchievementType.TEN_KILOMETERS_COMPLETED,
+      AchievementType.DISTANCE_10KM,
       {
         icon: 'assets/achievements/medal-2.png',
-        translation: 'terms.ten-kilometers-completed',
+        translation: 'terms.distance-10km',
       },
     ],
     [
-      AchievementType.HUNDRED_KILOMETERS_COMPLETED,
+      AchievementType.DISTANCE_100KM,
       {
         icon: 'assets/achievements/medal-2.png',
-        translation: 'terms.hundred-kilometers-completed',
+        translation: 'terms.distance-100km',
       },
     ],
     [
-      AchievementType.THOUSAND_KILOMETERS_COMPLETED,
+      AchievementType.DISTANCE_1000KM,
       {
         icon: 'assets/achievements/medal-2.png',
-        translation: 'terms.thousand-kilometers-completed',
+        translation: 'terms.distance-1000km',
+      },
+    ],
+    [
+      AchievementType.ELEVATION_GAIN_4806M,
+      {
+        icon: 'assets/achievements/mountains.png',
+        translation: 'terms.elevation-gain-4806m',
+      },
+    ],
+    [
+      AchievementType.ELEVATION_GAIN_8848_M,
+      {
+        icon: 'assets/achievements/mountains.png',
+        translation: 'terms.elevation-gain-8848m',
       },
     ],
   ]);
@@ -92,6 +108,8 @@ export class AchievementService {
   totalActivityCount = 0;
   /** Total distance */
   totalDistance = 0;
+  /** Total elevation gain */
+  totalElevationGain = 0;
 
   /**
    * Loads activities and evaluates if achievements have been reached
@@ -103,75 +121,78 @@ export class AchievementService {
         activitySummaries.forEach((activitySummary) => {
           this.totalActivityCount += 1;
           this.totalDistance += activitySummary.distance;
+          this.totalElevationGain += activitySummary.elevation.gain;
 
           if (
-            !this.achievements.get(AchievementType.ONE_ACTIVITY_COMPLETED)
-              ?.date &&
+            !this.achievements.get(AchievementType.ACTIVITIES_1)?.date &&
             this.totalActivityCount >= 1
           ) {
-            this.achievements.set(AchievementType.ONE_ACTIVITY_COMPLETED, {
-              ...this.achievements.get(AchievementType.ONE_ACTIVITY_COMPLETED),
+            this.achievements.set(AchievementType.ACTIVITIES_1, {
+              ...this.achievements.get(AchievementType.ACTIVITIES_1),
               date: activitySummary.endTime,
             });
           }
 
           if (
-            !this.achievements.get(AchievementType.TEN_ACTIVITIES_COMPLETED)
-              ?.date &&
+            !this.achievements.get(AchievementType.ACTIVITIES_10)?.date &&
             this.totalActivityCount >= 10
           ) {
-            this.achievements.set(AchievementType.TEN_ACTIVITIES_COMPLETED, {
-              ...this.achievements.get(
-                AchievementType.TEN_ACTIVITIES_COMPLETED,
-              ),
+            this.achievements.set(AchievementType.ACTIVITIES_10, {
+              ...this.achievements.get(AchievementType.ACTIVITIES_10),
               date: activitySummary.endTime,
             });
           }
 
           if (
-            !this.achievements.get(AchievementType.TEN_KILOMETERS_COMPLETED)
-              ?.date &&
+            !this.achievements.get(AchievementType.DISTANCE_10KM)?.date &&
             this.totalDistance >= 10_000
           ) {
-            this.achievements.set(AchievementType.TEN_KILOMETERS_COMPLETED, {
-              ...this.achievements.get(
-                AchievementType.TEN_KILOMETERS_COMPLETED,
-              ),
+            this.achievements.set(AchievementType.DISTANCE_10KM, {
+              ...this.achievements.get(AchievementType.DISTANCE_10KM),
               date: activitySummary.endTime,
             });
           }
 
           if (
-            !this.achievements.get(AchievementType.HUNDRED_KILOMETERS_COMPLETED)
-              ?.date &&
+            !this.achievements.get(AchievementType.DISTANCE_100KM)?.date &&
             this.totalDistance >= 100_000
           ) {
-            this.achievements.set(
-              AchievementType.HUNDRED_KILOMETERS_COMPLETED,
-              {
-                ...this.achievements.get(
-                  AchievementType.HUNDRED_KILOMETERS_COMPLETED,
-                ),
-                date: activitySummary.endTime,
-              },
-            );
+            this.achievements.set(AchievementType.DISTANCE_100KM, {
+              ...this.achievements.get(AchievementType.DISTANCE_100KM),
+              date: activitySummary.endTime,
+            });
           }
 
           if (
-            !this.achievements.get(
-              AchievementType.THOUSAND_KILOMETERS_COMPLETED,
-            )?.date &&
+            !this.achievements.get(AchievementType.DISTANCE_1000KM)?.date &&
             this.totalDistance >= 1_000_000
           ) {
-            this.achievements.set(
-              AchievementType.THOUSAND_KILOMETERS_COMPLETED,
-              {
-                ...this.achievements.get(
-                  AchievementType.THOUSAND_KILOMETERS_COMPLETED,
-                ),
-                date: activitySummary.endTime,
-              },
-            );
+            this.achievements.set(AchievementType.DISTANCE_1000KM, {
+              ...this.achievements.get(AchievementType.DISTANCE_1000KM),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.ELEVATION_GAIN_4806M)
+              ?.date &&
+            this.totalElevationGain >= 4806
+          ) {
+            this.achievements.set(AchievementType.ELEVATION_GAIN_4806M, {
+              ...this.achievements.get(AchievementType.ELEVATION_GAIN_4806M),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.ELEVATION_GAIN_8848_M)
+              ?.date &&
+            this.totalElevationGain >= 8848
+          ) {
+            this.achievements.set(AchievementType.ELEVATION_GAIN_8848_M, {
+              ...this.achievements.get(AchievementType.ELEVATION_GAIN_8848_M),
+              date: activitySummary.endTime,
+            });
           }
         });
       });
