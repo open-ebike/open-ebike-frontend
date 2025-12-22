@@ -10,6 +10,7 @@ export enum AchievementType {
   DISTANCE_10KM = 'DISTANCE_10KM',
   DISTANCE_100KM = 'DISTANCE_100KM',
   DISTANCE_1000KM = 'DISTANCE_1000KM',
+  DISTANCE_40075KM = 'DISTANCE_40075KM',
   ELEVATION_GAIN_4806M = 'ELEVATION_GAIN_4806M',
   ELEVATION_GAIN_8848_M = 'ELEVATION_GAIN_8848_M',
 }
@@ -75,6 +76,13 @@ export class AchievementService {
       {
         icon: 'assets/achievements/medal-2.png',
         translation: 'terms.distance-1000km',
+      },
+    ],
+    [
+      AchievementType.DISTANCE_40075KM,
+      {
+        icon: 'assets/achievements/earth.png',
+        translation: 'terms.distance-40075km',
       },
     ],
     [
@@ -169,6 +177,16 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.DISTANCE_1000KM, {
               ...this.achievements.get(AchievementType.DISTANCE_1000KM),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.DISTANCE_40075KM)?.date &&
+            this.totalDistance >= 40_075_000
+          ) {
+            this.achievements.set(AchievementType.DISTANCE_40075KM, {
+              ...this.achievements.get(AchievementType.DISTANCE_40075KM),
               date: activitySummary.endTime,
             });
           }
