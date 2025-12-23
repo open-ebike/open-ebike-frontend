@@ -1,7 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { Observable } from 'rxjs';
+import { EMPTY, expand, map, Observable, reduce } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { ActivitySummarySort } from '../bes3/activity-records.service';
 
 export interface ActivitySummaries {
   pagination: ActivitySummariesPagination;
@@ -200,6 +201,40 @@ export class ActivityService {
   ): Observable<ActivitySummaries> {
     return this.http.get<ActivitySummaries>(
       `${environment.eBikeApiUrl}/activity/ebike-system-2/v1/activities?limit=${limit}&offset=${offset}`,
+    );
+  }
+
+  /** Maximum limit of activity API calls */
+  MAX_LIMIT = 100;
+
+  /**
+   * Lists all activity summaries
+   * @param chunkSize chunk size
+   */
+  getAllActivitySummariesRecursively(
+    chunkSize: number = this.MAX_LIMIT,
+  ): Observable<ActivitySummary[]> {
+    chunkSize = Math.min(chunkSize, this.MAX_LIMIT);
+
+    let offset = 0;
+    let total = 0;
+
+    return this.getAllActivitySummaries(chunkSize, offset).pipe(
+      expand((response) => {
+        total = response.pagination.total || 0;
+        offset = offset + chunkSize;
+
+        if (offset < total) {
+          return this.getAllActivitySummaries(chunkSize, offset);
+        } else {
+          return EMPTY;
+        }
+      }),
+
+      map((response) => response.activities),
+      reduce((acc: ActivitySummary[], pageData: ActivitySummary[]) => {
+        return acc.concat(pageData);
+      }, []),
     );
   }
 
