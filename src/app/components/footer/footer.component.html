@@ -26,6 +26,13 @@
                 >{{ t("pages.registrations.title") }}</a
               >
             </li>
+            <li>
+              <a
+                routerLink="/bes3/achievements"
+                [queryParams]="{ theme: themeService.theme() }"
+                >{{ t("pages.achievements.title") }}</a
+              >
+            </li>
           </ul>
         </div>
       }
@@ -52,6 +59,13 @@
                 routerLink="/bes2/statistics"
                 [queryParams]="{ theme: themeService.theme() }"
                 >{{ t("pages.statistics.title") }}</a
+              >
+            </li>
+            <li>
+              <a
+                routerLink="/bes2/achievements"
+                [queryParams]="{ theme: themeService.theme() }"
+                >{{ t("pages.achievements.title") }}</a
               >
             </li>
           </ul>
