@@ -7,7 +7,7 @@
           @for (
             achievement of achievementService.achievements
               | keyvalue: keyValueOrder;
-            track achievement
+            track achievement.key
           ) {
             <mat-card
               mat-ripple

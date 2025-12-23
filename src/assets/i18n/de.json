@@ -318,7 +318,7 @@
     "achievements": {
       "title": "Errungenschaften",
       "terms": {
-        "activities-1": "1 Activität abgeschlossen",
+        "activities-1": "1 Aktivität abgeschlossen",
         "activities-10": "10 Aktivitäten abgeschlossen",
         "distance-10km": "10 Kilometer gefahren",
         "distance-100km": "100 Kilometer gefahren",
@@ -326,6 +326,22 @@
         "distance-40075km": "die Erde umrundet (40075km)",
         "elevation-gain-4806m": "Mont Blanc erklommen (4806m)",
         "elevation-gain-8848m": "Mount Everest erklommen (8848m)",
+        "region-baden-wurttemberg": "Tour durch Baden-Württemberg gemacht",
+        "region-bayern": "Tour durch Bayern gemacht",
+        "region-berlin": "Tour durch Berlin gemacht",
+        "region-brandenburg": "Tour durch Brandenburg gemacht",
+        "region-bremen": "Tour durch Bremen gemacht",
+        "region-hamburg": "Tour durch Hamburg gemacht",
+        "region-hessen": "Tour durch Hessen gemacht",
+        "region-mecklenburg-vorpommern": "Tour durch Mecklenburg-Vorpommern gemacht",
+        "region-niedersachsen": "Tour durch Niedersachsen gemacht",
+        "region-nordrhein-westfalen": "Tour durch Nordrhein-Westfalen gemacht",
+        "region-rheinland-pfalz": "Tour durch Rheinland-Pfalz gemacht",
+        "region-saarland": "Tour durch Saarland gemacht",
+        "region-sachsen-anhalt": "Tour durch Sachsen-Anhalt gemacht",
+        "region-sachsen": "Tour durch Sachsen gemacht",
+        "region-schleswig-holstein": "Tour durch Schleswig-Holstein gemacht",
+        "region-thuringen": "Tour durch Thüringen gemacht",
         "unknown": "???"
       }
     },

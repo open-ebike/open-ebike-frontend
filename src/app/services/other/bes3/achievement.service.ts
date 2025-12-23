@@ -1,5 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ActivityRecordsService } from '../../api/bes3/activity-records.service';
+import { RegionFinderService } from '../../region-finder.service';
+import { firstValueFrom } from 'rxjs';
 
 /**
  * Types of achievements
@@ -13,6 +15,22 @@ export enum AchievementType {
   DISTANCE_40075KM = 'DISTANCE_40075KM',
   ELEVATION_GAIN_4806M = 'ELEVATION_GAIN_4806M',
   ELEVATION_GAIN_8848_M = 'ELEVATION_GAIN_8848_M',
+  REGION_BADEN_WURTTEMBERG = 'REGION_BADEN_WURTTEMBERG',
+  REGION_BAYERN = 'REGION_BAYERN',
+  REGION_BERLIN = 'REGION_BERLIN',
+  REGION_BRANDENBURG = 'REGION_BRANDENBURG',
+  REGION_BREMEN = 'REGION_BREMEN',
+  REGION_HAMBURG = 'REGION_HAMBURG',
+  REGION_HESSEN = 'REGION_HESSEN',
+  REGION_MECKLENBURG_VORPOMMERN = 'REGION_MECKLENBURG_VORPOMMERN',
+  REGION_NIEDERSACHSEN = 'REGION_NIEDERSACHSEN',
+  REGION_NORDRHEIN_WESTFALEN = 'REGION_NORDRHEIN_WESTFALEN',
+  REGION_RHEINLAND_PFALZ = 'REGION_RHEINLAND_PFALZ',
+  REGION_SAARLAND = 'REGION_SAARLAND',
+  REGION_SACHSEN = 'REGION_SACHSEN',
+  REGION_SACHSEN_ANHALT = 'REGION_SACHSEN_ANHALT',
+  REGION_SCHLESWIG_HOLSTEIN = 'REGION_SCHLESWIG_HOLSTEIN',
+  REGION_THURINGEN = 'REGION_THURINGEN',
 }
 
 /**
@@ -40,6 +58,8 @@ export class AchievementService {
 
   /** Activity records service */
   private activityRecordsService = inject(ActivityRecordsService);
+  /** Region finder service */
+  private regionFinderService = inject(RegionFinderService);
 
   /** Achievements and their date of achieval */
   achievements = new Map<AchievementType, Achievement>([
@@ -99,6 +119,118 @@ export class AchievementService {
         translation: 'terms.elevation-gain-8848m',
       },
     ],
+    [
+      AchievementType.REGION_BADEN_WURTTEMBERG,
+      {
+        icon: 'assets/achievements/region/baden-wurttemberg.png',
+        translation: 'terms.region-baden-wurttemberg',
+      },
+    ],
+    [
+      AchievementType.REGION_BAYERN,
+      {
+        icon: 'assets/achievements/region/bayern.png',
+        translation: 'terms.region-bayern',
+      },
+    ],
+    [
+      AchievementType.REGION_BERLIN,
+      {
+        icon: 'assets/achievements/region/berlin.png',
+        translation: 'terms.region-berlin',
+      },
+    ],
+    [
+      AchievementType.REGION_BRANDENBURG,
+      {
+        icon: 'assets/achievements/region/brandenburg.png',
+        translation: 'terms.region-berlin',
+      },
+    ],
+    [
+      AchievementType.REGION_BREMEN,
+      {
+        icon: 'assets/achievements/region/bremen.png',
+        translation: 'terms.region-bremen',
+      },
+    ],
+    [
+      AchievementType.REGION_HAMBURG,
+      {
+        icon: 'assets/achievements/region/hamburg.png',
+        translation: 'terms.region-hamburg',
+      },
+    ],
+    [
+      AchievementType.REGION_HESSEN,
+      {
+        icon: 'assets/achievements/region/hessen.png',
+        translation: 'terms.region-hessen',
+      },
+    ],
+    [
+      AchievementType.REGION_MECKLENBURG_VORPOMMERN,
+      {
+        icon: 'assets/achievements/region/mecklenburg-vorpommern.png',
+        translation: 'terms.region-mecklenburg-vorpommern',
+      },
+    ],
+    [
+      AchievementType.REGION_NIEDERSACHSEN,
+      {
+        icon: 'assets/achievements/region/niedersachsen.png',
+        translation: 'terms.region-niedersachsen',
+      },
+    ],
+    [
+      AchievementType.REGION_NORDRHEIN_WESTFALEN,
+      {
+        icon: 'assets/achievements/region/nordrhein-westfalen.png',
+        translation: 'terms.nordrhein-westfalen',
+      },
+    ],
+    [
+      AchievementType.REGION_RHEINLAND_PFALZ,
+      {
+        icon: 'assets/achievements/region/rheinland-pfalz.png',
+        translation: 'terms.rheinland-pfalz',
+      },
+    ],
+    [
+      AchievementType.REGION_SAARLAND,
+      {
+        icon: 'assets/achievements/region/saarland.png',
+        translation: 'terms.saarland',
+      },
+    ],
+    [
+      AchievementType.REGION_SACHSEN,
+      {
+        icon: 'assets/achievements/region/sachsen.png',
+        translation: 'terms.sachsen',
+      },
+    ],
+    [
+      AchievementType.REGION_SACHSEN_ANHALT,
+      {
+        icon: 'assets/achievements/region/sachsen-anhalt.png',
+        translation: 'terms.sachsen-anhalt',
+      },
+    ],
+    [
+      AchievementType.REGION_SCHLESWIG_HOLSTEIN,
+      {
+        icon: 'assets/achievements/region/schleswig-holstein.png',
+        translation: 'terms.schleswig-holstein',
+      },
+    ],
+    [
+      AchievementType.REGION_THURINGEN,
+      {
+        icon: 'assets/achievements/region/thuringen.png',
+        translation: 'terms.thuringen',
+      },
+    ],
   ]);
 
   /**
@@ -126,7 +258,22 @@ export class AchievementService {
     this.activityRecordsService
       .getAllActivitySummariesRecursively(100, 'startTime')
       .subscribe((activitySummaries) => {
-        activitySummaries.forEach((activitySummary) => {
+        activitySummaries.forEach(async (activitySummary) => {
+          const activityDetails = await firstValueFrom(
+            this.activityRecordsService.getActivityDetails(activitySummary.id),
+          );
+          const firstActivityDetail = activityDetails.activityDetails.find(
+            (detail) => {
+              return detail.latitude != 0.0 && detail.longitude != 0.0;
+            },
+          );
+          const lat = firstActivityDetail?.latitude;
+          const lon = firstActivityDetail?.longitude;
+          const federalState =
+            lat != null && lon != null
+              ? this.regionFinderService.getFederalState(lat, lon)
+              : null;
+
           this.totalActivityCount += 1;
           this.totalDistance += activitySummary.distance;
           this.totalElevationGain += activitySummary.elevation.gain;
@@ -209,6 +356,175 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.ELEVATION_GAIN_8848_M, {
               ...this.achievements.get(AchievementType.ELEVATION_GAIN_8848_M),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.REGION_BADEN_WURTTEMBERG)
+              ?.date &&
+            federalState === 'Baden-Württemberg'
+          ) {
+            this.achievements.set(AchievementType.REGION_BADEN_WURTTEMBERG, {
+              ...this.achievements.get(
+                AchievementType.REGION_BADEN_WURTTEMBERG,
+              ),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.REGION_BERLIN)?.date &&
+            federalState === 'Berlin'
+          ) {
+            this.achievements.set(AchievementType.REGION_BERLIN, {
+              ...this.achievements.get(AchievementType.REGION_BERLIN),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.REGION_BRANDENBURG)?.date &&
+            federalState === 'Brandenburg'
+          ) {
+            this.achievements.set(AchievementType.REGION_BRANDENBURG, {
+              ...this.achievements.get(AchievementType.REGION_BRANDENBURG),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.REGION_BREMEN)?.date &&
+            federalState === 'Bremen'
+          ) {
+            this.achievements.set(AchievementType.REGION_BREMEN, {
+              ...this.achievements.get(AchievementType.REGION_BREMEN),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.REGION_HAMBURG)?.date &&
+            federalState === 'Hamburg'
+          ) {
+            this.achievements.set(AchievementType.REGION_HAMBURG, {
+              ...this.achievements.get(AchievementType.REGION_HAMBURG),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.REGION_HESSEN)?.date &&
+            federalState === 'Hessen'
+          ) {
+            this.achievements.set(AchievementType.REGION_HESSEN, {
+              ...this.achievements.get(AchievementType.REGION_HESSEN),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(
+              AchievementType.REGION_MECKLENBURG_VORPOMMERN,
+            )?.date &&
+            federalState === 'Mecklenburg-Vorpommern'
+          ) {
+            this.achievements.set(
+              AchievementType.REGION_MECKLENBURG_VORPOMMERN,
+              {
+                ...this.achievements.get(
+                  AchievementType.REGION_MECKLENBURG_VORPOMMERN,
+                ),
+                date: activitySummary.endTime,
+              },
+            );
+          }
+
+          if (
+            !this.achievements.get(AchievementType.REGION_NIEDERSACHSEN)
+              ?.date &&
+            federalState === 'Niedersachsen'
+          ) {
+            this.achievements.set(AchievementType.REGION_NIEDERSACHSEN, {
+              ...this.achievements.get(AchievementType.REGION_NIEDERSACHSEN),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.REGION_NORDRHEIN_WESTFALEN)
+              ?.date &&
+            federalState === 'Nordrhein-Westfalen'
+          ) {
+            this.achievements.set(AchievementType.REGION_NORDRHEIN_WESTFALEN, {
+              ...this.achievements.get(
+                AchievementType.REGION_NORDRHEIN_WESTFALEN,
+              ),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.REGION_RHEINLAND_PFALZ)
+              ?.date &&
+            federalState === 'Rheinland-Pfalz'
+          ) {
+            this.achievements.set(AchievementType.REGION_RHEINLAND_PFALZ, {
+              ...this.achievements.get(AchievementType.REGION_RHEINLAND_PFALZ),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.REGION_SAARLAND)?.date &&
+            federalState === 'Saarland'
+          ) {
+            this.achievements.set(AchievementType.REGION_SAARLAND, {
+              ...this.achievements.get(AchievementType.REGION_SAARLAND),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.REGION_SACHSEN_ANHALT)
+              ?.date &&
+            federalState === 'Sachsen-Anhalt'
+          ) {
+            this.achievements.set(AchievementType.REGION_SACHSEN_ANHALT, {
+              ...this.achievements.get(AchievementType.REGION_SACHSEN_ANHALT),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.REGION_SACHSEN)?.date &&
+            federalState === 'Sachsen'
+          ) {
+            this.achievements.set(AchievementType.REGION_SACHSEN, {
+              ...this.achievements.get(AchievementType.REGION_SACHSEN),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.REGION_SCHLESWIG_HOLSTEIN)
+              ?.date &&
+            federalState === 'Schleswig-Holstein'
+          ) {
+            this.achievements.set(AchievementType.REGION_SCHLESWIG_HOLSTEIN, {
+              ...this.achievements.get(
+                AchievementType.REGION_SCHLESWIG_HOLSTEIN,
+              ),
+              date: activitySummary.endTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.REGION_THURINGEN)?.date &&
+            federalState === 'Thüringen'
+          ) {
+            this.achievements.set(AchievementType.REGION_THURINGEN, {
+              ...this.achievements.get(AchievementType.REGION_THURINGEN),
               date: activitySummary.endTime,
             });
           }
