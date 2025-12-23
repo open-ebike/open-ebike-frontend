@@ -59,6 +59,8 @@ npm run start-mock-cobi
 
 Icon made by Freepik from [flaticon.com](https://flaticon.com)
 
+[geojson files of Germany](src/assets/data/germany-geodata) from [isellsoap](https://github.com/isellsoap/deutschlandGeoJSON)
+
 ## License
 
 Distributed under the AGPLv3 License. See [LICENSE.md](./LICENSE.md) for more information.
