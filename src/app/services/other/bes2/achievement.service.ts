@@ -254,8 +254,8 @@ export class AchievementService {
   private async initialize() {
     this.activityService
       .getAllActivitySummariesRecursively(100)
-      .subscribe((activitySummaries) => {
-        activitySummaries.forEach(async (activitySummary) => {
+      .subscribe(async (activitySummaries) => {
+        for (let activitySummary of activitySummaries) {
           const activityDetails = await firstValueFrom(
             this.activityService.getActivityDetails(activitySummary.id),
           );
@@ -281,7 +281,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.ACTIVITIES_1, {
               ...this.achievements.get(AchievementType.ACTIVITIES_1),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -291,7 +291,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.ACTIVITIES_10, {
               ...this.achievements.get(AchievementType.ACTIVITIES_10),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -301,7 +301,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.DISTANCE_10KM, {
               ...this.achievements.get(AchievementType.DISTANCE_10KM),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -311,7 +311,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.DISTANCE_100KM, {
               ...this.achievements.get(AchievementType.DISTANCE_100KM),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -321,7 +321,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.DISTANCE_1000KM, {
               ...this.achievements.get(AchievementType.DISTANCE_1000KM),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -331,7 +331,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.DISTANCE_40075KM, {
               ...this.achievements.get(AchievementType.DISTANCE_40075KM),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -342,7 +342,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.ELEVATION_GAIN_4806M, {
               ...this.achievements.get(AchievementType.ELEVATION_GAIN_4806M),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -353,7 +353,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.ELEVATION_GAIN_8848_M, {
               ...this.achievements.get(AchievementType.ELEVATION_GAIN_8848_M),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -366,7 +366,7 @@ export class AchievementService {
               ...this.achievements.get(
                 AchievementType.REGION_BADEN_WURTTEMBERG,
               ),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -376,7 +376,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.REGION_BERLIN, {
               ...this.achievements.get(AchievementType.REGION_BERLIN),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -386,7 +386,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.REGION_BRANDENBURG, {
               ...this.achievements.get(AchievementType.REGION_BRANDENBURG),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -396,7 +396,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.REGION_BREMEN, {
               ...this.achievements.get(AchievementType.REGION_BREMEN),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -406,7 +406,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.REGION_HAMBURG, {
               ...this.achievements.get(AchievementType.REGION_HAMBURG),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -416,7 +416,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.REGION_HESSEN, {
               ...this.achievements.get(AchievementType.REGION_HESSEN),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -432,7 +432,7 @@ export class AchievementService {
                 ...this.achievements.get(
                   AchievementType.REGION_MECKLENBURG_VORPOMMERN,
                 ),
-                date: activitySummary.endTime,
+                date: activitySummary.startTime,
               },
             );
           }
@@ -444,7 +444,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.REGION_NIEDERSACHSEN, {
               ...this.achievements.get(AchievementType.REGION_NIEDERSACHSEN),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -457,7 +457,7 @@ export class AchievementService {
               ...this.achievements.get(
                 AchievementType.REGION_NORDRHEIN_WESTFALEN,
               ),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -468,7 +468,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.REGION_RHEINLAND_PFALZ, {
               ...this.achievements.get(AchievementType.REGION_RHEINLAND_PFALZ),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -478,7 +478,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.REGION_SAARLAND, {
               ...this.achievements.get(AchievementType.REGION_SAARLAND),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -489,7 +489,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.REGION_SACHSEN_ANHALT, {
               ...this.achievements.get(AchievementType.REGION_SACHSEN_ANHALT),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -499,7 +499,7 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.REGION_SACHSEN, {
               ...this.achievements.get(AchievementType.REGION_SACHSEN),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -512,7 +512,7 @@ export class AchievementService {
               ...this.achievements.get(
                 AchievementType.REGION_SCHLESWIG_HOLSTEIN,
               ),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
 
@@ -522,10 +522,10 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.REGION_THURINGEN, {
               ...this.achievements.get(AchievementType.REGION_THURINGEN),
-              date: activitySummary.endTime,
+              date: activitySummary.startTime,
             });
           }
-        });
+        }
       });
   }
 }

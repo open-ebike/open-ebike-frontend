@@ -1,7 +1,16 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { EMPTY, expand, map, max, min, Observable, reduce } from 'rxjs';
+import {
+  EMPTY,
+  expand,
+  firstValueFrom,
+  map,
+  max,
+  min,
+  Observable,
+  reduce,
+} from 'rxjs';
 
 /** Valid sort values for activity summary */
 export type ActivitySummarySort =
