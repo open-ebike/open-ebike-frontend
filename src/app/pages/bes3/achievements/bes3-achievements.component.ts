@@ -16,7 +16,7 @@ import {
  * Displays achievements
  */
 @Component({
-  selector: 'app-achievements',
+  selector: 'app-bes3-achievements',
   imports: [
     TranslocoDirective,
     KeyValuePipe,

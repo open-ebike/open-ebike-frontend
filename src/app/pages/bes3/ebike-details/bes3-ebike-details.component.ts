@@ -51,7 +51,7 @@ import { MatButton } from '@angular/material/button';
  * Displays eBike details
  */
 @Component({
-  selector: 'app-ebike-details',
+  selector: 'app-bes3-ebike-details',
   imports: [
     TranslocoDirective,
     MatCardAvatar,

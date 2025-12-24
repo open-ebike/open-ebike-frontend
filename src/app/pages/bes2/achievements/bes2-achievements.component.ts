@@ -16,7 +16,7 @@ import { MatRipple } from '@angular/material/core';
  * Displays achievements
  */
 @Component({
-  selector: 'app-achievements',
+  selector: 'app-bes2-achievements',
   imports: [
     TranslocoDirective,
     KeyValuePipe,

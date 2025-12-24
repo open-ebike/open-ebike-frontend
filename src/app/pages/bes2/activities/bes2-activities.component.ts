@@ -45,7 +45,7 @@ import { environment } from '../../../../environments/environment';
  * Displays activities
  */
 @Component({
-  selector: 'app-activities',
+  selector: 'app-bes2-activities',
   imports: [
     TranslocoDirective,
     MatList,

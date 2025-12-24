@@ -38,7 +38,7 @@ import { MatButton } from '@angular/material/button';
  * Displays component details
  */
 @Component({
-  selector: 'app-component-details',
+  selector: 'app-bes3-component-details',
   imports: [
     TranslocoDirective,
     MatCardAvatar,

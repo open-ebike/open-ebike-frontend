@@ -26,7 +26,7 @@ import { MetersToKilometersPipe } from '../../../pipes/meters-to-kilometers.pipe
  * Displays activities
  */
 @Component({
-  selector: 'app-activities',
+  selector: 'app-cobi-activities',
   imports: [
     TranslocoDirective,
     MatCard,

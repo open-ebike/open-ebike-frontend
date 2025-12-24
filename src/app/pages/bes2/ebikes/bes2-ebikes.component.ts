@@ -24,7 +24,7 @@ import { combineLatest, first } from 'rxjs';
  * Displays eBikes
  */
 @Component({
-  selector: 'app-ebikes',
+  selector: 'app-bes2-ebikes',
   imports: [
     TranslocoDirective,
     MatCard,

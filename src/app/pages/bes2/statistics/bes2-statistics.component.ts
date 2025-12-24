@@ -30,7 +30,7 @@ import { ChartData, ChartOptions } from 'chart.js';
  * Displays statistics
  */
 @Component({
-  selector: 'app-statistics',
+  selector: 'app-bes2-statistics',
   imports: [
     TranslocoDirective,
     MatRipple,

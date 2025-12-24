@@ -34,7 +34,7 @@ import {
  * Displays eBike details
  */
 @Component({
-  selector: 'app-ebike-details',
+  selector: 'app-bes2-ebike-details',
   imports: [
     TranslocoDirective,
     MatCardAvatar,

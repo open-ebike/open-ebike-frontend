@@ -22,7 +22,7 @@ import { DatePipe } from '@angular/common';
  * Displays hubs
  */
 @Component({
-  selector: 'app-hubs',
+  selector: 'app-cobi-hubs',
   imports: [
     TranslocoDirective,
     MatCard,

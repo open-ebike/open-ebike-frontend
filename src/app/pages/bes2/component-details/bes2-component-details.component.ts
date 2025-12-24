@@ -40,7 +40,7 @@ import { MatButton } from '@angular/material/button';
  * Displays component details
  */
 @Component({
-  selector: 'app-component-details',
+  selector: 'app-bes2-component-details',
   imports: [
     TranslocoDirective,
     RouterLink,

@@ -28,7 +28,7 @@ import {
  * Displays eBikes
  */
 @Component({
-  selector: 'app-ebikes',
+  selector: 'app-bes3-ebikes',
   imports: [
     TranslocoDirective,
     MatCard,

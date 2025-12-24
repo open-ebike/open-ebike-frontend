@@ -22,7 +22,7 @@ import {
  * Displays registrations
  */
 @Component({
-  selector: 'app-registrations',
+  selector: 'app-bes3-registrations',
   imports: [
     TranslocoDirective,
     DatePipe,
