@@ -252,6 +252,15 @@
                 >
                   {{ t("pages.registrations.title") }}
                 </button>
+                <button
+                  mat-menu-item
+                  class="toolbar-menu-item"
+                  routerLinkActive="toolbar-menu-item-active"
+                  routerLink="/bes3/achievements"
+                  [queryParams]="{ theme: themeService.theme() }"
+                >
+                  {{ t("pages.achievements.title") }}
+                </button>
               }
               @if (authenticationService.ebikeGeneration() == "BES2") {
                 <button
@@ -280,6 +289,15 @@
                   [queryParams]="{ theme: themeService.theme() }"
                 >
                   {{ t("pages.statistics.title") }}
+                </button>
+                <button
+                  mat-menu-item
+                  class="toolbar-menu-item"
+                  routerLinkActive="toolbar-menu-item-active"
+                  routerLink="/bes2/achievements"
+                  [queryParams]="{ theme: themeService.theme() }"
+                >
+                  {{ t("pages.achievements.title") }}
                 </button>
               }
               @if (authenticationService.ebikeGeneration() == "COBI") {
