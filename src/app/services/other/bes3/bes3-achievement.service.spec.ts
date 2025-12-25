@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AchievementService } from './achievement.service';
+import { Bes3AchievementService } from './bes3-achievement.service';
 
 describe('AchievementService', () => {
-  let service: AchievementService;
+  let service: Bes3AchievementService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(AchievementService);
+    service = TestBed.inject(Bes3AchievementService);
   });
 
   it('should be created', () => {

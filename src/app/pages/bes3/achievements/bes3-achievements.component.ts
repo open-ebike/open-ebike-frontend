@@ -1,8 +1,5 @@
 import { Component, inject, LOCALE_ID } from '@angular/core';
-import {
-  Achievement,
-  AchievementService,
-} from '../../../services/other/bes3/achievement.service';
+import { Bes3AchievementService } from '../../../services/other/bes3/bes3-achievement.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import {
   getBrowserLang,
@@ -21,6 +18,7 @@ import {
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { SharingBottomSheetComponent } from '../../../components/sharing-bottom-sheet/sharing-bottom-sheet.component';
 import { environment } from '../../../../environments/environment';
+import { Achievement } from '../../../services/other/achievement.service';
 
 /**
  * Displays achievements
@@ -46,7 +44,7 @@ export class Bes3AchievementsComponent {
   //
 
   /** Achievement service */
-  public achievementService = inject(AchievementService);
+  public achievementService = inject(Bes3AchievementService);
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
   /** Bottom sheet */

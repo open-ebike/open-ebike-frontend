@@ -5,7 +5,7 @@
         <h2>{{ t("title") }}</h2>
         <div class="grid wide">
           @for (
-            achievement of achievementService.achievements
+            achievement of achievementService.achievementsActivities
               | keyvalue: keyValueOrder;
             track achievement.key
           ) {
