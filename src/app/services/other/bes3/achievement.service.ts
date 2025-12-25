@@ -3,6 +3,7 @@ import { ActivityRecordsService } from '../../api/bes3/activity-records.service'
 import { RegionFinderService } from '../../region-finder.service';
 import { firstValueFrom } from 'rxjs';
 import { EbikeRegistrationService } from '../../api/bes3/ebike-registration.service';
+import { EbikeProfileService } from '../../api/bes3/ebike-profile.service';
 
 /**
  * Types of achievements
@@ -36,6 +37,9 @@ export enum AchievementType {
   REGION_THURINGEN = 'REGION_THURINGEN',
   REGISTRATION_BIKE = 'REGISTRATION_BIKE',
   REGISTRATION_COMPONENT = 'REGISTRATION_COMPONENT',
+  BATTERY_CHARGE_CYCLES_10 = 'BATTERY_CHARGE_CYCLES_10',
+  BATTERY_CHARGE_CYCLES_100 = 'BATTERY_CHARGE_CYCLES_100',
+  BATTERY_CHARGE_CYCLES_1000 = 'BATTERY_CHARGE_CYCLES_1000',
 }
 
 /**
@@ -48,6 +52,8 @@ export interface Achievement {
   icon?: string;
   /** Translation */
   translation?: string;
+  /** Achieved flag */
+  achieved?: boolean;
 }
 
 /**
@@ -63,6 +69,8 @@ export class AchievementService {
 
   /** Activity records service */
   private activityRecordsService = inject(ActivityRecordsService);
+  /** eBike profile service */
+  private ebikeProfileService = inject(EbikeProfileService);
   /** Region finder service */
   private regionFinderService = inject(RegionFinderService);
   /** Registration service */
@@ -266,6 +274,27 @@ export class AchievementService {
         translation: 'terms.registration-component',
       },
     ],
+    [
+      AchievementType.BATTERY_CHARGE_CYCLES_10,
+      {
+        icon: 'assets/achievements/eco-battery.png',
+        translation: 'terms.battery-charge-cycles-10',
+      },
+    ],
+    [
+      AchievementType.BATTERY_CHARGE_CYCLES_100,
+      {
+        icon: 'assets/achievements/eco-battery.png',
+        translation: 'terms.battery-charge-cycles-100',
+      },
+    ],
+    [
+      AchievementType.BATTERY_CHARGE_CYCLES_1000,
+      {
+        icon: 'assets/achievements/eco-battery.png',
+        translation: 'terms.battery-charge-cycles-1000',
+      },
+    ],
   ]);
 
   /**
@@ -279,6 +308,9 @@ export class AchievementService {
   // Helpers
   //
 
+  /** Battery charge cycles */
+  totalBatteryChargeCycles = 0;
+
   /** Total activity count */
   totalActivityCount = 0;
   /** Total distance */
@@ -290,6 +322,54 @@ export class AchievementService {
    * Loads activities and evaluates if achievements have been reached
    */
   private async initialize() {
+    this.ebikeProfileService.getAllBikes().subscribe(async (bikes) => {
+      for (const bike of bikes.bikes) {
+        const bikeProfile = await firstValueFrom(
+          this.ebikeProfileService.getBike(bike.id),
+        );
+        bikeProfile.batteries.forEach((battery) => {
+          this.totalBatteryChargeCycles += battery.chargeCycles.total;
+        });
+      }
+
+      if (
+        !this.achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_10)
+          ?.date &&
+        this.totalBatteryChargeCycles >= 10
+      ) {
+        this.achievements.set(AchievementType.BATTERY_CHARGE_CYCLES_10, {
+          ...this.achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_10),
+          achieved: true,
+        });
+      }
+
+      if (
+        !this.achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_100)
+          ?.date &&
+        this.totalBatteryChargeCycles >= 100
+      ) {
+        this.achievements.set(AchievementType.BATTERY_CHARGE_CYCLES_100, {
+          ...this.achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_100),
+          achieved: true,
+        });
+      }
+
+      if (
+        !this.achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_1000)
+          ?.date &&
+        this.totalBatteryChargeCycles >= 1000
+      ) {
+        this.achievements.set(AchievementType.BATTERY_CHARGE_CYCLES_1000, {
+          ...this.achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_1000),
+          achieved: true,
+        });
+      }
+
+      console.log(
+        `DEBUG totalBatteryChargeCycles ${this.totalBatteryChargeCycles}`,
+      );
+    });
+
     this.activityRecordsService
       .getAllActivitySummariesRecursively(100, 'startTime')
       .subscribe(async (activitySummaries) => {
@@ -320,6 +400,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.ACTIVITIES_1, {
               ...this.achievements.get(AchievementType.ACTIVITIES_1),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -330,6 +411,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.ACTIVITIES_10, {
               ...this.achievements.get(AchievementType.ACTIVITIES_10),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -340,6 +422,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.DISTANCE_10KM, {
               ...this.achievements.get(AchievementType.DISTANCE_10KM),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -350,6 +433,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.DISTANCE_100KM, {
               ...this.achievements.get(AchievementType.DISTANCE_100KM),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -360,6 +444,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.DISTANCE_1000KM, {
               ...this.achievements.get(AchievementType.DISTANCE_1000KM),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -370,6 +455,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.DISTANCE_3500KM, {
               ...this.achievements.get(AchievementType.DISTANCE_3500KM),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -390,6 +476,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.DISTANCE_40075KM, {
               ...this.achievements.get(AchievementType.DISTANCE_40075KM),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -401,6 +488,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.ELEVATION_GAIN_4806M, {
               ...this.achievements.get(AchievementType.ELEVATION_GAIN_4806M),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -412,6 +500,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.ELEVATION_GAIN_8848_M, {
               ...this.achievements.get(AchievementType.ELEVATION_GAIN_8848_M),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -425,6 +514,7 @@ export class AchievementService {
                 AchievementType.REGION_BADEN_WURTTEMBERG,
               ),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -435,6 +525,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.REGION_BERLIN, {
               ...this.achievements.get(AchievementType.REGION_BERLIN),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -445,6 +536,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.REGION_BRANDENBURG, {
               ...this.achievements.get(AchievementType.REGION_BRANDENBURG),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -455,6 +547,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.REGION_BREMEN, {
               ...this.achievements.get(AchievementType.REGION_BREMEN),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -465,6 +558,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.REGION_HAMBURG, {
               ...this.achievements.get(AchievementType.REGION_HAMBURG),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -475,6 +569,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.REGION_HESSEN, {
               ...this.achievements.get(AchievementType.REGION_HESSEN),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -491,6 +586,7 @@ export class AchievementService {
                   AchievementType.REGION_MECKLENBURG_VORPOMMERN,
                 ),
                 date: activitySummary.startTime,
+                achieved: true,
               },
             );
           }
@@ -503,6 +599,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.REGION_NIEDERSACHSEN, {
               ...this.achievements.get(AchievementType.REGION_NIEDERSACHSEN),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -516,6 +613,7 @@ export class AchievementService {
                 AchievementType.REGION_NORDRHEIN_WESTFALEN,
               ),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -527,6 +625,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.REGION_RHEINLAND_PFALZ, {
               ...this.achievements.get(AchievementType.REGION_RHEINLAND_PFALZ),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -537,6 +636,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.REGION_SAARLAND, {
               ...this.achievements.get(AchievementType.REGION_SAARLAND),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -548,6 +648,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.REGION_SACHSEN_ANHALT, {
               ...this.achievements.get(AchievementType.REGION_SACHSEN_ANHALT),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -558,6 +659,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.REGION_SACHSEN, {
               ...this.achievements.get(AchievementType.REGION_SACHSEN),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -571,6 +673,7 @@ export class AchievementService {
                 AchievementType.REGION_SCHLESWIG_HOLSTEIN,
               ),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
 
@@ -581,6 +684,7 @@ export class AchievementService {
             this.achievements.set(AchievementType.REGION_THURINGEN, {
               ...this.achievements.get(AchievementType.REGION_THURINGEN),
               date: activitySummary.startTime,
+              achieved: true,
             });
           }
         }
@@ -595,6 +699,7 @@ export class AchievementService {
           this.achievements.set(AchievementType.REGISTRATION_BIKE, {
             ...this.achievements.get(AchievementType.REGISTRATION_BIKE),
             date: registration.createdAt,
+            achieved: true,
           });
         }
 
@@ -606,6 +711,7 @@ export class AchievementService {
           this.achievements.set(AchievementType.REGISTRATION_COMPONENT, {
             ...this.achievements.get(AchievementType.REGISTRATION_COMPONENT),
             date: registration.createdAt,
+            achieved: true,
           });
         }
       }

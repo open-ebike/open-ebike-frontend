@@ -346,6 +346,9 @@
         "region-thuringen": "Tour durch Thüringen gemacht",
         "registration-ebike": "1 eBike registriert",
         "registration-component": "1 Komponente registriert",
+        "battery-charge-cycles-10": "10 Ladezyklen",
+        "battery-charge-cycles-100": "100 Ladezyklen",
+        "battery-charge-cycles-1000": "1000 Ladezyklen",
         "unknown": "???",
         "on": "am {{date}}"
       },

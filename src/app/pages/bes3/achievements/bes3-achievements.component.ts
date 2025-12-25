@@ -78,7 +78,7 @@ export class Bes3AchievementsComponent {
    */
   onAchievementClicked(achievement: Achievement) {
     // Check if achievement has not been achieved yet
-    if (!achievement.date) {
+    if (!achievement.achieved) {
       return;
     }
 

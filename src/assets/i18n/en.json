@@ -348,6 +348,9 @@
         "region-thuringen": "Traveled through Thuringia",
         "registration-ebike": "1 eBike registered",
         "registration-component": "1 component registered",
+        "battery-charge-cycles-10": "10 charge cycles",
+        "battery-charge-cycles-100": "100 charge cycles",
+        "battery-charge-cycles-1000": "1000 charge cycles",
         "unknown": "???",
         "on": "on {{date}}"
       },
