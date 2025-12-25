@@ -12,6 +12,8 @@ export enum AchievementType {
   DISTANCE_10KM = 'DISTANCE_10KM',
   DISTANCE_100KM = 'DISTANCE_100KM',
   DISTANCE_1000KM = 'DISTANCE_1000KM',
+  DISTANCE_3300KM = 'DISTANCE_3300KM',
+  DISTANCE_3500KM = 'DISTANCE_3500KM',
   DISTANCE_40075KM = 'DISTANCE_40075KM',
   ELEVATION_GAIN_4806M = 'ELEVATION_GAIN_4806M',
   ELEVATION_GAIN_8848_M = 'ELEVATION_GAIN_8848_M',
@@ -93,6 +95,20 @@ export class AchievementService {
       {
         icon: 'assets/achievements/medal-2.png',
         translation: 'terms.distance-1000km',
+      },
+    ],
+    [
+      AchievementType.DISTANCE_3300KM,
+      {
+        icon: 'assets/achievements/spain-flag.png',
+        translation: 'terms.distance-3300km',
+      },
+    ],
+    [
+      AchievementType.DISTANCE_3500KM,
+      {
+        icon: 'assets/achievements/france-flag.png',
+        translation: 'terms.distance-3500km',
       },
     ],
     [
@@ -321,6 +337,26 @@ export class AchievementService {
           ) {
             this.achievements.set(AchievementType.DISTANCE_1000KM, {
               ...this.achievements.get(AchievementType.DISTANCE_1000KM),
+              date: activitySummary.startTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.DISTANCE_3300KM)?.date &&
+            this.totalDistance >= 3_300_000
+          ) {
+            this.achievements.set(AchievementType.DISTANCE_3300KM, {
+              ...this.achievements.get(AchievementType.DISTANCE_3300KM),
+              date: activitySummary.startTime,
+            });
+          }
+
+          if (
+            !this.achievements.get(AchievementType.DISTANCE_3500KM)?.date &&
+            this.totalDistance >= 3_500_000
+          ) {
+            this.achievements.set(AchievementType.DISTANCE_3500KM, {
+              ...this.achievements.get(AchievementType.DISTANCE_3500KM),
               date: activitySummary.startTime,
             });
           }
