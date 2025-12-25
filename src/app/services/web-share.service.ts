@@ -17,18 +17,40 @@ export class WebShareService {
 
   /**
    * Triggers sharing of content
+   * @param title title
+   * @param description description
+   * @param url URL
+   * @param imageUrl image URL
    */
-  share(title: string, description: string, imageUrl: string) {
+  async share(
+    title: string,
+    description: string,
+    url: string,
+    imageUrl: string,
+  ) {
     this.updateSocialTags(title, description, imageUrl);
 
     if (navigator.share) {
-      navigator
-        .share({
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const file = new File([blob], 'achievement.png', { type: blob.type });
+
+      const shareData: ShareData = {
+        title: title,
+        text: description,
+        url: url,
+        files: [file],
+      };
+
+      if (navigator.canShare && navigator.canShare(shareData)) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.share({
           title: title,
           text: description,
-        })
-        .then(() => console.log('Shared successfully'))
-        .catch((error) => console.log('Error sharing:', error));
+          url: url,
+        } as ShareData);
+      }
     }
   }
 

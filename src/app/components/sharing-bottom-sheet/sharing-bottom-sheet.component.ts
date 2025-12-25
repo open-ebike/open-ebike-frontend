@@ -3,6 +3,7 @@ import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { MatListItem, MatNavList } from '@angular/material/list';
 import { WebShareService } from '../../services/web-share.service';
+import { environment } from '../../../environments/environment';
 
 /**
  * Represents data
@@ -47,6 +48,7 @@ export class SharingBottomSheetComponent {
     this.webShareService.share(
       this.data.title,
       this.data.description,
+      environment.hrefBase,
       this.data.imageUrl,
     );
   }
