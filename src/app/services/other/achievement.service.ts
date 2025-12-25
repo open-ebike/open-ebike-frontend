@@ -56,238 +56,243 @@ export interface Achievement {
   providedIn: 'root',
 })
 export class AchievementService {
-  /** Achievements and their date of achieval */
+  /** Achievements */
   achievementsActivities = new Map<AchievementType, Achievement>([
     [
       AchievementType.ACTIVITIES_1,
       {
         icon: 'assets/achievements/medal.png',
-        translation: 'terms.activities-1',
+        translation: 'terms.activities.1',
       },
     ],
     [
       AchievementType.ACTIVITIES_10,
       {
         icon: 'assets/achievements/medal.png',
-        translation: 'terms.activities-10',
+        translation: 'terms.activities.10',
       },
     ],
   ]);
 
+  /** Achievements */
   achievementsDistances = new Map<AchievementType, Achievement>([
     [
       AchievementType.DISTANCE_10KM,
       {
         icon: 'assets/achievements/medal-2.png',
-        translation: 'terms.distance-10km',
+        translation: 'terms.distance.10km',
       },
     ],
     [
       AchievementType.DISTANCE_100KM,
       {
         icon: 'assets/achievements/medal-2.png',
-        translation: 'terms.distance-100km',
+        translation: 'terms.distance.100km',
       },
     ],
     [
       AchievementType.DISTANCE_1000KM,
       {
         icon: 'assets/achievements/medal-2.png',
-        translation: 'terms.distance-1000km',
+        translation: 'terms.distance.1000km',
       },
     ],
     [
       AchievementType.DISTANCE_3300KM,
       {
         icon: 'assets/achievements/spain-flag.png',
-        translation: 'terms.distance-3300km',
+        translation: 'terms.distance.3300km',
       },
     ],
     [
       AchievementType.DISTANCE_3500KM,
       {
         icon: 'assets/achievements/france-flag.png',
-        translation: 'terms.distance-3500km',
+        translation: 'terms.distance.3500km',
       },
     ],
     [
       AchievementType.DISTANCE_40075KM,
       {
         icon: 'assets/achievements/earth.png',
-        translation: 'terms.distance-40075km',
+        translation: 'terms.distance.40075km',
       },
     ],
   ]);
 
+  /** Achievements */
   achievementsElevationGain = new Map<AchievementType, Achievement>([
     [
       AchievementType.ELEVATION_GAIN_4806M,
       {
         icon: 'assets/achievements/mountains.png',
-        translation: 'terms.elevation-gain-4806m',
+        translation: 'terms.elevation-gain.4806m',
       },
     ],
     [
       AchievementType.ELEVATION_GAIN_8848_M,
       {
         icon: 'assets/achievements/mountains.png',
-        translation: 'terms.elevation-gain-8848m',
+        translation: 'terms.elevation-gain.8848m',
       },
     ],
   ]);
 
-  achievementsRegions = new Map<AchievementType, Achievement>([
-    [
-      AchievementType.REGION_BADEN_WURTTEMBERG,
-      {
-        icon: 'assets/achievements/region/baden-wurttemberg.png',
-        translation: 'terms.region-baden-wurttemberg',
-      },
-    ],
-    [
-      AchievementType.REGION_BAYERN,
-      {
-        icon: 'assets/achievements/region/bayern.png',
-        translation: 'terms.region-bayern',
-      },
-    ],
-    [
-      AchievementType.REGION_BERLIN,
-      {
-        icon: 'assets/achievements/region/berlin.png',
-        translation: 'terms.region-berlin',
-      },
-    ],
-    [
-      AchievementType.REGION_BRANDENBURG,
-      {
-        icon: 'assets/achievements/region/brandenburg.png',
-        translation: 'terms.region-berlin',
-      },
-    ],
-    [
-      AchievementType.REGION_BREMEN,
-      {
-        icon: 'assets/achievements/region/bremen.png',
-        translation: 'terms.region-bremen',
-      },
-    ],
-    [
-      AchievementType.REGION_HAMBURG,
-      {
-        icon: 'assets/achievements/region/hamburg.png',
-        translation: 'terms.region-hamburg',
-      },
-    ],
-    [
-      AchievementType.REGION_HESSEN,
-      {
-        icon: 'assets/achievements/region/hessen.png',
-        translation: 'terms.region-hessen',
-      },
-    ],
-    [
-      AchievementType.REGION_MECKLENBURG_VORPOMMERN,
-      {
-        icon: 'assets/achievements/region/mecklenburg-vorpommern.png',
-        translation: 'terms.region-mecklenburg-vorpommern',
-      },
-    ],
-    [
-      AchievementType.REGION_NIEDERSACHSEN,
-      {
-        icon: 'assets/achievements/region/niedersachsen.png',
-        translation: 'terms.region-niedersachsen',
-      },
-    ],
-    [
-      AchievementType.REGION_NORDRHEIN_WESTFALEN,
-      {
-        icon: 'assets/achievements/region/nordrhein-westfalen.png',
-        translation: 'terms.nordrhein-westfalen',
-      },
-    ],
-    [
-      AchievementType.REGION_RHEINLAND_PFALZ,
-      {
-        icon: 'assets/achievements/region/rheinland-pfalz.png',
-        translation: 'terms.rheinland-pfalz',
-      },
-    ],
-    [
-      AchievementType.REGION_SAARLAND,
-      {
-        icon: 'assets/achievements/region/saarland.png',
-        translation: 'terms.saarland',
-      },
-    ],
-    [
-      AchievementType.REGION_SACHSEN,
-      {
-        icon: 'assets/achievements/region/sachsen.png',
-        translation: 'terms.sachsen',
-      },
-    ],
-    [
-      AchievementType.REGION_SACHSEN_ANHALT,
-      {
-        icon: 'assets/achievements/region/sachsen-anhalt.png',
-        translation: 'terms.sachsen-anhalt',
-      },
-    ],
-    [
-      AchievementType.REGION_SCHLESWIG_HOLSTEIN,
-      {
-        icon: 'assets/achievements/region/schleswig-holstein.png',
-        translation: 'terms.schleswig-holstein',
-      },
-    ],
-    [
-      AchievementType.REGION_THURINGEN,
-      {
-        icon: 'assets/achievements/region/thuringen.png',
-        translation: 'terms.thuringen',
-      },
-    ],
-  ]);
-
+  /** Achievements */
   achievementsRegistrations = new Map<AchievementType, Achievement>([
     [
       AchievementType.REGISTRATION_BIKE,
       {
         icon: 'assets/achievements/form.png',
-        translation: 'terms.registration-ebike',
+        translation: 'terms.registration.ebike',
       },
     ],
     [
       AchievementType.REGISTRATION_COMPONENT,
       {
         icon: 'assets/achievements/form.png',
-        translation: 'terms.registration-component',
+        translation: 'terms.registration.component',
       },
     ],
   ]);
 
+  /** Achievements */
   achievementsBatteryChargeCycles = new Map<AchievementType, Achievement>([
     [
       AchievementType.BATTERY_CHARGE_CYCLES_10,
       {
         icon: 'assets/achievements/eco-battery.png',
-        translation: 'terms.battery-charge-cycles-10',
+        translation: 'terms.battery-charge-cycles.10',
       },
     ],
     [
       AchievementType.BATTERY_CHARGE_CYCLES_100,
       {
         icon: 'assets/achievements/eco-battery.png',
-        translation: 'terms.battery-charge-cycles-100',
+        translation: 'terms.battery-charge-cycles.100',
       },
     ],
     [
       AchievementType.BATTERY_CHARGE_CYCLES_1000,
       {
         icon: 'assets/achievements/eco-battery.png',
-        translation: 'terms.battery-charge-cycles-1000',
+        translation: 'terms.battery-charge-cycles.1000',
+      },
+    ],
+  ]);
+
+  /** Achievements */
+  achievementsRegions = new Map<AchievementType, Achievement>([
+    [
+      AchievementType.REGION_BADEN_WURTTEMBERG,
+      {
+        icon: 'assets/achievements/region/baden-wurttemberg.png',
+        translation: 'terms.region.baden-wurttemberg',
+      },
+    ],
+    [
+      AchievementType.REGION_BAYERN,
+      {
+        icon: 'assets/achievements/region/bayern.png',
+        translation: 'terms.region.bayern',
+      },
+    ],
+    [
+      AchievementType.REGION_BERLIN,
+      {
+        icon: 'assets/achievements/region/berlin.png',
+        translation: 'terms.region.berlin',
+      },
+    ],
+    [
+      AchievementType.REGION_BRANDENBURG,
+      {
+        icon: 'assets/achievements/region/brandenburg.png',
+        translation: 'terms.region.berlin',
+      },
+    ],
+    [
+      AchievementType.REGION_BREMEN,
+      {
+        icon: 'assets/achievements/region/bremen.png',
+        translation: 'terms.region.bremen',
+      },
+    ],
+    [
+      AchievementType.REGION_HAMBURG,
+      {
+        icon: 'assets/achievements/region/hamburg.png',
+        translation: 'terms.region.hamburg',
+      },
+    ],
+    [
+      AchievementType.REGION_HESSEN,
+      {
+        icon: 'assets/achievements/region/hessen.png',
+        translation: 'terms.region.hessen',
+      },
+    ],
+    [
+      AchievementType.REGION_MECKLENBURG_VORPOMMERN,
+      {
+        icon: 'assets/achievements/region/mecklenburg-vorpommern.png',
+        translation: 'terms.region.mecklenburg-vorpommern',
+      },
+    ],
+    [
+      AchievementType.REGION_NIEDERSACHSEN,
+      {
+        icon: 'assets/achievements/region/niedersachsen.png',
+        translation: 'terms.region.niedersachsen',
+      },
+    ],
+    [
+      AchievementType.REGION_NORDRHEIN_WESTFALEN,
+      {
+        icon: 'assets/achievements/region/nordrhein-westfalen.png',
+        translation: 'terms.region.nordrhein-westfalen',
+      },
+    ],
+    [
+      AchievementType.REGION_RHEINLAND_PFALZ,
+      {
+        icon: 'assets/achievements/region/rheinland-pfalz.png',
+        translation: 'terms.region.rheinland-pfalz',
+      },
+    ],
+    [
+      AchievementType.REGION_SAARLAND,
+      {
+        icon: 'assets/achievements/region/saarland.png',
+        translation: 'terms.region.saarland',
+      },
+    ],
+    [
+      AchievementType.REGION_SACHSEN,
+      {
+        icon: 'assets/achievements/region/sachsen.png',
+        translation: 'terms.region.sachsen',
+      },
+    ],
+    [
+      AchievementType.REGION_SACHSEN_ANHALT,
+      {
+        icon: 'assets/achievements/region/sachsen-anhalt.png',
+        translation: 'terms.region.sachsen-anhalt',
+      },
+    ],
+    [
+      AchievementType.REGION_SCHLESWIG_HOLSTEIN,
+      {
+        icon: 'assets/achievements/region/schleswig-holstein.png',
+        translation: 'terms.region.schleswig-holstein',
+      },
+    ],
+    [
+      AchievementType.REGION_THURINGEN,
+      {
+        icon: 'assets/achievements/region/thuringen.png',
+        translation: 'terms.region.thuringen',
       },
     ],
   ]);
@@ -325,7 +330,7 @@ export class AchievementService {
       });
     }
 
-    return achievements;
+    return new Map(achievements);
   }
 
   /**
@@ -405,7 +410,7 @@ export class AchievementService {
       });
     }
 
-    return achievements;
+    return new Map(achievements);
   }
 
   /**
@@ -441,7 +446,83 @@ export class AchievementService {
       });
     }
 
-    return achievements;
+    return new Map(achievements);
+  }
+
+  /**
+   * Evaluates achievements related to registrations
+   * @param achievements achievements
+   * @param registration registration
+   */
+  evaluateRegistration(
+    achievements: Map<AchievementType, Achievement>,
+    registration: Registration,
+  ) {
+    if (
+      !achievements.get(AchievementType.REGISTRATION_BIKE)?.date &&
+      registration.bikeRegistration
+    ) {
+      achievements.set(AchievementType.REGISTRATION_BIKE, {
+        ...achievements.get(AchievementType.REGISTRATION_BIKE),
+        date: registration.createdAt,
+        achieved: true,
+      });
+    }
+
+    if (
+      !achievements.get(AchievementType.REGISTRATION_COMPONENT)?.date &&
+      registration.componentRegistration
+    ) {
+      achievements.set(AchievementType.REGISTRATION_COMPONENT, {
+        ...achievements.get(AchievementType.REGISTRATION_COMPONENT),
+        date: registration.createdAt,
+        achieved: true,
+      });
+    }
+
+    return new Map(achievements);
+  }
+
+  /**
+   * Evaluates achievements related to battery charge cycles
+   * @param achievements achievements
+   * @param totalBatteryChargeCycles total battery charge cycles
+   */
+  evaluateBatteryChargeCycles(
+    achievements: Map<AchievementType, Achievement>,
+    totalBatteryChargeCycles: number,
+  ) {
+    if (
+      !achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_10)?.date &&
+      totalBatteryChargeCycles >= 10
+    ) {
+      achievements.set(AchievementType.BATTERY_CHARGE_CYCLES_10, {
+        ...achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_10),
+        achieved: true,
+      });
+    }
+
+    if (
+      !achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_100)?.date &&
+      totalBatteryChargeCycles >= 100
+    ) {
+      achievements.set(AchievementType.BATTERY_CHARGE_CYCLES_100, {
+        ...achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_100),
+        achieved: true,
+      });
+    }
+
+    if (
+      !achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_1000)?.date &&
+      totalBatteryChargeCycles >= 1000
+    ) {
+      achievements.set(AchievementType.BATTERY_CHARGE_CYCLES_1000, {
+        ...achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_1000),
+        achieved: true,
+      });
+    }
+
+    return new Map(achievements);
   }
 
   /**
@@ -620,82 +701,6 @@ export class AchievementService {
       });
     }
 
-    return achievements;
-  }
-
-  /**
-   * Evaluates achievements related to registrations
-   * @param achievements achievements
-   * @param registration registration
-   */
-  evaluateRegistration(
-    achievements: Map<AchievementType, Achievement>,
-    registration: Registration,
-  ) {
-    if (
-      !achievements.get(AchievementType.REGISTRATION_BIKE)?.date &&
-      registration.bikeRegistration
-    ) {
-      achievements.set(AchievementType.REGISTRATION_BIKE, {
-        ...achievements.get(AchievementType.REGISTRATION_BIKE),
-        date: registration.createdAt,
-        achieved: true,
-      });
-    }
-
-    if (
-      !achievements.get(AchievementType.REGISTRATION_COMPONENT)?.date &&
-      registration.componentRegistration
-    ) {
-      achievements.set(AchievementType.REGISTRATION_COMPONENT, {
-        ...achievements.get(AchievementType.REGISTRATION_COMPONENT),
-        date: registration.createdAt,
-        achieved: true,
-      });
-    }
-
-    return achievements;
-  }
-
-  /**
-   * Evaluates achievements related to battery charge cycles
-   * @param achievements achievements
-   * @param totalBatteryChargeCycles total battery charge cycles
-   */
-  evaluateBatteryChargeCycles(
-    achievements: Map<AchievementType, Achievement>,
-    totalBatteryChargeCycles: number,
-  ) {
-    if (
-      !achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_10)?.date &&
-      totalBatteryChargeCycles >= 10
-    ) {
-      achievements.set(AchievementType.BATTERY_CHARGE_CYCLES_10, {
-        ...achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_10),
-        achieved: true,
-      });
-    }
-
-    if (
-      !achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_100)?.date &&
-      totalBatteryChargeCycles >= 100
-    ) {
-      achievements.set(AchievementType.BATTERY_CHARGE_CYCLES_100, {
-        ...achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_100),
-        achieved: true,
-      });
-    }
-
-    if (
-      !achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_1000)?.date &&
-      totalBatteryChargeCycles >= 1000
-    ) {
-      achievements.set(AchievementType.BATTERY_CHARGE_CYCLES_1000, {
-        ...achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_1000),
-        achieved: true,
-      });
-    }
-
-    return achievements;
+    return new Map(achievements);
   }
 }

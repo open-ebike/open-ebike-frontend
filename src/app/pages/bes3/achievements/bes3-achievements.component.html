@@ -3,36 +3,15 @@
     @if (authenticationService.isLoggedIn()) {
       <div class="inner-container">
         <h2>{{ t("title") }}</h2>
-        <div class="grid wide">
-          @for (
-            achievement of achievementService.achievementsActivities
-              | keyvalue: keyValueOrder;
-            track achievement.key
-          ) {
-            <mat-card
-              mat-ripple
-              class="badge"
-              [ngClass]="{ grey: !achievement.value.achieved }"
-              (click)="onAchievementClicked(achievement.value)"
-            >
-              <img
-                [src]="achievement.value.icon"
-                style="width: 96px"
-                alt="icon"
-              />
-              @if (achievement.value.achieved) {
-                <strong class="title">{{
-                  t(achievement.value.translation ?? "") | titlecase
-                }}</strong>
-                @if (achievement.value.date) {
-                  {{ achievement.value.date | date: "mediumDate" }}
-                }
-              } @else {
-                <strong class="title">{{ t("terms.unknown") }}</strong>
-              }
-            </mat-card>
-          }
-        </div>
+        <app-achievement-grid
+          [achievements]="achievementService.achievementsBasic()"
+        >
+        </app-achievement-grid>
+        <h2>{{ t("terms.regions") }}</h2>
+        <app-achievement-grid
+          [achievements]="achievementService.achievementsRegions()"
+        >
+        </app-achievement-grid>
       </div>
       <div class="flex-box"></div>
     }

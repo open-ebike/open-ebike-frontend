@@ -1,0 +1,38 @@
+@use "../../../styles";
+@use "../../../sizes";
+
+@media #{sizes.$breakpoint-large} {
+  .grid.wide {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media #{sizes.$breakpoint-medium} {
+  .grid.wide {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media #{sizes.$breakpoint-small} {
+  .grid.wide {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.achievement {
+  min-height: 214px;
+  padding: 16px;
+  cursor: pointer;
+  align-items: center;
+
+  .title {
+    margin-top: 8px;
+    text-align: center;
+  }
+}
+
+.grey {
+  img {
+    filter: grayscale(1) opacity(0.4);
+  }
+}

@@ -320,37 +320,50 @@
     "achievements": {
       "title": "Achievements",
       "terms": {
-        "activities-1": "1 activity completed",
-        "activities-10": "10 activities completed",
-        "distance-10km": "10 kilometers completed",
-        "distance-100km": "100 kilometers completed",
-        "distance-1000km": "1000 kilometers completed",
-        "distance-3300km": "Vuelta a España (ca. 3300km)",
-        "distance-3500km": "Tour de France (ca. 3500km)",
-        "distance-40075km": "Circled the Globe (40075km)",
-        "elevation-gain-4806m": "Climbed Mont Blanc (4806m)",
-        "elevation-gain-8848m": "Climbed Mount Everest (8848m)",
-        "region-baden-wurttemberg": "Traveled through Baden-Wurttemberg",
-        "region-bayern": "Traveled through Bavaria",
-        "region-berlin": "Traveled through Berlin",
-        "region-brandenburg": "Traveled through Brandenburg",
-        "region-bremen": "Traveled through Bremen",
-        "region-hamburg": "Traveled through Hamburg",
-        "region-hessen": "Traveled through Hesse",
-        "region-mecklenburg-vorpommern": "Traveled through Mecklenburg-Western Pomerania",
-        "region-niedersachsen": "Traveled through Lower Saxony",
-        "region-nordrhein-westfalen": "Traveled through North Rhine-Westphalia",
-        "region-rheinland-pfalz": "Traveled through Rhineland-Palatinate",
-        "region-saarland": "Traveled through Saarland",
-        "region-sachsen-anhalt": "Traveled through Saxony-Anhalt",
-        "region-sachsen": "Traveled through Saxony",
-        "region-schleswig-holstein": "Traveled through Schleswig-Holstein",
-        "region-thuringen": "Traveled through Thuringia",
-        "registration-ebike": "1 eBike registered",
-        "registration-component": "1 component registered",
-        "battery-charge-cycles-10": "10 charge cycles",
-        "battery-charge-cycles-100": "100 charge cycles",
-        "battery-charge-cycles-1000": "1000 charge cycles",
+        "regions": "Regions",
+        "activities": {
+          "1": "1 activity completed",
+          "10": "10 activities completed"
+        },
+        "distance": {
+          "10km": "10 kilometers completed",
+          "100km": "100 kilometers completed",
+          "1000km": "1000 kilometers completed",
+          "3300km": "Vuelta a España (ca. 3300km)",
+          "3500km": "Tour de France (ca. 3500km)",
+          "40075km": "Circled the Globe (40075km)"
+        },
+        "elevation-gain": {
+          "4806m": "Climbed Mont Blanc (4806m)",
+          "8848m": "Climbed Mount Everest (8848m)"
+        },
+        "region": {
+          "baden-wurttemberg": "Traveled through Baden-Wurttemberg",
+          "bayern": "Traveled through Bavaria",
+          "berlin": "Traveled through Berlin",
+          "brandenburg": "Traveled through Brandenburg",
+          "bremen": "Traveled through Bremen",
+          "hamburg": "Traveled through Hamburg",
+          "hessen": "Traveled through Hesse",
+          "mecklenburg-vorpommern": "Traveled through Mecklenburg-Western Pomerania",
+          "niedersachsen": "Traveled through Lower Saxony",
+          "nordrhein-westfalen": "Traveled through North Rhine-Westphalia",
+          "rheinland-pfalz": "Traveled through Rhineland-Palatinate",
+          "saarland": "Traveled through Saarland",
+          "sachsen-anhalt": "Traveled through Saxony-Anhalt",
+          "sachsen": "Traveled through Saxony",
+          "schleswig-holstein": "Traveled through Schleswig-Holstein",
+          "thuringen": "Traveled through Thuringia"
+        },
+        "registration": {
+          "ebike": "1 eBike registered",
+          "component": "1 component registered"
+        },
+        "battery-charge-cycles": {
+          "10": "10 charge cycles",
+          "100": "100 charge cycles",
+          "1000": "1000 charge cycles"
+        },
         "unknown": "???",
         "on": "on {{date}}"
       },

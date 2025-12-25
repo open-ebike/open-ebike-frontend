@@ -318,37 +318,50 @@
     "achievements": {
       "title": "Errungenschaften",
       "terms": {
-        "activities-1": "1 Aktivität abgeschlossen",
-        "activities-10": "10 Aktivitäten abgeschlossen",
-        "distance-10km": "10 Kilometer gefahren",
-        "distance-100km": "100 Kilometer gefahren",
-        "distance-1000km": "1000 Kilometer gefahren",
-        "distance-3300km": "Vuelta a España gefahren (ca. 3300km)",
-        "distance-3500km": "Tour de France gefahren (ca. 3500km)",
-        "distance-40075km": "die Erde umrundet (40075km)",
-        "elevation-gain-4806m": "Mont Blanc erklommen (4806m)",
-        "elevation-gain-8848m": "Mount Everest erklommen (8848m)",
-        "region-baden-wurttemberg": "Tour durch Baden-Württemberg gemacht",
-        "region-bayern": "Tour durch Bayern gemacht",
-        "region-berlin": "Tour durch Berlin gemacht",
-        "region-brandenburg": "Tour durch Brandenburg gemacht",
-        "region-bremen": "Tour durch Bremen gemacht",
-        "region-hamburg": "Tour durch Hamburg gemacht",
-        "region-hessen": "Tour durch Hessen gemacht",
-        "region-mecklenburg-vorpommern": "Tour durch Mecklenburg-Vorpommern gemacht",
-        "region-niedersachsen": "Tour durch Niedersachsen gemacht",
-        "region-nordrhein-westfalen": "Tour durch Nordrhein-Westfalen gemacht",
-        "region-rheinland-pfalz": "Tour durch Rheinland-Pfalz gemacht",
-        "region-saarland": "Tour durch Saarland gemacht",
-        "region-sachsen-anhalt": "Tour durch Sachsen-Anhalt gemacht",
-        "region-sachsen": "Tour durch Sachsen gemacht",
-        "region-schleswig-holstein": "Tour durch Schleswig-Holstein gemacht",
-        "region-thuringen": "Tour durch Thüringen gemacht",
-        "registration-ebike": "1 eBike registriert",
-        "registration-component": "1 Komponente registriert",
-        "battery-charge-cycles-10": "10 Ladezyklen",
-        "battery-charge-cycles-100": "100 Ladezyklen",
-        "battery-charge-cycles-1000": "1000 Ladezyklen",
+        "regions": "Regionen",
+        "activities": {
+          "1": "1 Aktivität abgeschlossen",
+          "10": "10 Aktivitäten abgeschlossen"
+        },
+        "distance": {
+          "10km": "10 Kilometer gefahren",
+          "100km": "100 Kilometer gefahren",
+          "1000km": "1000 Kilometer gefahren",
+          "3300km": "Vuelta a España gefahren (ca. 3300km)",
+          "3500km": "Tour de France gefahren (ca. 3500km)",
+          "40075km": "die Erde umrundet (40075km)"
+        },
+        "elevation-gain": {
+          "4806m": "Mont Blanc erklommen (4806m)",
+          "8848m": "Mount Everest erklommen (8848m)"
+        },
+        "region": {
+          "baden-wurttemberg": "Tour durch Baden-Württemberg gemacht",
+          "bayern": "Tour durch Bayern gemacht",
+          "berlin": "Tour durch Berlin gemacht",
+          "brandenburg": "Tour durch Brandenburg gemacht",
+          "bremen": "Tour durch Bremen gemacht",
+          "hamburg": "Tour durch Hamburg gemacht",
+          "hessen": "Tour durch Hessen gemacht",
+          "mecklenburg-vorpommern": "Tour durch Mecklenburg-Vorpommern gemacht",
+          "niedersachsen": "Tour durch Niedersachsen gemacht",
+          "nordrhein-westfalen": "Tour durch Nordrhein-Westfalen gemacht",
+          "rheinland-pfalz": "Tour durch Rheinland-Pfalz gemacht",
+          "saarland": "Tour durch Saarland gemacht",
+          "sachsen-anhalt": "Tour durch Sachsen-Anhalt gemacht",
+          "sachsen": "Tour durch Sachsen gemacht",
+          "schleswig-holstein": "Tour durch Schleswig-Holstein gemacht",
+          "thuringen": "Tour durch Thüringen gemacht"
+        },
+        "registration": {
+          "ebike": "1 eBike registriert",
+          "component": "1 Komponente registriert"
+        },
+        "battery-charge-cycles": {
+          "10": "10 Ladezyklen",
+          "100": "100 Ladezyklen",
+          "1000": "1000 Ladezyklen"
+        },
         "unknown": "???",
         "on": "am {{date}}"
       },

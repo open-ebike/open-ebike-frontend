@@ -1,10 +1,14 @@
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { ActivityRecordsService } from '../../api/bes3/activity-records.service';
 import { RegionFinderService } from '../../region-finder.service';
 import { firstValueFrom } from 'rxjs';
 import { EbikeRegistrationService } from '../../api/bes3/ebike-registration.service';
 import { EbikeProfileService } from '../../api/bes3/ebike-profile.service';
-import { AchievementService } from '../achievement.service';
+import {
+  Achievement,
+  AchievementService,
+  AchievementType,
+} from '../achievement.service';
 
 /**
  * Handles achievements
@@ -32,28 +36,37 @@ export class Bes3AchievementService {
   // Achievements
   //
 
-  /** Achievements and their date of achieval */
-  achievementsActivities = new Map(
+  /** Achievements */
+  achievementsActivities = signal(
     this.achievementService.achievementsActivities,
   );
-  /** Achievements and their date of achieval */
-  achievementsDistances = new Map(
-    this.achievementService.achievementsDistances,
-  );
-  /** Achievements and their date of achieval */
-  achievementsElevationGain = new Map(
+  /** Achievements */
+  achievementsDistances = signal(this.achievementService.achievementsDistances);
+  /** Achievements */
+  achievementsElevationGain = signal(
     this.achievementService.achievementsElevationGain,
   );
-  /** Achievements and their date of achieval */
-  achievementsRegistrations = new Map(
+  /** Achievements */
+  achievementsRegistrations = signal(
     this.achievementService.achievementsRegistrations,
   );
-  /** Achievements and their date of achieval */
-  achievementsBatteryChargeCycles = new Map(
+  /** Achievements */
+  achievementsBatteryChargeCycles = signal(
     this.achievementService.achievementsBatteryChargeCycles,
   );
-  /** Achievements and their date of achieval */
-  achievementsRegions = new Map(this.achievementService.achievementsRegions);
+  /** Achievements */
+  achievementsRegions = signal(this.achievementService.achievementsRegions);
+
+  /** Achievements */
+  achievementsBasic = computed(() => {
+    return new Map<AchievementType, Achievement>([
+      ...this.achievementsActivities(),
+      ...this.achievementsDistances(),
+      ...this.achievementsElevationGain(),
+      ...this.achievementsRegistrations(),
+      ...this.achievementsBatteryChargeCycles(),
+    ]);
+  });
 
   /**
    * Constructor
@@ -90,10 +103,12 @@ export class Bes3AchievementService {
         });
       }
 
-      this.achievementService.evaluateBatteryChargeCycles(
-        this.achievementsBatteryChargeCycles,
-        totalBatteryChargeCycles,
-      );
+      const achievementsBatteryChargeCycles =
+        this.achievementService.evaluateBatteryChargeCycles(
+          this.achievementsBatteryChargeCycles(),
+          totalBatteryChargeCycles,
+        );
+      this.achievementsBatteryChargeCycles.set(achievementsBatteryChargeCycles);
     });
 
     this.activityRecordsService
@@ -119,39 +134,48 @@ export class Bes3AchievementService {
           totalDistance += activitySummary.distance;
           totalElevationGain += activitySummary.elevation.gain;
 
-          this.achievementsActivities =
+          this.achievementsActivities.set(
             this.achievementService.evaluateActivities(
-              this.achievementsActivities,
+              this.achievementsActivities(),
               totalActivityCount,
               activitySummary.startTime,
-            );
-          this.achievementsDistances =
+            ),
+          );
+
+          this.achievementsDistances.set(
             this.achievementService.evaluateDistances(
-              this.achievementsDistances,
+              this.achievementsDistances(),
               totalDistance,
               activitySummary.startTime,
-            );
-          this.achievementsElevationGain =
+            ),
+          );
+
+          this.achievementsElevationGain.set(
             this.achievementService.evaluateElevationGain(
-              this.achievementsElevationGain,
+              this.achievementsElevationGain(),
               totalElevationGain,
               activitySummary.startTime,
-            );
-          this.achievementsRegions = this.achievementService.evaluateRegions(
-            this.achievementsRegions,
-            federalState ?? '',
-            activitySummary.startTime,
+            ),
+          );
+
+          this.achievementsRegions.set(
+            this.achievementService.evaluateRegions(
+              this.achievementsRegions(),
+              federalState ?? '',
+              activitySummary.startTime,
+            ),
           );
         }
       });
 
     this.registrationService.getRegistrations().subscribe((registrations) => {
       for (let registration of registrations.registrations) {
-        this.achievementsRegistrations =
+        this.achievementsRegistrations.set(
           this.achievementService.evaluateRegistration(
-            this.achievementsRegistrations,
+            this.achievementsRegistrations(),
             registration,
-          );
+          ),
+        );
       }
     });
   }
