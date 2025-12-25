@@ -13,6 +13,7 @@
               mat-ripple
               class="badge"
               [ngClass]="{ grey: !achievement.value.achieved }"
+              (click)="onAchievementClicked(achievement.value)"
             >
               <img
                 [src]="achievement.value.icon"
