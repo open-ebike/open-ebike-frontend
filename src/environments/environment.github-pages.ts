@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  hrefBase: 'https://open-ebike.github.io/open-ebike-frontend',
   eBikeApiUrl: 'https://cors-anywhere.com/https://api.bosch-ebike.com',
   authConfig: {
     issuer: 'https://p9.authz.bosch.com/auth/realms/obc',

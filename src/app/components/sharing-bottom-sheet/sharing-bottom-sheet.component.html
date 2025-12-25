@@ -1,0 +1,12 @@
+<ng-container *transloco="let t; lang: lang; prefix: 'pages.achievements'">
+  <mat-nav-list>
+    <a mat-list-item (click)="onShareClicked()">
+      <span
+        class="material-symbols-outlined"
+        style="vertical-align: bottom; margin-right: 8px"
+        >share</span
+      >
+      {{ t("actions.share-achievement") }}
+    </a>
+  </mat-nav-list>
+</ng-container>

@@ -344,7 +344,11 @@
         "region-sachsen": "Traveled through Saxony",
         "region-schleswig-holstein": "Traveled through Schleswig-Holstein",
         "region-thuringen": "Traveled through Thuringia",
-        "unknown": "???"
+        "unknown": "???",
+        "on": "on {{date}}"
+      },
+      "actions": {
+        "share-achievement": "Share Achievement"
       }
     },
     "login": {

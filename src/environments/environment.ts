@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  hrefBase: 'http://localhost:4200/',
   eBikeApiUrl: '/api',
   authConfig: {
     issuer: 'https://p9.authz.bosch.com/auth/realms/obc',
