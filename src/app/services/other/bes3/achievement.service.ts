@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { ActivityRecordsService } from '../../api/bes3/activity-records.service';
 import { RegionFinderService } from '../../region-finder.service';
 import { firstValueFrom } from 'rxjs';
+import { EbikeRegistrationService } from '../../api/bes3/ebike-registration.service';
 
 /**
  * Types of achievements
@@ -31,6 +32,8 @@ export enum AchievementType {
   REGION_SACHSEN_ANHALT = 'REGION_SACHSEN_ANHALT',
   REGION_SCHLESWIG_HOLSTEIN = 'REGION_SCHLESWIG_HOLSTEIN',
   REGION_THURINGEN = 'REGION_THURINGEN',
+  REGISTRATION_BIKE = 'REGISTRATION_BIKE',
+  REGISTRATION_COMPONENT = 'REGISTRATION_COMPONENT',
 }
 
 /**
@@ -60,6 +63,8 @@ export class AchievementService {
   private activityRecordsService = inject(ActivityRecordsService);
   /** Region finder service */
   private regionFinderService = inject(RegionFinderService);
+  /** Registration service */
+  private registrationService = inject(EbikeRegistrationService);
 
   /** Achievements and their date of achieval */
   achievements = new Map<AchievementType, Achievement>([
@@ -229,6 +234,20 @@ export class AchievementService {
       {
         icon: 'assets/achievements/region/thuringen.png',
         translation: 'terms.thuringen',
+      },
+    ],
+    [
+      AchievementType.REGISTRATION_BIKE,
+      {
+        icon: 'assets/achievements/form.png',
+        translation: 'terms.registration-ebike',
+      },
+    ],
+    [
+      AchievementType.REGISTRATION_COMPONENT,
+      {
+        icon: 'assets/achievements/form.png',
+        translation: 'terms.registration-component',
       },
     ],
   ]);
@@ -530,5 +549,30 @@ export class AchievementService {
           }
         }
       });
+
+    this.registrationService.getRegistrations().subscribe((registrations) => {
+      for (let registration of registrations.registrations) {
+        if (
+          !this.achievements.get(AchievementType.REGISTRATION_BIKE)?.date &&
+          registration.bikeRegistration
+        ) {
+          this.achievements.set(AchievementType.REGISTRATION_BIKE, {
+            ...this.achievements.get(AchievementType.REGISTRATION_BIKE),
+            date: registration.createdAt,
+          });
+        }
+
+        if (
+          !this.achievements.get(AchievementType.REGISTRATION_COMPONENT)
+            ?.date &&
+          registration.componentRegistration
+        ) {
+          this.achievements.set(AchievementType.REGISTRATION_COMPONENT, {
+            ...this.achievements.get(AchievementType.REGISTRATION_COMPONENT),
+            date: registration.createdAt,
+          });
+        }
+      }
+    });
   }
 }

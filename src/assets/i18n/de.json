@@ -342,6 +342,8 @@
         "region-sachsen": "Tour durch Sachsen gemacht",
         "region-schleswig-holstein": "Tour durch Schleswig-Holstein gemacht",
         "region-thuringen": "Tour durch Thüringen gemacht",
+        "registration-ebike": "1 eBike registriert",
+        "registration-component": "1 Komponente registriert",
         "unknown": "???",
         "on": "am {{date}}"
       },

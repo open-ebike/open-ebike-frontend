@@ -344,6 +344,8 @@
         "region-sachsen": "Traveled through Saxony",
         "region-schleswig-holstein": "Traveled through Schleswig-Holstein",
         "region-thuringen": "Traveled through Thuringia",
+        "registration-ebike": "1 eBike registered",
+        "registration-component": "1 component registered",
         "unknown": "???",
         "on": "on {{date}}"
       },
