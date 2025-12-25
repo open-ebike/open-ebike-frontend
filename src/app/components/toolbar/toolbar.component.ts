@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Theme, ThemeService } from '../../services/theme.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,7 +19,6 @@ import { environment } from '../../../environments/environment';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss'],
   imports: [
-    CommonModule,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
