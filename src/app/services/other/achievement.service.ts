@@ -42,6 +42,8 @@ export enum AchievementType {
  * Represents an achievement
  */
 export interface Achievement {
+  /** Type */
+  type?: AchievementType;
   /** Date */
   date?: string;
   /** Icon */
@@ -56,247 +58,6 @@ export interface Achievement {
   providedIn: 'root',
 })
 export class AchievementService {
-  /** Achievements */
-  achievementsActivities = new Map<AchievementType, Achievement>([
-    [
-      AchievementType.ACTIVITIES_1,
-      {
-        icon: 'assets/achievements/medal.png',
-        translation: 'terms.activities.1',
-      },
-    ],
-    [
-      AchievementType.ACTIVITIES_10,
-      {
-        icon: 'assets/achievements/medal.png',
-        translation: 'terms.activities.10',
-      },
-    ],
-  ]);
-
-  /** Achievements */
-  achievementsDistances = new Map<AchievementType, Achievement>([
-    [
-      AchievementType.DISTANCE_10KM,
-      {
-        icon: 'assets/achievements/medal-2.png',
-        translation: 'terms.distance.10km',
-      },
-    ],
-    [
-      AchievementType.DISTANCE_100KM,
-      {
-        icon: 'assets/achievements/medal-2.png',
-        translation: 'terms.distance.100km',
-      },
-    ],
-    [
-      AchievementType.DISTANCE_1000KM,
-      {
-        icon: 'assets/achievements/medal-2.png',
-        translation: 'terms.distance.1000km',
-      },
-    ],
-    [
-      AchievementType.DISTANCE_3300KM,
-      {
-        icon: 'assets/achievements/spain-flag.png',
-        translation: 'terms.distance.3300km',
-      },
-    ],
-    [
-      AchievementType.DISTANCE_3500KM,
-      {
-        icon: 'assets/achievements/france-flag.png',
-        translation: 'terms.distance.3500km',
-      },
-    ],
-    [
-      AchievementType.DISTANCE_40075KM,
-      {
-        icon: 'assets/achievements/earth.png',
-        translation: 'terms.distance.40075km',
-      },
-    ],
-  ]);
-
-  /** Achievements */
-  achievementsElevationGain = new Map<AchievementType, Achievement>([
-    [
-      AchievementType.ELEVATION_GAIN_4806M,
-      {
-        icon: 'assets/achievements/mountains.png',
-        translation: 'terms.elevation-gain.4806m',
-      },
-    ],
-    [
-      AchievementType.ELEVATION_GAIN_8848_M,
-      {
-        icon: 'assets/achievements/mountains.png',
-        translation: 'terms.elevation-gain.8848m',
-      },
-    ],
-  ]);
-
-  /** Achievements */
-  achievementsRegistrations = new Map<AchievementType, Achievement>([
-    [
-      AchievementType.REGISTRATION_BIKE,
-      {
-        icon: 'assets/achievements/form.png',
-        translation: 'terms.registration.ebike',
-      },
-    ],
-    [
-      AchievementType.REGISTRATION_COMPONENT,
-      {
-        icon: 'assets/achievements/form.png',
-        translation: 'terms.registration.component',
-      },
-    ],
-  ]);
-
-  /** Achievements */
-  achievementsBatteryChargeCycles = new Map<AchievementType, Achievement>([
-    [
-      AchievementType.BATTERY_CHARGE_CYCLES_10,
-      {
-        icon: 'assets/achievements/eco-battery.png',
-        translation: 'terms.battery-charge-cycles.10',
-      },
-    ],
-    [
-      AchievementType.BATTERY_CHARGE_CYCLES_100,
-      {
-        icon: 'assets/achievements/eco-battery.png',
-        translation: 'terms.battery-charge-cycles.100',
-      },
-    ],
-    [
-      AchievementType.BATTERY_CHARGE_CYCLES_1000,
-      {
-        icon: 'assets/achievements/eco-battery.png',
-        translation: 'terms.battery-charge-cycles.1000',
-      },
-    ],
-  ]);
-
-  /** Achievements */
-  achievementsRegions = new Map<AchievementType, Achievement>([
-    [
-      AchievementType.REGION_BADEN_WURTTEMBERG,
-      {
-        icon: 'assets/achievements/region/baden-wurttemberg.png',
-        translation: 'terms.region.baden-wurttemberg',
-      },
-    ],
-    [
-      AchievementType.REGION_BAYERN,
-      {
-        icon: 'assets/achievements/region/bayern.png',
-        translation: 'terms.region.bayern',
-      },
-    ],
-    [
-      AchievementType.REGION_BERLIN,
-      {
-        icon: 'assets/achievements/region/berlin.png',
-        translation: 'terms.region.berlin',
-      },
-    ],
-    [
-      AchievementType.REGION_BRANDENBURG,
-      {
-        icon: 'assets/achievements/region/brandenburg.png',
-        translation: 'terms.region.berlin',
-      },
-    ],
-    [
-      AchievementType.REGION_BREMEN,
-      {
-        icon: 'assets/achievements/region/bremen.png',
-        translation: 'terms.region.bremen',
-      },
-    ],
-    [
-      AchievementType.REGION_HAMBURG,
-      {
-        icon: 'assets/achievements/region/hamburg.png',
-        translation: 'terms.region.hamburg',
-      },
-    ],
-    [
-      AchievementType.REGION_HESSEN,
-      {
-        icon: 'assets/achievements/region/hessen.png',
-        translation: 'terms.region.hessen',
-      },
-    ],
-    [
-      AchievementType.REGION_MECKLENBURG_VORPOMMERN,
-      {
-        icon: 'assets/achievements/region/mecklenburg-vorpommern.png',
-        translation: 'terms.region.mecklenburg-vorpommern',
-      },
-    ],
-    [
-      AchievementType.REGION_NIEDERSACHSEN,
-      {
-        icon: 'assets/achievements/region/niedersachsen.png',
-        translation: 'terms.region.niedersachsen',
-      },
-    ],
-    [
-      AchievementType.REGION_NORDRHEIN_WESTFALEN,
-      {
-        icon: 'assets/achievements/region/nordrhein-westfalen.png',
-        translation: 'terms.region.nordrhein-westfalen',
-      },
-    ],
-    [
-      AchievementType.REGION_RHEINLAND_PFALZ,
-      {
-        icon: 'assets/achievements/region/rheinland-pfalz.png',
-        translation: 'terms.region.rheinland-pfalz',
-      },
-    ],
-    [
-      AchievementType.REGION_SAARLAND,
-      {
-        icon: 'assets/achievements/region/saarland.png',
-        translation: 'terms.region.saarland',
-      },
-    ],
-    [
-      AchievementType.REGION_SACHSEN,
-      {
-        icon: 'assets/achievements/region/sachsen.png',
-        translation: 'terms.region.sachsen',
-      },
-    ],
-    [
-      AchievementType.REGION_SACHSEN_ANHALT,
-      {
-        icon: 'assets/achievements/region/sachsen-anhalt.png',
-        translation: 'terms.region.sachsen-anhalt',
-      },
-    ],
-    [
-      AchievementType.REGION_SCHLESWIG_HOLSTEIN,
-      {
-        icon: 'assets/achievements/region/schleswig-holstein.png',
-        translation: 'terms.region.schleswig-holstein',
-      },
-    ],
-    [
-      AchievementType.REGION_THURINGEN,
-      {
-        icon: 'assets/achievements/region/thuringen.png',
-        translation: 'terms.region.thuringen',
-      },
-    ],
-  ]);
-
   /**
    * Evaluates achievements related to activities
    * @param achievements achievements
@@ -702,5 +463,18 @@ export class AchievementService {
     }
 
     return new Map(achievements);
+  }
+
+  //
+  // Helpers
+  //
+
+  convertToMap(achievements: Achievement[]): Map<AchievementType, Achievement> {
+    return new Map(
+      achievements.map((item) => {
+        const { type, ...rest } = item;
+        return [type as AchievementType, rest as Achievement];
+      }),
+    );
   }
 }

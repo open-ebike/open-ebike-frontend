@@ -9,6 +9,7 @@ import {
   AchievementService,
   AchievementType,
 } from '../achievement.service';
+import { achievements } from '../../../../environments/achievements';
 
 /**
  * Handles achievements
@@ -38,24 +39,28 @@ export class Bes3AchievementService {
 
   /** Achievements */
   achievementsActivities = signal(
-    this.achievementService.achievementsActivities,
+    this.achievementService.convertToMap(achievements.activities),
   );
   /** Achievements */
-  achievementsDistances = signal(this.achievementService.achievementsDistances);
+  achievementsDistances = signal(
+    this.achievementService.convertToMap(achievements.distances),
+  );
   /** Achievements */
   achievementsElevationGain = signal(
-    this.achievementService.achievementsElevationGain,
+    this.achievementService.convertToMap(achievements.elevationGain),
   );
   /** Achievements */
   achievementsRegistrations = signal(
-    this.achievementService.achievementsRegistrations,
+    this.achievementService.convertToMap(achievements.registrations),
   );
   /** Achievements */
   achievementsBatteryChargeCycles = signal(
-    this.achievementService.achievementsBatteryChargeCycles,
+    this.achievementService.convertToMap(achievements.batteryChargeCycles),
   );
   /** Achievements */
-  achievementsRegions = signal(this.achievementService.achievementsRegions);
+  achievementsRegions = signal(
+    this.achievementService.convertToMap(achievements.regions),
+  );
 
   /** Achievements */
   achievementsBasic = computed(() => {

@@ -7,6 +7,7 @@ import {
   AchievementService,
   AchievementType,
 } from '../achievement.service';
+import { achievements } from '../../../../environments/achievements';
 
 @Injectable({
   providedIn: 'root',
@@ -29,16 +30,20 @@ export class Bes2AchievementService {
 
   /** Achievements */
   achievementsActivities = signal(
-    this.achievementService.achievementsActivities,
+    this.achievementService.convertToMap(achievements.activities),
   );
   /** Achievements */
-  achievementsDistances = signal(this.achievementService.achievementsDistances);
+  achievementsDistances = signal(
+    this.achievementService.convertToMap(achievements.distances),
+  );
   /** Achievements */
   achievementsElevationGain = signal(
-    this.achievementService.achievementsElevationGain,
+    this.achievementService.convertToMap(achievements.elevationGain),
   );
   /** Achievements */
-  achievementsRegions = signal(this.achievementService.achievementsRegions);
+  achievementsRegions = signal(
+    this.achievementService.convertToMap(achievements.regions),
+  );
 
   /** Achievements */
   achievementsBasic = computed(() => {
