@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment';
 import {
   Achievement,
   AchievementType,
-} from '../../services/other/achievement.service';
+} from '../../services/achievement/achievement.service';
 import { SharingBottomSheetComponent } from '../sharing-bottom-sheet/sharing-bottom-sheet.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import {

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Bes3AchievementService } from '../../../services/other/bes3/bes3-achievement.service';
+import { Bes3AchievementService } from '../../../services/achievement/bes3/bes3-achievement.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { AchievementGridComponent } from '../../../components/achievement-grid/achievement-grid.component';

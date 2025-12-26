@@ -1,4 +1,4 @@
-import { AchievementType } from '../app/services/other/achievement.service';
+import { AchievementType } from '../app/services/achievement/achievement.service';
 
 export const achievements = {
   activities: [
