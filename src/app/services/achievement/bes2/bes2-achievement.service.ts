@@ -58,7 +58,7 @@ export class Bes2AchievementService {
    * Constructor
    */
   constructor() {
-    this.initialize();
+    this.evaluate();
   }
 
   //
@@ -68,7 +68,7 @@ export class Bes2AchievementService {
   /**
    * Loads activities and evaluates if achievements have been reached
    */
-  private async initialize() {
+  private async evaluate() {
     /** Total activity count */
     let totalActivityCount = 0;
     /** Total distance */

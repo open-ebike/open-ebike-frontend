@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { ActivityRecordsService } from '../../api/bes3/activity-records.service';
 import { RegionFinderService } from '../../region-finder.service';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, map } from 'rxjs';
 import { EbikeRegistrationService } from '../../api/bes3/ebike-registration.service';
 import { EbikeProfileService } from '../../api/bes3/ebike-profile.service';
 import {
@@ -10,6 +10,16 @@ import {
   AchievementType,
 } from '../achievement.service';
 import { achievements } from '../../../../environments/achievements';
+
+/**
+ * Represents a time period
+ */
+export interface TimePeriod {
+  /** Year */
+  year: number;
+  /** Month */
+  month: number;
+}
 
 /**
  * Handles achievements
@@ -61,6 +71,8 @@ export class Bes3AchievementService {
   achievementsRegions = signal(
     this.achievementService.convertToMap(achievements.regions),
   );
+  /** Achievements */
+  achievementsTimePeriods = signal(new Map<string, Achievement>());
 
   /** Achievements */
   achievementsBasic = computed(() => {
@@ -77,17 +89,37 @@ export class Bes3AchievementService {
    * Constructor
    */
   constructor() {
-    this.initialize();
+    this.activityRecordsService
+      .getAllActivitySummaries(1, 0, 'startTime')
+      .pipe(
+        map((activitySummaries) => {
+          return activitySummaries.activitySummaries.length > 0
+            ? new Date(activitySummaries.activitySummaries[0].startTime)
+            : new Date();
+        }),
+      )
+      .subscribe((firstActivityDate) => {
+        this.initialize(firstActivityDate);
+        this.evaluate();
+      });
   }
 
   //
   // Initialization
   //
 
+  async initialize(firstActivityDate: Date) {
+    const achievementsTimePeriods =
+      this.achievementService.initializeAchievementsTimePeriods(
+        firstActivityDate,
+      );
+    this.achievementsTimePeriods.set(achievementsTimePeriods);
+  }
+
   /**
-   * Loads activities and evaluates if achievements have been reached
+   * Loads bikes, activities, registrations and evaluates if achievements have been reached
    */
-  private async initialize() {
+  private async evaluate() {
     /** Battery charge cycles */
     let totalBatteryChargeCycles = 0;
 
@@ -167,6 +199,13 @@ export class Bes3AchievementService {
             this.achievementService.evaluateRegions(
               this.achievementsRegions(),
               federalState ?? '',
+              activitySummary.startTime,
+            ),
+          );
+
+          this.achievementsTimePeriods.set(
+            this.achievementService.evaluateTimePeriods(
+              this.achievementsTimePeriods(),
               activitySummary.startTime,
             ),
           );

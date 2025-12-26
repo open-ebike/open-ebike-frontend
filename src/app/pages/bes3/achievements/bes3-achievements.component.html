@@ -3,13 +3,23 @@
     @if (authenticationService.isLoggedIn()) {
       <div class="inner-container">
         <h2>{{ t("title") }}</h2>
+
         <app-achievement-grid
           [achievements]="achievementService.achievementsBasic()"
         >
         </app-achievement-grid>
-        <h2>{{ t("terms.regions") }}</h2>
+
+        <h2>{{ t("terms.regions.title") }}</h2>
+
         <app-achievement-grid
           [achievements]="achievementService.achievementsRegions()"
+        >
+        </app-achievement-grid>
+
+        <h2>{{ t("terms.time-periods.title") }}</h2>
+
+        <app-achievement-grid
+          [achievements]="achievementService.achievementsTimePeriods()"
         >
         </app-achievement-grid>
       </div>

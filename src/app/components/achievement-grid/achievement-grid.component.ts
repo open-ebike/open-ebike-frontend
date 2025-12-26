@@ -54,7 +54,7 @@ export class AchievementGridComponent {
   //
 
   /** Achievements */
-  achievements = input<Map<AchievementType, Achievement>>(
+  achievements = input<Map<string, Achievement>>(
     new Map<AchievementType, Achievement>(),
   );
 

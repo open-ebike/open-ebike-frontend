@@ -320,7 +320,6 @@
     "achievements": {
       "title": "Achievements",
       "terms": {
-        "regions": "Regions",
         "activities": {
           "1": "1 activity completed",
           "10": "10 activities completed"
@@ -337,23 +336,24 @@
           "4806m": "Climbed Mont Blanc (4806m)",
           "8848m": "Climbed Mount Everest (8848m)"
         },
-        "region": {
-          "baden-wurttemberg": "Traveled through Baden-Wurttemberg",
-          "bayern": "Traveled through Bavaria",
-          "berlin": "Traveled through Berlin",
-          "brandenburg": "Traveled through Brandenburg",
-          "bremen": "Traveled through Bremen",
-          "hamburg": "Traveled through Hamburg",
-          "hessen": "Traveled through Hesse",
-          "mecklenburg-vorpommern": "Traveled through Mecklenburg-Western Pomerania",
-          "niedersachsen": "Traveled through Lower Saxony",
-          "nordrhein-westfalen": "Traveled through North Rhine-Westphalia",
-          "rheinland-pfalz": "Traveled through Rhineland-Palatinate",
-          "saarland": "Traveled through Saarland",
-          "sachsen-anhalt": "Traveled through Saxony-Anhalt",
-          "sachsen": "Traveled through Saxony",
-          "schleswig-holstein": "Traveled through Schleswig-Holstein",
-          "thuringen": "Traveled through Thuringia"
+        "regions": {
+          "title": "Regions",
+          "baden-wurttemberg": "Cycled through Baden-Wurttemberg",
+          "bayern": "Cycled through Bavaria",
+          "berlin": "Cycled through Berlin",
+          "brandenburg": "Cycled through Brandenburg",
+          "bremen": "Cycled through Bremen",
+          "hamburg": "Cycled through Hamburg",
+          "hessen": "Cycled through Hesse",
+          "mecklenburg-vorpommern": "Cycled through Mecklenburg-Western Pomerania",
+          "niedersachsen": "Cycled through Lower Saxony",
+          "nordrhein-westfalen": "Cycled through North Rhine-Westphalia",
+          "rheinland-pfalz": "Cycled through Rhineland-Palatinate",
+          "saarland": "Cycled through Saarland",
+          "sachsen-anhalt": "Cycled through Saxony-Anhalt",
+          "sachsen": "Cycled through Saxony",
+          "schleswig-holstein": "Cycled through Schleswig-Holstein",
+          "thuringen": "Cycled through Thuringia"
         },
         "registration": {
           "ebike": "1 eBike registered",
@@ -363,6 +363,21 @@
           "10": "10 charge cycles",
           "100": "100 charge cycles",
           "1000": "1000 charge cycles"
+        },
+        "time-periods": {
+          "title": "Time Periods",
+          "01": "Active in January {{year}}",
+          "02": "Active in February {{year}}",
+          "03": "Active in March {{year}}",
+          "04": "Active in April {{year}}",
+          "05": "Active in May {{year}}",
+          "06": "Active in June {{year}}",
+          "07": "Active in July {{year}}",
+          "08": "Active in August {{year}}",
+          "09": "Active in September {{year}}",
+          "10": "Active in October {{year}}",
+          "11": "Active in November {{year}}",
+          "12": "Active in December {{year}}"
         },
         "unknown": "???",
         "on": "on {{date}}"

@@ -13,7 +13,10 @@
         <img [src]="achievement.value.icon" style="width: 96px" alt="icon" />
         @if (achievement.value.achieved) {
           <strong class="title">{{
-            t(achievement.value.translation ?? "") | titlecase
+            t(
+              achievement.value.translation ?? "",
+              achievement.value.translationContext
+            ) | titlecase
           }}</strong>
           @if (achievement.value.date) {
             {{ achievement.value.date | date: "mediumDate" }}

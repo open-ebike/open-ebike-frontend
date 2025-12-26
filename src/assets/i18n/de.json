@@ -318,7 +318,6 @@
     "achievements": {
       "title": "Errungenschaften",
       "terms": {
-        "regions": "Regionen",
         "activities": {
           "1": "1 Aktivität abgeschlossen",
           "10": "10 Aktivitäten abgeschlossen"
@@ -335,7 +334,8 @@
           "4806m": "Mont Blanc erklommen (4806m)",
           "8848m": "Mount Everest erklommen (8848m)"
         },
-        "region": {
+        "regions": {
+          "title": "Regionen",
           "baden-wurttemberg": "Tour durch Baden-Württemberg gemacht",
           "bayern": "Tour durch Bayern gemacht",
           "berlin": "Tour durch Berlin gemacht",
@@ -361,6 +361,21 @@
           "10": "10 Ladezyklen",
           "100": "100 Ladezyklen",
           "1000": "1000 Ladezyklen"
+        },
+        "time-periods": {
+          "title": "Zeiträume",
+          "01": "Aktiv im Januar {{year}}",
+          "02": "Aktiv im Februar {{year}}",
+          "03": "Aktiv im März {{year}}",
+          "04": "Aktiv im April {{year}}",
+          "05": "Aktiv im Mai {{year}}",
+          "06": "Aktiv im Juni {{year}}",
+          "07": "Aktiv im Juli {{year}}",
+          "08": "Aktiv im August {{year}}",
+          "09": "Aktiv im September {{year}}",
+          "10": "Aktiv im Oktober {{year}}",
+          "11": "Aktiv im November {{year}}",
+          "12": "Aktiv im Dezember {{year}}"
         },
         "unknown": "???",
         "on": "am {{date}}"

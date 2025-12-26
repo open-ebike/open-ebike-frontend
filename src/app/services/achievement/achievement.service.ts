@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Registration } from '../api/bes3/ebike-registration.service';
+import { TimePeriod } from './bes3/bes3-achievement.service';
 
 /**
  * Types of achievements
@@ -43,13 +44,15 @@ export enum AchievementType {
  */
 export interface Achievement {
   /** Type */
-  type?: AchievementType;
+  type?: AchievementType | string;
   /** Date */
   date?: string;
   /** Icon */
   icon?: string;
   /** Translation */
   translation?: string;
+  /** Translation context */
+  translationContext?: {};
   /** Achieved flag */
   achieved?: boolean;
 }
@@ -58,6 +61,37 @@ export interface Achievement {
   providedIn: 'root',
 })
 export class AchievementService {
+  //
+  // Initialization
+  //
+
+  /**
+   * Dynamically initializes achievements based on time periods
+   * @param firstActivityDate date of first activity
+   */
+  initializeAchievementsTimePeriods(
+    firstActivityDate: Date | null,
+  ): Map<string, Achievement> {
+    const achievementsTimePeriods = new Map<string, Achievement>();
+    this.getTimePeriods(firstActivityDate, new Date()).forEach((timePeriod) => {
+      const year = timePeriod.year;
+      const month = timePeriod.month.toString().padStart(2, '0');
+      const achievementType = `TIME_PERIOD_ACTIVE_${year}_${month}`;
+
+      achievementsTimePeriods.set(achievementType, {
+        icon: `assets/achievements/months/${month}.png`,
+        translation: `terms.time-periods.${month}`,
+        translationContext: { year },
+      });
+    });
+
+    return achievementsTimePeriods;
+  }
+
+  //
+  // Evaluation
+  //
+
   /**
    * Evaluates achievements related to activities
    * @param achievements achievements
@@ -70,7 +104,7 @@ export class AchievementService {
     date: string,
   ) {
     if (
-      !achievements.get(AchievementType.ACTIVITIES_1)?.date &&
+      !achievements.get(AchievementType.ACTIVITIES_1)?.achieved &&
       totalActivityCount >= 1
     ) {
       achievements.set(AchievementType.ACTIVITIES_1, {
@@ -81,7 +115,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.ACTIVITIES_10)?.date &&
+      !achievements.get(AchievementType.ACTIVITIES_10)?.achieved &&
       totalActivityCount >= 10
     ) {
       achievements.set(AchievementType.ACTIVITIES_10, {
@@ -106,7 +140,7 @@ export class AchievementService {
     date: string,
   ) {
     if (
-      !achievements.get(AchievementType.DISTANCE_10KM)?.date &&
+      !achievements.get(AchievementType.DISTANCE_10KM)?.achieved &&
       totalDistance >= 10_000
     ) {
       achievements.set(AchievementType.DISTANCE_10KM, {
@@ -117,7 +151,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.DISTANCE_100KM)?.date &&
+      !achievements.get(AchievementType.DISTANCE_100KM)?.achieved &&
       totalDistance >= 100_000
     ) {
       achievements.set(AchievementType.DISTANCE_100KM, {
@@ -128,7 +162,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.DISTANCE_1000KM)?.date &&
+      !achievements.get(AchievementType.DISTANCE_1000KM)?.achieved &&
       totalDistance >= 1_000_000
     ) {
       achievements.set(AchievementType.DISTANCE_1000KM, {
@@ -139,7 +173,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.DISTANCE_3500KM)?.date &&
+      !achievements.get(AchievementType.DISTANCE_3500KM)?.achieved &&
       totalDistance >= 3_500_000
     ) {
       achievements.set(AchievementType.DISTANCE_3500KM, {
@@ -150,7 +184,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.DISTANCE_3300KM)?.date &&
+      !achievements.get(AchievementType.DISTANCE_3300KM)?.achieved &&
       totalDistance >= 3_300_000
     ) {
       achievements.set(AchievementType.DISTANCE_3300KM, {
@@ -161,7 +195,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.DISTANCE_40075KM)?.date &&
+      !achievements.get(AchievementType.DISTANCE_40075KM)?.achieved &&
       totalDistance >= 40_075_000
     ) {
       achievements.set(AchievementType.DISTANCE_40075KM, {
@@ -186,7 +220,7 @@ export class AchievementService {
     date: string,
   ) {
     if (
-      !achievements.get(AchievementType.ELEVATION_GAIN_4806M)?.date &&
+      !achievements.get(AchievementType.ELEVATION_GAIN_4806M)?.achieved &&
       totalElevationGain >= 4806
     ) {
       achievements.set(AchievementType.ELEVATION_GAIN_4806M, {
@@ -197,7 +231,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.ELEVATION_GAIN_8848_M)?.date &&
+      !achievements.get(AchievementType.ELEVATION_GAIN_8848_M)?.achieved &&
       totalElevationGain >= 8848
     ) {
       achievements.set(AchievementType.ELEVATION_GAIN_8848_M, {
@@ -220,7 +254,7 @@ export class AchievementService {
     registration: Registration,
   ) {
     if (
-      !achievements.get(AchievementType.REGISTRATION_BIKE)?.date &&
+      !achievements.get(AchievementType.REGISTRATION_BIKE)?.achieved &&
       registration.bikeRegistration
     ) {
       achievements.set(AchievementType.REGISTRATION_BIKE, {
@@ -231,7 +265,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.REGISTRATION_COMPONENT)?.date &&
+      !achievements.get(AchievementType.REGISTRATION_COMPONENT)?.achieved &&
       registration.componentRegistration
     ) {
       achievements.set(AchievementType.REGISTRATION_COMPONENT, {
@@ -254,7 +288,7 @@ export class AchievementService {
     totalBatteryChargeCycles: number,
   ) {
     if (
-      !achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_10)?.date &&
+      !achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_10)?.achieved &&
       totalBatteryChargeCycles >= 10
     ) {
       achievements.set(AchievementType.BATTERY_CHARGE_CYCLES_10, {
@@ -264,7 +298,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_100)?.date &&
+      !achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_100)?.achieved &&
       totalBatteryChargeCycles >= 100
     ) {
       achievements.set(AchievementType.BATTERY_CHARGE_CYCLES_100, {
@@ -274,7 +308,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_1000)?.date &&
+      !achievements.get(AchievementType.BATTERY_CHARGE_CYCLES_1000)?.achieved &&
       totalBatteryChargeCycles >= 1000
     ) {
       achievements.set(AchievementType.BATTERY_CHARGE_CYCLES_1000, {
@@ -298,7 +332,7 @@ export class AchievementService {
     date: string,
   ) {
     if (
-      !achievements.get(AchievementType.REGION_BADEN_WURTTEMBERG)?.date &&
+      !achievements.get(AchievementType.REGION_BADEN_WURTTEMBERG)?.achieved &&
       federalState === 'Baden-Württemberg'
     ) {
       achievements.set(AchievementType.REGION_BADEN_WURTTEMBERG, {
@@ -309,7 +343,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.REGION_BERLIN)?.date &&
+      !achievements.get(AchievementType.REGION_BERLIN)?.achieved &&
       federalState === 'Berlin'
     ) {
       achievements.set(AchievementType.REGION_BERLIN, {
@@ -320,7 +354,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.REGION_BRANDENBURG)?.date &&
+      !achievements.get(AchievementType.REGION_BRANDENBURG)?.achieved &&
       federalState === 'Brandenburg'
     ) {
       achievements.set(AchievementType.REGION_BRANDENBURG, {
@@ -331,7 +365,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.REGION_BREMEN)?.date &&
+      !achievements.get(AchievementType.REGION_BREMEN)?.achieved &&
       federalState === 'Bremen'
     ) {
       achievements.set(AchievementType.REGION_BREMEN, {
@@ -342,7 +376,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.REGION_HAMBURG)?.date &&
+      !achievements.get(AchievementType.REGION_HAMBURG)?.achieved &&
       federalState === 'Hamburg'
     ) {
       achievements.set(AchievementType.REGION_HAMBURG, {
@@ -353,7 +387,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.REGION_HESSEN)?.date &&
+      !achievements.get(AchievementType.REGION_HESSEN)?.achieved &&
       federalState === 'Hessen'
     ) {
       achievements.set(AchievementType.REGION_HESSEN, {
@@ -364,7 +398,8 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.REGION_MECKLENBURG_VORPOMMERN)?.date &&
+      !achievements.get(AchievementType.REGION_MECKLENBURG_VORPOMMERN)
+        ?.achieved &&
       federalState === 'Mecklenburg-Vorpommern'
     ) {
       achievements.set(AchievementType.REGION_MECKLENBURG_VORPOMMERN, {
@@ -375,7 +410,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.REGION_NIEDERSACHSEN)?.date &&
+      !achievements.get(AchievementType.REGION_NIEDERSACHSEN)?.achieved &&
       federalState === 'Niedersachsen'
     ) {
       achievements.set(AchievementType.REGION_NIEDERSACHSEN, {
@@ -386,7 +421,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.REGION_NORDRHEIN_WESTFALEN)?.date &&
+      !achievements.get(AchievementType.REGION_NORDRHEIN_WESTFALEN)?.achieved &&
       federalState === 'Nordrhein-Westfalen'
     ) {
       achievements.set(AchievementType.REGION_NORDRHEIN_WESTFALEN, {
@@ -397,7 +432,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.REGION_RHEINLAND_PFALZ)?.date &&
+      !achievements.get(AchievementType.REGION_RHEINLAND_PFALZ)?.achieved &&
       federalState === 'Rheinland-Pfalz'
     ) {
       achievements.set(AchievementType.REGION_RHEINLAND_PFALZ, {
@@ -408,7 +443,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.REGION_SAARLAND)?.date &&
+      !achievements.get(AchievementType.REGION_SAARLAND)?.achieved &&
       federalState === 'Saarland'
     ) {
       achievements.set(AchievementType.REGION_SAARLAND, {
@@ -419,7 +454,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.REGION_SACHSEN_ANHALT)?.date &&
+      !achievements.get(AchievementType.REGION_SACHSEN_ANHALT)?.achieved &&
       federalState === 'Sachsen-Anhalt'
     ) {
       achievements.set(AchievementType.REGION_SACHSEN_ANHALT, {
@@ -430,7 +465,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.REGION_SACHSEN)?.date &&
+      !achievements.get(AchievementType.REGION_SACHSEN)?.achieved &&
       federalState === 'Sachsen'
     ) {
       achievements.set(AchievementType.REGION_SACHSEN, {
@@ -441,7 +476,7 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.REGION_SCHLESWIG_HOLSTEIN)?.date &&
+      !achievements.get(AchievementType.REGION_SCHLESWIG_HOLSTEIN)?.achieved &&
       federalState === 'Schleswig-Holstein'
     ) {
       achievements.set(AchievementType.REGION_SCHLESWIG_HOLSTEIN, {
@@ -452,12 +487,35 @@ export class AchievementService {
     }
 
     if (
-      !achievements.get(AchievementType.REGION_THURINGEN)?.date &&
+      !achievements.get(AchievementType.REGION_THURINGEN)?.achieved &&
       federalState === 'Thüringen'
     ) {
       achievements.set(AchievementType.REGION_THURINGEN, {
         ...achievements.get(AchievementType.REGION_THURINGEN),
         date: date,
+        achieved: true,
+      });
+    }
+
+    return new Map(achievements);
+  }
+
+  /**
+   * Evaluates achievements related to time periods
+   * @param achievements achievements
+   * @param date date
+   */
+  evaluateTimePeriods(achievements: Map<string, Achievement>, date: string) {
+    const year = new Date(date).getFullYear();
+    const month = (new Date(date).getMonth() + 1).toString().padStart(2, '0');
+    const achievementType = `TIME_PERIOD_ACTIVE_${year}_${month}`;
+
+    if (
+      achievements.has(achievementType) &&
+      !achievements.get(achievementType)?.achieved
+    ) {
+      achievements.set(achievementType, {
+        ...achievements.get(achievementType),
         achieved: true,
       });
     }
@@ -476,5 +534,31 @@ export class AchievementService {
         return [type as AchievementType, rest as Achievement];
       }),
     );
+  }
+
+  /**
+   * Generates a list of months between a start and an end date
+   * @param startDate start date
+   * @param endDate end date
+   */
+  getTimePeriods(startDate: Date | null, endDate: Date): TimePeriod[] {
+    if (!startDate) {
+      return [];
+    }
+
+    const result: TimePeriod[] = [];
+
+    const current = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+    const end = new Date(endDate.getFullYear(), endDate.getMonth(), 1);
+
+    while (current <= end) {
+      const year = current.getFullYear();
+      const month = current.getMonth() + 1;
+
+      result.push({ year, month });
+      current.setMonth(current.getMonth() + 1);
+    }
+
+    return result;
   }
 }
