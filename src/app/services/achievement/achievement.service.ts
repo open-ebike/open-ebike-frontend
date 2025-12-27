@@ -83,6 +83,7 @@ export class AchievementService {
       achievementsTimePeriods.set(achievementType, {
         icon: `assets/achievements/months/${month}.png`,
         translation: `terms.badges.time-periods.${month}`,
+        translationSharePicture: `terms.share-pictures.time-periods.${month}`,
         translationContext: { year },
       });
     });

@@ -89,6 +89,8 @@ export class AchievementGridComponent {
       data: {
         title: this.translocoService.translate(
           `pages.achievements.${achievement.translationSharePicture!!}`,
+          achievement.translationContext,
+          this.locale,
         ),
         imageUrl: `${environment.hrefBase}${achievement.icon}`,
       },

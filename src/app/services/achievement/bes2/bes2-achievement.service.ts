@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { RegionFinderService } from '../../region-finder.service';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, map } from 'rxjs';
 import { ActivityService } from '../../api/bes2/activity.service';
 import {
   Achievement,
@@ -44,6 +44,8 @@ export class Bes2AchievementService {
   achievementsRegions = signal(
     this.achievementService.convertToMap(achievements.regions),
   );
+  /** Achievements */
+  achievementsTimePeriods = signal(new Map<string, Achievement>());
 
   /** Achievements */
   achievementsBasic = computed(() => {
@@ -58,12 +60,32 @@ export class Bes2AchievementService {
    * Constructor
    */
   constructor() {
-    this.evaluate();
+    this.activityService
+      .getAllActivitySummaries(1, 0)
+      .pipe(
+        map((activities) => {
+          return activities.activities.length > 0
+            ? new Date(activities.activities[0].startTime)
+            : new Date();
+        }),
+      )
+      .subscribe((firstActivityDate) => {
+        this.initialize(firstActivityDate);
+        this.evaluate();
+      });
   }
 
   //
   // Initialization
   //
+
+  async initialize(firstActivityDate: Date) {
+    const achievementsTimePeriods =
+      this.achievementService.initializeAchievementsTimePeriods(
+        firstActivityDate,
+      );
+    this.achievementsTimePeriods.set(achievementsTimePeriods);
+  }
 
   /**
    * Loads activities and evaluates if achievements have been reached
@@ -127,6 +149,13 @@ export class Bes2AchievementService {
             this.achievementService.evaluateRegions(
               this.achievementsRegions(),
               federalState ?? '',
+              activitySummary.startTime,
+            ),
+          );
+
+          this.achievementsTimePeriods.set(
+            this.achievementService.evaluateTimePeriods(
+              this.achievementsTimePeriods(),
               activitySummary.startTime,
             ),
           );
