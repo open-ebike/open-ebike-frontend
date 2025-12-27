@@ -2,15 +2,13 @@ import {
   Component,
   ElementRef,
   inject,
-  OnInit,
+  Signal,
   viewChild,
-  ViewChild,
 } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { MatListItem, MatNavList } from '@angular/material/list';
 import { WebShareService } from '../../services/web-share.service';
-import { environment } from '../../../environments/environment';
 
 /**
  * Represents data
@@ -47,7 +45,9 @@ export class SharingBottomSheetComponent {
   /** Source image */
   imageRef = viewChild<ElementRef<HTMLImageElement>>('sourceImage');
   /** Canvas */
-  canvasRef = viewChild<ElementRef<HTMLCanvasElement>>('canvas');
+  canvasSharePicture = viewChild<ElementRef<HTMLCanvasElement>>('sharePicture');
+  /** Canvas */
+  canvasPreview = viewChild<ElementRef<HTMLCanvasElement>>('preview');
 
   /** Language */
   lang = getBrowserLang();
@@ -56,54 +56,55 @@ export class SharingBottomSheetComponent {
   // Constants
   //
 
-  /** Canvas witdh */
-  private readonly CANVAS_WIDTH = 480;
-  /** Canvas height */
-  private readonly CANVAS_HEIGHT = 480;
-
   //
   // Initialization
   //
 
   /**
-   * Updates preview
+   * Updates canvas
+   * @param canvasRef canvas reference
+   * @param imageRef image reference
+   * @param canvasWidth canvas width
+   * @param canvasHeight canvas height
    */
-  updatePreview() {
-    if (!this.canvasRef) return;
+  updateCanvas(
+    canvasRef: Signal<ElementRef<HTMLCanvasElement> | undefined>,
+    imageRef: Signal<ElementRef<HTMLImageElement> | undefined>,
+    canvasWidth: number,
+    canvasHeight: number,
+  ) {
+    if (!canvasRef()) return;
 
-    const canvas = this.canvasRef()!!.nativeElement;
+    const canvas = canvasRef()!!.nativeElement;
     const ctx = canvas?.getContext('2d');
-    const img = this.imageRef()!!.nativeElement;
+    const img = imageRef()!!.nativeElement;
 
     if (!ctx) return;
 
     // Set resolution
-    canvas!!.width = this.CANVAS_WIDTH;
-    canvas!!.height = this.CANVAS_HEIGHT;
-
-    // Get Dominant Color
-    const dominantColor = this.getDominantColor(img);
+    canvas!!.width = canvasWidth;
+    canvas!!.height = canvasHeight;
 
     // Fill Background
     ctx.fillStyle = this.getDominantColor(img);
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    //
+    // Image
+    //
+
     // Draw Image
-    const margin = 180;
+    const margin = canvas.width * 0.35;
     const availableWidth = canvas.width - margin * 2;
-    const availableHeight = canvas.height * 0.6;
+    const availableHeight = canvas.height - margin * 2;
 
     // Calculate aspect ratio to fit image "contain" style
     const scale = Math.min(
       availableWidth / img.naturalWidth,
       availableHeight / img.naturalHeight,
     );
-    const width = img.naturalWidth * scale;
-    const height = img.naturalHeight * scale;
-
-    //
-    // Image
-    //
+    const imageWidth = img.naturalWidth * scale;
+    const imageHeight = img.naturalHeight * scale;
 
     // Draw shadow for the image
     ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
@@ -111,9 +112,9 @@ export class SharingBottomSheetComponent {
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 15;
 
-    const imageX = (canvas.width - width) / 2;
-    const imageY = (canvas.height - height) / 2 - 40;
-    ctx.drawImage(img, imageX, imageY, width, height);
+    const imageX = (canvas.width - imageWidth) / 2;
+    const imageY = (canvas.height - imageHeight) / 2 - imageHeight * 0.75;
+    ctx.drawImage(img, imageX, imageY, imageWidth, imageHeight);
 
     // Reset shadow for text
     ctx.shadowColor = 'transparent';
@@ -128,12 +129,12 @@ export class SharingBottomSheetComponent {
     ctx.textBaseline = 'top';
 
     // Title
-    ctx.font = 'bold 30px Roboto, system-ui, sans-serif';
+    ctx.font = `bold ${canvas.height / 16}px Roboto, system-ui, sans-serif`;
     let lineX = canvas.width / 2;
-    let lineYPos = imageY + height + 40;
+    let lineYPos = imageY + imageHeight + canvas.height / 10;
 
     let line = '';
-    const lineHeight = 32;
+    const lineHeight = canvas.height / 15;
 
     // Iterate over words
     this.data.title.split(' ').forEach((word, index) => {
@@ -160,10 +161,10 @@ export class SharingBottomSheetComponent {
     //
 
     // Subtitle
-    ctx.font = '20px Roboto, system-ui, sans-serif';
+    ctx.font = `${canvas.height / 24}px Roboto, system-ui, sans-serif`;
     ctx.globalAlpha = 0.75;
     const subtitleX = canvas.width / 2;
-    const subtitleY = canvas.height - 60;
+    const subtitleY = canvas.height - canvas.height / 8;
     ctx.fillText('Open eBike', subtitleX, subtitleY);
     ctx.globalAlpha = 1.0;
   }
@@ -176,7 +177,7 @@ export class SharingBottomSheetComponent {
    * Handles click on share option
    */
   async onShareClicked() {
-    const canvas = this.canvasRef()!!.nativeElement;
+    const canvas = this.canvasSharePicture()!!.nativeElement;
 
     const blob = await new Promise<Blob | null>((resolve) =>
       canvas.toBlob(resolve, 'image/png', 1.0),
@@ -194,7 +195,8 @@ export class SharingBottomSheetComponent {
    * Handles image being loaded
    */
   onImageLoad() {
-    this.updatePreview();
+    this.updateCanvas(this.canvasPreview, this.imageRef, 384, 384);
+    this.updateCanvas(this.canvasSharePicture, this.imageRef, 996, 996);
   }
 
   //
