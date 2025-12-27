@@ -320,67 +320,130 @@
     "achievements": {
       "title": "Achievements",
       "terms": {
-        "activities": {
-          "1": "1 activity completed",
-          "10": "10 activities completed"
+        "badges": {
+          "activities": {
+            "1": "1 activity completed",
+            "10": "10 activities completed"
+          },
+          "distance": {
+            "10km": "10 kilometers completed",
+            "100km": "100 kilometers completed",
+            "1000km": "1000 kilometers completed",
+            "3300km": "Vuelta a España (ca. 3300km)",
+            "3500km": "Tour de France (ca. 3500km)",
+            "40075km": "Circled the Globe (40075km)"
+          },
+          "elevation-gain": {
+            "4806m": "Climbed Mont Blanc (4806m)",
+            "8848m": "Climbed Mount Everest (8848m)"
+          },
+          "regions": {
+            "title": "Regions",
+            "baden-wurttemberg": "I cycled through Baden-Wurttemberg",
+            "bayern": "I cycled through Bavaria",
+            "berlin": "I cycled through Berlin",
+            "brandenburg": "I cycled through Brandenburg",
+            "bremen": "I cycled through Bremen",
+            "hamburg": "I cycled through Hamburg",
+            "hessen": "I cycled through Hesse",
+            "mecklenburg-vorpommern": "I cycled through Mecklenburg-Western Pomerania",
+            "niedersachsen": "I cycled through Lower Saxony",
+            "nordrhein-westfalen": "I cycled through North Rhine-Westphalia",
+            "rheinland-pfalz": "I cycled through Rhineland-Palatinate",
+            "saarland": "I cycled through Saarland",
+            "sachsen-anhalt": "I cycled through Saxony-Anhalt",
+            "sachsen": "I cycled through Saxony",
+            "schleswig-holstein": "I cycled through Schleswig-Holstein",
+            "thuringen": "I cycled through Thuringia"
+          },
+          "registration": {
+            "ebike": "1 eBike registered",
+            "component": "1 component registered"
+          },
+          "battery-charge-cycles": {
+            "10": "10 charge cycles",
+            "100": "100 charge cycles",
+            "1000": "1000 charge cycles"
+          },
+          "time-periods": {
+            "title": "Time Periods",
+            "01": "Active in January {{year}}",
+            "02": "Active in February {{year}}",
+            "03": "Active in March {{year}}",
+            "04": "Active in April {{year}}",
+            "05": "Active in May {{year}}",
+            "06": "Active in June {{year}}",
+            "07": "Active in July {{year}}",
+            "08": "Active in August {{year}}",
+            "09": "Active in September {{year}}",
+            "10": "Active in October {{year}}",
+            "11": "Active in November {{year}}",
+            "12": "Active in December {{year}}"
+          },
+          "unknown": "???",
+          "on": "on {{date}}"
         },
-        "distance": {
-          "10km": "10 kilometers completed",
-          "100km": "100 kilometers completed",
-          "1000km": "1000 kilometers completed",
-          "3300km": "Vuelta a España (ca. 3300km)",
-          "3500km": "Tour de France (ca. 3500km)",
-          "40075km": "Circled the Globe (40075km)"
-        },
-        "elevation-gain": {
-          "4806m": "Climbed Mont Blanc (4806m)",
-          "8848m": "Climbed Mount Everest (8848m)"
-        },
-        "regions": {
-          "title": "Regions",
-          "baden-wurttemberg": "Cycled through Baden-Wurttemberg",
-          "bayern": "Cycled through Bavaria",
-          "berlin": "Cycled through Berlin",
-          "brandenburg": "Cycled through Brandenburg",
-          "bremen": "Cycled through Bremen",
-          "hamburg": "Cycled through Hamburg",
-          "hessen": "Cycled through Hesse",
-          "mecklenburg-vorpommern": "Cycled through Mecklenburg-Western Pomerania",
-          "niedersachsen": "Cycled through Lower Saxony",
-          "nordrhein-westfalen": "Cycled through North Rhine-Westphalia",
-          "rheinland-pfalz": "Cycled through Rhineland-Palatinate",
-          "saarland": "Cycled through Saarland",
-          "sachsen-anhalt": "Cycled through Saxony-Anhalt",
-          "sachsen": "Cycled through Saxony",
-          "schleswig-holstein": "Cycled through Schleswig-Holstein",
-          "thuringen": "Cycled through Thuringia"
-        },
-        "registration": {
-          "ebike": "1 eBike registered",
-          "component": "1 component registered"
-        },
-        "battery-charge-cycles": {
-          "10": "10 charge cycles",
-          "100": "100 charge cycles",
-          "1000": "1000 charge cycles"
-        },
-        "time-periods": {
-          "title": "Time Periods",
-          "01": "Active in January {{year}}",
-          "02": "Active in February {{year}}",
-          "03": "Active in March {{year}}",
-          "04": "Active in April {{year}}",
-          "05": "Active in May {{year}}",
-          "06": "Active in June {{year}}",
-          "07": "Active in July {{year}}",
-          "08": "Active in August {{year}}",
-          "09": "Active in September {{year}}",
-          "10": "Active in October {{year}}",
-          "11": "Active in November {{year}}",
-          "12": "Active in December {{year}}"
-        },
-        "unknown": "???",
-        "on": "on {{date}}"
+        "share-pictures": {
+          "activities": {
+            "1": "I completed 1 activity on my Bosch-powered eBike",
+            "10": "I completed 10 activities on my Bosch-powered eBike"
+          },
+          "distance": {
+            "10km": "I cycled 10 kilometers on my Bosch-powered eBike",
+            "100km": "I cycled 100 kilometers on my Bosch-powered eBike",
+            "1000km": "I cycled 1000 kilometers on my Bosch-powered eBike",
+            "3300km": "I cycled the Vuelta a España (ca. 3300km) on my Bosch-powered eBike",
+            "3500km": "I cycled the Tour de France (ca. 3500km) on my Bosch-powered eBike",
+            "40075km": "I cycled once around theg globe (40075km) on my Bosch-powered eBike"
+          },
+          "elevation-gain": {
+            "4806m": "I climbed Mont Blanc (4806m) on my Bosch-powered eBike",
+            "8848m": "I climbed Mount Everest (8848m) on my Bosch-powered eBike"
+          },
+          "regions": {
+            "title": "Regions",
+            "baden-wurttemberg": "I cycled through Baden-Wurttemberg on my Bosch-powered eBike",
+            "bayern": "I cycled through Bavaria on my Bosch-powered eBike",
+            "berlin": "I cycled through Berlin on my Bosch-powered eBike",
+            "brandenburg": "I cycled through Brandenburg on my Bosch-powered eBike",
+            "bremen": "I cycled through Bremen on my Bosch-powered eBike",
+            "hamburg": "I cycled through Hamburg on my Bosch-powered eBike",
+            "hessen": "I cycled through Hesse on my Bosch-powered eBike",
+            "mecklenburg-vorpommern": "I cycled through Mecklenburg-Western Pomerania on my Bosch-powered eBike",
+            "niedersachsen": "I cycled through Lower Saxony on my Bosch-powered eBike",
+            "nordrhein-westfalen": "I cycled through North Rhine-Westphalia on my Bosch-powered eBike",
+            "rheinland-pfalz": "I cycled through Rhineland-Palatinate on my Bosch-powered eBike",
+            "saarland": "I cycled through Saarland on my Bosch-powered eBike",
+            "sachsen-anhalt": "I cycled through Saxony-Anhalt on my Bosch-powered eBike",
+            "sachsen": "I cycled through Saxony on my Bosch-powered eBike",
+            "schleswig-holstein": "I cycled through Schleswig-Holstein on my Bosch-powered eBike",
+            "thuringen": "I cycled through Thuringia on my Bosch-powered eBike"
+          },
+          "registration": {
+            "ebike": "I registered my Bosch-powered eBike",
+            "component": "I registered a component of my Bosch-powered eBike"
+          },
+          "battery-charge-cycles": {
+            "10": "I fully charged my Bosch-powered eBike 10 times",
+            "100": "I fully charged my Bosch-powered eBike 100 times",
+            "1000": "I fully charged my Bosch-powered eBike 1000 times"
+          },
+          "time-periods": {
+            "title": "Time Periods",
+            "01": "I cycled on my Bosch-powered eBike in January {{year}}",
+            "02": "I cycled on my Bosch-powered eBike in February {{year}}",
+            "03": "I cycled on my Bosch-powered eBike in March {{year}}",
+            "04": "I cycled on my Bosch-powered eBike in April {{year}}",
+            "05": "I cycled on my Bosch-powered eBike in May {{year}}",
+            "06": "I cycled on my Bosch-powered eBike in June {{year}}",
+            "07": "I cycled on my Bosch-powered eBike in July {{year}}",
+            "08": "I cycled on my Bosch-powered eBike in August {{year}}",
+            "09": "I cycled on my Bosch-powered eBike in September {{year}}",
+            "10": "I cycled on my Bosch-powered eBike in October {{year}}",
+            "11": "I cycled on my Bosch-powered eBike in November {{year}}",
+            "12": "I cycled on my Bosch-powered eBike in December {{year}}"
+          }
+        }
       },
       "actions": {
         "share-achievement": "Share Achievement"

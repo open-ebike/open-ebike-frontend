@@ -88,16 +88,7 @@ export class AchievementGridComponent {
     this.bottomSheet.open(SharingBottomSheetComponent, {
       data: {
         title: this.translocoService.translate(
-          `pages.achievements.${achievement.translation!!}`,
-        ),
-        description: this.translocoService.translate(
-          `pages.achievements.terms.on`,
-          {
-            date: new DatePipe(this.locale).transform(
-              achievement.date,
-              'mediumDate',
-            ),
-          },
+          `pages.achievements.${achievement.translationSharePicture!!}`,
         ),
         imageUrl: `${environment.hrefBase}${achievement.icon}`,
       },

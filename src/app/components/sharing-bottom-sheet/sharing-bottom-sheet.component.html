@@ -1,4 +1,18 @@
 <ng-container *transloco="let t; lang: lang; prefix: 'pages.achievements'">
+  <div style="display: none">
+    <img
+      #sourceImage
+      crossorigin="anonymous"
+      [src]="data.imageUrl"
+      (load)="onImageLoad()"
+      alt="source asset"
+    />
+  </div>
+
+  <div class="preview-container">
+    <canvas #canvas class="preview"></canvas>
+  </div>
+
   <mat-nav-list>
     <a mat-list-item (click)="onShareClicked()">
       <span

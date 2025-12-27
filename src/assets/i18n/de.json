@@ -318,67 +318,130 @@
     "achievements": {
       "title": "Errungenschaften",
       "terms": {
-        "activities": {
-          "1": "1 Aktivität abgeschlossen",
-          "10": "10 Aktivitäten abgeschlossen"
+        "badges": {
+          "activities": {
+            "1": "1 Aktivität abgeschlossen",
+            "10": "10 Aktivitäten abgeschlossen"
+          },
+          "distance": {
+            "10km": "10 Kilometer gefahren",
+            "100km": "100 Kilometer gefahren",
+            "1000km": "1000 Kilometer gefahren",
+            "3300km": "Vuelta a España gefahren (ca. 3300km)",
+            "3500km": "Tour de France gefahren (ca. 3500km)",
+            "40075km": "die Erde umrundet (40075km)"
+          },
+          "elevation-gain": {
+            "4806m": "Mont Blanc erklommen (4806m)",
+            "8848m": "Mount Everest erklommen (8848m)"
+          },
+          "regions": {
+            "title": "Regionen",
+            "baden-wurttemberg": "Tour durch Baden-Württemberg gemacht",
+            "bayern": "Tour durch Bayern gemacht",
+            "berlin": "Tour durch Berlin gemacht",
+            "brandenburg": "Tour durch Brandenburg gemacht",
+            "bremen": "Tour durch Bremen gemacht",
+            "hamburg": "Tour durch Hamburg gemacht",
+            "hessen": "Tour durch Hessen gemacht",
+            "mecklenburg-vorpommern": "Tour durch Mecklenburg-Vorpommern gemacht",
+            "niedersachsen": "Tour durch Niedersachsen gemacht",
+            "nordrhein-westfalen": "Tour durch Nordrhein-Westfalen gemacht",
+            "rheinland-pfalz": "Tour durch Rheinland-Pfalz gemacht",
+            "saarland": "Tour durch Saarland gemacht",
+            "sachsen-anhalt": "Tour durch Sachsen-Anhalt gemacht",
+            "sachsen": "Tour durch Sachsen gemacht",
+            "schleswig-holstein": "Tour durch Schleswig-Holstein gemacht",
+            "thuringen": "Tour durch Thüringen gemacht"
+          },
+          "registration": {
+            "ebike": "1 eBike registriert",
+            "component": "1 Komponente registriert"
+          },
+          "battery-charge-cycles": {
+            "10": "10 Ladezyklen",
+            "100": "100 Ladezyklen",
+            "1000": "1000 Ladezyklen"
+          },
+          "time-periods": {
+            "title": "Zeiträume",
+            "01": "Aktiv im Januar {{year}}",
+            "02": "Aktiv im Februar {{year}}",
+            "03": "Aktiv im März {{year}}",
+            "04": "Aktiv im April {{year}}",
+            "05": "Aktiv im Mai {{year}}",
+            "06": "Aktiv im Juni {{year}}",
+            "07": "Aktiv im Juli {{year}}",
+            "08": "Aktiv im August {{year}}",
+            "09": "Aktiv im September {{year}}",
+            "10": "Aktiv im Oktober {{year}}",
+            "11": "Aktiv im November {{year}}",
+            "12": "Aktiv im Dezember {{year}}"
+          },
+          "unknown": "???",
+          "on": "am {{date}}"
         },
-        "distance": {
-          "10km": "10 Kilometer gefahren",
-          "100km": "100 Kilometer gefahren",
-          "1000km": "1000 Kilometer gefahren",
-          "3300km": "Vuelta a España gefahren (ca. 3300km)",
-          "3500km": "Tour de France gefahren (ca. 3500km)",
-          "40075km": "die Erde umrundet (40075km)"
-        },
-        "elevation-gain": {
-          "4806m": "Mont Blanc erklommen (4806m)",
-          "8848m": "Mount Everest erklommen (8848m)"
-        },
-        "regions": {
-          "title": "Regionen",
-          "baden-wurttemberg": "Tour durch Baden-Württemberg gemacht",
-          "bayern": "Tour durch Bayern gemacht",
-          "berlin": "Tour durch Berlin gemacht",
-          "brandenburg": "Tour durch Brandenburg gemacht",
-          "bremen": "Tour durch Bremen gemacht",
-          "hamburg": "Tour durch Hamburg gemacht",
-          "hessen": "Tour durch Hessen gemacht",
-          "mecklenburg-vorpommern": "Tour durch Mecklenburg-Vorpommern gemacht",
-          "niedersachsen": "Tour durch Niedersachsen gemacht",
-          "nordrhein-westfalen": "Tour durch Nordrhein-Westfalen gemacht",
-          "rheinland-pfalz": "Tour durch Rheinland-Pfalz gemacht",
-          "saarland": "Tour durch Saarland gemacht",
-          "sachsen-anhalt": "Tour durch Sachsen-Anhalt gemacht",
-          "sachsen": "Tour durch Sachsen gemacht",
-          "schleswig-holstein": "Tour durch Schleswig-Holstein gemacht",
-          "thuringen": "Tour durch Thüringen gemacht"
-        },
-        "registration": {
-          "ebike": "1 eBike registriert",
-          "component": "1 Komponente registriert"
-        },
-        "battery-charge-cycles": {
-          "10": "10 Ladezyklen",
-          "100": "100 Ladezyklen",
-          "1000": "1000 Ladezyklen"
-        },
-        "time-periods": {
-          "title": "Zeiträume",
-          "01": "Aktiv im Januar {{year}}",
-          "02": "Aktiv im Februar {{year}}",
-          "03": "Aktiv im März {{year}}",
-          "04": "Aktiv im April {{year}}",
-          "05": "Aktiv im Mai {{year}}",
-          "06": "Aktiv im Juni {{year}}",
-          "07": "Aktiv im Juli {{year}}",
-          "08": "Aktiv im August {{year}}",
-          "09": "Aktiv im September {{year}}",
-          "10": "Aktiv im Oktober {{year}}",
-          "11": "Aktiv im November {{year}}",
-          "12": "Aktiv im Dezember {{year}}"
-        },
-        "unknown": "???",
-        "on": "am {{date}}"
+        "share-pictures": {
+          "activities": {
+            "1": "Ich habe mit meinem Bosch-powered eBike 1 Aktivität abgeschlossen",
+            "10": "Ich habe mit meinem Bosch-powered eBike 10 Aktivitäten abgeschlossen"
+          },
+          "distance": {
+            "10km": "Ich bin mit meinem Bosch-powered eBike 10 Kilometer gefahren",
+            "100km": "Ich bin mit meinem Bosch-powered eBike 100 Kilometer gefahren",
+            "1000km": "Ich bin mit meinem Bosch-powered eBike 1000 Kilometer gefahren",
+            "3300km": "Ich bin mit meinem Bosch-powered eBike die Vuelta a España gefahren (ca. 3300km)",
+            "3500km": "Ich bin mit meinem Bosch-powered eBike Tour de France gefahren (ca. 3500km)",
+            "40075km": "Ich habe mit meinem Bosch-powered eBike die Erde umrundet (40075km)"
+          },
+          "elevation-gain": {
+            "4806m": "Ich habe mit meinem Bosch-powered eBike den Mont Blanc erklommen (4806m)",
+            "8848m": "Ich habe mit meinem Bosch-powered eBike den Mount Everest erklommen (8848m)"
+          },
+          "regions": {
+            "title": "Regionen",
+            "baden-wurttemberg": "Ich bin mit meinem Bosch-powered eBike durch Baden-Württemberg gefahren",
+            "bayern": "Ich bin mit meinem Bosch-powered eBike durch Bayern gefahren",
+            "berlin": "Ich bin mit meinem Bosch-powered eBike durch Berlin gefahren",
+            "brandenburg": "Ich bin mit meinem Bosch-powered eBike durch Brandenburg gefahren",
+            "bremen": "Ich bin mit meinem Bosch-powered eBike durch Bremen gefahren",
+            "hamburg": "Ich bin mit meinem Bosch-powered eBike durch Hamburg gefahren",
+            "hessen": "Ich bin mit meinem Bosch-powered eBike durch Hessen gefahren",
+            "mecklenburg-vorpommern": "Ich bin mit meinem Bosch-powered eBike durch Mecklenburg-Vorpommern gefahren",
+            "niedersachsen": "Ich bin mit meinem Bosch-powered eBike durch Niedersachsen gefahren",
+            "nordrhein-westfalen": "Ich bin mit meinem Bosch-powered eBike durch Nordrhein-Westfalen gefahren",
+            "rheinland-pfalz": "Ich bin mit meinem Bosch-powered eBike durch Rheinland-Pfalz gefahren",
+            "saarland": "Ich bin mit meinem Bosch-powered eBike durch Saarland gefahren",
+            "sachsen-anhalt": "Ich bin mit meinem Bosch-powered eBike durch Sachsen-Anhalt gefahren",
+            "sachsen": "Ich bin mit meinem Bosch-powered eBike durch Sachsen gefahren",
+            "schleswig-holstein": "Ich bin mit meinem Bosch-powered eBike durch Schleswig-Holstein gefahren",
+            "thuringen": "Ich bin mit meinem Bosch-powered eBike durch Thüringen gefahren"
+          },
+          "registration": {
+            "ebike": "Ich habe mein Bosch-powered eBike registriert",
+            "component": "Ich habe eine Komponente meines Bosch-powered eBikes registriert"
+          },
+          "battery-charge-cycles": {
+            "10": "Ich habe mein Bosch-powered eBike 10x komplett geladen",
+            "100": "Ich habe mein Bosch-powered eBike 100x komplett geladen",
+            "1000": "Ich habe mein Bosch-powered eBike 1000x komplett geladen"
+          },
+          "time-periods": {
+            "title": "Zeiträume",
+            "01": "Ich bin im Januar {{year}} mit meinem Bosch-powered eBike gefahren",
+            "02": "Ich bin im Februar {{year}} mit meinem Bosch-powered eBike gefahren",
+            "03": "Ich bin im März {{year}} mit meinem Bosch-powered eBike gefahren",
+            "04": "Ich bin im April {{year}} mit meinem Bosch-powered eBike gefahren",
+            "05": "Ich bin im Mai {{year}} mit meinem Bosch-powered eBike gefahren",
+            "06": "Ich bin im Juni {{year}} mit meinem Bosch-powered eBike gefahren",
+            "07": "Ich bin im Juli {{year}} mit meinem Bosch-powered eBike gefahren",
+            "08": "Ich bin im August {{year}} mit meinem Bosch-powered eBike gefahren",
+            "09": "Ich bin im September {{year}} mit meinem Bosch-powered eBike gefahren",
+            "10": "Ich bin im Oktober {{year}} mit meinem Bosch-powered eBike gefahren",
+            "11": "Ich bin im November {{year}} mit meinem Bosch-powered eBike gefahren",
+            "12": "Ich bin im Dezember {{year}} mit meinem Bosch-powered eBike gefahren"
+          }
+        }
       },
       "actions": {
         "share-achievement": "Errungenschaft teilen"

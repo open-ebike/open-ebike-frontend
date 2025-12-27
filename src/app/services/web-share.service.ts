@@ -54,11 +54,49 @@ export class WebShareService {
     }
   }
 
-  updateSocialTags(title: string, desc: string, img: string) {
+  /**
+   * Triggers sharing of content
+   * @param title title
+   * @param description description
+   * @param file file
+   */
+  async shareFile(title: string, description: string, file: File) {
+    this.updateSocialTags(title);
+
+    if (navigator.share) {
+      const shareData: ShareData = {
+        title: title,
+        text: description,
+        files: [file],
+      };
+
+      if (navigator.canShare && navigator.canShare(shareData)) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.share({
+          title: title,
+        } as ShareData);
+      }
+    }
+  }
+
+  /**
+   * Updates social tags
+   * @param title title
+   * @param description description
+   * @param image image
+   */
+  updateSocialTags(title?: string, description?: string, image?: string) {
     // Open Graph (Facebook, LinkedIn, etc)
-    this.meta.updateTag({ property: 'og:title', content: title });
-    this.meta.updateTag({ property: 'og:description', content: desc });
-    this.meta.updateTag({ property: 'og:image', content: img });
+    if (title) {
+      this.meta.updateTag({ property: 'og:title', content: title });
+    }
+    if (description) {
+      this.meta.updateTag({ property: 'og:description', content: description });
+    }
+    if (image) {
+      this.meta.updateTag({ property: 'og:image', content: image });
+    }
     this.meta.updateTag({ property: 'og:url', content: window.location.href });
 
     // Twitter Card
@@ -66,8 +104,17 @@ export class WebShareService {
       name: 'twitter:card',
       content: 'summary_large_image',
     });
-    this.meta.updateTag({ name: 'twitter:title', content: title });
-    this.meta.updateTag({ name: 'twitter:description', content: desc });
-    this.meta.updateTag({ name: 'twitter:image', content: img });
+    if (title) {
+      this.meta.updateTag({ name: 'twitter:title', content: title });
+    }
+    if (description) {
+      this.meta.updateTag({
+        name: 'twitter:description',
+        content: description,
+      });
+    }
+    if (image) {
+      this.meta.updateTag({ name: 'twitter:image', content: image });
+    }
   }
 }

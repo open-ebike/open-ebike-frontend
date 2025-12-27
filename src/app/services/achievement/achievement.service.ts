@@ -51,6 +51,8 @@ export interface Achievement {
   icon?: string;
   /** Translation */
   translation?: string;
+  /** Translation */
+  translationSharePicture?: string;
   /** Translation context */
   translationContext?: {};
   /** Achieved flag */
@@ -80,7 +82,7 @@ export class AchievementService {
 
       achievementsTimePeriods.set(achievementType, {
         icon: `assets/achievements/months/${month}.png`,
-        translation: `terms.time-periods.${month}`,
+        translation: `terms.badges.time-periods.${month}`,
         translationContext: { year },
       });
     });
