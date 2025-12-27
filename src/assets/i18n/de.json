@@ -83,7 +83,7 @@
       },
       "messages": {
         "no-ebikes": "keine eBikes registriert",
-        "missing-activities": "Vermisst du eBikes? Gib im <a href='https://flow.bosch-ebike.com/data-act' target='_blank'>Flow Portal</a> die Daten deines eBikes für die Client Application {{clientId}} frei"
+        "missing-ebikes": "Vermisst du eBikes? Gib im <a href='https://flow.bosch-ebike.com/data-act' target='_blank'>Flow Portal</a> die Daten deines eBikes für die Client Application {{clientId}} frei"
       }
     },
     "ebike-details": {
@@ -186,7 +186,7 @@
         "cadence-weight": "Gewichtung Kadenz",
         "heart-rate-weight": "Gewichtung Puls",
         "rider-power-weight": "Gewichtung Energie",
-        "significant": "signifikant",
+        "is-significant": "signifikant",
         "drive-unit-part-number": "Drive Unit Teilnummer",
         "drive-unit-serial-number": "Drive Unit Seriennummer",
         "bike-type": "eBike Typ",
@@ -212,8 +212,8 @@
         "last-name": "Nachname",
         "last-activity-timestamp": "letzte Aktivität",
         "current-month": "Aktueller Monat",
-        "total-statistics": "Gesamtstatistik",
         "last-month": "Letzter Monat",
+        "total-statistics": "Gesamtstatistik",
         "month": "Monat",
         "distance": "Distanz",
         "speed-average": "Durchschnittsgeschwindigkeit",
@@ -247,6 +247,8 @@
         "serial-number": "Seriennummer",
         "part-number": "Teilnummer",
         "walk-assist": "Schiebehilfe",
+        "enabled": "eingeschaltet",
+        "disabled": "ausgeschaltet",
         "odometer": "Odometer",
         "rear-wheel-circumference-user": "Reifendurchmesser",
         "maximum-assistance-speed": "maximale Unterstützungsgeschwindigkeit",

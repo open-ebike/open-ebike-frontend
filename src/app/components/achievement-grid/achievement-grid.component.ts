@@ -60,8 +60,6 @@ export class AchievementGridComponent {
 
   /** Language */
   lang = getBrowserLang();
-  /** Locale */
-  locale = inject(LOCALE_ID);
 
   /** Key value order */
   public keyValueOrder = (
@@ -90,7 +88,7 @@ export class AchievementGridComponent {
         title: this.translocoService.translate(
           `pages.achievements.${achievement.translationSharePicture!!}`,
           achievement.translationContext,
-          this.locale,
+          this.lang,
         ),
         imageUrl: `${environment.hrefBase}${achievement.icon}`,
       },
