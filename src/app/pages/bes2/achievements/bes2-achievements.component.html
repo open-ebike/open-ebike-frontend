@@ -13,12 +13,21 @@
         >
         </app-achievement-grid>
 
-        <h2>{{ t("terms.badges.time-periods.title") }}</h2>
+        @for (
+          year of Array.from(
+            achievementService.achievementsTimePeriods().keys()
+          ).reverse();
+          track year
+        ) {
+          <h2>{{ t("terms.badges.time-periods.title") }} {{ year }}</h2>
 
-        <app-achievement-grid
-          [achievements]="achievementService.achievementsTimePeriods()"
-        >
-        </app-achievement-grid>
+          <app-achievement-grid
+            [achievements]="
+              achievementService.achievementsTimePeriods().get(year)!!
+            "
+          >
+          </app-achievement-grid>
+        }
       </div>
       <div class="flex-box"></div>
     }

@@ -73,14 +73,21 @@ export class AchievementService {
    */
   initializeAchievementsTimePeriods(
     firstActivityDate: Date | null,
-  ): Map<string, Achievement> {
-    const achievementsTimePeriods = new Map<string, Achievement>();
+  ): Map<number, Map<string, Achievement>> {
+    const achievementsTimePeriods = new Map<number, Map<string, Achievement>>();
     this.getTimePeriods(firstActivityDate, new Date()).forEach((timePeriod) => {
+      if (!achievementsTimePeriods.has(timePeriod.year)) {
+        achievementsTimePeriods.set(
+          timePeriod.year,
+          new Map<string, Achievement>(),
+        );
+      }
+
       const year = timePeriod.year;
       const month = timePeriod.month.toString().padStart(2, '0');
       const achievementType = `TIME_PERIOD_ACTIVE_${year}_${month}`;
 
-      achievementsTimePeriods.set(achievementType, {
+      achievementsTimePeriods.get(timePeriod.year)?.set(achievementType, {
         icon: `assets/achievements/months/${month}.png`,
         translation: `terms.badges.time-periods.${month}`,
         translationSharePicture: `terms.share-pictures.time-periods.${month}`,
@@ -508,17 +515,21 @@ export class AchievementService {
    * @param achievements achievements
    * @param date date
    */
-  evaluateTimePeriods(achievements: Map<string, Achievement>, date: string) {
+  evaluateTimePeriods(
+    achievements: Map<number, Map<string, Achievement>>,
+    date: string,
+  ) {
     const year = new Date(date).getFullYear();
     const month = (new Date(date).getMonth() + 1).toString().padStart(2, '0');
     const achievementType = `TIME_PERIOD_ACTIVE_${year}_${month}`;
 
     if (
-      achievements.has(achievementType) &&
-      !achievements.get(achievementType)?.achieved
+      achievements.has(year) &&
+      achievements.get(year)?.has(achievementType) &&
+      !achievements.get(year)?.get(achievementType)?.achieved
     ) {
-      achievements.set(achievementType, {
-        ...achievements.get(achievementType),
+      achievements.get(year)?.set(achievementType, {
+        ...achievements.get(year)?.get(achievementType),
         achieved: true,
       });
     }

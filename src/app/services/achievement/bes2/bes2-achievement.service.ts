@@ -45,7 +45,7 @@ export class Bes2AchievementService {
     this.achievementService.convertToMap(achievements.regions),
   );
   /** Achievements */
-  achievementsTimePeriods = signal(new Map<string, Achievement>());
+  achievementsTimePeriods = signal(new Map<number, Map<string, Achievement>>());
 
   /** Achievements */
   achievementsBasic = computed(() => {
