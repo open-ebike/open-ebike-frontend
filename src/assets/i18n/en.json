@@ -516,7 +516,8 @@
     "development": "Development",
     "github": "GitHub",
     "dev-log": "Dev Log",
-    "about": "About"
+    "about": "About",
+    "attribution": "Attribution"
   },
   "actions": {
     "enter-client-credentials": "Enter Client Credentials",
