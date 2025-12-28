@@ -449,6 +449,9 @@
         "share-achievement": "Errungenschaft teilen"
       }
     },
+    "yearly-achievements": {
+      "title": "Jährliche Errungenschaften"
+    },
     "login": {
       "title": "Login",
       "terms": {

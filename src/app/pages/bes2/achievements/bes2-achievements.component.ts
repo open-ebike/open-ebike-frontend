@@ -26,5 +26,6 @@ export class Bes2AchievementsComponent {
 
   /** Language */
   lang = getBrowserLang();
+
   protected readonly Array = Array;
 }

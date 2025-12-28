@@ -19,6 +19,8 @@ import { CobiHubsComponent } from './pages/cobi/hubs/cobi-hubs.component';
 import { CobiActivitiesComponent } from './pages/cobi/activities/cobi-activities.component';
 import { Bes3AchievementsComponent } from './pages/bes3/achievements/bes3-achievements.component';
 import { Bes2AchievementsComponent } from './pages/bes2/achievements/bes2-achievements.component';
+import { Bes3YearlyAchievementsComponent } from './pages/bes3/yearly-achievements/bes3-yearly-achievements.component';
+import { Bes2YearlyAchievementsComponent } from './pages/bes2/yearly-achievements/bes2-yearly-achievements.component';
 
 export const routes: Routes = [
   {
@@ -56,6 +58,11 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'bes3/yearly-achievements',
+    component: Bes3YearlyAchievementsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'bes2/ebike-details',
     component: Bes2EbikeDetailsComponent,
     canActivate: [AuthGuard],
@@ -83,6 +90,11 @@ export const routes: Routes = [
   {
     path: 'bes2/achievements',
     component: Bes2AchievementsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'bes2/yearly-achievements',
+    component: Bes2YearlyAchievementsComponent,
     canActivate: [AuthGuard],
   },
   {

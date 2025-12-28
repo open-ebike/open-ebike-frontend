@@ -33,6 +33,13 @@
                 >{{ t("pages.achievements.title") }}</a
               >
             </li>
+            <li>
+              <a
+                routerLink="/bes3/yearly-achievements"
+                [queryParams]="{ theme: themeService.theme() }"
+                >{{ t("pages.yearly-achievements.title") }}</a
+              >
+            </li>
           </ul>
         </div>
       }

@@ -68,6 +68,15 @@
               >
                 {{ t("pages.achievements.title") }}
               </button>
+              <button
+                mat-button
+                class="toolbar-menu-item"
+                routerLinkActive="toolbar-menu-item-active"
+                routerLink="/bes3/yearly-achievements"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                {{ t("pages.yearly-achievements.title") }}
+              </button>
             }
             @if (authenticationService.ebikeGeneration() == "BES2") {
               <button
@@ -105,6 +114,15 @@
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 {{ t("pages.achievements.title") }}
+              </button>
+              <button
+                mat-button
+                class="toolbar-menu-item"
+                routerLinkActive="toolbar-menu-item-active"
+                routerLink="/bes2/yearly-achievements"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                {{ t("pages.yearly-achievements.title") }}
               </button>
             }
             @if (authenticationService.ebikeGeneration() == "COBI") {
@@ -261,6 +279,15 @@
                 >
                   {{ t("pages.achievements.title") }}
                 </button>
+                <button
+                  mat-menu-item
+                  class="toolbar-menu-item"
+                  routerLinkActive="toolbar-menu-item-active"
+                  routerLink="/bes3/yearly-achievements"
+                  [queryParams]="{ theme: themeService.theme() }"
+                >
+                  {{ t("pages.yearly-achievements.title") }}
+                </button>
               }
               @if (authenticationService.ebikeGeneration() == "BES2") {
                 <button
@@ -298,6 +325,15 @@
                   [queryParams]="{ theme: themeService.theme() }"
                 >
                   {{ t("pages.achievements.title") }}
+                </button>
+                <button
+                  mat-menu-item
+                  class="toolbar-menu-item"
+                  routerLinkActive="toolbar-menu-item-active"
+                  routerLink="/bes2/yearly-achievements"
+                  [queryParams]="{ theme: themeService.theme() }"
+                >
+                  {{ t("pages.yearly-achievements.title") }}
                 </button>
               }
               @if (authenticationService.ebikeGeneration() == "COBI") {

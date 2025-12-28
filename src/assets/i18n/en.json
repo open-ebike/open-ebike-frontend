@@ -449,6 +449,9 @@
         "share-achievement": "Share Achievement"
       }
     },
+    "yearly-achievements": {
+      "title": "Yearly Achievements"
+    },
     "login": {
       "title": "Login",
       "terms": {
