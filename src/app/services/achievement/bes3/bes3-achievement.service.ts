@@ -12,16 +12,6 @@ import {
 import { achievements } from '../../../../environments/achievements';
 
 /**
- * Represents a time period
- */
-export interface TimePeriod {
-  /** Year */
-  year: number;
-  /** Month */
-  month: number;
-}
-
-/**
  * Handles achievements
  */
 @Injectable({

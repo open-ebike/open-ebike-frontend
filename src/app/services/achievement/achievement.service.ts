@@ -1,6 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Registration } from '../api/bes3/ebike-registration.service';
-import { TimePeriod } from './bes3/bes3-achievement.service';
+
+/**
+ * Represents a monthly time period
+ */
+export interface MonthlyTimePeriod {
+  /** Year */
+  year: number;
+  /** Month */
+  month: number;
+}
 
 /**
  * Types of achievements
@@ -59,6 +68,9 @@ export interface Achievement {
   achieved?: boolean;
 }
 
+/**
+ * Handles achievements
+ */
 @Injectable({
   providedIn: 'root',
 })
@@ -75,25 +87,27 @@ export class AchievementService {
     firstActivityDate: Date | null,
   ): Map<number, Map<string, Achievement>> {
     const achievementsTimePeriods = new Map<number, Map<string, Achievement>>();
-    this.getTimePeriods(firstActivityDate, new Date()).forEach((timePeriod) => {
-      if (!achievementsTimePeriods.has(timePeriod.year)) {
-        achievementsTimePeriods.set(
-          timePeriod.year,
-          new Map<string, Achievement>(),
-        );
-      }
+    this.getTimeMonthlyPeriods(firstActivityDate, new Date()).forEach(
+      (timePeriod) => {
+        if (!achievementsTimePeriods.has(timePeriod.year)) {
+          achievementsTimePeriods.set(
+            timePeriod.year,
+            new Map<string, Achievement>(),
+          );
+        }
 
-      const year = timePeriod.year;
-      const month = timePeriod.month.toString().padStart(2, '0');
-      const achievementType = `TIME_PERIOD_ACTIVE_${year}_${month}`;
+        const year = timePeriod.year;
+        const month = timePeriod.month.toString().padStart(2, '0');
+        const achievementType = `TIME_PERIOD_ACTIVE_${year}_${month}`;
 
-      achievementsTimePeriods.get(timePeriod.year)?.set(achievementType, {
-        icon: `assets/achievements/months/${month}.png`,
-        translation: `terms.badges.time-periods.${month}`,
-        translationSharePicture: `terms.share-pictures.time-periods.${month}`,
-        translationContext: { year },
-      });
-    });
+        achievementsTimePeriods.get(timePeriod.year)?.set(achievementType, {
+          icon: `assets/achievements/months/${month}.png`,
+          translation: `terms.badges.time-periods.${month}`,
+          translationSharePicture: `terms.share-pictures.time-periods.${month}`,
+          translationContext: { year },
+        });
+      },
+    );
 
     return achievementsTimePeriods;
   }
@@ -555,12 +569,15 @@ export class AchievementService {
    * @param startDate start date
    * @param endDate end date
    */
-  getTimePeriods(startDate: Date | null, endDate: Date): TimePeriod[] {
+  getTimeMonthlyPeriods(
+    startDate: Date | null,
+    endDate: Date,
+  ): MonthlyTimePeriod[] {
     if (!startDate) {
       return [];
     }
 
-    const result: TimePeriod[] = [];
+    const result: MonthlyTimePeriod[] = [];
 
     const current = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
     const end = new Date(endDate.getFullYear(), endDate.getMonth(), 1);

@@ -9,6 +9,9 @@ import {
 } from '../achievement.service';
 import { achievements } from '../../../../environments/achievements';
 
+/**
+ * Handles achievements
+ */
 @Injectable({
   providedIn: 'root',
 })
