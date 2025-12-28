@@ -58,6 +58,11 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'bes3/yearly-achievements/:year',
+    component: Bes3YearlyAchievementsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'bes3/yearly-achievements',
     component: Bes3YearlyAchievementsComponent,
     canActivate: [AuthGuard],
@@ -90,6 +95,11 @@ export const routes: Routes = [
   {
     path: 'bes2/achievements',
     component: Bes2AchievementsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'bes2/yearly-achievements/:year',
+    component: Bes2YearlyAchievementsComponent,
     canActivate: [AuthGuard],
   },
   {

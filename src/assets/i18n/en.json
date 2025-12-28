@@ -450,7 +450,10 @@
       }
     },
     "yearly-achievements": {
-      "title": "Yearly Achievements"
+      "title": "Yearly Achievements",
+      "terms": {
+        "your-yearly-achievements": "Your Achievements in {{year}}"
+      }
     },
     "login": {
       "title": "Login",

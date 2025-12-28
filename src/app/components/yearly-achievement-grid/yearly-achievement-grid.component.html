@@ -6,7 +6,7 @@
       yearlyAchievement of yearlyAchievements() | keyvalue: keyValueOrder;
       track yearlyAchievement.key
     ) {
-      <mat-card mat-ripple class="year">
+      <mat-card mat-ripple class="year" (click)="yearSelected.set(yearlyAchievement.key)">
         <mat-card-header>
           <mat-card-title>{{ yearlyAchievement.key }}</mat-card-title>
         </mat-card-header>

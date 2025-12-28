@@ -1,5 +1,5 @@
-import { Component, inject, input } from '@angular/core';
-import { DatePipe, KeyValue, KeyValuePipe } from '@angular/common';
+import { Component, inject, input, model } from '@angular/core';
+import { KeyValue, KeyValuePipe } from '@angular/common';
 import {
   getBrowserLang,
   TranslocoDirective,
@@ -15,7 +15,6 @@ import { MatRipple } from '@angular/material/core';
 @Component({
   selector: 'app-yearly-achievement-grid',
   imports: [
-    DatePipe,
     MatCard,
     MatCardHeader,
     MatCardTitle,
@@ -44,6 +43,8 @@ export class YearlyAchievementGridComponent {
   yearlyAchievements = input<Map<number, YearlyAchievement>>(
     new Map<number, YearlyAchievement>(),
   );
+  /** Selected year */
+  yearSelected = model<number>();
 
   /** Language */
   lang = getBrowserLang();

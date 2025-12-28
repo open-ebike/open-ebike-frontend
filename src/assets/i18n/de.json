@@ -450,7 +450,10 @@
       }
     },
     "yearly-achievements": {
-      "title": "Jährliche Errungenschaften"
+      "title": "Jährliche Errungenschaften",
+      "terms": {
+        "your-yearly-achievements": "Deine Errungenschaften in {{year}}"
+      }
     },
     "login": {
       "title": "Login",
