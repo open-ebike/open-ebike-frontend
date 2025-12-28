@@ -1,0 +1,16 @@
+<ng-container
+  *transloco="let t; lang: lang; prefix: 'pages.yearly-achievements'"
+>
+  <div class="grid wide" style="margin-bottom: 16px">
+    @for (
+      yearlyAchievement of yearlyAchievements() | keyvalue: keyValueOrder;
+      track yearlyAchievement.key
+    ) {
+      <mat-card mat-ripple class="year">
+        <mat-card-header>
+          <mat-card-title>{{ yearlyAchievement.key }}</mat-card-title>
+        </mat-card-header>
+      </mat-card>
+    }
+  </div>
+</ng-container>

@@ -5,6 +5,9 @@
     @if (authenticationService.isLoggedIn()) {
       <div class="inner-container">
         <h2>{{ t("title") }}</h2>
+        <app-yearly-achievement-grid
+          [yearlyAchievements]="yearlyAchievementService.yearlyAchievements()"
+        ></app-yearly-achievement-grid>
       </div>
       <div class="flex-box"></div>
     }

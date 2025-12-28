@@ -1,0 +1,31 @@
+@use "../../../styles";
+@use "../../../sizes";
+
+@media #{sizes.$breakpoint-large} {
+  .grid.wide {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+@media #{sizes.$breakpoint-medium} {
+  .grid.wide {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media #{sizes.$breakpoint-small} {
+  .grid.wide {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.year {
+  padding: 16px;
+  cursor: pointer;
+  align-items: center;
+
+  .title {
+    margin-top: 8px;
+    text-align: center;
+  }
+}
