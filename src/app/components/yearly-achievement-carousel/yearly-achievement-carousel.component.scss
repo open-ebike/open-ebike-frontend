@@ -21,7 +21,7 @@
 
 .carousel-item {
   cursor: pointer;
-  scroll-snap-align: start;
+  scroll-snap-align: center;
 }
 
 @media #{sizes.$breakpoint-small} {

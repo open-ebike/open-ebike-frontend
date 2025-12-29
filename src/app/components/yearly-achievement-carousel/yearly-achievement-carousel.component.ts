@@ -60,7 +60,7 @@ export class YearlyAchievementCarouselComponent {
     const padding = 16;
 
     if (window.innerWidth <= breakPointSmall) {
-      this.sharePictureDimension = window.innerWidth - 2 * padding;
+      this.sharePictureDimension = (window.innerWidth - 2 * padding) * 0.75;
     } else {
       this.sharePictureDimension = 400;
     }
