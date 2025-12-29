@@ -58,6 +58,9 @@ export class YearlyAchievementGridComponent {
         );
       });
 
+      if (yearsWithActivities.length == 0) {
+        this.yearSelected.set(undefined);
+      }
       if (yearsWithActivities.length == 1) {
         this.yearSelected.set(yearsWithActivities[0][0]);
       }
