@@ -55,7 +55,7 @@ export class Bes2YearlyAchievementsComponent {
 
     effect(() => {
       this.router.navigate([
-        `/bes3/yearly-achievements/${this.yearSelected() ?? ''}`,
+        `/bes2/yearly-achievements/${this.yearSelected() ?? ''}`,
       ]);
     });
   }
