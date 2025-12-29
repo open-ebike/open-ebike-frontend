@@ -38,6 +38,9 @@ export class YearlyAchievementGridComponent {
   /** Selected year */
   yearSelected = model<number>();
 
+  /** Yearly achievement type enum */
+  yearlyAchievementType = YearlyAchievementType;
+
   /** Language */
   lang = getBrowserLang();
 
