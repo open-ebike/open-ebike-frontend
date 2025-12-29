@@ -9,6 +9,7 @@ import {
   ActivitySummary,
 } from '../../api/bes3/activity-records.service';
 import { RegionFinderService } from '../../region-finder.service';
+import { YearlyAchievementType } from '../../../../environments/yearly-achievements';
 
 /**
  * Handles yearly achievements
@@ -33,7 +34,9 @@ export class Bes3YearlyAchievementService {
   //
 
   /** Yearly achievements */
-  yearlyAchievements = signal(new Map<number, YearlyAchievement>());
+  yearlyAchievements = signal(
+    new Map<number, Map<YearlyAchievementType, YearlyAchievement>>(),
+  );
 
   /**
    * Constructor
@@ -106,12 +109,52 @@ export class Bes3YearlyAchievementService {
    * @param activitySummary activity summary
    */
   evaluateYearlyStatistics(
-    yearlyAchievements: Map<number, YearlyAchievement>,
+    yearlyAchievements: Map<
+      number,
+      Map<YearlyAchievementType, YearlyAchievement>
+    >,
     activitySummary: ActivitySummary,
   ) {
-    // const date = new Date(activitySummary.startTime);
-    // const year = date.getFullYear();
+    const date = new Date(activitySummary.startTime);
+    const year = date.getFullYear();
 
-    return yearlyAchievements;
+    if (yearlyAchievements.has(year)) {
+      const achievementActivityCount = yearlyAchievements
+        .get(year)
+        ?.get(YearlyAchievementType.TOTAL_ACTIVITY_COUNT);
+      if (achievementActivityCount) {
+        achievementActivityCount.value =
+          (achievementActivityCount.value ?? 0) + 1;
+      }
+
+      const achievementTotalDistance = yearlyAchievements
+        .get(year)
+        ?.get(YearlyAchievementType.TOTAL_DISTANCE);
+      if (achievementTotalDistance) {
+        achievementTotalDistance.value =
+          (achievementTotalDistance.value ?? 0) +
+          Math.round((activitySummary.distance / 1_000) * 100) / 100;
+      }
+
+      const achievementTotalElevationGain = yearlyAchievements
+        .get(year)
+        ?.get(YearlyAchievementType.TOTAL_ELEVATION_GAIN);
+      if (achievementTotalElevationGain) {
+        achievementTotalElevationGain.value =
+          (achievementTotalElevationGain.value ?? 0) +
+          activitySummary.elevation.gain;
+      }
+
+      const achievementTotalCaloriesBurned = yearlyAchievements
+        .get(year)
+        ?.get(YearlyAchievementType.TOTAL_CALORIES_BURNED);
+      if (achievementTotalCaloriesBurned) {
+        achievementTotalCaloriesBurned.value =
+          (achievementTotalCaloriesBurned.value ?? 0) +
+          activitySummary.caloriesBurned;
+      }
+    }
+
+    return new Map(yearlyAchievements);
   }
 }

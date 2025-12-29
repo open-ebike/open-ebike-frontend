@@ -10,7 +10,9 @@
         ></app-yearly-achievement-grid>
 
         @if (yearSelected()) {
-          <h2>{{ t("terms.your-yearly-achievements", {year: yearSelected()}) }}</h2>
+          <h2>
+            {{ t("terms.your-yearly-achievements", { year: yearSelected() }) }}
+          </h2>
         }
       </div>
       <div class="flex-box"></div>

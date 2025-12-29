@@ -4,11 +4,13 @@ import {
   YearlyAchievementService,
 } from '../yearly-achievement.service';
 import {
+  ActivityDetail,
   ActivityService,
   ActivitySummary,
 } from '../../api/bes2/activity.service';
 import { firstValueFrom, map } from 'rxjs';
 import { RegionFinderService } from '../../region-finder.service';
+import { YearlyAchievementType } from '../../../../environments/yearly-achievements';
 
 /**
  * Handles yearly achievements
@@ -33,7 +35,9 @@ export class Bes2YearlyAchievementService {
   //
 
   /** Yearly achievements */
-  yearlyAchievements = signal(new Map<number, YearlyAchievement>());
+  yearlyAchievements = signal(
+    new Map<number, Map<YearlyAchievementType, YearlyAchievement>>(),
+  );
 
   /**
    * Constructor
@@ -78,22 +82,23 @@ export class Bes2YearlyAchievementService {
           const activityDetails = await firstValueFrom(
             this.activityService.getActivityDetails(activitySummary.id),
           );
-          const coordinate = activityDetails.coordinates
-            ?.flat()
-            .find((point) => {
-              return point?.latitude != 0.0 && point?.longitude != 0.0;
-            });
-          const lat = coordinate?.latitude;
-          const lon = coordinate?.longitude;
-          const federalState =
-            lat != null && lon != null
-              ? this.regionFinderService.getFederalState(lat, lon)
-              : null;
+          // const coordinate = activityDetails.coordinates
+          //   ?.flat()
+          //   .find((point) => {
+          //     return point?.latitude != 0.0 && point?.longitude != 0.0;
+          //   });
+          // const lat = coordinate?.latitude;
+          // const lon = coordinate?.longitude;
+          // const federalState =
+          //   lat != null && lon != null
+          //     ? this.regionFinderService.getFederalState(lat, lon)
+          //     : null;
 
           this.yearlyAchievements.set(
             this.evaluateYearlyStatistics(
               this.yearlyAchievements(),
               activitySummary,
+              activityDetails,
             ),
           );
         }
@@ -104,14 +109,56 @@ export class Bes2YearlyAchievementService {
    * Evaluates yearly statistics
    * @param yearlyAchievements yearly achievements
    * @param activitySummary activity summary
+   * @param activityDetails activity details
    */
   evaluateYearlyStatistics(
-    yearlyAchievements: Map<number, YearlyAchievement>,
+    yearlyAchievements: Map<
+      number,
+      Map<YearlyAchievementType, YearlyAchievement>
+    >,
     activitySummary: ActivitySummary,
+    activityDetails: ActivityDetail,
   ) {
-    // const date = new Date(activitySummary.startTime);
-    // const year = date.getFullYear();
+    const date = new Date(activitySummary.startTime);
+    const year = date.getFullYear();
 
-    return yearlyAchievements;
+    if (yearlyAchievements.has(year)) {
+      const achievementActivityCount = yearlyAchievements
+        .get(year)
+        ?.get(YearlyAchievementType.TOTAL_ACTIVITY_COUNT);
+      if (achievementActivityCount) {
+        achievementActivityCount.value =
+          (achievementActivityCount.value ?? 0) + 1;
+      }
+
+      const achievementTotalDistance = yearlyAchievements
+        .get(year)
+        ?.get(YearlyAchievementType.TOTAL_DISTANCE);
+      if (achievementTotalDistance) {
+        achievementTotalDistance.value =
+          (achievementTotalDistance.value ?? 0) +
+          Math.round((activitySummary.totalDistance / 1_000) * 100) / 100;
+      }
+
+      const achievementTotalElevationGain = yearlyAchievements
+        .get(year)
+        ?.get(YearlyAchievementType.TOTAL_ELEVATION_GAIN);
+      if (achievementTotalElevationGain) {
+        achievementTotalElevationGain.value =
+          (achievementTotalElevationGain.value ?? 0) +
+          (activityDetails.elevationGain ?? 0);
+      }
+
+      const achievementTotalCaloriesBurned = yearlyAchievements
+        .get(year)
+        ?.get(YearlyAchievementType.TOTAL_CALORIES_BURNED);
+      if (achievementTotalCaloriesBurned) {
+        achievementTotalCaloriesBurned.value =
+          (achievementTotalCaloriesBurned.value ?? 0) +
+          (activityDetails.caloriesBurned ?? 0);
+      }
+    }
+
+    return new Map(yearlyAchievements);
   }
 }
