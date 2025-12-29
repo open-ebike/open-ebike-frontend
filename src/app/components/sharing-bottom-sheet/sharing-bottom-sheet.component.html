@@ -1,17 +1,21 @@
 <ng-container *transloco="let t; lang: lang; prefix: 'pages.achievements'">
-  <div style="display: none">
-    <img
-      #sourceImage
-      crossorigin="anonymous"
-      [src]="data.imageUrl"
-      (load)="onImageLoad()"
-      alt="source asset"
-    />
-    <canvas #sharePicture class="preview"></canvas>
+  <div class="share-picture-container">
+    <app-share-picture
+      [imagePath]="data.imageUrl"
+      [width]="996"
+      [height]="996"
+      [text]="data.title"
+      (canvasOutput)="onSharePictureLoaded($event)"
+    ></app-share-picture>
   </div>
 
   <div class="preview-container">
-    <canvas #preview class="preview"></canvas>
+    <app-share-picture
+      [imagePath]="data.imageUrl"
+      [width]="384"
+      [height]="384"
+      [text]="data.title"
+    ></app-share-picture>
   </div>
 
   <mat-nav-list>

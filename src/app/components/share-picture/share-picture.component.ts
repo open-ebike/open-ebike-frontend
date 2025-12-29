@@ -4,6 +4,7 @@ import {
   ElementRef,
   inject,
   input,
+  output,
   viewChild,
 } from '@angular/core';
 import { SharePictureService } from '../../services/share-picture.service';
@@ -38,9 +39,11 @@ export class SharePictureComponent {
   height = input<number>(480);
   /** Text */
   text = input<string>('');
+  /** Canvas */
+  canvasOutput = output<ElementRef<HTMLCanvasElement> | undefined>();
 
   /** Source image */
-  imageRef = viewChild<ElementRef<HTMLImageElement>>('sourceImage');
+  sourceImage = viewChild<ElementRef<HTMLImageElement>>('sourceImage');
   /** Canvas */
   canvas = viewChild<ElementRef<HTMLCanvasElement>>('canvas');
 
@@ -51,11 +54,12 @@ export class SharePictureComponent {
     effect(() => {
       this.sharePictureService.updateCanvas(
         this.canvas,
-        this.imageRef,
+        this.sourceImage,
         this.width(),
         this.height(),
         this.text(),
       );
+      this.canvasOutput.emit(this.canvas());
     });
   }
 
@@ -69,7 +73,7 @@ export class SharePictureComponent {
   onImageLoad() {
     this.sharePictureService.updateCanvas(
       this.canvas,
-      this.imageRef,
+      this.sourceImage,
       this.width(),
       this.height(),
       this.text(),

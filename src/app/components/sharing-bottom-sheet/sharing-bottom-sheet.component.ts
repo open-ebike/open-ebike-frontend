@@ -1,9 +1,9 @@
-import { Component, ElementRef, inject, viewChild } from '@angular/core';
+import { Component, ElementRef, inject } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { MatListItem, MatNavList } from '@angular/material/list';
 import { WebShareService } from '../../services/web-share.service';
-import { SharePictureService } from '../../services/share-picture.service';
+import { SharePictureComponent } from '../share-picture/share-picture.component';
 
 /**
  * Represents data
@@ -22,7 +22,7 @@ export interface SharingBottomSheetData {
  */
 @Component({
   selector: 'app-sharing-bottom-sheet',
-  imports: [TranslocoDirective, MatNavList, MatListItem],
+  imports: [TranslocoDirective, MatNavList, MatListItem, SharePictureComponent],
   templateUrl: './sharing-bottom-sheet.component.html',
   styleUrl: './sharing-bottom-sheet.component.scss',
   standalone: true,
@@ -34,22 +34,11 @@ export class SharingBottomSheetComponent {
 
   /** Data */
   public data = inject<SharingBottomSheetData>(MAT_BOTTOM_SHEET_DATA);
-  /** Share picture service */
-  private sharePictureService = inject(SharePictureService);
   /** Web share service */
   private webShareService = inject(WebShareService);
 
-  //
-  // Signals
-  //
-
-  /** Source image */
-  imageRef = viewChild<ElementRef<HTMLImageElement>>('sourceImage');
   /** Canvas */
-  canvasSharePicture = viewChild<ElementRef<HTMLCanvasElement>>('sharePicture');
-  /** Canvas */
-  canvasPreview = viewChild<ElementRef<HTMLCanvasElement>>('preview');
-
+  canvasSharePicture: ElementRef<HTMLCanvasElement> | undefined;
   /** Language */
   lang = getBrowserLang();
 
@@ -58,10 +47,18 @@ export class SharingBottomSheetComponent {
   //
 
   /**
+   * Handles loading of share picture
+   * @param canvas canvas
+   */
+  onSharePictureLoaded(canvas: ElementRef<HTMLCanvasElement> | undefined) {
+    this.canvasSharePicture = canvas;
+  }
+
+  /**
    * Handles click on share option
    */
   async onShareClicked() {
-    const canvas = this.canvasSharePicture()!!.nativeElement;
+    const canvas = this.canvasSharePicture!!.nativeElement;
 
     const blob = await new Promise<Blob | null>((resolve) =>
       canvas.toBlob(resolve, 'image/png', 1.0),
@@ -72,26 +69,6 @@ export class SharingBottomSheetComponent {
       this.data.title,
       this.data.description,
       file,
-    );
-  }
-
-  /**
-   * Handles image being loaded
-   */
-  onImageLoad() {
-    this.sharePictureService.updateCanvas(
-      this.canvasPreview,
-      this.imageRef,
-      384,
-      384,
-      this.data.title,
-    );
-    this.sharePictureService.updateCanvas(
-      this.canvasSharePicture,
-      this.imageRef,
-      996,
-      996,
-      this.data.title,
     );
   }
 }
