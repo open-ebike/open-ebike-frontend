@@ -2,7 +2,6 @@ import { Component, effect, input, model } from '@angular/core';
 import { KeyValue, KeyValuePipe } from '@angular/common';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { YearlyAchievement } from '../../services/yearly-achievement/yearly-achievement.service';
-import { MatCard, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatRipple } from '@angular/material/core';
 import { YearlyAchievementType } from '../../../environments/yearly-achievements';
 import { MatButton } from '@angular/material/button';
@@ -12,16 +11,7 @@ import { MatButton } from '@angular/material/button';
  */
 @Component({
   selector: 'app-yearly-achievement-grid',
-  imports: [
-    MatCard,
-    MatCardHeader,
-    MatCardTitle,
-    MatRipple,
-    KeyValuePipe,
-    MatCardHeader,
-    TranslocoDirective,
-    MatButton,
-  ],
+  imports: [MatRipple, KeyValuePipe, TranslocoDirective, MatButton],
   templateUrl: './yearly-achievement-grid.component.html',
   styleUrl: './yearly-achievement-grid.component.scss',
   standalone: true,
