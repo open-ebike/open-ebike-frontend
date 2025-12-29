@@ -1,4 +1,4 @@
-import { Component, inject, input, LOCALE_ID } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import {
   DatePipe,
   KeyValue,

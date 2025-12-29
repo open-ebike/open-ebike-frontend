@@ -39,6 +39,10 @@ export class SharingBottomSheetComponent {
   /** Web share service */
   private webShareService = inject(WebShareService);
 
+  //
+  // Signals
+  //
+
   /** Source image */
   imageRef = viewChild<ElementRef<HTMLImageElement>>('sourceImage');
   /** Canvas */

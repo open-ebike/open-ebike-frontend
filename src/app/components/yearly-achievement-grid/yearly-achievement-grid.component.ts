@@ -1,10 +1,6 @@
-import { Component, inject, input, model } from '@angular/core';
+import { Component, input, model } from '@angular/core';
 import { KeyValue, KeyValuePipe } from '@angular/common';
-import {
-  getBrowserLang,
-  TranslocoDirective,
-  TranslocoService,
-} from '@jsverse/transloco';
+import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { YearlyAchievement } from '../../services/yearly-achievement/yearly-achievement.service';
 import { MatCard, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatRipple } from '@angular/material/core';
@@ -29,13 +25,6 @@ import { YearlyAchievementType } from '../../../environments/yearly-achievements
   standalone: true,
 })
 export class YearlyAchievementGridComponent {
-  //
-  // Injections
-  //
-
-  /** Transloco service */
-  private translocoService = inject(TranslocoService);
-
   //
   // Signals
   //
