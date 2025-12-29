@@ -15,6 +15,9 @@ import {
 import { SharePictureComponent } from '../share-picture/share-picture.component';
 import { KeyValue, KeyValuePipe } from '@angular/common';
 import { YearlyAchievementType } from '../../../environments/yearly-achievements';
+import { SharingBottomSheetComponent } from '../sharing-bottom-sheet/sharing-bottom-sheet.component';
+import { environment } from '../../../environments/environment';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 /**
  * Displays a yearly achievement carousel
@@ -31,6 +34,8 @@ export class YearlyAchievementCarouselComponent {
   // Injections
   //
 
+  /** Bottom sheet */
+  private bottomSheet = inject(MatBottomSheet);
   /** Transloco service */
   private translocoService = inject(TranslocoService);
 
@@ -74,6 +79,23 @@ export class YearlyAchievementCarouselComponent {
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.windowWidth.set(window.innerWidth);
+  }
+
+  /**
+   * Handles click on an achievement
+   * @param achievement achievement
+   */
+  onAchievementClicked(achievement: YearlyAchievement) {
+    this.bottomSheet.open(SharingBottomSheetComponent, {
+      data: {
+        title: this.translocoService.translate(
+          `pages.yearly-achievements.${achievement.translationSharePicture!!}`,
+          { value: achievement.value },
+          this.lang,
+        ),
+        imageUrl: `${environment.hrefBase}${achievement.icon}`,
+      },
+    });
   }
 
   //
