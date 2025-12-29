@@ -39,6 +39,8 @@ export class SharePictureComponent {
   height = input<number>(480);
   /** Text */
   text = input<string>('');
+  /** Brand */
+  brand = input<string>('Open eBike');
   /** Canvas */
   canvasOutput = output<ElementRef<HTMLCanvasElement> | undefined>();
 
@@ -58,6 +60,7 @@ export class SharePictureComponent {
         this.width(),
         this.height(),
         this.text(),
+        this.brand(),
       );
       this.canvasOutput.emit(this.canvas());
     });
@@ -77,6 +80,7 @@ export class SharePictureComponent {
       this.width(),
       this.height(),
       this.text(),
+      this.brand(),
     );
   }
 }

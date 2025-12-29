@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  appTitle: 'Open eBike',
   hrefBase: 'https://open-ebike.web.app/',
   eBikeApiUrl: '/api',
   authConfig: {

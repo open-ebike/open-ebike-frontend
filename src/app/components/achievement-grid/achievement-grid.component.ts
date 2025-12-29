@@ -88,6 +88,7 @@ export class AchievementGridComponent {
           achievement.translationContext,
           this.lang,
         ),
+        description: `${environment.appTitle}`,
         imageUrl: `${environment.hrefBase}${achievement.icon}`,
       },
     });

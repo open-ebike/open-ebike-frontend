@@ -15,6 +15,7 @@
             {{ t("terms.your-yearly-achievements", { year: yearSelected() }) }}
           </h2>
           <app-yearly-achievement-carousel
+            [year]="yearSelected()"
             [yearlyAchievement]="
               yearlyAchievementService
                 .yearlyAchievements()

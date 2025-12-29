@@ -43,8 +43,8 @@ export class YearlyAchievementCarouselComponent {
   // Signals
   //
 
-  /** Window width */
-  windowWidth = signal<number>(window.innerWidth);
+  /** Year */
+  year = input<number>();
   /** Yearly achievement */
   yearlyAchievement = input<
     Map<YearlyAchievementType, YearlyAchievement> | undefined
@@ -60,6 +60,8 @@ export class YearlyAchievementCarouselComponent {
       return 400;
     }
   });
+  /** Window width */
+  windowWidth = signal<number>(window.innerWidth);
 
   /** Language */
   lang = getBrowserLang();
@@ -83,16 +85,17 @@ export class YearlyAchievementCarouselComponent {
 
   /**
    * Handles click on an achievement
+   * @param year v
    * @param achievement achievement
    */
-  onAchievementClicked(achievement: YearlyAchievement) {
+  onAchievementClicked(
+    year: number | undefined,
+    achievement: YearlyAchievement,
+  ) {
     this.bottomSheet.open(SharingBottomSheetComponent, {
       data: {
-        title: this.translocoService.translate(
-          `pages.yearly-achievements.${achievement.translationSharePicture!!}`,
-          { value: achievement.value },
-          this.lang,
-        ),
+        title: this.getText(achievement),
+        description: this.getBrand(year),
         imageUrl: `${environment.hrefBase}${achievement.icon}`,
       },
     });
@@ -112,5 +115,15 @@ export class YearlyAchievementCarouselComponent {
       { value: achievement.value },
       this.lang,
     );
+  }
+
+  /**
+   * Generates brand based on year
+   * @param year year
+   */
+  getBrand(year: number | undefined) {
+    return year
+      ? `${environment.appTitle} | Wrapped ${year}`
+      : `${environment.appTitle}`;
   }
 }

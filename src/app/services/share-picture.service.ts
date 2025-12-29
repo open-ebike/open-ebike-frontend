@@ -13,7 +13,8 @@ export class SharePictureService {
    * @param imageRef image reference
    * @param canvasWidth canvas width
    * @param canvasHeight canvas height
-   * @param text text text
+   * @param text text
+   * @param brand brand
    */
   updateCanvas(
     canvasRef: Signal<ElementRef<HTMLCanvasElement> | undefined>,
@@ -21,6 +22,7 @@ export class SharePictureService {
     canvasWidth: number,
     canvasHeight: number,
     text: string,
+    brand: string,
   ) {
     if (!canvasRef()) return;
 
@@ -70,14 +72,13 @@ export class SharePictureService {
     ctx.shadowBlur = 0;
 
     //
-    // Title
+    // Text
     //
 
     ctx.fillStyle = 'white';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
 
-    // Title
     ctx.font = `bold ${canvas.height / 16}px Roboto, system-ui, sans-serif`;
     let lineX = canvas.width / 2;
     let lineYPos = imageY + imageHeight + canvas.height / 10;
@@ -106,15 +107,14 @@ export class SharePictureService {
     ctx.fillText(line, canvas.width / 2, lineYPos);
 
     //
-    // App title
+    // Brand
     //
 
-    // Subtitle
     ctx.font = `${canvas.height / 24}px Roboto, system-ui, sans-serif`;
     ctx.globalAlpha = 0.75;
     const subtitleX = canvas.width / 2;
     const subtitleY = canvas.height - canvas.height / 8;
-    ctx.fillText('Open eBike', subtitleX, subtitleY);
+    ctx.fillText(brand, subtitleX, subtitleY);
     ctx.globalAlpha = 1.0;
   }
 
