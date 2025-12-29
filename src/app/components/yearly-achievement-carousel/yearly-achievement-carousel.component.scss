@@ -2,17 +2,16 @@
 
 .carousel-container {
   width: 100%;
-  overflow: hidden; /* Hides standard scrollbars if desired */
+  overflow: hidden;
 }
 
 .carousel-track {
   display: flex;
   gap: 16px;
   overflow-x: auto;
-  scroll-snap-type: x mandatory; /* The magic property */
-  padding-bottom: 16px; /* Space for scrollbar */
+  scroll-snap-type: x mandatory;
+  padding-bottom: 16px;
 
-  /* Hide scrollbar for a cleaner look (optional) */
   scrollbar-width: none;
 
   &::-webkit-scrollbar {
@@ -20,19 +19,9 @@
   }
 }
 
-.achievement {
-  flex: 0 0 auto;
-
+.carousel-item {
   cursor: pointer;
-  width: 480px;
-  height: 480px;
-
-  scroll-snap-align: center;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  scroll-snap-align: start;
 }
 
 @media #{sizes.$breakpoint-small} {

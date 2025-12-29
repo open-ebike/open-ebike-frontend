@@ -2,17 +2,19 @@
   *transloco="let t; lang: lang; prefix: 'pages.yearly-achievements'"
 >
   <div class="carousel-container">
-    <div class="carousel-track" #carouselTrack>
+    <div class="carousel-track">
       @for (
         achievement of yearlyAchievement()!! | keyvalue: keyValueOrder;
         track achievement.key
       ) {
-        <app-share-picture
-          [imagePath]="achievement.value.icon"
-          [width]="sharePictureDimension"
-          [height]="sharePictureDimension"
-          [text]="getText(achievement.value)"
-        ></app-share-picture>
+        <div class="carousel-item">
+          <app-share-picture
+            [imagePath]="achievement.value.icon"
+            [width]="sharePictureDimension"
+            [height]="sharePictureDimension"
+            [text]="getText(achievement.value)"
+          ></app-share-picture>
+        </div>
       }
     </div>
   </div>
