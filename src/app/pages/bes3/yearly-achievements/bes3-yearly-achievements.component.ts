@@ -3,6 +3,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { YearlyAchievementGridComponent } from '../../../components/yearly-achievement-grid/yearly-achievement-grid.component';
 import { Bes3YearlyAchievementService } from '../../../services/yearly-achievement/bes3/bes3-yearly-achievement.service';
+import { YearlyAchievementCarouselComponent } from '../../../components/yearly-achievement-carousel/yearly-achievement-carousel.component';
 import { ActivatedRoute, Router } from '@angular/router';
 
 /**
@@ -10,7 +11,11 @@ import { ActivatedRoute, Router } from '@angular/router';
  */
 @Component({
   selector: 'app-yearly-achievements',
-  imports: [TranslocoDirective, YearlyAchievementGridComponent],
+  imports: [
+    TranslocoDirective,
+    YearlyAchievementGridComponent,
+    YearlyAchievementCarouselComponent,
+  ],
   templateUrl: './bes3-yearly-achievements.component.html',
   styleUrl: './bes3-yearly-achievements.component.scss',
   standalone: true,

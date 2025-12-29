@@ -13,6 +13,13 @@
           <h2>
             {{ t("terms.your-yearly-achievements", { year: yearSelected() }) }}
           </h2>
+          <app-yearly-achievement-carousel
+            [yearlyAchievement]="
+              yearlyAchievementService
+                .yearlyAchievements()
+                .get(yearSelected()!!)
+            "
+          ></app-yearly-achievement-carousel>
         }
       </div>
       <div class="flex-box"></div>

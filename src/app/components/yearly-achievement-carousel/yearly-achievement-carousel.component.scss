@@ -1,0 +1,43 @@
+@use "../../../sizes";
+
+.carousel-container {
+  width: 100%;
+  overflow: hidden; /* Hides standard scrollbars if desired */
+}
+
+.carousel-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory; /* The magic property */
+  padding-bottom: 16px; /* Space for scrollbar */
+
+  /* Hide scrollbar for a cleaner look (optional) */
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.achievement {
+  flex: 0 0 auto;
+
+  cursor: pointer;
+  width: 480px;
+  height: 480px;
+
+  scroll-snap-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media #{sizes.$breakpoint-small} {
+  .achievement {
+    width: calc(100vw - 32px);
+    height: calc(100vw - 32px);
+  }
+}

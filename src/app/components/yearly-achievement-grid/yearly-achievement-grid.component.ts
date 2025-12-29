@@ -8,6 +8,7 @@ import {
 import { YearlyAchievement } from '../../services/yearly-achievement/yearly-achievement.service';
 import { MatCard, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatRipple } from '@angular/material/core';
+import { YearlyAchievementType } from '../../../environments/yearly-achievements';
 
 /**
  * Displays yearly achievement grid
@@ -40,9 +41,9 @@ export class YearlyAchievementGridComponent {
   //
 
   /** Yearly achievements */
-  yearlyAchievements = input<Map<number, YearlyAchievement>>(
-    new Map<number, YearlyAchievement>(),
-  );
+  yearlyAchievements = input<
+    Map<number, Map<YearlyAchievementType, YearlyAchievement>>
+  >(new Map<number, Map<YearlyAchievementType, YearlyAchievement>>());
   /** Selected year */
   yearSelected = model<number>();
 
