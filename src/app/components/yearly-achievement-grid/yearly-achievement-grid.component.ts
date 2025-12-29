@@ -1,4 +1,4 @@
-import { Component, input, model } from '@angular/core';
+import { Component, effect, input, model } from '@angular/core';
 import { KeyValue, KeyValuePipe } from '@angular/common';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { YearlyAchievement } from '../../services/yearly-achievement/yearly-achievement.service';
@@ -43,6 +43,26 @@ export class YearlyAchievementGridComponent {
 
   /** Language */
   lang = getBrowserLang();
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    effect(() => {
+      const yearsWithActivities = Array.from(
+        this.yearlyAchievements().entries(),
+      ).filter((yearlyAchievement) => {
+        return (
+          yearlyAchievement[1].get(YearlyAchievementType.TOTAL_ACTIVITY_COUNT)
+            ?.value ?? 0 >= 1
+        );
+      });
+
+      if (yearsWithActivities.length == 1) {
+        this.yearSelected.set(yearsWithActivities[0][0]);
+      }
+    });
+  }
 
   /** Key value order */
   public keyValueOrder = (
