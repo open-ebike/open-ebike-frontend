@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, input, viewChild } from '@angular/core';
+import { Component, HostListener, inject, input } from '@angular/core';
 import { YearlyAchievement } from '../../services/yearly-achievement/yearly-achievement.service';
 import {
   getBrowserLang,
@@ -35,8 +35,6 @@ export class YearlyAchievementCarouselComponent {
   yearlyAchievement = input<
     Map<YearlyAchievementType, YearlyAchievement> | undefined
   >(new Map<YearlyAchievementType, YearlyAchievement>());
-  /** Carousel track */
-  carouselTrack = viewChild.required<ElementRef>('carouselTrack');
 
   /** Language */
   lang = getBrowserLang();
@@ -49,8 +47,24 @@ export class YearlyAchievementCarouselComponent {
     return 0;
   };
 
-  /** Share picture */
-  SHARE_PICTURE_DIMENSION = 400;
+  /** Share picture dimension */
+  sharePictureDimension = 400;
+
+  //
+  // Actions
+  //
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    const breakPointSmall = 960;
+    const padding = 16;
+
+    if (window.innerWidth <= breakPointSmall) {
+      this.sharePictureDimension = window.innerWidth - 2 * padding;
+    } else {
+      this.sharePictureDimension = 400;
+    }
+  }
 
   //
   // Helpers

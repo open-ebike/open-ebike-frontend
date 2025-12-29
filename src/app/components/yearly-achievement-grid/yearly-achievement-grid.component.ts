@@ -34,6 +34,14 @@ export class YearlyAchievementGridComponent {
   /** Language */
   lang = getBrowserLang();
 
+  /** Key value order */
+  public keyValueOrder = (
+    a: KeyValue<any, any>,
+    b: KeyValue<any, any>,
+  ): number => {
+    return 0;
+  };
+
   /**
    * Constructor
    */
@@ -56,12 +64,4 @@ export class YearlyAchievementGridComponent {
       }
     });
   }
-
-  /** Key value order */
-  public keyValueOrder = (
-    a: KeyValue<any, any>,
-    b: KeyValue<any, any>,
-  ): number => {
-    return 0;
-  };
 }
