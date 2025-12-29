@@ -7,14 +7,16 @@
         achievement of yearlyAchievement()!! | keyvalue: keyValueOrder;
         track achievement.key
       ) {
-        <div class="carousel-item">
-          <app-share-picture
-            [imagePath]="achievement.value.icon"
-            [width]="sharePictureDimension"
-            [height]="sharePictureDimension"
-            [text]="getText(achievement.value)"
-          ></app-share-picture>
-        </div>
+        @if (achievement.value.value) {
+          <div class="carousel-item">
+            <app-share-picture
+              [imagePath]="achievement.value.icon"
+              [width]="sharePictureDimension"
+              [height]="sharePictureDimension"
+              [text]="getText(achievement.value)"
+            ></app-share-picture>
+          </div>
+        }
       }
     </div>
   </div>
