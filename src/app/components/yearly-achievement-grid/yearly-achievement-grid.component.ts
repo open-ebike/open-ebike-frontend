@@ -5,6 +5,7 @@ import { YearlyAchievement } from '../../services/yearly-achievement/yearly-achi
 import { MatCard, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatRipple } from '@angular/material/core';
 import { YearlyAchievementType } from '../../../environments/yearly-achievements';
+import { MatButton } from '@angular/material/button';
 
 /**
  * Displays yearly achievement grid
@@ -19,6 +20,7 @@ import { YearlyAchievementType } from '../../../environments/yearly-achievements
     KeyValuePipe,
     MatCardHeader,
     TranslocoDirective,
+    MatButton,
   ],
   templateUrl: './yearly-achievement-grid.component.html',
   styleUrl: './yearly-achievement-grid.component.scss',

@@ -2,19 +2,17 @@
   *transloco="let t; lang: lang; prefix: 'pages.yearly-achievements'"
 >
   <div class="grid wide" style="margin-bottom: 16px">
-    @for (
-      yearlyAchievement of yearlyAchievements() | keyvalue: keyValueOrder;
-      track yearlyAchievement.key
-    ) {
-      <mat-card
-        mat-ripple
-        class="year"
-        (click)="yearSelected.set(yearlyAchievement.key)"
-      >
-        <mat-card-header>
-          <mat-card-title>{{ yearlyAchievement.key }}</mat-card-title>
-        </mat-card-header>
-      </mat-card>
+    @for (yearlyAchievement of yearlyAchievements() | keyvalue: keyValueOrder;
+      track yearlyAchievement.key) {
+      @if (yearlyAchievement.key === yearSelected()) {
+        <button mat-flat-button mat-ripple color="primary" (click)="yearSelected.set(yearlyAchievement.key)">
+          {{ yearlyAchievement.key }}
+        </button>
+      } @else {
+        <button mat-button mat-ripple (click)="yearSelected.set(yearlyAchievement.key)">
+          {{ yearlyAchievement.key }}
+        </button>
+      }
     }
   </div>
 </ng-container>
