@@ -452,7 +452,13 @@
     "yearly-achievements": {
       "title": "Yearly Achievements",
       "terms": {
-        "your-yearly-achievements": "Your Achievements in {{year}}"
+        "your-yearly-achievements": "Your Achievements in {{year}}",
+        "share-pictures": {
+          "total-activity-count": "This year I completed {{value}} activities on my Bosch-powered eBike",
+          "total-distance": "This year I cycled {{value}} kilometers on my Bosch-powered eBike",
+          "total-elevation-gain": "This year I climbed {{value}} meters on my Bosch-powered eBike",
+          "total-calories-burned": "This year I burned {{value}} kcal using my Bosch-powered eBike"
+        }
       }
     },
     "login": {
