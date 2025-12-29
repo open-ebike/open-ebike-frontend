@@ -329,13 +329,13 @@
             "10km": "10 Kilometer gefahren",
             "100km": "100 Kilometer gefahren",
             "1000km": "1000 Kilometer gefahren",
-            "3300km": "Vuelta a España gefahren (ca. 3300km)",
-            "3500km": "Tour de France gefahren (ca. 3500km)",
+            "3300km": "Vuelta a España gefahren (ca. 3300km)",
+            "3500km": "Tour de France gefahren (ca. 3500km)",
             "40075km": "die Erde umrundet (40075km)"
           },
           "elevation-gain": {
-            "4806m": "Mont Blanc erklommen (4806m)",
-            "8848m": "Mount Everest erklommen (8848m)"
+            "4806m": "Mont Blanc erklommen (4806m)",
+            "8848m": "Mount Everest erklommen (8848m)"
           },
           "regions": {
             "title": "Regionen",
@@ -385,20 +385,20 @@
         },
         "share-pictures": {
           "activities": {
-            "1": "Ich habe mit meinem Bosch-powered eBike 1 Aktivität abgeschlossen",
-            "10": "Ich habe mit meinem Bosch-powered eBike 10 Aktivitäten abgeschlossen"
+            "1": "Ich habe mit meinem Bosch-powered eBike 1 Aktivität abgeschlossen",
+            "10": "Ich habe mit meinem Bosch-powered eBike 10 Aktivitäten abgeschlossen"
           },
           "distance": {
-            "10km": "Ich bin mit meinem Bosch-powered eBike 10 Kilometer gefahren",
-            "100km": "Ich bin mit meinem Bosch-powered eBike 100 Kilometer gefahren",
-            "1000km": "Ich bin mit meinem Bosch-powered eBike 1000 Kilometer gefahren",
-            "3300km": "Ich bin mit meinem Bosch-powered eBike die Vuelta a España gefahren (ca. 3300km)",
-            "3500km": "Ich bin mit meinem Bosch-powered eBike Tour de France gefahren (ca. 3500km)",
+            "10km": "Ich bin mit meinem Bosch-powered eBike 10 Kilometer gefahren",
+            "100km": "Ich bin mit meinem Bosch-powered eBike 100 Kilometer gefahren",
+            "1000km": "Ich bin mit meinem Bosch-powered eBike 1000 Kilometer gefahren",
+            "3300km": "Ich bin mit meinem Bosch-powered eBike die Vuelta a España gefahren (ca. 3300km)",
+            "3500km": "Ich bin mit meinem Bosch-powered eBike Tour de France gefahren (ca. 3500km)",
             "40075km": "Ich habe mit meinem Bosch-powered eBike die Erde umrundet (40075km)"
           },
           "elevation-gain": {
-            "4806m": "Ich habe mit meinem Bosch-powered eBike den Mont Blanc erklommen (4806m)",
-            "8848m": "Ich habe mit meinem Bosch-powered eBike den Mount Everest erklommen (8848m)"
+            "4806m": "Ich habe mit meinem Bosch-powered eBike den Mont Blanc erklommen (4806m)",
+            "8848m": "Ich habe mit meinem Bosch-powered eBike den Mount Everest erklommen (8848m)"
           },
           "regions": {
             "title": "Regionen",
@@ -454,10 +454,10 @@
       "terms": {
         "your-yearly-achievements": "Deine Errungenschaften in {{year}}",
         "share-pictures": {
-          "total-activity-count": "In diesem Jahr habe ich {{value}} Aktivitäten mit meinem Bosch-powered eBike abgeschlossen",
-          "total-distance": "In diesem Jahr bin ich {{value}} Kilometer mit meinem Bosch-powered eBike gefahren",
-          "total-elevation-gain": "In diesem Jahr habe ich {{value}} Höhenmeter mit meinem Bosch-powered eBike überwunden",
-          "total-calories-burned": "In diesem Jahr habe ich {{value}} kcal mit meinem Bosch-powered eBike verbrannt"
+          "total-activity-count": "In diesem Jahr habe ich {{value}} Aktivitäten mit meinem Bosch-powered eBike abgeschlossen",
+          "total-distance": "In diesem Jahr bin ich {{value}} Kilometer mit meinem Bosch-powered eBike gefahren",
+          "total-elevation-gain": "In diesem Jahr habe ich {{value}} Höhenmeter mit meinem Bosch-powered eBike überwunden",
+          "total-calories-burned": "In diesem Jahr habe ich {{value}} kcal mit meinem Bosch-powered eBike verbrannt"
         }
       }
     },
