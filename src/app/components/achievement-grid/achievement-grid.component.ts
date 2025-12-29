@@ -7,10 +7,7 @@ import {
   TitleCasePipe,
 } from '@angular/common';
 import { environment } from '../../../environments/environment';
-import {
-  Achievement,
-  AchievementType,
-} from '../../services/achievement/achievement.service';
+import { Achievement } from '../../services/achievement/achievement.service';
 import { SharingBottomSheetComponent } from '../sharing-bottom-sheet/sharing-bottom-sheet.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import {
@@ -20,6 +17,7 @@ import {
 } from '@jsverse/transloco';
 import { MatCard } from '@angular/material/card';
 import { MatRipple } from '@angular/material/core';
+import { AchievementType } from '../../../environments/achievements';
 
 /**
  * Displays achievement grid component

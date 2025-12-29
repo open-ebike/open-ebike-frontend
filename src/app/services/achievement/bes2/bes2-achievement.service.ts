@@ -2,12 +2,11 @@ import { computed, inject, Injectable, signal } from '@angular/core';
 import { RegionFinderService } from '../../region-finder.service';
 import { firstValueFrom, map } from 'rxjs';
 import { ActivityService } from '../../api/bes2/activity.service';
+import { Achievement, AchievementService } from '../achievement.service';
 import {
-  Achievement,
-  AchievementService,
+  achievements,
   AchievementType,
-} from '../achievement.service';
-import { achievements } from '../../../../environments/achievements';
+} from '../../../../environments/achievements';
 
 /**
  * Handles achievements

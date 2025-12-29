@@ -4,12 +4,11 @@ import { RegionFinderService } from '../../region-finder.service';
 import { firstValueFrom, map } from 'rxjs';
 import { EbikeRegistrationService } from '../../api/bes3/ebike-registration.service';
 import { EbikeProfileService } from '../../api/bes3/ebike-profile.service';
+import { Achievement, AchievementService } from '../achievement.service';
 import {
-  Achievement,
-  AchievementService,
+  achievements,
   AchievementType,
-} from '../achievement.service';
-import { achievements } from '../../../../environments/achievements';
+} from '../../../../environments/achievements';
 
 /**
  * Handles achievements
