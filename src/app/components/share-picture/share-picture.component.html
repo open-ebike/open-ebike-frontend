@@ -1,0 +1,11 @@
+<div style="display: none">
+  <img
+    #sourceImage
+    crossorigin="anonymous"
+    [src]="imagePath()"
+    (load)="onImageLoad()"
+    alt="source asset"
+  />
+</div>
+
+<canvas #canvas></canvas>
