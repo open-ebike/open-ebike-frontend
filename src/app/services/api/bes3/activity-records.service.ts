@@ -54,11 +54,6 @@ export interface Pagination {
 }
 
 export interface Speed {
-  average: number;
-  maximum: number;
-}
-
-export interface Speed {
   /** Average speed in km/h */
   average: number;
   /** Maximum speed in km/h */

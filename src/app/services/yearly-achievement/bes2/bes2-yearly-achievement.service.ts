@@ -11,6 +11,7 @@ import {
 import { firstValueFrom, map } from 'rxjs';
 import { RegionFinderService } from '../../region-finder.service';
 import { YearlyAchievementType } from '../../../../environments/yearly-achievements';
+import { ActivityDetails } from '../../api/bes3/activity-records.service';
 
 /**
  * Handles yearly achievements
@@ -156,6 +157,24 @@ export class Bes2YearlyAchievementService {
         achievementTotalCaloriesBurned.value =
           (achievementTotalCaloriesBurned.value ?? 0) +
           (activityDetails.caloriesBurned ?? 0);
+      }
+
+      const achievementMaxAltitude = yearlyAchievements
+        .get(year)
+        ?.get(YearlyAchievementType.MAX_ALTITUDE);
+      if (achievementMaxAltitude) {
+        const highestAltitude =
+          activityDetails.altitudes
+            ?.flat()
+            .flat()
+            .reduce((prev, current) => {
+              return (prev ?? 0) > (current ?? 0) ? prev : current;
+            }) ?? 0;
+
+        achievementMaxAltitude.value = Math.max(
+          achievementMaxAltitude.value ?? 0,
+          highestAltitude,
+        );
       }
     }
 

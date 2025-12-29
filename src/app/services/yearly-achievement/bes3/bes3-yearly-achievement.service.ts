@@ -1,10 +1,11 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { map } from 'rxjs';
+import { firstValueFrom, map } from 'rxjs';
 import {
   YearlyAchievement,
   YearlyAchievementService,
 } from '../yearly-achievement.service';
 import {
+  ActivityDetail,
   ActivityRecordsService,
   ActivitySummary,
 } from '../../api/bes3/activity-records.service';
@@ -78,10 +79,10 @@ export class Bes3YearlyAchievementService {
       .getAllActivitySummariesRecursively(100, 'startTime')
       .subscribe(async (activitySummaries) => {
         for (let activitySummary of activitySummaries) {
-          // const activityDetails = await firstValueFrom(
-          //   this.activityRecordsService.getActivityDetails(activitySummary.id),
-          // );
-          // const firstActivityDetail = activityDetails.activityDetails.find(
+          const activityDetails = await firstValueFrom(
+            this.activityRecordsService.getActivityDetails(activitySummary.id),
+          );
+          // const activityDetails = activityDetails.activityDetails.find(
           //   (detail) => {
           //     return detail.latitude != 0.0 && detail.longitude != 0.0;
           //   },
@@ -97,6 +98,7 @@ export class Bes3YearlyAchievementService {
             this.evaluateYearlyStatistics(
               this.yearlyAchievements(),
               activitySummary,
+              activityDetails.activityDetails,
             ),
           );
         }
@@ -107,6 +109,7 @@ export class Bes3YearlyAchievementService {
    * Evaluates yearly statistics
    * @param yearlyAchievements yearly achievements
    * @param activitySummary activity summary
+   * @param activityDetails activity details
    */
   evaluateYearlyStatistics(
     yearlyAchievements: Map<
@@ -114,6 +117,7 @@ export class Bes3YearlyAchievementService {
       Map<YearlyAchievementType, YearlyAchievement>
     >,
     activitySummary: ActivitySummary,
+    activityDetails: ActivityDetail[],
   ) {
     const date = new Date(activitySummary.startTime);
     const year = date.getFullYear();
@@ -152,6 +156,24 @@ export class Bes3YearlyAchievementService {
         achievementTotalCaloriesBurned.value =
           (achievementTotalCaloriesBurned.value ?? 0) +
           activitySummary.caloriesBurned;
+      }
+
+      const achievementMaxAltitude = yearlyAchievements
+        .get(year)
+        ?.get(YearlyAchievementType.MAX_ALTITUDE);
+      if (achievementMaxAltitude) {
+        const highestAltitude = activityDetails
+          .map((activityDetail) => {
+            return activityDetail.altitude;
+          })
+          .reduce((prev, current) => {
+            return prev > current ? prev : current;
+          });
+
+        achievementMaxAltitude.value = Math.max(
+          achievementMaxAltitude.value ?? 0,
+          highestAltitude,
+        );
       }
     }
 

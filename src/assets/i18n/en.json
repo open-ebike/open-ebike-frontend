@@ -457,7 +457,8 @@
           "total-activity-count": "This year I completed {{value}} activities on my Bosch-powered eBike",
           "total-distance": "This year I cycled {{value}} kilometers on my Bosch-powered eBike",
           "total-elevation-gain": "This year I climbed {{value}} meters on my Bosch-powered eBike",
-          "total-calories-burned": "This year I burned {{value}} kcal using my Bosch-powered eBike"
+          "total-calories-burned": "This year I burned {{value}} kcal using my Bosch-powered eBike",
+          "max-altitude": "This year I reached an altitude of {{value}} meters on my Bosch-powered eBike"
         }
       }
     },
