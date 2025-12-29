@@ -11,8 +11,8 @@
           <div class="carousel-item">
             <app-share-picture
               [imagePath]="achievement.value.icon"
-              [width]="sharePictureDimension"
-              [height]="sharePictureDimension"
+              [width]="sharePictureDimension()"
+              [height]="sharePictureDimension()"
               [text]="getText(achievement.value)"
             ></app-share-picture>
           </div>

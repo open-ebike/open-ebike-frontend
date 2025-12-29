@@ -7,6 +7,7 @@
         <h2>{{ t("title") }}</h2>
         <app-yearly-achievement-grid
           [yearlyAchievements]="yearlyAchievementService.yearlyAchievements()"
+          [(yearSelected)]="yearSelected"
         ></app-yearly-achievement-grid>
 
         @if (yearSelected()) {

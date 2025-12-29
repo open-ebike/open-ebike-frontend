@@ -1,4 +1,11 @@
-import { Component, HostListener, inject, input } from '@angular/core';
+import {
+  Component,
+  computed,
+  HostListener,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { YearlyAchievement } from '../../services/yearly-achievement/yearly-achievement.service';
 import {
   getBrowserLang,
@@ -31,10 +38,23 @@ export class YearlyAchievementCarouselComponent {
   // Signals
   //
 
+  /** Window width */
+  windowWidth = signal<number>(window.innerWidth);
   /** Yearly achievement */
   yearlyAchievement = input<
     Map<YearlyAchievementType, YearlyAchievement> | undefined
   >(new Map<YearlyAchievementType, YearlyAchievement>());
+  /** Share picture dimension */
+  sharePictureDimension = computed(() => {
+    const breakPointSmall = 960;
+    const padding = 16;
+
+    if (this.windowWidth() <= breakPointSmall) {
+      return (this.windowWidth() - 2 * padding) * 0.75;
+    } else {
+      return 400;
+    }
+  });
 
   /** Language */
   lang = getBrowserLang();
@@ -47,23 +67,13 @@ export class YearlyAchievementCarouselComponent {
     return 0;
   };
 
-  /** Share picture dimension */
-  sharePictureDimension = 400;
-
   //
   // Actions
   //
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    const breakPointSmall = 960;
-    const padding = 16;
-
-    if (window.innerWidth <= breakPointSmall) {
-      this.sharePictureDimension = (window.innerWidth - 2 * padding) * 0.75;
-    } else {
-      this.sharePictureDimension = 400;
-    }
+    this.windowWidth.set(window.innerWidth);
   }
 
   //
