@@ -347,31 +347,16 @@
             "4806m": "Climbed Mont Blanc (4806m)",
             "8848m": "Climbed Mount Everest (8848m)"
           },
-          "regions": {
-            "title": "Regions",
-            "baden-wurttemberg": "I cycled through Baden-Wurttemberg",
-            "bayern": "I cycled through Bavaria",
-            "berlin": "I cycled through Berlin",
-            "brandenburg": "I cycled through Brandenburg",
-            "bremen": "I cycled through Bremen",
-            "hamburg": "I cycled through Hamburg",
-            "hessen": "I cycled through Hesse",
-            "mecklenburg-vorpommern": "I cycled through Mecklenburg-Western Pomerania",
-            "niedersachsen": "I cycled through Lower Saxony",
-            "nordrhein-westfalen": "I cycled through North Rhine-Westphalia",
-            "rheinland-pfalz": "I cycled through Rhineland-Palatinate",
-            "saarland": "I cycled through Saarland",
-            "sachsen-anhalt": "I cycled through Saxony-Anhalt",
-            "sachsen": "I cycled through Saxony",
-            "schleswig-holstein": "I cycled through Schleswig-Holstein",
-            "thuringen": "I cycled through Thuringia"
-          },
           "registration": {
             "ebike": "1 eBike registered",
             "component": "1 component registered"
           },
           "bike-passes": {
             "bike-pass": "Bike Pass created"
+          },
+          "times": {
+            "early-bird": "Early Bird (activity before 6:00 a.m.)",
+            "night-owl": "Night Owl (activity after 22:00 p.m.)"
           },
           "battery-charge-cycles": {
             "10": "10 charge cycles",
@@ -393,6 +378,25 @@
             "11": "Active in November {{year}}",
             "12": "Active in December {{year}}"
           },
+          "regions": {
+            "title": "Regions",
+            "baden-wurttemberg": "I cycled through Baden-Wurttemberg",
+            "bayern": "I cycled through Bavaria",
+            "berlin": "I cycled through Berlin",
+            "brandenburg": "I cycled through Brandenburg",
+            "bremen": "I cycled through Bremen",
+            "hamburg": "I cycled through Hamburg",
+            "hessen": "I cycled through Hesse",
+            "mecklenburg-vorpommern": "I cycled through Mecklenburg-Western Pomerania",
+            "niedersachsen": "I cycled through Lower Saxony",
+            "nordrhein-westfalen": "I cycled through North Rhine-Westphalia",
+            "rheinland-pfalz": "I cycled through Rhineland-Palatinate",
+            "saarland": "I cycled through Saarland",
+            "sachsen-anhalt": "I cycled through Saxony-Anhalt",
+            "sachsen": "I cycled through Saxony",
+            "schleswig-holstein": "I cycled through Schleswig-Holstein",
+            "thuringen": "I cycled through Thuringia"
+          },
           "unknown": "???",
           "on": "on {{date}}"
         },
@@ -413,6 +417,37 @@
             "4806m": "I climbed Mont Blanc (4806m) on my Bosch-powered eBike",
             "8848m": "I climbed Mount Everest (8848m) on my Bosch-powered eBike"
           },
+          "registration": {
+            "ebike": "I registered my Bosch-powered eBike",
+            "component": "I registered a component of my Bosch-powered eBike"
+          },
+          "bike-passes": {
+            "bike-pass": "I created a bike pass for my Bosch-powered eBike"
+          },
+          "battery-charge-cycles": {
+            "10": "I fully charged my Bosch-powered eBike 10 times",
+            "100": "I fully charged my Bosch-powered eBike 100 times",
+            "1000": "I fully charged my Bosch-powered eBike 1000 times"
+          },
+          "times": {
+            "early-bird": "Ich bin mit meinem Bosch-powered eBike vor 6:00 Uhr gefahren",
+            "night-owl": "Ich bin mit meinem Bosch-powered eBike nach 22:00 Uhr gefahren"
+          },
+          "time-periods": {
+            "title": "Time Periods",
+            "01": "I cycled on my Bosch-powered eBike in January {{year}}",
+            "02": "I cycled on my Bosch-powered eBike in February {{year}}",
+            "03": "I cycled on my Bosch-powered eBike in March {{year}}",
+            "04": "I cycled on my Bosch-powered eBike in April {{year}}",
+            "05": "I cycled on my Bosch-powered eBike in May {{year}}",
+            "06": "I cycled on my Bosch-powered eBike in June {{year}}",
+            "07": "I cycled on my Bosch-powered eBike in July {{year}}",
+            "08": "I cycled on my Bosch-powered eBike in August {{year}}",
+            "09": "I cycled on my Bosch-powered eBike in September {{year}}",
+            "10": "I cycled on my Bosch-powered eBike in October {{year}}",
+            "11": "I cycled on my Bosch-powered eBike in November {{year}}",
+            "12": "I cycled on my Bosch-powered eBike in December {{year}}"
+          },
           "regions": {
             "title": "Regions",
             "baden-wurttemberg": "I cycled through Baden-Wurttemberg on my Bosch-powered eBike",
@@ -431,33 +466,6 @@
             "sachsen": "I cycled through Saxony on my Bosch-powered eBike",
             "schleswig-holstein": "I cycled through Schleswig-Holstein on my Bosch-powered eBike",
             "thuringen": "I cycled through Thuringia on my Bosch-powered eBike"
-          },
-          "registration": {
-            "ebike": "I registered my Bosch-powered eBike",
-            "component": "I registered a component of my Bosch-powered eBike"
-          },
-          "bike-passes": {
-            "bike-pass": "I created a bike pass for my Bosch-powered eBike"
-          },
-          "battery-charge-cycles": {
-            "10": "I fully charged my Bosch-powered eBike 10 times",
-            "100": "I fully charged my Bosch-powered eBike 100 times",
-            "1000": "I fully charged my Bosch-powered eBike 1000 times"
-          },
-          "time-periods": {
-            "title": "Time Periods",
-            "01": "I cycled on my Bosch-powered eBike in January {{year}}",
-            "02": "I cycled on my Bosch-powered eBike in February {{year}}",
-            "03": "I cycled on my Bosch-powered eBike in March {{year}}",
-            "04": "I cycled on my Bosch-powered eBike in April {{year}}",
-            "05": "I cycled on my Bosch-powered eBike in May {{year}}",
-            "06": "I cycled on my Bosch-powered eBike in June {{year}}",
-            "07": "I cycled on my Bosch-powered eBike in July {{year}}",
-            "08": "I cycled on my Bosch-powered eBike in August {{year}}",
-            "09": "I cycled on my Bosch-powered eBike in September {{year}}",
-            "10": "I cycled on my Bosch-powered eBike in October {{year}}",
-            "11": "I cycled on my Bosch-powered eBike in November {{year}}",
-            "12": "I cycled on my Bosch-powered eBike in December {{year}}"
           }
         }
       },

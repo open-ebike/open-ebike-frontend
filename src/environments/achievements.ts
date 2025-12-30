@@ -12,6 +12,14 @@ export enum AchievementType {
   DISTANCE_40075KM = 'DISTANCE_40075KM',
   ELEVATION_GAIN_4806M = 'ELEVATION_GAIN_4806M',
   ELEVATION_GAIN_8848_M = 'ELEVATION_GAIN_8848_M',
+  REGISTRATION_BIKE = 'REGISTRATION_BIKE',
+  REGISTRATION_COMPONENT = 'REGISTRATION_COMPONENT',
+  BIKE_PASS = 'BIKE_PASS',
+  BATTERY_CHARGE_CYCLES_10 = 'BATTERY_CHARGE_CYCLES_10',
+  BATTERY_CHARGE_CYCLES_100 = 'BATTERY_CHARGE_CYCLES_100',
+  BATTERY_CHARGE_CYCLES_1000 = 'BATTERY_CHARGE_CYCLES_1000',
+  TIME_EARLY_BIRD = 'TIME_EARLY_BIRD',
+  TIME_NIGHT_OWL = 'TIME_NIGHT_OWL',
   REGION_BADEN_WURTTEMBERG = 'REGION_BADEN_WURTTEMBERG',
   REGION_BAYERN = 'REGION_BAYERN',
   REGION_BERLIN = 'REGION_BERLIN',
@@ -28,12 +36,6 @@ export enum AchievementType {
   REGION_SACHSEN_ANHALT = 'REGION_SACHSEN_ANHALT',
   REGION_SCHLESWIG_HOLSTEIN = 'REGION_SCHLESWIG_HOLSTEIN',
   REGION_THURINGEN = 'REGION_THURINGEN',
-  REGISTRATION_BIKE = 'REGISTRATION_BIKE',
-  REGISTRATION_COMPONENT = 'REGISTRATION_COMPONENT',
-  BIKE_PASS = 'BIKE_PASS',
-  BATTERY_CHARGE_CYCLES_10 = 'BATTERY_CHARGE_CYCLES_10',
-  BATTERY_CHARGE_CYCLES_100 = 'BATTERY_CHARGE_CYCLES_100',
-  BATTERY_CHARGE_CYCLES_1000 = 'BATTERY_CHARGE_CYCLES_1000',
 }
 
 export const achievements = {
@@ -145,6 +147,20 @@ export const achievements = {
       translation: 'terms.badges.battery-charge-cycles.1000',
       translationSharePicture:
         'terms.share-pictures.battery-charge-cycles.1000',
+    },
+  ],
+  times: [
+    {
+      type: AchievementType.TIME_EARLY_BIRD,
+      icon: 'assets/achievements/early.png',
+      translation: 'terms.badges.times.early-bird',
+      translationSharePicture: 'terms.share-pictures.times.early-bird',
+    },
+    {
+      type: AchievementType.TIME_NIGHT_OWL,
+      icon: 'assets/achievements/owl.png',
+      translation: 'terms.badges.times.night-owl',
+      translationSharePicture: 'terms.share-pictures.times.night-owl',
     },
   ],
   regions: [

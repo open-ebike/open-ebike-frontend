@@ -346,6 +346,37 @@
             "4806m": "Mont Blanc erklommen (4806m)",
             "8848m": "Mount Everest erklommen (8848m)"
           },
+          "registration": {
+            "ebike": "1 eBike registriert",
+            "component": "1 Komponente registriert"
+          },
+          "bike-passes": {
+            "bike-pass": "Bike Pass angelegt"
+          },
+          "battery-charge-cycles": {
+            "10": "10 Ladezyklen",
+            "100": "100 Ladezyklen",
+            "1000": "1000 Ladezyklen"
+          },
+          "times": {
+            "early-bird": "Lerche (Aktivität vor 6:00)",
+            "night-owl": "Nachteule (Aktivität nach 22:00)"
+          },
+          "time-periods": {
+            "title": "Zeiträume",
+            "01": "Aktiv im Januar {{year}}",
+            "02": "Aktiv im Februar {{year}}",
+            "03": "Aktiv im März {{year}}",
+            "04": "Aktiv im April {{year}}",
+            "05": "Aktiv im Mai {{year}}",
+            "06": "Aktiv im Juni {{year}}",
+            "07": "Aktiv im Juli {{year}}",
+            "08": "Aktiv im August {{year}}",
+            "09": "Aktiv im September {{year}}",
+            "10": "Aktiv im Oktober {{year}}",
+            "11": "Aktiv im November {{year}}",
+            "12": "Aktiv im Dezember {{year}}"
+          },
           "regions": {
             "title": "Regionen",
             "baden-wurttemberg": "Tour durch Baden-Württemberg gemacht",
@@ -364,33 +395,6 @@
             "sachsen": "Tour durch Sachsen gemacht",
             "schleswig-holstein": "Tour durch Schleswig-Holstein gemacht",
             "thuringen": "Tour durch Thüringen gemacht"
-          },
-          "registration": {
-            "ebike": "1 eBike registriert",
-            "component": "1 Komponente registriert"
-          },
-          "bike-passes": {
-            "bike-pass": "Bike Pass angelegt"
-          },
-          "battery-charge-cycles": {
-            "10": "10 Ladezyklen",
-            "100": "100 Ladezyklen",
-            "1000": "1000 Ladezyklen"
-          },
-          "time-periods": {
-            "title": "Zeiträume",
-            "01": "Aktiv im Januar {{year}}",
-            "02": "Aktiv im Februar {{year}}",
-            "03": "Aktiv im März {{year}}",
-            "04": "Aktiv im April {{year}}",
-            "05": "Aktiv im Mai {{year}}",
-            "06": "Aktiv im Juni {{year}}",
-            "07": "Aktiv im Juli {{year}}",
-            "08": "Aktiv im August {{year}}",
-            "09": "Aktiv im September {{year}}",
-            "10": "Aktiv im Oktober {{year}}",
-            "11": "Aktiv im November {{year}}",
-            "12": "Aktiv im Dezember {{year}}"
           },
           "unknown": "???",
           "on": "am {{date}}"
@@ -412,6 +416,37 @@
             "4806m": "Ich habe mit meinem Bosch-powered eBike den Mont Blanc erklommen (4806m)",
             "8848m": "Ich habe mit meinem Bosch-powered eBike den Mount Everest erklommen (8848m)"
           },
+          "registration": {
+            "ebike": "Ich habe mein Bosch-powered eBike registriert",
+            "component": "Ich habe eine Komponente meines Bosch-powered eBikes registriert"
+          },
+          "bike-passes": {
+            "bike-pass": "Ich habe einen Bike Pass für mein Bosch-powered eBike angelegt"
+          },
+          "battery-charge-cycles": {
+            "10": "Ich habe mein Bosch-powered eBike 10x komplett geladen",
+            "100": "Ich habe mein Bosch-powered eBike 100x komplett geladen",
+            "1000": "Ich habe mein Bosch-powered eBike 1000x komplett geladen"
+          },
+          "times": {
+            "early-bird": "Ich bin mit meinem Bosch-powered eBike vor 6:00 Uhr gefahren",
+            "night-owl": "Ich bin mit meinem Bosch-powered eBike nach 22:00 Uhr gefahren"
+          },
+          "time-periods": {
+            "title": "Zeiträume",
+            "01": "Ich bin im Januar {{year}} mit meinem Bosch-powered eBike gefahren",
+            "02": "Ich bin im Februar {{year}} mit meinem Bosch-powered eBike gefahren",
+            "03": "Ich bin im März {{year}} mit meinem Bosch-powered eBike gefahren",
+            "04": "Ich bin im April {{year}} mit meinem Bosch-powered eBike gefahren",
+            "05": "Ich bin im Mai {{year}} mit meinem Bosch-powered eBike gefahren",
+            "06": "Ich bin im Juni {{year}} mit meinem Bosch-powered eBike gefahren",
+            "07": "Ich bin im Juli {{year}} mit meinem Bosch-powered eBike gefahren",
+            "08": "Ich bin im August {{year}} mit meinem Bosch-powered eBike gefahren",
+            "09": "Ich bin im September {{year}} mit meinem Bosch-powered eBike gefahren",
+            "10": "Ich bin im Oktober {{year}} mit meinem Bosch-powered eBike gefahren",
+            "11": "Ich bin im November {{year}} mit meinem Bosch-powered eBike gefahren",
+            "12": "Ich bin im Dezember {{year}} mit meinem Bosch-powered eBike gefahren"
+          },
           "regions": {
             "title": "Regionen",
             "baden-wurttemberg": "Ich bin mit meinem Bosch-powered eBike durch Baden-Württemberg gefahren",
@@ -430,33 +465,6 @@
             "sachsen": "Ich bin mit meinem Bosch-powered eBike durch Sachsen gefahren",
             "schleswig-holstein": "Ich bin mit meinem Bosch-powered eBike durch Schleswig-Holstein gefahren",
             "thuringen": "Ich bin mit meinem Bosch-powered eBike durch Thüringen gefahren"
-          },
-          "registration": {
-            "ebike": "Ich habe mein Bosch-powered eBike registriert",
-            "component": "Ich habe eine Komponente meines Bosch-powered eBikes registriert"
-          },
-          "bike-passes": {
-            "bike-pass": "Ich habe einen Bike Pass für mein Bosch-powered eBike angelegt"
-          },
-          "battery-charge-cycles": {
-            "10": "Ich habe mein Bosch-powered eBike 10x komplett geladen",
-            "100": "Ich habe mein Bosch-powered eBike 100x komplett geladen",
-            "1000": "Ich habe mein Bosch-powered eBike 1000x komplett geladen"
-          },
-          "time-periods": {
-            "title": "Zeiträume",
-            "01": "Ich bin im Januar {{year}} mit meinem Bosch-powered eBike gefahren",
-            "02": "Ich bin im Februar {{year}} mit meinem Bosch-powered eBike gefahren",
-            "03": "Ich bin im März {{year}} mit meinem Bosch-powered eBike gefahren",
-            "04": "Ich bin im April {{year}} mit meinem Bosch-powered eBike gefahren",
-            "05": "Ich bin im Mai {{year}} mit meinem Bosch-powered eBike gefahren",
-            "06": "Ich bin im Juni {{year}} mit meinem Bosch-powered eBike gefahren",
-            "07": "Ich bin im Juli {{year}} mit meinem Bosch-powered eBike gefahren",
-            "08": "Ich bin im August {{year}} mit meinem Bosch-powered eBike gefahren",
-            "09": "Ich bin im September {{year}} mit meinem Bosch-powered eBike gefahren",
-            "10": "Ich bin im Oktober {{year}} mit meinem Bosch-powered eBike gefahren",
-            "11": "Ich bin im November {{year}} mit meinem Bosch-powered eBike gefahren",
-            "12": "Ich bin im Dezember {{year}} mit meinem Bosch-powered eBike gefahren"
           }
         }
       },

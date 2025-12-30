@@ -330,6 +330,74 @@ export class AchievementService {
   }
 
   /**
+   * Evaluates achievements related to times
+   * @param achievements achievements
+   * @param startDate start date
+   * @param endDate end date
+   */
+  evaluateTimes(
+    achievements: Map<AchievementType, Achievement>,
+    startDate: string,
+    endDate: string | undefined,
+  ) {
+    const startHour = new Date(startDate).getHours();
+    const endHour =
+      endDate != undefined ? new Date(endDate).getHours() : undefined;
+
+    if (
+      !achievements.get(AchievementType.TIME_EARLY_BIRD)?.achieved &&
+      startHour < 6
+    ) {
+      achievements.set(AchievementType.TIME_EARLY_BIRD, {
+        ...achievements.get(AchievementType.TIME_EARLY_BIRD),
+        date: startDate,
+        achieved: true,
+      });
+    }
+
+    if (
+      !achievements.get(AchievementType.TIME_NIGHT_OWL)?.achieved &&
+      endHour != undefined &&
+      endHour > 21
+    ) {
+      achievements.set(AchievementType.TIME_NIGHT_OWL, {
+        ...achievements.get(AchievementType.TIME_NIGHT_OWL),
+        date: endDate,
+        achieved: true,
+      });
+    }
+
+    return new Map(achievements);
+  }
+
+  /**
+   * Evaluates achievements related to time periods
+   * @param achievements achievements
+   * @param date date
+   */
+  evaluateTimePeriods(
+    achievements: Map<number, Map<string, Achievement>>,
+    date: string,
+  ) {
+    const year = new Date(date).getFullYear();
+    const month = (new Date(date).getMonth() + 1).toString().padStart(2, '0');
+    const achievementType = `TIME_PERIOD_ACTIVE_${year}_${month}`;
+
+    if (
+      achievements.has(year) &&
+      achievements.get(year)?.has(achievementType) &&
+      !achievements.get(year)?.get(achievementType)?.achieved
+    ) {
+      achievements.get(year)?.set(achievementType, {
+        ...achievements.get(year)?.get(achievementType),
+        achieved: true,
+      });
+    }
+
+    return new Map(achievements);
+  }
+
+  /**
    * Evaluates achievements related to regions
    * @param achievements achievements
    * @param federalState federal state
@@ -502,33 +570,6 @@ export class AchievementService {
       achievements.set(AchievementType.REGION_THURINGEN, {
         ...achievements.get(AchievementType.REGION_THURINGEN),
         date: date,
-        achieved: true,
-      });
-    }
-
-    return new Map(achievements);
-  }
-
-  /**
-   * Evaluates achievements related to time periods
-   * @param achievements achievements
-   * @param date date
-   */
-  evaluateTimePeriods(
-    achievements: Map<number, Map<string, Achievement>>,
-    date: string,
-  ) {
-    const year = new Date(date).getFullYear();
-    const month = (new Date(date).getMonth() + 1).toString().padStart(2, '0');
-    const achievementType = `TIME_PERIOD_ACTIVE_${year}_${month}`;
-
-    if (
-      achievements.has(year) &&
-      achievements.get(year)?.has(achievementType) &&
-      !achievements.get(year)?.get(achievementType)?.achieved
-    ) {
-      achievements.get(year)?.set(achievementType, {
-        ...achievements.get(year)?.get(achievementType),
         achieved: true,
       });
     }

@@ -43,11 +43,15 @@ export class Bes2AchievementService {
     this.achievementService.convertToMap(achievements.elevationGain),
   );
   /** Achievements */
-  achievementsRegions = signal(
-    this.achievementService.convertToMap(achievements.regions),
+  achievementsTimes = signal(
+    this.achievementService.convertToMap(achievements.times),
   );
   /** Achievements */
   achievementsTimePeriods = signal(new Map<number, Map<string, Achievement>>());
+  /** Achievements */
+  achievementsRegions = signal(
+    this.achievementService.convertToMap(achievements.regions),
+  );
 
   /** Achievements */
   achievementsBasic = computed(() => {
@@ -55,6 +59,7 @@ export class Bes2AchievementService {
       ...this.achievementsActivities(),
       ...this.achievementsDistances(),
       ...this.achievementsElevationGain(),
+      ...this.achievementsTimes(),
     ]);
   });
 
@@ -147,17 +152,25 @@ export class Bes2AchievementService {
             ),
           );
 
-          this.achievementsRegions.set(
-            this.achievementService.evaluateRegions(
-              this.achievementsRegions(),
-              federalState ?? '',
+          this.achievementsTimes.set(
+            this.achievementService.evaluateTimes(
+              this.achievementsTimes(),
               activitySummary.startTime,
+              activitySummary.endTime,
             ),
           );
 
           this.achievementsTimePeriods.set(
             this.achievementService.evaluateTimePeriods(
               this.achievementsTimePeriods(),
+              activitySummary.startTime,
+            ),
+          );
+
+          this.achievementsRegions.set(
+            this.achievementService.evaluateRegions(
+              this.achievementsRegions(),
+              federalState ?? '',
               activitySummary.startTime,
             ),
           );
