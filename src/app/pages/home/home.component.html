@@ -1,43 +1,256 @@
-<ng-container *transloco="let t; lang: lang; prefix: 'pages.home'">
+<ng-container *transloco="let t; lang: lang; prefix: 'pages'">
   <div class="container flex-container-vertical">
+    <div class="inner-container">
+      <h1>
+        {{ t("home.terms.welcome-to") }}
+        <span class="app-title"
+          >OPEN <span class="shimmer-text">EBIKE</span></span
+        >
+      </h1>
+      <h2 [innerHTML]="t('home.terms.app-description')"></h2>
+    </div>
+
     @if (authenticationService.isLoggedIn()) {
       <div class="inner-container">
-        <h2>
-          @switch (authenticationService.ebikeGeneration()) {
-            @case ("BES3") {
+        @switch (authenticationService.ebikeGeneration()) {
+          @case ("BES3") {
+            <h2>
               {{
-                t("terms.hello", {
+                t("home.terms.hello", {
                   username: authenticationService.getIdentityClaims().email,
                 })
               }}
-            }
-            @case ("BES2") {
+            </h2>
+            <div class="grid-0">
+              <mat-card
+                class="selectable-card bes3"
+                [routerLink]="['/bes3/ebikes']"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <span class="material-symbols-outlined icon">
+                      electric_bike
+                    </span>
+                  </div>
+                  <mat-card-title>{{ t("ebikes.title") }}</mat-card-title>
+                  <mat-card-subtitle
+                    >{{ t("ebikes.description") }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+              <mat-card
+                class="selectable-card bes3"
+                [routerLink]="['/bes3/activities']"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <span class="material-symbols-outlined icon"> route </span>
+                  </div>
+                  <mat-card-title>{{ t("activities.title") }}</mat-card-title>
+                  <mat-card-subtitle
+                    >{{ t("activities.description") }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+              <mat-card
+                class="selectable-card bes3"
+                [routerLink]="['/bes3/registrations']"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <span class="material-symbols-outlined icon">
+                      verified
+                    </span>
+                  </div>
+                  <mat-card-title>{{
+                    t("registrations.title")
+                  }}</mat-card-title>
+                  <mat-card-subtitle
+                    >{{ t("registrations.description") }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+              <mat-card
+                class="selectable-card bes3"
+                [routerLink]="['/bes3/achievements']"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <span class="material-symbols-outlined icon">
+                      editor_choice
+                    </span>
+                  </div>
+                  <mat-card-title>{{ t("achievements.title") }}</mat-card-title>
+                  <mat-card-subtitle
+                    >{{ t("achievements.description") }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+              <mat-card
+                class="selectable-card bes3"
+                [routerLink]="['/bes3/yearly-achievements']"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <span class="material-symbols-outlined icon"> trophy </span>
+                  </div>
+                  <mat-card-title>{{
+                    t("yearly-achievements.title")
+                  }}</mat-card-title>
+                  <mat-card-subtitle
+                    >{{ t("yearly-achievements.description") }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+            </div>
+          }
+          @case ("BES2") {
+            <h2>
               {{
-                t("terms.hello", {
+                t("home.terms.hello", {
                   username: authenticationService.getIdentityClaims().name,
                 })
               }}
-            }
-            @case ("COBI") {
+            </h2>
+            <div class="grid-0">
+              <mat-card
+                class="selectable-card bes2"
+                [routerLink]="['/bes2/ebikes']"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <span class="material-symbols-outlined icon">
+                      electric_bike
+                    </span>
+                  </div>
+                  <mat-card-title>{{ t("ebikes.title") }}</mat-card-title>
+                  <mat-card-subtitle
+                    >{{ t("ebikes.description") }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+              <mat-card
+                class="selectable-card bes2"
+                [routerLink]="['/bes2/activities']"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <span class="material-symbols-outlined icon"> route </span>
+                  </div>
+                  <mat-card-title>{{ t("activities.title") }}</mat-card-title>
+                  <mat-card-subtitle
+                    >{{ t("activities.description") }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+              <mat-card
+                class="selectable-card bes2"
+                [routerLink]="['/bes2/statistics']"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <span class="material-symbols-outlined icon">
+                      verified
+                    </span>
+                  </div>
+                  <mat-card-title>{{ t("statistics.title") }}</mat-card-title>
+                  <mat-card-subtitle
+                    >{{ t("statistics.description") }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+              <mat-card
+                class="selectable-card bes2"
+                [routerLink]="['/bes2/achievements']"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <span class="material-symbols-outlined icon">
+                      editor_choice
+                    </span>
+                  </div>
+                  <mat-card-title>{{ t("achievements.title") }}</mat-card-title>
+                  <mat-card-subtitle
+                    >{{ t("achievements.description") }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+              <mat-card
+                class="selectable-card bes2"
+                [routerLink]="['/bes2/yearly-achievements']"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <span class="material-symbols-outlined icon"> trophy </span>
+                  </div>
+                  <mat-card-title>{{
+                    t("yearly-achievements.title")
+                  }}</mat-card-title>
+                  <mat-card-subtitle
+                    >{{ t("yearly-achievements.description") }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+            </div>
+          }
+          @case ("COBI") {
+            <h2>
               {{
-                t("terms.hello", {
+                t("home.terms.hello", {
                   username: authenticationService.getIdentityClaims().email,
                 })
               }}
-            }
+            </h2>
+            <div class="grid-0">
+              <mat-card
+                class="selectable-card cobi"
+                [routerLink]="['/cobi/hubs']"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <span class="material-symbols-outlined icon">
+                      nest_display
+                    </span>
+                  </div>
+                  <mat-card-title>{{ t("hubs.title") }}</mat-card-title>
+                  <mat-card-subtitle
+                    >{{ t("hubs.description") }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+              <mat-card
+                class="selectable-card cobi"
+                [routerLink]="['/cobi/activities']"
+                [queryParams]="{ theme: themeService.theme() }"
+              >
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <span class="material-symbols-outlined icon"> route </span>
+                  </div>
+                  <mat-card-title>{{ t("activities.title") }}</mat-card-title>
+                  <mat-card-subtitle
+                    >{{ t("activities.description") }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+              </mat-card>
+            </div>
           }
-        </h2>
+        }
       </div>
     } @else {
       <div class="inner-container">
-        <h1>
-          {{ t("terms.welcome-to") }}
-          <span class="app-title"
-            >OPEN <span class="shimmer-text">EBIKE</span></span
-          >
-        </h1>
-        <h2 [innerHTML]="t('terms.app-description')"></h2>
-        <h2>{{ t("terms.getting-started-1") }}</h2>
+        <h2>{{ t("home.terms.getting-started-1") }}</h2>
       </div>
       <div class="grid-container">
         <div class="grid-1">
@@ -49,28 +262,30 @@
               <div mat-card-avatar>
                 <span class="material-symbols-outlined icon"> mobile </span>
               </div>
-              <mat-card-title>{{ t("terms.option-a.title") }}</mat-card-title>
+              <mat-card-title>{{
+                t("home.terms.option-a.title")
+              }}</mat-card-title>
               <mat-card-subtitle
-                >{{ t("terms.option-a.subtitle") }}
+                >{{ t("home.terms.option-a.subtitle") }}
               </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
               <ul class="list">
-                <li [innerHTML]="t('terms.option-a.content-1')"></li>
-                <li [innerHTML]="t('terms.option-a.content-2')"></li>
-                <li [innerHTML]="t('terms.option-a.content-3')"></li>
-                <li [innerHTML]="t('terms.option-a.content-4')"></li>
+                <li [innerHTML]="t('home.terms.option-a.content-1')"></li>
+                <li [innerHTML]="t('home.terms.option-a.content-2')"></li>
+                <li [innerHTML]="t('home.terms.option-a.content-3')"></li>
+                <li [innerHTML]="t('home.terms.option-a.content-4')"></li>
               </ul>
             </mat-card-content>
             <mat-card-actions style="align-self: center">
               <button mat-button class="highlight">
-                {{ t("terms.getting-started-click") }}
+                {{ t("home.terms.getting-started-click") }}
               </button>
             </mat-card-actions>
           </mat-card>
           <div style="align-content: center; text-align: center">
             <h2>
-              {{ t("terms.or") }}
+              {{ t("home.terms.or") }}
             </h2>
           </div>
           <mat-card
@@ -83,28 +298,30 @@
                   mobile
                 </span>
               </div>
-              <mat-card-title>{{ t("terms.option-b.title") }}</mat-card-title>
+              <mat-card-title>{{
+                t("home.terms.option-b.title")
+              }}</mat-card-title>
               <mat-card-subtitle
-                >{{ t("terms.option-b.subtitle") }}
+                >{{ t("home.terms.option-b.subtitle") }}
               </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
               <ul class="list">
-                <li [innerHTML]="t('terms.option-b.content-1')"></li>
-                <li [innerHTML]="t('terms.option-b.content-2')"></li>
-                <li [innerHTML]="t('terms.option-b.content-3')"></li>
-                <li [innerHTML]="t('terms.option-b.content-4')"></li>
+                <li [innerHTML]="t('home.terms.option-b.content-1')"></li>
+                <li [innerHTML]="t('home.terms.option-b.content-2')"></li>
+                <li [innerHTML]="t('home.terms.option-b.content-3')"></li>
+                <li [innerHTML]="t('home.terms.option-b.content-4')"></li>
               </ul>
             </mat-card-content>
             <mat-card-actions style="align-self: center">
               <button mat-button class="highlight">
-                {{ t("terms.getting-started-click") }}
+                {{ t("home.terms.getting-started-click") }}
               </button>
             </mat-card-actions>
           </mat-card>
           <div style="align-content: center; text-align: center">
             <h2>
-              {{ t("terms.or") }}
+              {{ t("home.terms.or") }}
             </h2>
           </div>
           <mat-card
@@ -117,22 +334,24 @@
                   mobile
                 </span>
               </div>
-              <mat-card-title>{{ t("terms.option-c.title") }}</mat-card-title>
+              <mat-card-title>{{
+                t("home.terms.option-c.title")
+              }}</mat-card-title>
               <mat-card-subtitle
-                >{{ t("terms.option-c.subtitle") }}
+                >{{ t("home.terms.option-c.subtitle") }}
               </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
               <ul class="list">
-                <li [innerHTML]="t('terms.option-c.content-1')"></li>
-                <li [innerHTML]="t('terms.option-c.content-2')"></li>
-                <li [innerHTML]="t('terms.option-c.content-3')"></li>
-                <li [innerHTML]="t('terms.option-c.content-4')"></li>
+                <li [innerHTML]="t('home.terms.option-c.content-1')"></li>
+                <li [innerHTML]="t('home.terms.option-c.content-2')"></li>
+                <li [innerHTML]="t('home.terms.option-c.content-3')"></li>
+                <li [innerHTML]="t('home.terms.option-c.content-4')"></li>
               </ul>
             </mat-card-content>
             <mat-card-actions style="align-self: center">
               <button mat-button class="highlight">
-                {{ t("terms.getting-started-click") }}
+                {{ t("home.terms.getting-started-click") }}
               </button>
             </mat-card-actions>
           </mat-card>
@@ -140,7 +359,7 @@
       </div>
       @if (selectedEbikeGeneration() == "BES3") {
         <div class="inner-container">
-          <h2>{{ t("terms.getting-started-2") }}</h2>
+          <h2>{{ t("home.terms.getting-started-2") }}</h2>
           <div class="grid-container">
             <div class="grid-2">
               <mat-card class="bes3">
@@ -151,35 +370,35 @@
                     </span>
                   </div>
                   <mat-card-title
-                    >{{ t("terms.option-a.step-1-title") }}
+                    >{{ t("home.terms.option-a.step-1-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                   <ul class="list">
-                    <li [innerHTML]="t('terms.option-a.step-1-content-1')"></li>
-                    <li [innerHTML]="t('terms.option-a.step-1-content-2')"></li>
-                    <li [innerHTML]="t('terms.option-a.step-1-content-3')"></li>
+                    <li [innerHTML]="t('home.terms.option-a.step-1-content-1')"></li>
+                    <li [innerHTML]="t('home.terms.option-a.step-1-content-2')"></li>
+                    <li [innerHTML]="t('home.terms.option-a.step-1-content-3')"></li>
                     <ul class="client-application">
                       <li>
                         <strong class="highlight"
-                          >{{ t("terms.login-url") }}:</strong
+                          >{{ t("home.terms.login-url") }}:</strong
                         >
                         https://open-ebike.web.app
                       </li>
                       <li>
                         <strong class="highlight"
-                          >{{ t("terms.redirect-uris") }}:</strong
+                          >{{ t("home.terms.redirect-uris") }}:</strong
                         >
                         https://open-ebike.web.app/*
                       </li>
                       <li>
                         <strong class="highlight"
-                          >{{ t("terms.confidential-client") }}:</strong
+                          >{{ t("home.terms.confidential-client") }}:</strong
                         >
-                        {{ t("terms.false") }}
+                        {{ t("home.terms.false") }}
                       </li>
                     </ul>
-                    <li [innerHTML]="t('terms.option-a.step-1-content-4')"></li>
+                    <li [innerHTML]="t('home.terms.option-a.step-1-content-4')"></li>
                   </ul>
                 </mat-card-content>
               </mat-card>
@@ -191,13 +410,13 @@
                     </span>
                   </div>
                   <mat-card-title
-                    >{{ t("terms.option-a.step-2-title") }}
+                    >{{ t("home.terms.option-a.step-2-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                   <ul class="list">
-                    <li [innerHTML]="t('terms.option-a.step-2-content-1')"></li>
-                    <li [innerHTML]="t('terms.option-a.step-2-content-2')"></li>
+                    <li [innerHTML]="t('home.terms.option-a.step-2-content-1')"></li>
+                    <li [innerHTML]="t('home.terms.option-a.step-2-content-2')"></li>
                   </ul>
                 </mat-card-content>
               </mat-card>
@@ -207,14 +426,14 @@
                     <span class="material-symbols-outlined icon"> login </span>
                   </div>
                   <mat-card-title
-                    >{{ t("terms.option-a.step-3-title") }}
+                    >{{ t("home.terms.option-a.step-3-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                   <ul class="list">
-                    <li [innerHTML]="t('terms.option-a.step-3-content-1')"></li>
-                    <li [innerHTML]="t('terms.option-a.step-3-content-2')"></li>
-                    <li [innerHTML]="t('terms.option-a.step-3-content-3')"></li>
+                    <li [innerHTML]="t('home.terms.option-a.step-3-content-1')"></li>
+                    <li [innerHTML]="t('home.terms.option-a.step-3-content-2')"></li>
+                    <li [innerHTML]="t('home.terms.option-a.step-3-content-3')"></li>
                   </ul>
                 </mat-card-content>
               </mat-card>
@@ -224,7 +443,7 @@
       }
       @if (selectedEbikeGeneration() == "BES2") {
         <div class="inner-container">
-          <h2>{{ t("terms.getting-started-2") }}</h2>
+          <h2>{{ t("home.terms.getting-started-2") }}</h2>
           <div class="grid-container">
             <div class="grid-2">
               <mat-card class="bes2">
@@ -235,35 +454,35 @@
                     </span>
                   </div>
                   <mat-card-title
-                    >{{ t("terms.option-b.step-1-title") }}
+                    >{{ t("home.terms.option-b.step-1-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                   <ul class="list">
-                    <li [innerHTML]="t('terms.option-b.step-1-content-1')"></li>
-                    <li [innerHTML]="t('terms.option-b.step-1-content-2')"></li>
-                    <li [innerHTML]="t('terms.option-b.step-1-content-3')"></li>
+                    <li [innerHTML]="t('home.terms.option-b.step-1-content-1')"></li>
+                    <li [innerHTML]="t('home.terms.option-b.step-1-content-2')"></li>
+                    <li [innerHTML]="t('home.terms.option-b.step-1-content-3')"></li>
                     <ul class="client-application">
                       <li>
                         <strong class="highlight"
-                          >{{ t("terms.login-url") }}:</strong
+                          >{{ t("home.terms.login-url") }}:</strong
                         >
                         https://open-ebike.web.app
                       </li>
                       <li>
                         <strong class="highlight"
-                          >{{ t("terms.redirect-uris") }}:</strong
+                          >{{ t("home.terms.redirect-uris") }}:</strong
                         >
                         https://open-ebike.web.app/*
                       </li>
                       <li>
                         <strong class="highlight"
-                          >{{ t("terms.confidential-client") }}:</strong
+                          >{{ t("home.terms.confidential-client") }}:</strong
                         >
-                        {{ t("terms.false") }}
+                        {{ t("home.terms.false") }}
                       </li>
                     </ul>
-                    <li [innerHTML]="t('terms.option-b.step-1-content-4')"></li>
+                    <li [innerHTML]="t('home.terms.option-b.step-1-content-4')"></li>
                   </ul>
                 </mat-card-content>
               </mat-card>
@@ -275,12 +494,12 @@
                     </span>
                   </div>
                   <mat-card-title
-                    >{{ t("terms.option-a.step-2-title") }}
+                    >{{ t("home.terms.option-a.step-2-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                   <ul class="list">
-                    <li>{{ t("terms.to-be-done") }}</li>
+                    <li>{{ t("home.terms.to-be-done") }}</li>
                   </ul>
                 </mat-card-content>
               </mat-card>
@@ -290,7 +509,7 @@
       }
       @if (selectedEbikeGeneration() == "COBI") {
         <div class="inner-container">
-          <h2>{{ t("terms.getting-started-2") }}</h2>
+          <h2>{{ t("home.terms.getting-started-2") }}</h2>
           <div class="grid-container">
             <div class="grid-2">
               <mat-card class="cobi">
@@ -301,35 +520,35 @@
                     </span>
                   </div>
                   <mat-card-title
-                    >{{ t("terms.option-c.step-1-title") }}
+                    >{{ t("home.terms.option-c.step-1-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                   <ul class="list">
-                    <li [innerHTML]="t('terms.option-c.step-1-content-1')"></li>
-                    <li [innerHTML]="t('terms.option-c.step-1-content-2')"></li>
-                    <li [innerHTML]="t('terms.option-c.step-1-content-3')"></li>
+                    <li [innerHTML]="t('home.terms.option-c.step-1-content-1')"></li>
+                    <li [innerHTML]="t('home.terms.option-c.step-1-content-2')"></li>
+                    <li [innerHTML]="t('home.terms.option-c.step-1-content-3')"></li>
                     <ul class="client-application">
                       <li>
                         <strong class="highlight"
-                          >{{ t("terms.login-url") }}:</strong
+                          >{{ t("home.terms.login-url") }}:</strong
                         >
                         https://open-ebike.web.app
                       </li>
                       <li>
                         <strong class="highlight"
-                          >{{ t("terms.redirect-uris") }}:</strong
+                          >{{ t("home.terms.redirect-uris") }}:</strong
                         >
                         https://open-ebike.web.app/*
                       </li>
                       <li>
                         <strong class="highlight"
-                          >{{ t("terms.confidential-client") }}:</strong
+                          >{{ t("home.terms.confidential-client") }}:</strong
                         >
-                        {{ t("terms.false") }}
+                        {{ t("home.terms.false") }}
                       </li>
                     </ul>
-                    <li [innerHTML]="t('terms.option-c.step-1-content-4')"></li>
+                    <li [innerHTML]="t('home.terms.option-c.step-1-content-4')"></li>
                   </ul>
                 </mat-card-content>
               </mat-card>
@@ -341,13 +560,13 @@
                     </span>
                   </div>
                   <mat-card-title
-                    >{{ t("terms.option-c.step-2-title") }}
+                    >{{ t("home.terms.option-c.step-2-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                   <ul class="list">
-                    <li [innerHTML]="t('terms.option-c.step-2-content-1')"></li>
-                    <li [innerHTML]="t('terms.option-c.step-2-content-2')"></li>
+                    <li [innerHTML]="t('home.terms.option-c.step-2-content-1')"></li>
+                    <li [innerHTML]="t('home.terms.option-c.step-2-content-2')"></li>
                   </ul>
                 </mat-card-content>
               </mat-card>
@@ -357,14 +576,14 @@
                     <span class="material-symbols-outlined icon"> login </span>
                   </div>
                   <mat-card-title
-                    >{{ t("terms.option-c.step-3-title") }}
+                    >{{ t("home.terms.option-c.step-3-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                   <ul class="list">
-                    <li [innerHTML]="t('terms.option-c.step-3-content-1')"></li>
-                    <li [innerHTML]="t('terms.option-c.step-3-content-2')"></li>
-                    <li [innerHTML]="t('terms.option-c.step-3-content-3')"></li>
+                    <li [innerHTML]="t('home.terms.option-c.step-3-content-1')"></li>
+                    <li [innerHTML]="t('home.terms.option-c.step-3-content-2')"></li>
+                    <li [innerHTML]="t('home.terms.option-c.step-3-content-3')"></li>
                   </ul>
                 </mat-card-content>
               </mat-card>
@@ -374,5 +593,7 @@
       }
       <div class="flex-box"></div>
     }
+
+    <div class="flex-box"></div>
   </div>
 </ng-container>

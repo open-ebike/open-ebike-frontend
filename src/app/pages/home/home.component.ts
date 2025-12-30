@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Theme, ThemeService } from '../../services/theme.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { combineLatest, first } from 'rxjs';
@@ -31,6 +31,7 @@ import { MatButton } from '@angular/material/button';
     MatCardContent,
     MatCardActions,
     MatButton,
+    RouterLink,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -46,7 +47,7 @@ export class HomeComponent implements OnInit {
   /** Router */
   private router = inject(Router);
   /** Theme service */
-  private themeService = inject(ThemeService);
+  public themeService = inject(ThemeService);
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
 

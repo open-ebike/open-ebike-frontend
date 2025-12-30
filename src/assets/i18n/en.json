@@ -79,6 +79,7 @@
     },
     "ebikes": {
       "title": "eBikes",
+      "description": "Inspect your eBikes",
       "terms": {
         "ebike": "eBike",
         "registered": "registered",
@@ -138,6 +139,7 @@
     },
     "activities": {
       "title": "Activities",
+      "description": "Track your latest trips",
       "terms": {
         "activity": "Activity",
         "activities": "Activities",
@@ -209,6 +211,7 @@
     },
     "statistics": {
       "title": "Statistics",
+      "description": "Evaluate your riding statistics",
       "terms": {
         "best-month": "best month",
         "best-month-distance": "best month distance",
@@ -230,6 +233,7 @@
     },
     "registrations": {
       "title": "Registrations",
+      "description": "Liste deine registrierten eBikes und Komponenten auf",
       "terms": {
         "bike-registration": "bike registration",
         "component-registration": "component registration",
@@ -309,6 +313,7 @@
     },
     "hubs": {
       "title": "Hubs",
+      "description": "Inspect your hubs",
       "terms": {
         "hub": "Hub",
         "serial-number": "serial number",
@@ -323,6 +328,7 @@
     },
     "achievements": {
       "title": "Achievements",
+      "description": "Gain und share badges",
       "terms": {
         "badges": {
           "activities": {
@@ -461,6 +467,7 @@
     },
     "yearly-achievements": {
       "title": "Yearly Achievements",
+      "description": "Check out your annual review",
       "terms": {
         "your-yearly-achievements": "Your Achievements in {{year}}",
         "share-pictures": {

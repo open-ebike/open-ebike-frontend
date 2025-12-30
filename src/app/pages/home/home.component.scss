@@ -9,6 +9,18 @@
   margin: 32px;
 }
 
+.grid-0 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+
+  margin-top: 32px;
+
+  mat-card {
+    min-height: 124px;
+  }
+}
+
 .grid-1,
 .grid-2 {
   display: grid;
@@ -19,6 +31,9 @@
 }
 
 @media #{sizes.$breakpoint-large} {
+  .grid-0 {
+    grid-template-columns: 1fr 1fr;
+  }
   .grid-1 {
     grid-template-columns: 10fr 1fr 10fr 1fr 10fr;
   }
