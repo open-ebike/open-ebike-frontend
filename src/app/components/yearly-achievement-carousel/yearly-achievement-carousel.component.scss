@@ -5,9 +5,11 @@
   overflow: hidden;
 }
 
+$carousel-gap: 16px;
+
 .carousel-track {
   display: flex;
-  gap: 16px;
+  gap: $carousel-gap;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding-bottom: 16px;
@@ -17,6 +19,14 @@
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+.carousel-track > :first-child {
+  margin-left: $carousel-gap;
+}
+
+.carousel-track > :last-child {
+  margin-right: $carousel-gap;
 }
 
 .carousel-item {

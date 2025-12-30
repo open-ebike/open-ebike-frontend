@@ -12,17 +12,19 @@
 
         @if (yearSelected()) {
           <h2>
-            {{ t("terms.your-yearly-achievements", { year: yearSelected() }) }}
+            {{ t("terms.your-yearly-achievements", {year: yearSelected()}) }}
           </h2>
-          <app-yearly-achievement-carousel
-            [year]="yearSelected()"
-            [yearlyAchievement]="
+        }
+      </div>
+      <div class="inner-container wide">
+        <app-yearly-achievement-carousel
+          [year]="yearSelected()"
+          [yearlyAchievement]="
               yearlyAchievementService
                 .yearlyAchievements()
                 .get(yearSelected()!!)
             "
-          ></app-yearly-achievement-carousel>
-        }
+        ></app-yearly-achievement-carousel>
       </div>
       <div class="flex-box"></div>
     }
