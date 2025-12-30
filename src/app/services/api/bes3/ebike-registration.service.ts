@@ -46,7 +46,7 @@ export class EbikeRegistrationService {
    */
   getRegistrations() {
     return this.http.get<Registrations>(
-      `${environment.eBikeApiUrl}/registration/v1/registrations`,
+      `${environment.eBikeApiUrl}/bike-registration/smart-system/v1/registrations`,
     );
   }
 }
