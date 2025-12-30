@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Registration } from '../api/bes3/ebike-registration.service';
 import { AchievementType } from '../../../environments/achievements';
+import { BikePass } from '../api/bes3/bike-pass.service';
 
 /**
  * Represents a monthly time period
@@ -259,6 +260,26 @@ export class AchievementService {
       achievements.set(AchievementType.REGISTRATION_COMPONENT, {
         ...achievements.get(AchievementType.REGISTRATION_COMPONENT),
         date: registration.createdAt,
+        achieved: true,
+      });
+    }
+
+    return new Map(achievements);
+  }
+
+  /**
+   * Evaluates achievements related to bike passes
+   * @param achievements achievements
+   * @param bikePass bike pass
+   */
+  evaluateBikePasses(
+    achievements: Map<AchievementType, Achievement>,
+    bikePass: BikePass,
+  ) {
+    if (!achievements.get(AchievementType.BIKE_PASS)?.achieved && bikePass) {
+      achievements.set(AchievementType.BIKE_PASS, {
+        ...achievements.get(AchievementType.BIKE_PASS),
+        date: bikePass.createdAt,
         achieved: true,
       });
     }

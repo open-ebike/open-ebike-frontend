@@ -360,6 +360,9 @@
             "ebike": "1 eBike registered",
             "component": "1 component registered"
           },
+          "bike-passes": {
+            "bike-pass": "Bike Pass created"
+          },
           "battery-charge-cycles": {
             "10": "10 charge cycles",
             "100": "100 charge cycles",
@@ -422,6 +425,9 @@
           "registration": {
             "ebike": "I registered my Bosch-powered eBike",
             "component": "I registered a component of my Bosch-powered eBike"
+          },
+          "bike-passes": {
+            "bike-pass": "I created a bike pass for my Bosch-powered eBike"
           },
           "battery-charge-cycles": {
             "10": "I fully charged my Bosch-powered eBike 10 times",

@@ -30,6 +30,7 @@ export enum AchievementType {
   REGION_THURINGEN = 'REGION_THURINGEN',
   REGISTRATION_BIKE = 'REGISTRATION_BIKE',
   REGISTRATION_COMPONENT = 'REGISTRATION_COMPONENT',
+  BIKE_PASS = 'BIKE_PASS',
   BATTERY_CHARGE_CYCLES_10 = 'BATTERY_CHARGE_CYCLES_10',
   BATTERY_CHARGE_CYCLES_100 = 'BATTERY_CHARGE_CYCLES_100',
   BATTERY_CHARGE_CYCLES_1000 = 'BATTERY_CHARGE_CYCLES_1000',
@@ -115,6 +116,14 @@ export const achievements = {
       icon: 'assets/achievements/form.png',
       translation: 'terms.badges.registration.component',
       translationSharePicture: 'terms.share-pictures.registration.component',
+    },
+  ],
+  bikePasses: [
+    {
+      type: AchievementType.BIKE_PASS,
+      icon: 'assets/achievements/vip.png',
+      translation: 'terms.badges.bike-passes.bike-pass',
+      translationSharePicture: 'terms.share-pictures.bike-passes.bike-pass',
     },
   ],
   batteryChargeCycles: [

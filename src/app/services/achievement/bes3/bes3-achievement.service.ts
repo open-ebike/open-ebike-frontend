@@ -9,6 +9,7 @@ import {
   achievements,
   AchievementType,
 } from '../../../../environments/achievements';
+import { BikePassService } from '../../api/bes3/bike-pass.service';
 
 /**
  * Handles achievements
@@ -31,6 +32,8 @@ export class Bes3AchievementService {
   private regionFinderService = inject(RegionFinderService);
   /** Registration service */
   private registrationService = inject(EbikeRegistrationService);
+  /** Bike pass service */
+  private bikePassService = inject(BikePassService);
 
   //
   // Achievements
@@ -53,6 +56,10 @@ export class Bes3AchievementService {
     this.achievementService.convertToMap(achievements.registrations),
   );
   /** Achievements */
+  achievementsBikePasses = signal(
+    this.achievementService.convertToMap(achievements.bikePasses),
+  );
+  /** Achievements */
   achievementsBatteryChargeCycles = signal(
     this.achievementService.convertToMap(achievements.batteryChargeCycles),
   );
@@ -70,6 +77,7 @@ export class Bes3AchievementService {
       ...this.achievementsDistances(),
       ...this.achievementsElevationGain(),
       ...this.achievementsRegistrations(),
+      ...this.achievementsBikePasses(),
       ...this.achievementsBatteryChargeCycles(),
     ]);
   });
@@ -126,6 +134,17 @@ export class Bes3AchievementService {
         );
         bikeProfile.batteries.forEach((battery) => {
           totalBatteryChargeCycles += battery.chargeCycles.total;
+        });
+
+        this.bikePassService.getBikePasses(bike.id).subscribe((bikePasses) => {
+          for (let bikePass of bikePasses.bikePasses) {
+            this.achievementsBikePasses.set(
+              this.achievementService.evaluateBikePasses(
+                this.achievementsBikePasses(),
+                bikePass,
+              ),
+            );
+          }
         });
       }
 
