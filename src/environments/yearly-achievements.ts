@@ -4,6 +4,7 @@
 export enum YearlyAchievementType {
   TOTAL_ACTIVITY_COUNT = 'TOTAL_ACTIVITY_COUNT',
   TOTAL_DISTANCE = 'TOTAL_DISTANCE',
+  TOTAL_DURATION = 'TOTAL_DURATION',
   TOTAL_ELEVATION_GAIN = 'TOTAL_ELEVATION_GAIN',
   TOTAL_CALORIES_BURNED = 'TOTAL_CALORIES_BURNED',
   MAX_ALTITUDE = 'MAX_ALTITUDE',
@@ -20,6 +21,11 @@ export const yearlyAchievements = {
       type: YearlyAchievementType.TOTAL_DISTANCE,
       icon: 'assets/achievements/pathway.png',
       translationSharePicture: 'terms.share-pictures.total-distance',
+    },
+    {
+      type: YearlyAchievementType.TOTAL_DURATION,
+      icon: 'assets/achievements/settings.png',
+      translationSharePicture: 'terms.share-pictures.total-duration',
     },
     {
       type: YearlyAchievementType.TOTAL_ELEVATION_GAIN,

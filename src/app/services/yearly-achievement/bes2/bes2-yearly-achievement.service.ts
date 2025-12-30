@@ -141,6 +141,18 @@ export class Bes2YearlyAchievementService {
           Math.round((activitySummary.totalDistance / 1_000) * 100) / 100;
       }
 
+      const achievementTotalDuration = yearlyAchievements
+        .get(year)
+        ?.get(YearlyAchievementType.TOTAL_DURATION);
+      if (achievementTotalDuration) {
+        achievementTotalDuration.value =
+          (achievementTotalDuration.value ?? 0) +
+          Math.round(
+            (activitySummary.durationWithoutStops ?? 0 / 60 / 60) * 100,
+          ) /
+            100;
+      }
+
       const achievementTotalElevationGain = yearlyAchievements
         .get(year)
         ?.get(YearlyAchievementType.TOTAL_ELEVATION_GAIN);

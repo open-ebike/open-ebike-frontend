@@ -31,7 +31,7 @@ export interface ActivitySummary {
   /** Timezone of start position, IANA */
   timeZone: string;
   /** Duration in motion in seconds */
-  durationWithoutStops: string;
+  durationWithoutStops: number;
   /** Name of the activity */
   title: string;
   /** Bike uuid for the trip */

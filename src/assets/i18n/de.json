@@ -456,6 +456,7 @@
         "share-pictures": {
           "total-activity-count": "In diesem Jahr habe ich {{value}} Aktivitäten mit meinem Bosch-powered eBike abgeschlossen",
           "total-distance": "In diesem Jahr bin ich {{value}} Kilometer mit meinem Bosch-powered eBike gefahren",
+          "total-duration": "In diesem Jahr bin ich {{value}} Stunden mit meinem Bosch-powered eBike gefahren",
           "total-elevation-gain": "In diesem Jahr habe ich {{value}} Höhenmeter mit meinem Bosch-powered eBike überwunden",
           "total-calories-burned": "In diesem Jahr habe ich {{value}} kcal mit meinem Bosch-powered eBike verbrannt",
           "max-altitude": "In diesem Jahr bin ich mit meinem Bosch-powered eBike bis auf {{value}} Meter über dem Meeresspiegel gefahren"
