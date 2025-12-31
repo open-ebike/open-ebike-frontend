@@ -529,6 +529,14 @@
                       {{ t("actions.show-summary") }}
                     }
                   </button>
+                  <span class="delimiter">·</span>
+                  <button mat-button (click)="onToggleImagesClicked()">
+                    @if (showImages()) {
+                      {{ t("actions.hide-images") }}
+                    } @else {
+                      {{ t("actions.show-images") }}
+                    }
+                  </button>
                 }
               </h2>
             </div>
@@ -541,7 +549,7 @@
                   [style]="mapStyle"
                   [interactiveEnabled]="false"
                   [overlays]="overlays"
-                  [imageMarkers]="imageMarkers"
+                  [imageMarkers]="showImages() ? imageMarkers : []"
                   [boundingBox]="boundingBox"
                   (mapLoadedEmitter)="mapLoaded.set($event)"
                   (onImageMarkerClickedEmitter)="onImageMarkerClicked($event)"

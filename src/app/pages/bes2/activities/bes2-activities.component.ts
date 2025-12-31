@@ -124,6 +124,8 @@ export class Bes2ActivitiesComponent implements OnInit {
   drawerStart = viewChild<MatDrawer>('drawerStart');
   drawerEnd = viewChild<MatDrawer>('drawerEnd');
 
+  showImages = signal(true);
+
   //
   // Paginator
   //
@@ -190,7 +192,7 @@ export class Bes2ActivitiesComponent implements OnInit {
         setTimeout(() => {
           this.initializeMapOverlay(this.id(), this.activityDetails());
           this.initializeMapillaryImages(
-            Math.floor((this.selectedActivity()?.totalDistance ?? 0) / 500),
+            Math.ceil((this.selectedActivity()?.totalDistance ?? 0) / 500),
             this.activityDetails(),
           );
         }, 500);
@@ -362,6 +364,13 @@ export class Bes2ActivitiesComponent implements OnInit {
     this.id.set(id);
     this.drawerStart()?.close();
     this.drawerEnd()?.open();
+  }
+
+  /**
+   * Handles toggle of image visibility
+   */
+  onToggleImagesClicked() {
+    this.showImages.set(!this.showImages());
   }
 
   /**

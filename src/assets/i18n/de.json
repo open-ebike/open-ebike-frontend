@@ -215,6 +215,8 @@
         "hide-all": "alle verbergen",
         "show-summary": "Zusammenfassung anzeigen",
         "hide-summary": "Zusammenfassung verbergen",
+        "show-images": "Bilder anzeigen",
+        "hide-images": "Bilder verbergen",
         "share-activity": "Activity teilen"
       }
     },

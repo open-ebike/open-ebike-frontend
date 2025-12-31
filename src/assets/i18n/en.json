@@ -216,6 +216,8 @@
         "hide-all": "hide all",
         "show-summary": "show summary",
         "hide-summary": "hide summary",
+        "show-images": "show images",
+        "hide-images": "hide images",
         "share-activity": "Share Activity"
       }
     },
