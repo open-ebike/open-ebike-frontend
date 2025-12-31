@@ -520,12 +520,40 @@
                     </span>
                   </div>
                   <mat-card-title
-                    >{{ t("home.terms.option-a.step-2-title") }}
+                    >{{ t("home.terms.option-b.step-2-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                   <ul class="list">
-                    <li>{{ t("home.terms.to-be-done") }}</li>
+                    <li
+                      [innerHTML]="t('home.terms.option-a.step-2-content-1')"
+                    ></li>
+                    <li
+                      [innerHTML]="t('home.terms.option-a.step-2-content-2')"
+                    ></li>
+                  </ul>
+                </mat-card-content>
+              </mat-card>
+              <mat-card class="bes2">
+                <mat-card-header>
+                  <div mat-card-avatar>
+                    <span class="material-symbols-outlined icon"> login </span>
+                  </div>
+                  <mat-card-title
+                    >{{ t("home.terms.option-b.step-3-title") }}
+                  </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <ul class="list">
+                    <li
+                      [innerHTML]="t('home.terms.option-b.step-3-content-1')"
+                    ></li>
+                    <li
+                      [innerHTML]="t('home.terms.option-b.step-3-content-2')"
+                    ></li>
+                    <li
+                      [innerHTML]="t('home.terms.option-b.step-3-content-3')"
+                    ></li>
                   </ul>
                 </mat-card-content>
               </mat-card>
