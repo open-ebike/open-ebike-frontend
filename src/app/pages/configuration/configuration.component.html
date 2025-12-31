@@ -5,28 +5,54 @@
         <span class="material-symbols-outlined icon"> settings </span>
         {{ t("title") }}
       </h2>
-      <div class="question">{{ t("actions.enter-mapbox-access-token") }}</div>
-      <form class="form">
-        <mat-form-field>
-          <mat-label>{{ t("terms.mapbox-access-token") }}</mat-label>
-          <input
-            matInput
-            placeholder="pk.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxx"
-            #input
-            [value]="this.mapboxService.mapboxAccessToken()"
-            name="mapboxAccessToken"
-          />
-        </mat-form-field>
-      </form>
-      <button
-        mat-flat-button
-        color="primary"
-        class="button"
-        [disabled]="input.value.length == 0"
-        (click)="onSaveClicked(input.value)"
-      >
-        {{ t("actions.save") }}
-      </button>
+
+      <div class="flex-container">
+        <form class="form">
+          <mat-form-field>
+            <mat-label>{{ t("terms.mapbox-access-token") }}</mat-label>
+            <input
+              matInput
+              placeholder="pk.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxx"
+              #inputMapbox
+              [value]="this.mapboxService.mapboxAccessToken()"
+              name="mapboxAccessToken"
+            />
+          </mat-form-field>
+        </form>
+        <button
+          mat-flat-button
+          color="primary"
+          class="button"
+          [disabled]="inputMapbox.value.length == 0"
+          (click)="onSaveMapboxClicked(inputMapbox.value)"
+        >
+          {{ t("actions.save") }}
+        </button>
+      </div>
+
+      <div class="flex-container">
+        <form class="form">
+          <mat-form-field>
+            <mat-label>{{ t("terms.mapillary-access-token") }}</mat-label>
+            <input
+              matInput
+              placeholder="MLY|xxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+              #inputMapillary
+              [value]="this.mapillaryService.mapillaryAccessToken()"
+              name="mapillaryAccessToken"
+            />
+          </mat-form-field>
+        </form>
+        <button
+          mat-flat-button
+          color="primary"
+          class="button"
+          [disabled]="inputMapillary.value.length == 0"
+          (click)="onSaveMapillaryClicked(inputMapillary.value)"
+        >
+          {{ t("actions.save") }}
+        </button>
+      </div>
     </div>
     <div class="flex-box"></div>
   </div>

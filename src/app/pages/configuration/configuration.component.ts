@@ -4,6 +4,7 @@ import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MapboxService } from '../../services/mapbox.service';
+import { MapillaryService } from '../../services/mapillary.service';
 
 /**
  * Displays configuration component
@@ -29,6 +30,8 @@ export class ConfigurationComponent implements OnInit {
 
   /** Mapbox service */
   public mapboxService = inject(MapboxService);
+  /** Mapillary service */
+  public mapillaryService = inject(MapillaryService);
 
   /** Language */
   lang = getBrowserLang();
@@ -42,6 +45,7 @@ export class ConfigurationComponent implements OnInit {
    */
   async ngOnInit() {
     await this.mapboxService.restoreConfig();
+    await this.mapillaryService.restoreConfig();
   }
 
   //
@@ -52,7 +56,15 @@ export class ConfigurationComponent implements OnInit {
    * Handles click on save button
    * @param mapboxAccessToken Mapbox access token
    */
-  onSaveClicked(mapboxAccessToken: string) {
+  onSaveMapboxClicked(mapboxAccessToken: string) {
     localStorage.setItem('mapboxAccessToken', mapboxAccessToken);
+  }
+
+  /**
+   * Handles click on save button
+   * @param mapillaryAccessToken Mapillary access token
+   */
+  onSaveMapillaryClicked(mapillaryAccessToken: string) {
+    localStorage.setItem('mapillaryAccessToken', mapillaryAccessToken);
   }
 }
