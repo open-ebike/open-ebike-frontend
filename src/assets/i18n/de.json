@@ -206,13 +206,15 @@
       },
       "messages": {
         "no-activities": "keine Activities aufgezeichnet",
-        "missing-activities": "Vermisst du Aktivitäten? Gib im <a href='https://flow.bosch-ebike.com/data-act' target='_blank'>Flow Portal</a> die Daten deines eBikes für die Client Application {{clientId}} frei"
+        "missing-activities": "Vermisst du Aktivitäten? Gib im <a href='https://flow.bosch-ebike.com/data-act' target='_blank'>Flow Portal</a> die Daten deines eBikes für die Client Application {{clientId}} frei",
+        "activity-on-by-bosch-powered-ebike": "{{title}} auf meinem Bosch-powered eBike"
       },
       "actions": {
         "show-all": "alle anzeigen",
         "hide-all": "alle verbergen",
         "show-summary": "Zusammenfassung anzeigen",
-        "hide-summary": "Zusammenfassung verbergen"
+        "hide-summary": "Zusammenfassung verbergen",
+        "share-activity": "Activity teilen"
       }
     },
     "statistics": {
@@ -518,10 +520,10 @@
     "configuration": {
       "title": "Konfiguration",
       "terms": {
-        "mapbox-access-token": "Mapbox Access Token"
+        "mapbox-access-token": "Mapbox Access Token",
+        "mapillary-access-token": "Mapillary Access Token"
       },
       "actions": {
-        "enter-mapbox-access-token": "Gib den Mapbox Access Token ein",
         "save": "Speichern"
       }
     },

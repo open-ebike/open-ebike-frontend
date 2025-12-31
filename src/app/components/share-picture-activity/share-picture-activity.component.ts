@@ -13,13 +13,13 @@ import { SharePictureService } from '../../services/share-picture.service';
  * Displays a share picture
  */
 @Component({
-  selector: 'app-share-picture-achievement',
+  selector: 'app-share-picture-activity',
   imports: [],
-  templateUrl: './share-picture-achievement.component.html',
-  styleUrl: './share-picture-achievement.component.scss',
+  templateUrl: './share-picture-activity.component.html',
+  styleUrl: './share-picture-activity.component.scss',
   standalone: true,
 })
-export class SharePictureAchievementComponent {
+export class SharePictureActivityComponent {
   //
   // Injections
   //
@@ -54,7 +54,7 @@ export class SharePictureAchievementComponent {
    */
   constructor() {
     effect(() => {
-      this.sharePictureService.updateCanvasAchievement(
+      this.sharePictureService.updateCanvasActivity(
         this.canvas,
         this.sourceImage,
         this.width(),
@@ -74,7 +74,7 @@ export class SharePictureAchievementComponent {
    * Handles image being loaded
    */
   onImageLoad() {
-    this.sharePictureService.updateCanvasAchievement(
+    this.sharePictureService.updateCanvasActivity(
       this.canvas,
       this.sourceImage,
       this.width(),

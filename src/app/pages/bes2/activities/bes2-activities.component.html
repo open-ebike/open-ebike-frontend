@@ -544,6 +544,7 @@
                   [imageMarkers]="imageMarkers"
                   [boundingBox]="boundingBox"
                   (mapLoadedEmitter)="mapLoaded.set($event)"
+                  (onImageMarkerClickedEmitter)="onImageMarkerClicked($event)"
                 ></app-map>
               </div>
             } @else {

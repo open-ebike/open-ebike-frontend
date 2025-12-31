@@ -1,0 +1,33 @@
+<ng-container *transloco="let t; lang: lang; prefix: 'pages.activities'">
+  <div class="share-picture-container">
+    <app-share-picture-activity
+      [imagePath]="data.imageUrl"
+      [width]="996"
+      [height]="996"
+      [text]="data.title"
+      [brand]="data.description"
+      (canvasOutput)="onSharePictureLoaded($event)"
+    ></app-share-picture-activity>
+  </div>
+
+  <div class="preview-container">
+    <app-share-picture-activity
+      [imagePath]="data.imageUrl"
+      [width]="384"
+      [height]="384"
+      [text]="data.title"
+      [brand]="data.description"
+    ></app-share-picture-activity>
+  </div>
+
+  <mat-nav-list>
+    <a mat-list-item (click)="onShareClicked()">
+      <span
+        class="material-symbols-outlined"
+        style="vertical-align: bottom; margin-right: 8px"
+        >share</span
+      >
+      {{ t("actions.share-activity") }}
+    </a>
+  </mat-nav-list>
+</ng-container>

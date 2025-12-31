@@ -16,7 +16,7 @@ export class SharePictureService {
    * @param text text
    * @param brand brand
    */
-  updateCanvas(
+  updateCanvasAchievement(
     canvasRef: Signal<ElementRef<HTMLCanvasElement> | undefined>,
     imageRef: Signal<ElementRef<HTMLImageElement> | undefined>,
     canvasWidth: number,
@@ -82,6 +82,102 @@ export class SharePictureService {
     ctx.font = `bold ${canvas.height / 16}px Roboto, system-ui, sans-serif`;
     let lineX = canvas.width / 2;
     let lineYPos = imageY + imageHeight + canvas.height / 10;
+
+    let line = '';
+    const lineHeight = canvas.height / 15;
+
+    // Iterate over words
+    text.split(' ').forEach((word, index) => {
+      // Create a test line with the next word
+      const testLine = line + word + ' ';
+
+      // Measure the test line
+      const metrics = ctx.measureText(testLine);
+      const testWidth = metrics.width;
+
+      // Check if it exceeds max width and isn't the first word
+      if (testWidth > canvas.width * 0.9 && index > 0) {
+        ctx.fillText(line, lineX, lineYPos);
+        line = `${word} `;
+        lineYPos += lineHeight;
+      } else {
+        line = testLine;
+      }
+    });
+    ctx.fillText(line, canvas.width / 2, lineYPos);
+
+    //
+    // Brand
+    //
+
+    ctx.font = `${canvas.height / 24}px Roboto, system-ui, sans-serif`;
+    ctx.globalAlpha = 0.75;
+    const subtitleX = canvas.width / 2;
+    const subtitleY = canvas.height - canvas.height / 8;
+    ctx.fillText(brand, subtitleX, subtitleY);
+    ctx.globalAlpha = 1.0;
+  }
+
+  /**
+   * Updates canvas
+   * @param canvasRef canvas reference
+   * @param imageRef image reference
+   * @param canvasWidth canvas width
+   * @param canvasHeight canvas height
+   * @param text text
+   * @param brand brand
+   */
+  updateCanvasActivity(
+    canvasRef: Signal<ElementRef<HTMLCanvasElement> | undefined>,
+    imageRef: Signal<ElementRef<HTMLImageElement> | undefined>,
+    canvasWidth: number,
+    canvasHeight: number,
+    text: string,
+    brand: string,
+  ) {
+    if (!canvasRef()) return;
+
+    const canvas = canvasRef()!!.nativeElement;
+    const ctx = canvas?.getContext('2d');
+    const img = imageRef()!!.nativeElement;
+
+    if (!ctx) return;
+
+    // Set resolution
+    canvas!!.width = canvasWidth;
+    canvas!!.height = canvasHeight;
+
+    //
+    // Image
+    //
+
+    // Draw Image
+    const availableWidth = canvas.width;
+    const availableHeight = canvas.height;
+
+    // Calculate aspect ratio to fit image "contain" style
+    const scale = Math.max(
+      availableWidth / img.naturalWidth,
+      availableHeight / img.naturalHeight,
+    );
+    const imageWidth = img.naturalWidth * scale;
+    const imageHeight = img.naturalHeight * scale;
+
+    const imageX = 0;
+    const imageY = 0;
+    ctx.drawImage(img, imageX, imageY, imageWidth, imageHeight);
+
+    //
+    // Text
+    //
+
+    ctx.fillStyle = 'white';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+
+    ctx.font = `bold ${canvas.height / 16}px Roboto, system-ui, sans-serif`;
+    let lineX = canvas.width / 2;
+    let lineYPos = canvas.height / 2 + canvas.height / 15;
 
     let line = '';
     const lineHeight = canvas.height / 15;

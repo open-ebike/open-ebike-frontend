@@ -51,6 +51,8 @@ import {
   MapillaryService,
 } from '../../../services/mapillary.service';
 import { environment } from '../../../../environments/environment';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { SharePictureActivityBottomSheetComponent } from '../../../components/share-picture-activity-bottom-sheet/share-picture-activity-bottom-sheet.component';
 
 /**
  * Displays activities
@@ -84,6 +86,10 @@ export class Bes3ActivitiesComponent implements OnInit {
   // Injections
   //
 
+  /** Bottom sheet */
+  private bottomSheet = inject(MatBottomSheet);
+  /** Transloco service */
+  private translocoService = inject(TranslocoService);
   /** Activated route */
   private route = inject(ActivatedRoute);
   /** Router */
@@ -360,6 +366,24 @@ export class Bes3ActivitiesComponent implements OnInit {
     this.id.set(id);
     this.drawerStart()?.close();
     this.drawerEnd()?.open();
+  }
+
+  /**
+   * Handles click on image marker
+   * @param imageMarker image marker
+   */
+  onImageMarkerClicked(imageMarker: ImageMarker) {
+    this.bottomSheet.open(SharePictureActivityBottomSheetComponent, {
+      data: {
+        title: this.translocoService.translate(
+          `pages.activities.messages.activity-on-by-bosch-powered-ebike`,
+          { title: this.selectedActivity()?.title },
+          this.lang,
+        ),
+        description: `${environment.appTitle} | ${new Date(this.selectedActivity()?.startTime!!).toLocaleDateString()}`,
+        imageUrl: imageMarker.imageUrl,
+      },
+    });
   }
 
   /**
