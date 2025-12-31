@@ -39,6 +39,12 @@ export class AppComponent implements OnInit {
     if (environment.mapbox.accessToken) {
       localStorage.setItem('mapboxAccessToken', environment.mapbox.accessToken);
     }
+    if (environment.mapillary.accessToken) {
+      localStorage.setItem(
+        'mapillaryAccessToken',
+        environment.mapillary.accessToken,
+      );
+    }
 
     effect(() => {
       // Theme menus and dialogs
