@@ -239,6 +239,14 @@
       color: theme-colors.$color-raspberry-pink;
     }
   }
+
+  --toolbar-height: 64px;
+}
+
+@media #{sizes.$breakpoint-small} {
+  :root {
+    --toolbar-height: 56px;
+  }
 }
 
 //

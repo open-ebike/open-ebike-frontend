@@ -6,19 +6,19 @@
 //
 
 $overlay-margin: 32px;
-$toolbar-height: 64px;
+$inner-container-height: 128px;
 
 .overlay-left {
   z-index: 1;
   position: absolute;
-  top: $toolbar-height;
+  top: var(--toolbar-height);
   left: 0;
   margin: $overlay-margin;
   box-shadow:
     0 3px 1px -2px rgba(0, 0, 0, 0.2),
     0px 2px 2px 0px rgba(0, 0, 0, 0.14),
     0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-  max-height: calc(100vh - $toolbar-height - (2 * $overlay-margin));
+  max-height: calc(100vh - var(--toolbar-height) - (2 * $overlay-margin));
 
   @media #{sizes.$breakpoint-large} {
     width: 450px;
@@ -33,30 +33,70 @@ $toolbar-height: 64px;
   }
 }
 
-::ng-deep .mat-expansion-panel-body {
-  padding: 0 0 16px !important;
+.map-container {
+  height: calc(100vh - var(--toolbar-height) - $inner-container-height);
+  width: 100%;
 }
 
 .heading {
-  height: 124px;
-}
-
-@media #{sizes.$breakpoint-small} {
-  .heading {
-    height: 172px;
-  }
+  height: $inner-container-height;
 }
 
 .drawer-container {
-  height: calc(100vh - 64px);
+  height: calc(100vh - var(--toolbar-height));
+}
+
+@media #{sizes.$breakpoint-small} {
+  $overlay-margin: 32px;
+  $inner-container-height: 172px;
+
+  .overlay-left {
+    z-index: 1;
+    position: absolute;
+    top: var(--toolbar-height);
+    left: 0;
+    margin: $overlay-margin;
+    box-shadow:
+      0 3px 1px -2px rgba(0, 0, 0, 0.2),
+      0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+      0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    max-height: calc(100vh - var(--toolbar-height) - (2 * $overlay-margin));
+
+    @media #{sizes.$breakpoint-large} {
+      width: 450px;
+    }
+
+    @media #{sizes.$breakpoint-medium} {
+      width: 450px;
+    }
+
+    @media #{sizes.$breakpoint-small} {
+      width: calc(100% - 60px);
+    }
+  }
+
+  .map-container {
+    height: calc(100vh - var(--toolbar-height) - $inner-container-height);
+    width: 100%;
+  }
+
+  .heading {
+    height: $inner-container-height;
+  }
+
+  .drawer-container {
+    height: calc(100vh - var(--toolbar-height));
+  }
+}
+
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 0 16px !important;
 }
 
 .drawer {
   width: 560px;
   max-width: 90vw;
 }
-
-$inner-container-height: 124px;
 
 .activities-list,
 .activities-paginator {
@@ -69,11 +109,6 @@ $inner-container-height: 124px;
 
 .container {
   padding: 0;
-}
-
-.map-container {
-  height: calc(100vh - $toolbar-height - $inner-container-height);
-  width: 100%;
 }
 
 mat-card {

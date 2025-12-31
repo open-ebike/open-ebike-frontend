@@ -2,6 +2,7 @@ import {
   Component,
   computed,
   effect,
+  HostListener,
   inject,
   OnInit,
   Signal,
@@ -143,10 +144,17 @@ export class Bes3ActivitiesComponent implements OnInit {
   //
   // Map
   //
+
+  windowWidth = signal<number>(960);
+
   /** Map loaded */
-  public mapLoaded = signal(false);
+  mapLoaded = signal(false);
   mapId = 'activities';
-  mapHeight = 'calc(100vh - 64px - 128px)';
+  toolbarHeight = signal(64);
+  innerContainerHeight = signal(128);
+  mapHeight = computed(() => {
+    return `calc(100vh - ${this.toolbarHeight()}px - ${this.innerContainerHeight()}px)`;
+  });
   mapStyle = MapBoxStyle.LIGHT_V10;
 
   overlays: Map<string, Overlay> = new Map<string, Overlay>();
@@ -210,6 +218,16 @@ export class Bes3ActivitiesComponent implements OnInit {
     });
 
     effect(() => {
+      if (this.windowWidth() <= 960) {
+        this.toolbarHeight.set(56);
+        this.innerContainerHeight.set(172);
+      } else {
+        this.toolbarHeight.set(64);
+        this.innerContainerHeight.set(128);
+      }
+    });
+
+    effect(() => {
       switch (this.themeService.theme()) {
         case Theme.LIGHT: {
           this.mapStyle = MapBoxStyle.LIGHT_V10;
@@ -231,6 +249,7 @@ export class Bes3ActivitiesComponent implements OnInit {
    * Handles on-init phase
    */
   ngOnInit() {
+    this.windowWidth.set(window.innerWidth);
     this.mapboxService.restoreConfig();
     this.mapillaryService.restoreConfig();
     this.handleQueryParameters();
@@ -360,6 +379,14 @@ export class Bes3ActivitiesComponent implements OnInit {
   //
   // Actions
   //
+
+  /**
+   * Handles window resize
+   */
+  @HostListener('window:resize', ['$event'])
+  onResize(_: any) {
+    this.windowWidth.set(window.innerWidth);
+  }
 
   /**
    * Handles click on an activity

@@ -1,3 +1,5 @@
+@use "../sizes";
+
 .theme-light {
   color: #424242;
   background: #ffffff;
@@ -27,4 +29,22 @@
 
 .toolbar-spacer {
   height: 64px;
+}
+
+$toolbar-height: 64px;
+
+.container {
+  min-height: calc(100vh - $toolbar-height);
+}
+
+@media #{sizes.$breakpoint-small} {
+  $toolbar-height: 56px;
+
+  .toolbar-spacer {
+    height: $toolbar-height;
+  }
+
+  .container {
+    min-height: calc(100vh - $toolbar-height);
+  }
 }
