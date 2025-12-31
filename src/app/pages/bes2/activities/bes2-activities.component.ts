@@ -151,7 +151,6 @@ export class Bes2ActivitiesComponent implements OnInit {
       if (this.id() != undefined) {
         this.initializeActivityDetails(this.id() ?? 0);
         this.updateQueryParameters();
-        this.drawerEnd()?.open();
       } else {
         this.drawerStart()?.open();
       }
@@ -282,6 +281,7 @@ export class Bes2ActivitiesComponent implements OnInit {
   onActivityClicked(id: number) {
     this.id.set(id);
     this.drawerStart()?.close();
+    this.drawerEnd()?.open();
   }
 
   /**

@@ -159,7 +159,6 @@ export class Bes3ActivitiesComponent implements OnInit {
       if (this.id()?.trim().length > 0) {
         this.initializeActivityDetails(this.id()?.trim());
         this.updateQueryParameters();
-        this.drawerEnd()?.open();
       } else {
         this.activityDetails.set([]);
         this.drawerStart()?.open();
@@ -297,6 +296,7 @@ export class Bes3ActivitiesComponent implements OnInit {
   onActivityClicked(id: string) {
     this.id.set(id);
     this.drawerStart()?.close();
+    this.drawerEnd()?.open();
   }
 
   /**
