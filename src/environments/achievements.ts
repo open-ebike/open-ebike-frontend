@@ -10,6 +10,7 @@ export enum AchievementType {
   DISTANCE_3300KM = 'DISTANCE_3300KM',
   DISTANCE_3500KM = 'DISTANCE_3500KM',
   DISTANCE_40075KM = 'DISTANCE_40075KM',
+  DURATION_1H = 'DURATION_1H',
   ELEVATION_GAIN_4806M = 'ELEVATION_GAIN_4806M',
   ELEVATION_GAIN_8848_M = 'ELEVATION_GAIN_8848_M',
   REGISTRATION_BIKE = 'REGISTRATION_BIKE',
@@ -89,6 +90,14 @@ export const achievements = {
       icon: 'assets/achievements/earth.png',
       translation: 'terms.badges.distance.40075km',
       translationSharePicture: 'terms.share-pictures.distance.40075km',
+    },
+  ],
+  durations: [
+    {
+      type: AchievementType.DURATION_1H,
+      icon: 'assets/achievements/1-hour.png',
+      translation: 'terms.badges.duration.1km',
+      translationSharePicture: 'terms.share-pictures.duration.1km',
     },
   ],
   elevationGain: [

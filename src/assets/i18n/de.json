@@ -342,6 +342,9 @@
             "3500km": "Tour de France gefahren (ca. 3500km)",
             "40075km": "die Erde umrundet (40075km)"
           },
+          "duration": {
+            "1h": "1-Stunden-Aktivität gefahren"
+          },
           "elevation-gain": {
             "4806m": "Mont Blanc erklommen (4806m)",
             "8848m": "Mount Everest erklommen (8848m)"
@@ -411,6 +414,9 @@
             "3300km": "Ich bin mit meinem Bosch-powered eBike die Vuelta a España gefahren (ca. 3300km)",
             "3500km": "Ich bin mit meinem Bosch-powered eBike Tour de France gefahren (ca. 3500km)",
             "40075km": "Ich habe mit meinem Bosch-powered eBike die Erde umrundet (40075km)"
+          },
+          "duration": {
+            "1h": "Ich habe mit meinem Bosch-powered eBike eine 1-Stunden-Aktivität abgeschlossen"
           },
           "elevation-gain": {
             "4806m": "Ich habe mit meinem Bosch-powered eBike den Mont Blanc erklommen (4806m)",

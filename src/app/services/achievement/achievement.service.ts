@@ -198,6 +198,32 @@ export class AchievementService {
   }
 
   /**
+   * Evaluates achievements related to durations
+   * @param achievements achievements
+   * @param duration duration
+   * @param date date
+   */
+  evaluateDurations(
+    achievements: Map<AchievementType, Achievement>,
+    duration: number,
+    date: string,
+  ) {
+    const durationMinutes = duration / 600;
+    if (
+      !achievements.get(AchievementType.DURATION_1H)?.achieved &&
+      durationMinutes >= 60
+    ) {
+      achievements.set(AchievementType.DURATION_1H, {
+        ...achievements.get(AchievementType.DURATION_1H),
+        date: date,
+        achieved: true,
+      });
+    }
+
+    return new Map(achievements);
+  }
+
+  /**
    * Evaluates achievements related to distances
    * @param achievements achievements
    * @param totalElevationGain total elevation gain

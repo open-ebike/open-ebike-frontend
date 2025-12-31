@@ -39,6 +39,10 @@ export class Bes2AchievementService {
     this.achievementService.convertToMap(achievements.distances),
   );
   /** Achievements */
+  achievementsDurations = signal(
+    this.achievementService.convertToMap(achievements.durations),
+  );
+  /** Achievements */
   achievementsElevationGain = signal(
     this.achievementService.convertToMap(achievements.elevationGain),
   );
@@ -58,6 +62,7 @@ export class Bes2AchievementService {
     return new Map<AchievementType, Achievement>([
       ...this.achievementsActivities(),
       ...this.achievementsDistances(),
+      ...this.achievementsDurations(),
       ...this.achievementsElevationGain(),
       ...this.achievementsTimes(),
     ]);
@@ -140,6 +145,14 @@ export class Bes2AchievementService {
             this.achievementService.evaluateDistances(
               this.achievementsDistances(),
               totalDistance,
+              activitySummary.startTime,
+            ),
+          );
+
+          this.achievementsDurations.set(
+            this.achievementService.evaluateDurations(
+              this.achievementsDurations(),
+              activitySummary.durationWithoutStops ?? 0,
               activitySummary.startTime,
             ),
           );
