@@ -1,23 +1,23 @@
 <ng-container *transloco="let t; lang: lang; prefix: 'pages.achievements'">
   <div class="share-picture-container">
-    <app-share-picture
+    <app-share-picture-achievement
       [imagePath]="data.imageUrl"
       [width]="996"
       [height]="996"
       [text]="data.title"
       [brand]="data.description"
       (canvasOutput)="onSharePictureLoaded($event)"
-    ></app-share-picture>
+    ></app-share-picture-achievement>
   </div>
 
   <div class="preview-container">
-    <app-share-picture
+    <app-share-picture-achievement
       [imagePath]="data.imageUrl"
       [width]="384"
       [height]="384"
       [text]="data.title"
       [brand]="data.description"
-    ></app-share-picture>
+    ></app-share-picture-achievement>
   </div>
 
   <mat-nav-list>

@@ -12,13 +12,13 @@
             class="carousel-item"
             (click)="onAchievementClicked(year(), achievement.value)"
           >
-            <app-share-picture
+            <app-share-picture-achievement
               [imagePath]="achievement.value.icon"
               [width]="sharePictureDimension()"
               [height]="sharePictureDimension()"
               [text]="getText(achievement.value)"
               [brand]="getBrand(year())"
-            ></app-share-picture>
+            ></app-share-picture-achievement>
           </div>
         }
       }

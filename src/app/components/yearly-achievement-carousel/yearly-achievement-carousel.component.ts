@@ -12,10 +12,10 @@ import {
   TranslocoDirective,
   TranslocoService,
 } from '@jsverse/transloco';
-import { SharePictureComponent } from '../share-picture/share-picture.component';
+import { SharePictureAchievementComponent } from '../share-picture-achievement/share-picture-achievement.component';
 import { KeyValue, KeyValuePipe } from '@angular/common';
 import { YearlyAchievementType } from '../../../environments/yearly-achievements';
-import { SharingBottomSheetComponent } from '../sharing-bottom-sheet/sharing-bottom-sheet.component';
+import { SharePictureAchievementBottomSheetComponent } from '../share-picture-achievement-bottom-sheet/share-picture-achievement-bottom-sheet.component';
 import { environment } from '../../../environments/environment';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
@@ -24,7 +24,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
  */
 @Component({
   selector: 'app-yearly-achievement-carousel',
-  imports: [TranslocoDirective, SharePictureComponent, KeyValuePipe],
+  imports: [TranslocoDirective, SharePictureAchievementComponent, KeyValuePipe],
   templateUrl: './yearly-achievement-carousel.component.html',
   styleUrl: './yearly-achievement-carousel.component.scss',
   standalone: true,
@@ -92,7 +92,7 @@ export class YearlyAchievementCarouselComponent {
     year: number | undefined,
     achievement: YearlyAchievement,
   ) {
-    this.bottomSheet.open(SharingBottomSheetComponent, {
+    this.bottomSheet.open(SharePictureAchievementBottomSheetComponent, {
       data: {
         title: this.getText(achievement),
         description: this.getBrand(year),

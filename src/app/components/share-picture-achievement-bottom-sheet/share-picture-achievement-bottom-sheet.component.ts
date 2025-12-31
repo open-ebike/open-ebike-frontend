@@ -3,7 +3,7 @@ import { MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { MatListItem, MatNavList } from '@angular/material/list';
 import { WebShareService } from '../../services/web-share.service';
-import { SharePictureComponent } from '../share-picture/share-picture.component';
+import { SharePictureAchievementComponent } from '../share-picture-achievement/share-picture-achievement.component';
 
 /**
  * Represents data
@@ -21,13 +21,18 @@ export interface SharingBottomSheetData {
  * Displays sharing bottom sheet
  */
 @Component({
-  selector: 'app-sharing-bottom-sheet',
-  imports: [TranslocoDirective, MatNavList, MatListItem, SharePictureComponent],
-  templateUrl: './sharing-bottom-sheet.component.html',
-  styleUrl: './sharing-bottom-sheet.component.scss',
+  selector: 'app-share-picture-achievement-bottom-sheet',
+  imports: [
+    TranslocoDirective,
+    MatNavList,
+    MatListItem,
+    SharePictureAchievementComponent,
+  ],
+  templateUrl: './share-picture-achievement-bottom-sheet.component.html',
+  styleUrl: './share-picture-achievement-bottom-sheet.component.scss',
   standalone: true,
 })
-export class SharingBottomSheetComponent {
+export class SharePictureAchievementBottomSheetComponent {
   //
   // Injections
   //

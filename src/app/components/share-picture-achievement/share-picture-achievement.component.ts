@@ -13,13 +13,13 @@ import { SharePictureService } from '../../services/share-picture.service';
  * Displays a share picture
  */
 @Component({
-  selector: 'app-share-picture',
+  selector: 'app-share-picture-achievement',
   imports: [],
-  templateUrl: './share-picture.component.html',
-  styleUrl: './share-picture.component.scss',
+  templateUrl: './share-picture-achievement.component.html',
+  styleUrl: './share-picture-achievement.component.scss',
   standalone: true,
 })
-export class SharePictureComponent {
+export class SharePictureAchievementComponent {
   //
   // Injections
   //

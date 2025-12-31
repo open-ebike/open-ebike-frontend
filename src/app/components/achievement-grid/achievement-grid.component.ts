@@ -8,7 +8,7 @@ import {
 } from '@angular/common';
 import { environment } from '../../../environments/environment';
 import { Achievement } from '../../services/achievement/achievement.service';
-import { SharingBottomSheetComponent } from '../sharing-bottom-sheet/sharing-bottom-sheet.component';
+import { SharePictureAchievementBottomSheetComponent } from '../share-picture-achievement-bottom-sheet/share-picture-achievement-bottom-sheet.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import {
   getBrowserLang,
@@ -81,7 +81,7 @@ export class AchievementGridComponent {
       return;
     }
 
-    this.bottomSheet.open(SharingBottomSheetComponent, {
+    this.bottomSheet.open(SharePictureAchievementBottomSheetComponent, {
       data: {
         title: this.translocoService.translate(
           `pages.achievements.${achievement.translationSharePicture!!}`,
