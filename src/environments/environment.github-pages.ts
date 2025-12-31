@@ -21,7 +21,8 @@ export const environment = {
   },
   mapbox: {
     accessToken: null,
-    boundBoxPaddingHorizontal: 0.025,
-    boundBoxPaddingVertical: 0.025,
+  },
+  mapillary: {
+    accessToken: null,
   },
 };

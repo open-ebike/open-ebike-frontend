@@ -24,4 +24,7 @@ export const environment = {
     boundBoxPaddingHorizontal: 0.025,
     boundBoxPaddingVertical: 0.025,
   },
+  mapillary: {
+    accessToken: 'MLY|25390005067350351|a723841b7634dd48594bd389b902233d',
+  },
 };

@@ -21,4 +21,7 @@ export const environment = {
   mapbox: {
     accessToken: null,
   },
+  mapillary: {
+    accessToken: null,
+  },
 };
