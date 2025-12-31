@@ -69,3 +69,7 @@ $inner-container-height: 124px;
 mat-card {
   cursor: pointer;
 }
+
+.grey {
+  filter: grayscale(100%);
+}
