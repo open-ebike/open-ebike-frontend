@@ -315,10 +315,14 @@ export class MapComponent implements AfterViewInit {
       marker.remove();
     });
 
+    const dimension = Math.min(window.innerWidth, window.innerHeight);
+
     imageMarkers.forEach((marker: ImageMarker) => {
       const el = document.createElement('div');
       el.className = 'map-marker';
       el.style.backgroundImage = `url(${marker.imageUrl})`;
+      el.style.width = `${dimension * 0.05}px`;
+      el.style.height = `${dimension * 0.05}px`;
       el.tabIndex = 0;
 
       el.addEventListener('click', () => {
