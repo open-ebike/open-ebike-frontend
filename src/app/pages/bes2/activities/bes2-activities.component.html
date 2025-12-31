@@ -73,6 +73,13 @@
           <div class="activity-summary">
             @if (selectedActivity()) {
               <h2>{{ t("terms.activity-summary") }}</h2>
+              @if (activityImages().length > 0) {
+                <img
+                  [src]="activityImages()[0].thumb_1024_url"
+                  class="activity-image"
+                  alt="activity image"
+                />
+              }
               <ul class="list">
                 <li>
                   <strong class="label">{{ t("terms.start-time") }}</strong
