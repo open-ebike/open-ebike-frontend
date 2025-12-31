@@ -260,8 +260,6 @@ export class Bes2ActivitiesComponent implements OnInit {
     this.overlays = new Map(this.overlays);
     this.boundingBox = this.mapboxService.buildBoundingBoxWithPadding(
       geojson.features[0]['properties']['bounding-box'],
-      environment.mapbox.boundBoxPaddingHorizontal,
-      environment.mapbox.boundBoxPaddingVertical,
     );
   }
 

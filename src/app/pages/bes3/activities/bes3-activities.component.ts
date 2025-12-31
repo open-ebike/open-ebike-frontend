@@ -270,10 +270,18 @@ export class Bes3ActivitiesComponent implements OnInit {
     this.overlays = new Map(this.overlays);
     this.boundingBox = this.mapboxService.buildBoundingBoxWithPadding(
       geojson.features[0]['properties']['bounding-box'],
-      environment.mapbox.boundBoxPaddingHorizontal,
-      environment.mapbox.boundBoxPaddingVertical,
     );
   }
+
+  /**
+   * Initializes Mapillary images
+   * @param id id
+   * @param activityDetails activity details
+   */
+  private initializeMapillaryImage(
+    id: string,
+    activityDetails: ActivityDetail[],
+  ) {}
 
   /**
    * Handles query parameters

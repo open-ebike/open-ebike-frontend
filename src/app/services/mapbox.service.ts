@@ -59,10 +59,7 @@ export class MapboxService {
         {
           type: 'Feature',
           properties: {
-            'bounding-box': this.buildBes3BoundingBox(
-              activityDetails,
-              0.000001,
-            ),
+            'bounding-box': this.buildBes3BoundingBox(activityDetails),
           },
           geometry: {
             type: 'LineString',
@@ -135,7 +132,7 @@ export class MapboxService {
           return {
             type: 'Feature',
             properties: {
-              'bounding-box': this.buildBes2BoundingBox(outer, 0.000001),
+              'bounding-box': this.buildBes2BoundingBox(outer),
             },
             geometry: {
               type: 'LineString',
@@ -197,19 +194,16 @@ export class MapboxService {
   /**
    * Add a padding to a given bounding box
    * @param boundingBox bounding box
-   * @param paddingHorizontal horizontal padding
-   * @param padddingVertical vertical padding
    */
-  buildBoundingBoxWithPadding(
-    boundingBox: BoundingBox,
-    paddingHorizontal: number,
-    padddingVertical: number,
-  ): BoundingBox {
+  buildBoundingBoxWithPadding(boundingBox: BoundingBox): BoundingBox {
+    const paddingHorizontal = Math.abs(boundingBox[0] - boundingBox[2]) * 0.1;
+    const paddingVertical = Math.abs(boundingBox[1] - boundingBox[3]) * 0.1;
+
     return [
       boundingBox[0] - paddingHorizontal,
-      boundingBox[1] - padddingVertical,
+      boundingBox[1] - paddingVertical,
       boundingBox[2] + paddingHorizontal,
-      boundingBox[3] + padddingVertical,
+      boundingBox[3] + paddingVertical,
     ] as BoundingBox;
   }
 }
