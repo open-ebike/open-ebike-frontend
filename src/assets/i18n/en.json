@@ -350,6 +350,9 @@
             "3500km": "Tour de France (ca. 3500km)",
             "40075km": "Around the Globe (40075km)"
           },
+          "duration": {
+            "1h": "1h activity completed"
+          },
           "elevation-gain": {
             "4806m": "Climbed Mont Blanc (4806m)",
             "8848m": "Climbed Mount Everest (8848m)"
@@ -361,14 +364,14 @@
           "bike-passes": {
             "bike-pass": "Bike Pass created"
           },
-          "times": {
-            "early-bird": "Early Bird (activity before 6:00 a.m.)",
-            "night-owl": "Night Owl (activity after 22:00 p.m.)"
-          },
           "battery-charge-cycles": {
             "10": "10 charge cycles",
             "100": "100 charge cycles",
             "1000": "1000 charge cycles"
+          },
+          "times": {
+            "early-bird": "Early Bird (activity before 6:00 a.m.)",
+            "night-owl": "Night Owl (activity after 22:00 p.m.)"
           },
           "time-periods": {
             "title": "Time Periods",
@@ -419,6 +422,9 @@
             "3300km": "I cycled the Vuelta a España (ca. 3300km) on my Bosch-powered eBike",
             "3500km": "I cycled the Tour de France (ca. 3500km) on my Bosch-powered eBike",
             "40075km": "I cycled once around the globe (40075km) on my Bosch-powered eBike"
+          },
+          "duration": {
+            "1h": "I completed a 1h activity on my Bosch-powered eBike"
           },
           "elevation-gain": {
             "4806m": "I climbed Mont Blanc (4806m) on my Bosch-powered eBike",
