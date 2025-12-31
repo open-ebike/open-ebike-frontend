@@ -37,6 +37,16 @@ $toolbar-height: 64px;
   padding: 0 0 16px !important;
 }
 
+.heading {
+  height: 124px;
+}
+
+@media #{sizes.$breakpoint-small} {
+  .heading {
+    height: 172px;
+  }
+}
+
 .drawer-container {
   height: calc(100vh - 64px);
 }
