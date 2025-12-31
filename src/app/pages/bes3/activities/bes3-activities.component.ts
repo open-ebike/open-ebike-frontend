@@ -13,13 +13,16 @@ import { Theme, ThemeService } from '../../../services/theme.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import {
   ActivityDetail,
-  ActivityDetails,
   ActivityRecordsService,
   ActivitySummary,
   ActivitySummarySort,
 } from '../../../services/api/bes3/activity-records.service';
-import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
-import { combineLatest, first } from 'rxjs';
+import {
+  getBrowserLang,
+  TranslocoDirective,
+  TranslocoService,
+} from '@jsverse/transloco';
+import { combineLatest, first, range } from 'rxjs';
 import { MatList, MatListItem } from '@angular/material/list';
 import { DatePipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
@@ -34,6 +37,7 @@ import {
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatButton } from '@angular/material/button';
 import {
+  ImageMarker,
   MapBoxStyle,
   MapComponent,
   Origin,
@@ -42,6 +46,10 @@ import {
 import { MapboxService } from '../../../services/mapbox.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { RoundPipe } from '../../../pipes/round.pipe';
+import {
+  MapillaryImage,
+  MapillaryService,
+} from '../../../services/mapillary.service';
 import { environment } from '../../../../environments/environment';
 
 /**
@@ -88,6 +96,8 @@ export class Bes3ActivitiesComponent implements OnInit {
   private activityRecordsService = inject(ActivityRecordsService);
   /** Mapbox service */
   public mapboxService = inject(MapboxService);
+  /** Mapillary service */
+  public mapillaryService = inject(MapillaryService);
 
   //
   // Signals
@@ -105,6 +115,8 @@ export class Bes3ActivitiesComponent implements OnInit {
   activitySummaries = signal<ActivitySummary[]>([]);
   /** Signal providing activity details */
   activityDetails = signal<ActivityDetail[]>([]);
+  /** Activity images */
+  activityImages = signal<MapillaryImage[]>([]);
 
   drawerStart = viewChild<MatDrawer>('drawerStart');
   drawerEnd = viewChild<MatDrawer>('drawerEnd');
@@ -130,6 +142,7 @@ export class Bes3ActivitiesComponent implements OnInit {
   mapStyle = MapBoxStyle.LIGHT_V10;
 
   overlays: Map<string, Overlay> = new Map<string, Overlay>();
+  imageMarkers: ImageMarker[] = [];
   boundingBox: number[] | undefined;
 
   /** Language */
@@ -170,7 +183,21 @@ export class Bes3ActivitiesComponent implements OnInit {
       if (this.mapLoaded() && this.activityDetails().length > 0)
         setTimeout(() => {
           this.initializeMapOverlay(this.id(), this.activityDetails());
+          this.initializeMapillaryImages(
+            Math.floor((this.selectedActivity()?.distance ?? 0) / 500),
+            this.activityDetails(),
+          );
         }, 500);
+    });
+
+    effect(() => {
+      this.imageMarkers = (this.activityImages() ?? []).map((image) => {
+        return {
+          longitude: image.geometry.coordinates[0],
+          latitude: image.geometry.coordinates[1],
+          imageUrl: image.thumb_1024_url!!,
+        };
+      });
     });
 
     effect(() => {
@@ -196,6 +223,7 @@ export class Bes3ActivitiesComponent implements OnInit {
    */
   ngOnInit() {
     this.mapboxService.restoreConfig();
+    this.mapillaryService.restoreConfig();
     this.handleQueryParameters();
   }
 
@@ -275,13 +303,33 @@ export class Bes3ActivitiesComponent implements OnInit {
 
   /**
    * Initializes Mapillary images
-   * @param id id
+   * @param count count
    * @param activityDetails activity details
    */
-  private initializeMapillaryImage(
-    id: string,
+  private initializeMapillaryImages(
+    count: number,
     activityDetails: ActivityDetail[],
-  ) {}
+  ) {
+    this.activityImages.set([]);
+
+    range(1, count).subscribe((index) => {
+      const position = Math.floor(activityDetails.length / (count + 1)) * index;
+
+      const activityDetail = activityDetails[position];
+
+      this.mapillaryService
+        .getImageByLocation(
+          activityDetail.latitude,
+          activityDetail.longitude,
+          0.001,
+        )
+        .subscribe((response) => {
+          this.activityImages.set(
+            this.activityImages().concat(...response.data),
+          );
+        });
+    });
+  }
 
   /**
    * Handles query parameters

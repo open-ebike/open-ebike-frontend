@@ -8,7 +8,11 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
+import {
+  getBrowserLang,
+  TranslocoDirective,
+  TranslocoService,
+} from '@jsverse/transloco';
 import { MatList, MatListItem } from '@angular/material/list';
 import { MatIcon } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
@@ -17,6 +21,7 @@ import { MetersToKilometersPipe } from '../../../pipes/meters-to-kilometers.pipe
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatButton } from '@angular/material/button';
 import {
+  ImageMarker,
   MapBoxStyle,
   MapComponent,
   Origin,
@@ -26,7 +31,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Theme, ThemeService } from '../../../services/theme.service';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { combineLatest, first } from 'rxjs';
+import { combineLatest, first, range } from 'rxjs';
 import {
   ActivityDetail,
   ActivityService,
@@ -40,6 +45,10 @@ import {
   MatCardFooter,
 } from '@angular/material/card';
 import { environment } from '../../../../environments/environment';
+import {
+  MapillaryImage,
+  MapillaryService,
+} from '../../../services/mapillary.service';
 
 /**
  * Displays activities
@@ -84,6 +93,8 @@ export class Bes2ActivitiesComponent implements OnInit {
   private activityService = inject(ActivityService);
   /** Mapbox service */
   public mapboxService = inject(MapboxService);
+  /** Mapillary service */
+  public mapillaryService = inject(MapillaryService);
 
   //
   // Signals
@@ -101,6 +112,8 @@ export class Bes2ActivitiesComponent implements OnInit {
   activitySummaries = signal<ActivitySummary[]>([]);
   /** Signal providing activity details */
   activityDetails = signal<ActivityDetail | undefined>(undefined);
+  /** Activity images */
+  activityImages = signal<MapillaryImage[]>([]);
 
   drawerStart = viewChild<MatDrawer>('drawerStart');
   drawerEnd = viewChild<MatDrawer>('drawerEnd');
@@ -127,6 +140,7 @@ export class Bes2ActivitiesComponent implements OnInit {
   mapStyle = MapBoxStyle.LIGHT_V10;
 
   overlays: Map<string, Overlay> = new Map<string, Overlay>();
+  imageMarkers: ImageMarker[] = [];
   boundingBox: number[] | undefined;
 
   /** Language */
@@ -166,6 +180,27 @@ export class Bes2ActivitiesComponent implements OnInit {
     });
 
     effect(() => {
+      if (this.mapLoaded() && this.activitySummaries().length > 0)
+        setTimeout(() => {
+          this.initializeMapOverlay(this.id(), this.activityDetails());
+          this.initializeMapillaryImages(
+            Math.floor((this.selectedActivity()?.totalDistance ?? 0) / 500),
+            this.activityDetails(),
+          );
+        }, 500);
+    });
+
+    effect(() => {
+      this.imageMarkers = (this.activityImages() ?? []).map((image) => {
+        return {
+          longitude: image.geometry.coordinates[0],
+          latitude: image.geometry.coordinates[1],
+          imageUrl: image.thumb_1024_url!!,
+        };
+      });
+    });
+
+    effect(() => {
       switch (this.themeService.theme()) {
         case Theme.LIGHT: {
           this.mapStyle = MapBoxStyle.LIGHT_V10;
@@ -188,6 +223,7 @@ export class Bes2ActivitiesComponent implements OnInit {
    */
   ngOnInit() {
     this.mapboxService.restoreConfig();
+    this.mapillaryService.restoreConfig();
     this.handleQueryParameters();
   }
 
@@ -261,6 +297,33 @@ export class Bes2ActivitiesComponent implements OnInit {
     this.boundingBox = this.mapboxService.buildBoundingBoxWithPadding(
       geojson.features[0]['properties']['bounding-box'],
     );
+  }
+
+  /**
+   * Initializes Mapillary images
+   * @param count count
+   * @param activityDetails activity details
+   */
+  private initializeMapillaryImages(
+    count: number,
+    activityDetails?: ActivityDetail,
+  ) {
+    this.activityImages.set([]);
+
+    range(1, count).subscribe((index) => {
+      const coordinates = activityDetails?.coordinates?.flat()?.flat() ?? [];
+      const position = Math.floor(coordinates.length / (count + 1)) * index;
+
+      const coordinate = coordinates[position]!!;
+
+      this.mapillaryService
+        .getImageByLocation(coordinate.latitude, coordinate.longitude, 0.001)
+        .subscribe((response) => {
+          this.activityImages.set(
+            this.activityImages().concat(...response.data),
+          );
+        });
+    });
   }
 
   /**

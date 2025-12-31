@@ -80,6 +80,10 @@
     }
   }
 
+  .map-marker {
+    border: 4px solid #f6f6f4;
+  }
+
   --mat-toolbar-container-background-color: #ffffff;
 }
 
@@ -161,6 +165,10 @@
     .highlight {
       color: color.mix(theme-colors.$color-chinese-blue, white, 50%) !important;
     }
+  }
+
+  .map-marker {
+    border: 4px solid #343332;
   }
 
   @include mat.all-component-colors(theme-dark.$theme-dark);
@@ -361,6 +369,18 @@ li {
   background: var(--context-box-background);
   flex-wrap: wrap;
   text-wrap: auto;
+}
+
+.map-marker {
+  display: block;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
 }
 
 //

@@ -7,7 +7,7 @@ import {
   output,
   signal,
 } from '@angular/core';
-import mapboxgl from 'mapbox-gl';
+import mapboxgl, { Marker } from 'mapbox-gl';
 import { HttpClient } from '@angular/common/http';
 import { MapboxService } from '../../services/mapbox.service';
 
@@ -81,11 +81,24 @@ export interface Location {
   bearing?: number;
 }
 
+export interface ImageMarker {
+  longitude: number;
+  latitude: number;
+  imageUrl: string;
+}
+
 const BRANDENBURG_GATE: Location = {
   name: 'Brandenburger Tor',
   description: '',
   longitude: 13.377777777778,
   latitude: 52.516388888889,
+};
+
+const BOSCH_ECAMPUS: Location = {
+  name: 'Brandenburger Tor',
+  description: '',
+  longitude: 9.1351074,
+  latitude: 48.4950381,
 };
 
 /**
@@ -133,9 +146,14 @@ export class MapComponent implements AfterViewInit {
 
   /** Map of map overlays */
   overlays = input<Map<string, Overlay>>(new Map<string, Overlay>());
+  /** List of image markers */
+  imageMarkers = input<ImageMarker[]>([]);
+  currentMarkers: Marker[] = [];
 
   /** Output signal indicating map being loaded */
   mapLoadedEmitter = output<boolean>();
+
+  onImageMarkerClickedEmitter = output<ImageMarker>();
 
   //
   // Injections
@@ -163,6 +181,11 @@ export class MapComponent implements AfterViewInit {
     effect(() => {
       if (this.isLoaded() && this.overlays != undefined) {
         this.initializeOverlays(this.overlays());
+      }
+    });
+    effect(() => {
+      if (this.isLoaded() && this.imageMarkers != undefined) {
+        this.initializeImageMarkers(this.imageMarkers());
       }
     });
     effect(() => {
@@ -280,6 +303,37 @@ export class MapComponent implements AfterViewInit {
         });
       });
     }
+  }
+
+  /**
+   * Initializes image markers
+   * @param imageMarkers image markers
+   */
+  private initializeImageMarkers(imageMarkers: ImageMarker[]) {
+    this.currentMarkers.forEach((marker) => {
+      marker.remove();
+    });
+
+    imageMarkers.forEach((marker: ImageMarker) => {
+      const el = document.createElement('div');
+      el.className = 'map-marker';
+      el.style.backgroundImage = `url(${marker.imageUrl})`;
+      el.tabIndex = 0;
+
+      el.addEventListener('click', () => {
+        this.onImageMarkerClickedEmitter.emit(marker);
+      });
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          this.onImageMarkerClickedEmitter.emit(marker);
+        }
+      });
+
+      const m = new mapboxgl.Marker(el)
+        .setLngLat([marker.longitude, marker.latitude])
+        .addTo(this.map!!);
+      this.currentMarkers.push(m);
+    });
   }
 
   /**
