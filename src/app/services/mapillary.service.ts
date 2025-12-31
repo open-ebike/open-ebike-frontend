@@ -9,6 +9,10 @@ export interface MapillaryImage {
     type: string;
     coordinates: number[];
   };
+  creator: {
+    id: string;
+    username: string;
+  };
 }
 
 /**
@@ -65,7 +69,7 @@ export class MapillaryService {
     const params = new HttpParams()
       .set('access_token', this.mapillaryAccessToken())
       .set('bbox', bbox)
-      .set('fields', 'id,thumb_1024_url,geometry')
+      .set('fields', 'id,thumb_1024_url,geometry,creator,captured_at')
       .set('limit', '1');
 
     return this.http.get<MapillaryResponse>(

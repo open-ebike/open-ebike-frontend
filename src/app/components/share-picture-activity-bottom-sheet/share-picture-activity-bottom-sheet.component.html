@@ -21,6 +21,13 @@
   </div>
 
   <mat-nav-list>
+    <a mat-list-item [href]="creatorUrl" target="_blank">
+      {{
+        t("messages.photo-by", {
+          creator: data.imageCreator.username,
+        })
+      }}
+    </a>
     <a mat-list-item (click)="onShareClicked()">
       <span
         class="material-symbols-outlined"

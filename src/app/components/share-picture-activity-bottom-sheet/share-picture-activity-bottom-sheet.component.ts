@@ -15,6 +15,8 @@ export interface SharingBottomSheetData {
   description: string;
   /** Image URL */
   imageUrl: string;
+  /** Image creator */
+  imageCreator: { id: string; username: string };
 }
 
 /**
@@ -75,5 +77,16 @@ export class SharePictureActivityBottomSheetComponent {
       this.data.description,
       file,
     );
+  }
+
+  //
+  // Helpers
+  //
+
+  /**
+   * Generates the creator URL
+   */
+  get creatorUrl() {
+    return `https://www.mapillary.com/app/user/${this.data.imageCreator.username}`;
   }
 }

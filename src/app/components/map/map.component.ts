@@ -85,6 +85,7 @@ export interface ImageMarker {
   longitude: number;
   latitude: number;
   imageUrl: string;
+  imageCreator: { id: string; username: string };
 }
 
 const BRANDENBURG_GATE: Location = {

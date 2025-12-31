@@ -202,6 +202,7 @@ export class Bes2ActivitiesComponent implements OnInit {
           longitude: image.geometry.coordinates[0],
           latitude: image.geometry.coordinates[1],
           imageUrl: image.thumb_1024_url!!,
+          imageCreator: image.creator,
         };
       });
     });
@@ -377,6 +378,7 @@ export class Bes2ActivitiesComponent implements OnInit {
         ),
         description: `${environment.appTitle} | ${new Date(this.selectedActivity()?.startTime!!).toLocaleDateString()}`,
         imageUrl: imageMarker.imageUrl,
+        imageCreator: imageMarker.imageCreator,
       },
     });
   }

@@ -207,7 +207,8 @@
       "messages": {
         "no-activities": "keine Activities aufgezeichnet",
         "missing-activities": "Vermisst du Aktivitäten? Gib im <a href='https://flow.bosch-ebike.com/data-act' target='_blank'>Flow Portal</a> die Daten deines eBikes für die Client Application {{clientId}} frei",
-        "activity-on-by-bosch-powered-ebike": "{{title}} auf meinem Bosch-powered eBike"
+        "activity-on-by-bosch-powered-ebike": "{{title}} auf meinem Bosch-powered eBike",
+        "photo-by": "Foto von {{creator}} via Mapillary"
       },
       "actions": {
         "show-all": "alle anzeigen",
