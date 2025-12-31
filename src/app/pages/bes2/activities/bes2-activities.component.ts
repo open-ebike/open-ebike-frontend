@@ -120,6 +120,8 @@ export class Bes2ActivitiesComponent implements OnInit {
   // Map
   //
 
+  /** Map loaded */
+  public mapLoaded = signal(false);
   mapId = 'activities';
   mapHeight = 'calc(100vh - 64px - 128px)';
   mapStyle = MapBoxStyle.LIGHT_V10;
@@ -154,6 +156,13 @@ export class Bes2ActivitiesComponent implements OnInit {
       } else {
         this.drawerStart()?.open();
       }
+    });
+
+    effect(() => {
+      if (this.mapLoaded() && this.id() && this.activityDetails())
+        setTimeout(() => {
+          this.initializeMapOverlay(this.id(), this.activityDetails());
+        }, 500);
     });
 
     effect(() => {
@@ -204,7 +213,6 @@ export class Bes2ActivitiesComponent implements OnInit {
   private initializeActivityDetails(id: number) {
     this.activityService.getActivityDetails(id).subscribe((activityDetails) => {
       this.activityDetails.set(activityDetails);
-      this.initializeMapOverlay(id, activityDetails);
     });
   }
 
@@ -213,7 +221,11 @@ export class Bes2ActivitiesComponent implements OnInit {
    * @param id activity ID
    * @param activityDetails activity details
    */
-  private initializeMapOverlay(id: number, activityDetails: ActivityDetail) {
+  private initializeMapOverlay(id?: number, activityDetails?: ActivityDetail) {
+    if (id == undefined || activityDetails == undefined) {
+      return;
+    }
+
     const geojson = this.mapboxService.buildBes2Geojson(activityDetails);
 
     const overlayId = 'activity-details';

@@ -280,6 +280,7 @@
                   [interactiveEnabled]="false"
                   [overlays]="overlays"
                   [boundingBox]="boundingBox"
+                  (mapLoadedEmitter)="mapLoaded.set($event)"
                 ></app-map>
               </div>
             } @else {

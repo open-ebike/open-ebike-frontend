@@ -123,7 +123,8 @@ export class Bes3ActivitiesComponent implements OnInit {
   //
   // Map
   //
-
+  /** Map loaded */
+  public mapLoaded = signal(false);
   mapId = 'activities';
   mapHeight = 'calc(100vh - 64px - 128px)';
   mapStyle = MapBoxStyle.LIGHT_V10;
@@ -163,6 +164,13 @@ export class Bes3ActivitiesComponent implements OnInit {
         this.activityDetails.set([]);
         this.drawerStart()?.open();
       }
+    });
+
+    effect(() => {
+      if (this.mapLoaded() && this.activityDetails().length > 0)
+        setTimeout(() => {
+          this.initializeMapOverlay(this.id(), this.activityDetails());
+        }, 500);
     });
 
     effect(() => {
@@ -219,7 +227,6 @@ export class Bes3ActivitiesComponent implements OnInit {
       .getActivityDetails(id)
       .subscribe((activityDetails) => {
         this.activityDetails.set(activityDetails.activityDetails);
-        this.initializeMapOverlay(id, activityDetails.activityDetails);
       });
   }
 
