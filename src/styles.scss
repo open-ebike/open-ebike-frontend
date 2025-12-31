@@ -93,6 +93,14 @@
     text-decoration-style: dotted;
   }
 
+  .mapboxgl-ctrl-bottom-right {
+    background: #343332;
+  }
+
+  .mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+    background-color: transparent;
+  }
+
   --context-box-color: #{color.adjust(
       theme-colors.$color-celestial-blue,
       $lightness: 25%
