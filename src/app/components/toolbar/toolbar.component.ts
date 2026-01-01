@@ -10,6 +10,7 @@ import { getBrowserLang, TranslocoModule } from '@jsverse/transloco';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Media, MediaService } from '../../services/media.service';
 import { environment } from '../../../environments/environment';
+import { ActivityRecordsService } from '../../services/api/bes3/activity-records.service';
 
 /**
  * Displays toolbar
@@ -43,6 +44,9 @@ export class ToolbarComponent {
   public themeService = inject(ThemeService);
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
+
+  /** Activity records service */
+  public activityRecordsService = inject(ActivityRecordsService);
 
   /** Language */
   lang = getBrowserLang();

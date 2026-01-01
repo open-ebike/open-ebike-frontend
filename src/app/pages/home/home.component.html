@@ -41,7 +41,14 @@
               </mat-card>
               <mat-card
                 class="selectable-card bes3"
-                [routerLink]="['/bes3/activities']"
+                [class.grey]="
+                  activityRecordsService.loading()
+                "
+                [routerLink]="
+                  activityRecordsService.loading()
+                    ? []
+                    : ['/bes3/activities']
+                "
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 <mat-card-header>
@@ -108,6 +115,7 @@
                 </mat-card-header>
               </mat-card>
             </div>
+            <div class="flex-box"></div>
           }
           @case ("BES2") {
             <h2>
@@ -688,7 +696,5 @@
       }
       <div class="flex-box"></div>
     }
-
-    <div class="flex-box"></div>
   </div>
 </ng-container>
