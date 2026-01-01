@@ -67,6 +67,17 @@ export class AuthenticationService {
   public clientId = signal<string>('');
   /** Signal providing eBike generation */
   public ebikeGeneration = signal<EbikeGeneration | null>(null);
+  /** Whether the user is logged in */
+  public loggedIn = signal(false);
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    this.oauthService.events.subscribe((_) => {
+      this.loggedIn.set(this.isLoggedIn());
+    });
+  }
 
   /**
    * Restores client ID from local storage

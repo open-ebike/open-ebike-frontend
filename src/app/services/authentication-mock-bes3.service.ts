@@ -39,6 +39,7 @@ export interface IdentityClaims {
 
   /** E-mail */
   email: string;
+
   //
   // BES 2
   //
@@ -66,6 +67,8 @@ export class AuthenticationService {
   public clientId = signal<string>('');
   /** Signal providing eBike generation */
   public ebikeGeneration = signal<EbikeGeneration | null>('BES3');
+  /** Whether the user is logged in */
+  public loggedIn = signal(true);
 
   /**
    * Restores client ID from local storage

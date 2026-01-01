@@ -1,7 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { EMPTY, expand, map, Observable, reduce } from 'rxjs';
+import { EMPTY, expand, firstValueFrom, map, Observable, reduce } from 'rxjs';
+import Dexie, { Table } from 'dexie';
 
 /** Valid sort values for activity summary */
 export type ActivitySummarySort =
@@ -110,6 +111,43 @@ export interface ActivityDetails {
   activityDetails: ActivityDetail[];
 }
 
+//
+// Cache
+//
+
+/**
+ * Represents a database item
+ */
+interface DatabaseItem {
+  /** ID */
+  id: string;
+  /** Start time */
+  startTime: string;
+  /** Activity summary */
+  activitySummary: ActivitySummary;
+  /** Activity details */
+  activityDetails: ActivityDetail[];
+}
+
+/**
+ * Represents a database
+ */
+class Database extends Dexie {
+  /** Database items */
+  items!: Table<DatabaseItem, string>;
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    super('activityRecordsDatabase');
+    this.version(1).stores({
+      items: 'id, startTime',
+      syncState: 'id',
+    });
+  }
+}
+
 /**
  * Handles activity records
  */
@@ -119,6 +157,10 @@ export interface ActivityDetails {
 export class ActivityRecordsService {
   /** http client */
   http = inject(HttpClient);
+
+  //
+  // API calls
+  //
 
   /**
    * Lists all activity summaries
@@ -192,5 +234,92 @@ export class ActivityRecordsService {
     return this.http.get<ActivityDetails>(
       `${environment.eBikeApiUrl}/activity/smart-system/v1/activities/${id}/details`,
     );
+  }
+
+  //
+  // Cache
+  //
+
+  /** Database */
+  private database = new Database();
+  /** Actual item count */
+  itemCount = signal(0);
+  /** Total item count */
+  totalItemCount = signal(0);
+  /** Percentage of loaded items */
+  percentage = computed(() => {
+    try {
+      return (this.itemCount() / this.totalItemCount()) * 100;
+    } catch {
+      return 0;
+    }
+  });
+  /** Loading state */
+  loading = computed<boolean>(() => {
+    return this.itemCount() != this.totalItemCount();
+  });
+
+  /** Chunk size */
+  CHUNK_SIZE = 20;
+
+  /**
+   * Fetches all items from API and stores them in IndexedDB
+   */
+  async fetchAll() {
+    // Update actual items count
+    this.itemCount.set(await this.database.items.count());
+
+    // Get the latest known date
+    const mostRecentItem = await this.database.items
+      .orderBy('startTime')
+      .reverse()
+      .first();
+    const latestKnownDate = mostRecentItem ? mostRecentItem.startTime : null;
+
+    let pageIndex = 0;
+    let keepFetching = true;
+
+    while (keepFetching) {
+      // Fetch page
+      const page = await firstValueFrom(
+        this.getAllActivitySummaries(this.CHUNK_SIZE, pageIndex, '-startTime'),
+      );
+
+      // Update total items count
+      this.totalItemCount.set(page.pagination.total);
+
+      // Check if page is empty
+      if (!page || page.activitySummaries.length === 0) {
+        keepFetching = false;
+        break;
+      }
+
+      // Save fetched items to database
+      const itemsToSave: DatabaseItem[] = await Promise.all(
+        page.activitySummaries.map(async (activitySummary) => ({
+          id: activitySummary.id,
+          startTime: activitySummary.startTime,
+          activitySummary: activitySummary,
+          activityDetails: (
+            await firstValueFrom(this.getActivityDetails(activitySummary.id))
+          ).activityDetails,
+        })),
+      );
+      await this.database.items.bulkPut(itemsToSave);
+
+      // Update actual items count
+      this.itemCount.set(await this.database.items.count());
+
+      // Check for overlap
+      if (latestKnownDate) {
+        if (itemsToSave.find((i) => i.startTime <= latestKnownDate!!)) {
+          keepFetching = false;
+        } else {
+          pageIndex++;
+        }
+      } else {
+        pageIndex++;
+      }
+    }
   }
 }
