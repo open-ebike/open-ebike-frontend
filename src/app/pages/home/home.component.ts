@@ -1,7 +1,11 @@
 import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Theme, ThemeService } from '../../services/theme.service';
-import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
+import {
+  getBrowserLang,
+  TranslocoDirective,
+  TranslocoService,
+} from '@jsverse/transloco';
 import { combineLatest, first } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
 import {
@@ -17,6 +21,7 @@ import { EbikeGeneration } from '../../services/auth/ebike-generation.type';
 import { MatButton } from '@angular/material/button';
 import { ActivityRecordsService } from '../../services/api/bes3/activity-records.service';
 import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 /**
  * Displays home component
@@ -47,6 +52,10 @@ export class HomeComponent implements OnInit {
 
   /** Activated route */
   private route = inject(ActivatedRoute);
+  /** Snack bar */
+  private snackbar = inject(MatSnackBar);
+  /** Transloco service */
+  private translocoService = inject(TranslocoService);
   /** Theme service */
   public themeService = inject(ThemeService);
   /** Authentication service */
@@ -82,7 +91,17 @@ export class HomeComponent implements OnInit {
         this.authenticationService.loggedIn() &&
         this.authenticationService.ebikeGeneration() == 'BES3'
       ) {
-        this.activityRecordsService.fetchAll().then();
+        this.activityRecordsService.fetchAll().then((success) => {
+          this.snackbar.open(
+            this.translocoService.translate(
+              `pages.activities.messages.fetching-activities-${success ? 'successful' : 'failed'}`,
+            ),
+            undefined,
+            {
+              duration: 1_500,
+            },
+          );
+        });
       }
     });
   }

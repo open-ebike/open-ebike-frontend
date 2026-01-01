@@ -281,60 +281,67 @@ export class ActivityRecordsService {
    * Fetches all items from API and stores them in IndexedDB
    */
   async fetchAll() {
-    // Update actual items count
-    this.itemCount.set(await this.database.items.count());
-
-    // Get the latest known date
-    const mostRecentItem = await this.database.items
-      .orderBy('startTime')
-      .reverse()
-      .first();
-    const latestKnownDate = mostRecentItem ? mostRecentItem.startTime : null;
-
-    let pageIndex = 0;
-    let keepFetching = true;
-
-    while (keepFetching) {
-      // Fetch page
-      const page = await firstValueFrom(
-        this.fetchAllActivitySummaries(this.CHUNK_SIZE, pageIndex),
-      );
-
-      // Update total items count
-      this.totalItemCount.set(page.pagination.total);
-
-      // Check if page is empty
-      if (!page || page.activitySummaries.length === 0) {
-        keepFetching = false;
-        break;
-      }
-
-      // Save fetched items to database
-      const itemsToSave: DatabaseItem[] = await Promise.all(
-        page.activitySummaries.map(async (activitySummary) => ({
-          id: activitySummary.id,
-          startTime: activitySummary.startTime,
-          activitySummary: activitySummary,
-          activityDetails: (
-            await firstValueFrom(this.fetchActivityDetails(activitySummary.id))
-          ).activityDetails,
-        })),
-      );
-      await this.database.items.bulkPut(itemsToSave);
-
+    try {
       // Update actual items count
       this.itemCount.set(await this.database.items.count());
 
-      // Check for overlap
-      if (latestKnownDate) {
-        if (itemsToSave.find((i) => i.startTime <= latestKnownDate!!)) {
+      // Get the latest known date
+      const mostRecentItem = await this.database.items
+        .orderBy('startTime')
+        .reverse()
+        .first();
+      const latestKnownDate = mostRecentItem ? mostRecentItem.startTime : null;
+
+      let pageIndex = 0;
+      let keepFetching = true;
+
+      while (keepFetching) {
+        // Fetch page
+        const page = await firstValueFrom(
+          this.fetchAllActivitySummaries(this.CHUNK_SIZE, pageIndex),
+        );
+
+        // Update total items count
+        this.totalItemCount.set(page.pagination.total);
+
+        // Check if page is empty
+        if (!page || page.activitySummaries.length === 0) {
           keepFetching = false;
+          break;
+        }
+
+        // Save fetched items to database
+        const itemsToSave: DatabaseItem[] = await Promise.all(
+          page.activitySummaries.map(async (activitySummary) => ({
+            id: activitySummary.id,
+            startTime: activitySummary.startTime,
+            activitySummary: activitySummary,
+            activityDetails: (
+              await firstValueFrom(
+                this.fetchActivityDetails(activitySummary.id),
+              )
+            ).activityDetails,
+          })),
+        );
+        await this.database.items.bulkPut(itemsToSave);
+
+        // Update actual items count
+        this.itemCount.set(await this.database.items.count());
+
+        // Check for overlap
+        if (latestKnownDate) {
+          if (itemsToSave.find((i) => i.startTime <= latestKnownDate!!)) {
+            keepFetching = false;
+          } else {
+            pageIndex++;
+          }
         } else {
           pageIndex++;
         }
-      } else {
-        pageIndex++;
       }
+      return true;
+    } catch {
+      return false;
     }
   }
 }

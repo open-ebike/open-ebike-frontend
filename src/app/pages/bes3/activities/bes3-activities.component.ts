@@ -54,6 +54,7 @@ import { environment } from '../../../../environments/environment';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { SharePictureActivityBottomSheetComponent } from '../../../components/share-picture-activity-bottom-sheet/share-picture-activity-bottom-sheet.component';
 import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 /**
  * Displays activities
@@ -89,6 +90,8 @@ export class Bes3ActivitiesComponent implements OnInit {
   // Injections
   //
 
+  /** Snack bar */
+  private snackbar = inject(MatSnackBar);
   /** Bottom sheet */
   private bottomSheet = inject(MatBottomSheet);
   /** Transloco service */
@@ -380,6 +383,23 @@ export class Bes3ActivitiesComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(_: any) {
     this.windowWidth.set(window.innerWidth);
+  }
+
+  /**
+   * Handles click on refresh button
+   */
+  onRefreshClicked() {
+    this.activityRecordsService.fetchAll().then((success) => {
+      this.snackbar.open(
+        this.translocoService.translate(
+          `pages.activities.messages.fetching-activities-${success ? 'successful' : 'failed'}`,
+        ),
+        undefined,
+        {
+          duration: 1_500,
+        },
+      );
+    });
   }
 
   /**
