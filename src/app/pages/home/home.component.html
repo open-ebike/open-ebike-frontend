@@ -65,9 +65,9 @@
                       verified
                     </span>
                   </div>
-                  <mat-card-title>{{
-                    t("registrations.title")
-                  }}</mat-card-title>
+                  <mat-card-title
+                    >{{ t("registrations.title") }}
+                  </mat-card-title>
                   <mat-card-subtitle
                     >{{ t("registrations.description") }}
                   </mat-card-subtitle>
@@ -99,9 +99,9 @@
                   <div mat-card-avatar>
                     <span class="material-symbols-outlined icon"> trophy </span>
                   </div>
-                  <mat-card-title>{{
-                    t("yearly-achievements.title")
-                  }}</mat-card-title>
+                  <mat-card-title
+                    >{{ t("yearly-achievements.title") }}
+                  </mat-card-title>
                   <mat-card-subtitle
                     >{{ t("yearly-achievements.description") }}
                   </mat-card-subtitle>
@@ -193,9 +193,9 @@
                   <div mat-card-avatar>
                     <span class="material-symbols-outlined icon"> trophy </span>
                   </div>
-                  <mat-card-title>{{
-                    t("yearly-achievements.title")
-                  }}</mat-card-title>
+                  <mat-card-title
+                    >{{ t("yearly-achievements.title") }}
+                  </mat-card-title>
                   <mat-card-subtitle
                     >{{ t("yearly-achievements.description") }}
                   </mat-card-subtitle>
@@ -248,6 +248,29 @@
           }
         }
       </div>
+      <div class="flex-box"></div>
+      <div class="inner-container">
+        @switch (authenticationService.ebikeGeneration()) {
+          @case ("BES3") {
+            @if (activityRecordsService.loading()) {
+              <div class="flex-container">
+                <p>
+                  {{ t("activities.actions.fetch-activities") }} ({{
+                    activityRecordsService.itemCount()
+                  }}
+                  /
+                  {{ activityRecordsService.totalItemCount() }})
+                </p>
+                <div class="flex-box"></div>
+              </div>
+              <mat-progress-bar
+                mode="determinate"
+                [value]="activityRecordsService.percentage()"
+              ></mat-progress-bar>
+            }
+          }
+        }
+      </div>
     } @else {
       <div class="inner-container">
         <h2>{{ t("home.terms.getting-started-1") }}</h2>
@@ -262,9 +285,9 @@
               <div mat-card-avatar>
                 <span class="material-symbols-outlined icon"> mobile </span>
               </div>
-              <mat-card-title>{{
-                t("home.terms.option-a.title")
-              }}</mat-card-title>
+              <mat-card-title
+                >{{ t("home.terms.option-a.title") }}
+              </mat-card-title>
               <mat-card-subtitle
                 >{{ t("home.terms.option-a.subtitle") }}
               </mat-card-subtitle>
@@ -298,9 +321,9 @@
                   mobile
                 </span>
               </div>
-              <mat-card-title>{{
-                t("home.terms.option-b.title")
-              }}</mat-card-title>
+              <mat-card-title
+                >{{ t("home.terms.option-b.title") }}
+              </mat-card-title>
               <mat-card-subtitle
                 >{{ t("home.terms.option-b.subtitle") }}
               </mat-card-subtitle>
@@ -334,9 +357,9 @@
                   mobile
                 </span>
               </div>
-              <mat-card-title>{{
-                t("home.terms.option-c.title")
-              }}</mat-card-title>
+              <mat-card-title
+                >{{ t("home.terms.option-c.title") }}
+              </mat-card-title>
               <mat-card-subtitle
                 >{{ t("home.terms.option-c.subtitle") }}
               </mat-card-subtitle>

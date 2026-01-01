@@ -212,6 +212,8 @@
         "photo-by": "Photo by {{creator}} via Mapillary"
       },
       "actions": {
+        "fetch-activities": "Fetch Activities",
+        "update-activities": "Update Activities",
         "show-all": "show all",
         "hide-all": "hide all",
         "show-summary": "show summary",

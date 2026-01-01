@@ -42,6 +42,10 @@ $inner-container-height: 128px;
   height: $inner-container-height;
 }
 
+.refresh-button {
+  align-self: end;
+}
+
 .drawer-container {
   height: calc(100vh - var(--toolbar-height));
 }

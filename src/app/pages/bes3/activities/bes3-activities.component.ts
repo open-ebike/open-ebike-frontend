@@ -36,7 +36,7 @@ import {
   MatCardFooter,
 } from '@angular/material/card';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import {
   ImageMarker,
   MapBoxStyle,
@@ -54,6 +54,7 @@ import {
 import { environment } from '../../../../environments/environment';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { SharePictureActivityBottomSheetComponent } from '../../../components/share-picture-activity-bottom-sheet/share-picture-activity-bottom-sheet.component';
+import { MatProgressBar } from '@angular/material/progress-bar';
 
 /**
  * Displays activities
@@ -77,6 +78,8 @@ import { SharePictureActivityBottomSheetComponent } from '../../../components/sh
     MatCardFooter,
     MatPaginator,
     RoundPipe,
+    MatIconButton,
+    MatProgressBar,
   ],
   templateUrl: './bes3-activities.component.html',
   styleUrl: './bes3-activities.component.scss',
@@ -100,7 +103,7 @@ export class Bes3ActivitiesComponent implements OnInit {
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
   /** Activity records service */
-  private activityRecordsService = inject(ActivityRecordsService);
+  public activityRecordsService = inject(ActivityRecordsService);
   /** Mapbox service */
   public mapboxService = inject(MapboxService);
   /** Mapillary service */
