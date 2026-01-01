@@ -1,8 +1,8 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { EMPTY, expand, firstValueFrom, map, Observable, reduce } from 'rxjs';
-import Dexie, { Table } from 'dexie';
+import { firstValueFrom, from, Observable } from 'rxjs';
+import Dexie, { liveQuery, Table } from 'dexie';
 
 /** Valid sort values for activity summary */
 export type ActivitySummarySort =
@@ -159,6 +159,57 @@ export class ActivityRecordsService {
   http = inject(HttpClient);
 
   //
+  // Access
+  //
+
+  /**
+   * Lists all activity summaries
+   * @param limit limit
+   * @param offset offset
+   */
+  getAllActivitySummaries(
+    limit: number = 20,
+    offset: number = 0,
+  ): Observable<ActivitySummaries> {
+    return from(
+      liveQuery(async () => {
+        const collection = this.database.items.orderBy('startTime').reverse();
+
+        const [items, totalCount] = await Promise.all([
+          collection.offset(offset).limit(limit).toArray(),
+          this.database.items.count(),
+        ]);
+
+        return {
+          activitySummaries: items.map((item) => {
+            return item.activitySummary;
+          }),
+          pagination: {
+            total: totalCount,
+            offset: offset,
+            limit: limit,
+          },
+          links: {},
+        } as ActivitySummaries;
+      }),
+    );
+  }
+
+  /**
+   * Retrieve details of a single activity
+   * @param id activity ID
+   */
+  getActivityDetails(id: string): Observable<ActivityDetails> {
+    return from(
+      liveQuery(async () => {
+        return {
+          activityDetails: (await this.database.items.get(id))?.activityDetails,
+        } as ActivityDetails;
+      }),
+    );
+  }
+
+  //
   // API calls
   //
 
@@ -168,7 +219,7 @@ export class ActivityRecordsService {
    * @param offset offset
    * @param sort sort
    */
-  getAllActivitySummaries(
+  private fetchAllActivitySummaries(
     limit?: number,
     offset?: number,
     sort?: ActivitySummarySort,
@@ -190,47 +241,11 @@ export class ActivityRecordsService {
     );
   }
 
-  /** Maximum limit of activity API calls */
-  MAX_LIMIT = 100;
-
-  /**
-   * Lists all activity summaries
-   * @param chunkSize chunk size
-   * @param sort sort
-   */
-  getAllActivitySummariesRecursively(
-    chunkSize: number = this.MAX_LIMIT,
-    sort?: ActivitySummarySort,
-  ): Observable<ActivitySummary[]> {
-    chunkSize = Math.min(chunkSize, this.MAX_LIMIT);
-
-    let offset = 0;
-    let total = 0;
-
-    return this.getAllActivitySummaries(chunkSize, offset, sort).pipe(
-      expand((response) => {
-        total = response.pagination.total || 0;
-        offset = offset + chunkSize;
-
-        if (offset < total) {
-          return this.getAllActivitySummaries(chunkSize, offset, sort);
-        } else {
-          return EMPTY;
-        }
-      }),
-
-      map((response) => response.activitySummaries),
-      reduce((acc: ActivitySummary[], pageData: ActivitySummary[]) => {
-        return acc.concat(pageData);
-      }, []),
-    );
-  }
-
   /**
    * Retrieve details of a single activity
    * @param id activity ID
    */
-  getActivityDetails(id: string): Observable<ActivityDetails> {
+  private fetchActivityDetails(id: string): Observable<ActivityDetails> {
     return this.http.get<ActivityDetails>(
       `${environment.eBikeApiUrl}/activity/smart-system/v1/activities/${id}/details`,
     );
@@ -282,7 +297,7 @@ export class ActivityRecordsService {
     while (keepFetching) {
       // Fetch page
       const page = await firstValueFrom(
-        this.getAllActivitySummaries(this.CHUNK_SIZE, pageIndex, '-startTime'),
+        this.fetchAllActivitySummaries(this.CHUNK_SIZE, pageIndex),
       );
 
       // Update total items count
@@ -301,7 +316,7 @@ export class ActivityRecordsService {
           startTime: activitySummary.startTime,
           activitySummary: activitySummary,
           activityDetails: (
-            await firstValueFrom(this.getActivityDetails(activitySummary.id))
+            await firstValueFrom(this.fetchActivityDetails(activitySummary.id))
           ).activityDetails,
         })),
       );

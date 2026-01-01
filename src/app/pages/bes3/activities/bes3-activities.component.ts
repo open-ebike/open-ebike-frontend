@@ -16,7 +16,6 @@ import {
   ActivityDetail,
   ActivityRecordsService,
   ActivitySummary,
-  ActivitySummarySort,
 } from '../../../services/api/bes3/activity-records.service';
 import {
   getBrowserLang,
@@ -181,11 +180,7 @@ export class Bes3ActivitiesComponent implements OnInit {
    */
   constructor() {
     effect(() => {
-      this.initializeActivitiesSummaries(
-        this.pageSize(),
-        this.pageOffset(),
-        '-startTime',
-      );
+      this.initializeActivitiesSummaries(this.pageSize(), this.pageOffset());
     });
 
     effect(() => {
@@ -265,13 +260,9 @@ export class Bes3ActivitiesComponent implements OnInit {
   /**
    * Initializes activities
    */
-  private initializeActivitiesSummaries(
-    limit: number,
-    offset: number,
-    sort: ActivitySummarySort,
-  ) {
+  private initializeActivitiesSummaries(limit: number, offset: number) {
     this.activityRecordsService
-      .getAllActivitySummaries(limit, offset, sort)
+      .getAllActivitySummaries(limit, offset)
       .subscribe((activitySummaries) => {
         this.activitySummaries.set(activitySummaries.activitySummaries);
         this.pageTotalLength.set(activitySummaries.pagination.total);

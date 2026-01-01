@@ -41,13 +41,9 @@
               </mat-card>
               <mat-card
                 class="selectable-card bes3"
-                [class.grey]="
-                  activityRecordsService.loading()
-                "
+                [class.grey]="activityRecordsService.loading()"
                 [routerLink]="
-                  activityRecordsService.loading()
-                    ? []
-                    : ['/bes3/activities']
+                  activityRecordsService.loading() ? [] : ['/bes3/activities']
                 "
                 [queryParams]="{ theme: themeService.theme() }"
               >

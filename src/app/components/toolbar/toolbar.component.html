@@ -46,9 +46,7 @@
                 class="toolbar-menu-item"
                 routerLinkActive="toolbar-menu-item-active"
                 routerLink="/bes3/activities"
-                [disabled]="
-                  activityRecordsService.loading()
-                "
+                [disabled]="activityRecordsService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 {{ t("pages.activities.title") }}
@@ -259,9 +257,7 @@
                   mat-menu-item
                   class="toolbar-menu-item"
                   routerLinkActive="toolbar-menu-item-active"
-                  [disabled]="
-                    activityRecordsService.loading()
-                  "
+                  [disabled]="activityRecordsService.loading()"
                   routerLink="/bes3/activities"
                   queryParamsHandling="merge"
                 >

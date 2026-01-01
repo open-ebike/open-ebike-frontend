@@ -44,7 +44,7 @@ export class Bes3YearlyAchievementService {
    */
   constructor() {
     this.activityRecordsService
-      .getAllActivitySummaries(1, 0, 'startTime')
+      .getAllActivitySummaries(1, 0)
       .pipe(
         map((activitySummaries) => {
           return activitySummaries.activitySummaries.length > 0
@@ -76,9 +76,9 @@ export class Bes3YearlyAchievementService {
    */
   private async evaluate() {
     this.activityRecordsService
-      .getAllActivitySummariesRecursively(100, 'startTime')
+      .getAllActivitySummaries(100)
       .subscribe(async (activitySummaries) => {
-        for (let activitySummary of activitySummaries) {
+        for (let activitySummary of activitySummaries.activitySummaries) {
           const activityDetails = await firstValueFrom(
             this.activityRecordsService.getActivityDetails(activitySummary.id),
           );
