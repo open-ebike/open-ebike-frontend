@@ -30,6 +30,7 @@ import {
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BikePassService } from '../../../services/api/bes3/bike-pass.service';
 
 /**
  * Displays eBikes
@@ -72,6 +73,8 @@ export class Bes3EbikesComponent implements OnInit {
   public authenticationService = inject(AuthenticationService);
   /** eBike profile service */
   public ebikeProfileService = inject(EbikeProfileService);
+  /** Bike pass service */
+  private bikePassService = inject(BikePassService);
   /** eBike registration service */
   private ebikeRegistrationService = inject(EbikeRegistrationService);
 
@@ -158,6 +161,12 @@ export class Bes3EbikesComponent implements OnInit {
           duration: 1_500,
         },
       );
+
+      this.ebikeProfileService.getAllBikes().subscribe((bikes) => {
+        bikes.bikes.forEach((bike) => {
+          this.bikePassService.fetch(bike.id);
+        });
+      });
     });
   }
 

@@ -23,6 +23,7 @@ import { ActivityRecordsService } from '../../services/api/bes3/activity-records
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EbikeProfileService } from '../../services/api/bes3/ebike-profile.service';
+import { BikePassService } from '../../services/api/bes3/bike-pass.service';
 
 /**
  * Displays home component
@@ -64,6 +65,8 @@ export class HomeComponent implements OnInit {
 
   /** eBike profile service */
   public ebikeProfileService = inject(EbikeProfileService);
+  /** Bike pass service */
+  private bikePassService = inject(BikePassService);
   /** Activity records service */
   public activityRecordsService = inject(ActivityRecordsService);
 
@@ -94,7 +97,13 @@ export class HomeComponent implements OnInit {
         this.authenticationService.loggedIn() &&
         this.authenticationService.ebikeGeneration() == 'BES3'
       ) {
-        this.ebikeProfileService.fetchAll().then();
+        this.ebikeProfileService.fetchAll().then(() => {
+          this.ebikeProfileService.getAllBikes().subscribe((bikes) => {
+            bikes.bikes.forEach((bike) => {
+              this.bikePassService.fetch(bike.id);
+            });
+          });
+        });
         this.activityRecordsService.fetchAll().then((success) => {
           this.snackbar.open(
             this.translocoService.translate(

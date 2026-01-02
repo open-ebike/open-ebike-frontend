@@ -107,7 +107,7 @@ export class Bes3EbikeDetailsComponent implements OnInit {
   /** Signal providing eBike profile */
   ebikeProfile = signal<EbikeProfile | undefined>(undefined);
   /** Signal providing bike passes */
-  bikePasses = signal<BikePass[] | null>([]);
+  bikePasses = signal<BikePass[] | undefined>([]);
   /** Signal providing bulk installation reports */
   bulkInstallationReports = signal<BulkInstallationReport[] | null>([]);
   /** Signal providing service records */
@@ -178,7 +178,7 @@ export class Bes3EbikeDetailsComponent implements OnInit {
    */
   private initializeBikePasses(bikeId: string) {
     this.bikePassService.getBikePasses(bikeId).subscribe((bikePasses) => {
-      this.bikePasses.set(bikePasses.bikePasses);
+      this.bikePasses.set(bikePasses?.bikePasses);
     });
   }
 

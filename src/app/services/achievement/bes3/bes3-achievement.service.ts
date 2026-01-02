@@ -147,7 +147,7 @@ export class Bes3AchievementService {
         });
 
         this.bikePassService.getBikePasses(bike.id).subscribe((bikePasses) => {
-          for (let bikePass of bikePasses.bikePasses) {
+          for (let bikePass of bikePasses?.bikePasses ?? []) {
             this.achievementsBikePasses.set(
               this.achievementService.evaluateBikePasses(
                 this.achievementsBikePasses(),
