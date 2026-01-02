@@ -1,6 +1,9 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import Dexie, { liveQuery, Table } from 'dexie';
+import { firstValueFrom, from, Observable } from 'rxjs';
+import { BikePasses } from './bike-pass.service';
 
 export interface BulkInstallationReports {
   installationReports: BulkInstallationReport[];
@@ -158,6 +161,39 @@ export interface ItemNumber {
   value: string;
 }
 
+//
+// Cache
+//
+
+/**
+ * Represents a database item
+ */
+interface DatabaseItem {
+  /** ID */
+  id: string;
+  /** Bulk */
+  installationReports: BulkInstallationReports;
+}
+
+/**
+ * Represents a database
+ */
+class Database extends Dexie {
+  /** Database items */
+  items!: Table<DatabaseItem, string>;
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    super('bulkConfigurationDatabase');
+    this.version(1).stores({
+      items: 'id',
+      syncState: 'id',
+    });
+  }
+}
+
 /**
  * Handles installation reports of a bulk configuration
  */
@@ -168,13 +204,71 @@ export class BulkConfigurationService {
   /** http client */
   http = inject(HttpClient);
 
+  //
+  // Access
+  //
+
   /**
    * Gets installation reports of a bulk configuration change for a Smart System bike
    * @param bikeId bike ID
    */
-  getInstallationReports(bikeId: string) {
+  getInstallationReports(
+    bikeId: string,
+  ): Observable<BulkInstallationReports | undefined> {
+    return from(
+      liveQuery(async () => {
+        return (await this.database.items.get(bikeId))?.installationReports;
+      }),
+    );
+  }
+
+  //
+  // API calls
+  //
+
+  /**
+   * Gets installation reports of a bulk configuration change for a Smart System bike
+   * @param bikeId bike ID
+   */
+  private fetchInstallationReports(bikeId: string) {
     return this.http.get<BulkInstallationReports>(
       `${environment.eBikeApiUrl}/bulk-configuration/smart-system/v1/installation-reports?bikeId=${bikeId}`,
     );
+  }
+
+  //
+  // Cache
+  //
+
+  /** Database */
+  private database = new Database();
+  /** Loading state */
+  loading = signal<boolean>(false);
+
+  /**
+   * Fetches all items from API and stores them in IndexedDB
+   * @param bikeId bike ID
+   */
+  async fetch(bikeId: string) {
+    this.loading.set(true);
+
+    try {
+      // Fetch items
+      const installationReports = await firstValueFrom(
+        this.fetchInstallationReports(bikeId),
+      );
+
+      // Save fetched items to database
+      const itemToSave: DatabaseItem = {
+        id: bikeId,
+        installationReports: installationReports,
+      };
+      await this.database.items.put(itemToSave);
+      this.loading.set(false);
+      return true;
+    } catch {
+      this.loading.set(false);
+      return false;
+    }
   }
 }

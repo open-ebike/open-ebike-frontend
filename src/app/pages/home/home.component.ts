@@ -24,6 +24,7 @@ import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EbikeProfileService } from '../../services/api/bes3/ebike-profile.service';
 import { BikePassService } from '../../services/api/bes3/bike-pass.service';
+import { BulkConfigurationService } from '../../services/api/bes3/bulk-configuration.service';
 
 /**
  * Displays home component
@@ -67,6 +68,8 @@ export class HomeComponent implements OnInit {
   public ebikeProfileService = inject(EbikeProfileService);
   /** Bike pass service */
   private bikePassService = inject(BikePassService);
+  /** Bulk configuration service */
+  private bulkConfigurationService = inject(BulkConfigurationService);
   /** Activity records service */
   public activityRecordsService = inject(ActivityRecordsService);
 
@@ -101,6 +104,7 @@ export class HomeComponent implements OnInit {
           this.ebikeProfileService.getAllBikes().subscribe((bikes) => {
             bikes.bikes.forEach((bike) => {
               this.bikePassService.fetch(bike.id);
+              this.bulkConfigurationService.fetch(bike.id);
             });
           });
         });

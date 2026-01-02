@@ -109,7 +109,7 @@ export class Bes3EbikeDetailsComponent implements OnInit {
   /** Signal providing bike passes */
   bikePasses = signal<BikePass[] | undefined>([]);
   /** Signal providing bulk installation reports */
-  bulkInstallationReports = signal<BulkInstallationReport[] | null>([]);
+  bulkInstallationReports = signal<BulkInstallationReport[] | undefined>([]);
   /** Signal providing service records */
   serviceRecords = signal<ServiceRecord[] | null>([]);
   /** Signal providing remote configuration cases */
@@ -190,7 +190,7 @@ export class Bes3EbikeDetailsComponent implements OnInit {
       .getInstallationReports(bikeId)
       .subscribe((installationReports) => {
         this.bulkInstallationReports.set(
-          installationReports.installationReports,
+          installationReports?.installationReports,
         );
       });
   }

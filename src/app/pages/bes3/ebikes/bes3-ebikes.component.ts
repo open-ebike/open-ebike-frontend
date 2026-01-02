@@ -31,6 +31,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BikePassService } from '../../../services/api/bes3/bike-pass.service';
+import { BulkConfigurationService } from '../../../services/api/bes3/bulk-configuration.service';
 
 /**
  * Displays eBikes
@@ -75,6 +76,8 @@ export class Bes3EbikesComponent implements OnInit {
   public ebikeProfileService = inject(EbikeProfileService);
   /** Bike pass service */
   private bikePassService = inject(BikePassService);
+  /** Bulk configuration service */
+  private bulkConfigurationService = inject(BulkConfigurationService);
   /** eBike registration service */
   private ebikeRegistrationService = inject(EbikeRegistrationService);
 
@@ -165,6 +168,7 @@ export class Bes3EbikesComponent implements OnInit {
       this.ebikeProfileService.getAllBikes().subscribe((bikes) => {
         bikes.bikes.forEach((bike) => {
           this.bikePassService.fetch(bike.id);
+          this.bulkConfigurationService.fetch(bike.id);
         });
       });
     });
