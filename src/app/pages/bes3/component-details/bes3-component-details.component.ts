@@ -97,7 +97,7 @@ export class Bes3ComponentDetailsComponent implements OnInit {
   driveUnit = signal<DriveUnit | undefined>(undefined);
   battery = signal<Battery | undefined>(undefined);
   componentType = signal<ComponentType | undefined>(undefined);
-  capacityTesters = signal<CapacityTester[]>([]);
+  capacityTesters = signal<CapacityTester[] | undefined>([]);
   /** Signal providing registrations */
   registrations = signal<Registration[]>([]);
 
@@ -279,7 +279,7 @@ export class Bes3ComponentDetailsComponent implements OnInit {
     this.diagnosisFieldDataService
       .getFieldData(partNumber, serialNumber)
       .subscribe((capacityTesters) => {
-        this.capacityTesters.set(capacityTesters.capacityTesters);
+        this.capacityTesters.set(capacityTesters?.capacityTesters);
       });
   }
 

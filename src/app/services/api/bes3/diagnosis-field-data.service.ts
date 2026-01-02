@@ -1,6 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import Dexie, { liveQuery, Table } from 'dexie';
+import { firstValueFrom, from, Observable } from 'rxjs';
 
 export interface CapacityTesters {
   /** Payload containing the capacity tester data details of one measurement */
@@ -83,6 +85,40 @@ export interface BatteryData {
   onBikeMeasurement: boolean;
 }
 
+//
+// Cache
+//
+
+/**
+ * Represents a database item
+ */
+interface DatabaseItem {
+  /** Part number */
+  partNumber: string;
+  /** Serial number */
+  serialNumber: string;
+  /** Capacity testers */
+  capacityTesters: CapacityTesters;
+}
+
+/**
+ * Represents a database
+ */
+class Database extends Dexie {
+  /** Database items */
+  items!: Table<DatabaseItem, string>;
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    super('diagnosisFieldDataDatabase');
+    this.version(1).stores({
+      items: '[partNumber+serialNumber]',
+    });
+  }
+}
+
 /**
  * Handles field data
  */
@@ -93,14 +129,81 @@ export class DiagnosisFieldDataService {
   /** http client */
   http = inject(HttpClient);
 
+  //
+  // Access
+  //
+
   /**
    * Gets all available battery measurement field data collected by Bosch Capacity Tester (Smart System)
    * @param partNumber part number
    * @param serialNumber serial number
    */
-  getFieldData(partNumber: string, serialNumber: string) {
+  getFieldData(
+    partNumber: string,
+    serialNumber: string,
+  ): Observable<CapacityTesters | undefined> {
+    return from(
+      liveQuery(async () => {
+        return (
+          await this.database.items.get({
+            partNumber: partNumber,
+            serialNumber: serialNumber,
+          })
+        )?.capacityTesters;
+      }),
+    );
+  }
+
+  //
+  // API calls
+  //
+
+  /**
+   * Gets all available battery measurement field data collected by Bosch Capacity Tester (Smart System)
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  private fetchFieldData(partNumber: string, serialNumber: string) {
     return this.http.get<CapacityTesters>(
       `${environment.eBikeApiUrl}/diagnosis-field-data/smart-system/v1/capacity-testers?partNumber=${partNumber}&serialNumber=${serialNumber}`,
     );
+  }
+
+  //
+  // Cache
+  //
+
+  /** Database */
+  private database = new Database();
+  /** Loading state */
+  loading = signal<boolean>(false);
+
+  /**
+   * Fetches all items from API and stores them in IndexedDB
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  async fetch(partNumber: string, serialNumber: string) {
+    this.loading.set(true);
+
+    try {
+      // Fetch items
+      const capacityTesters = await firstValueFrom(
+        this.fetchFieldData(partNumber, serialNumber),
+      );
+
+      // Save fetched items to database
+      const itemToSave: DatabaseItem = {
+        partNumber: partNumber,
+        serialNumber: serialNumber,
+        capacityTesters: capacityTesters,
+      };
+      await this.database.items.put(itemToSave);
+      this.loading.set(false);
+      return true;
+    } catch {
+      this.loading.set(false);
+      return false;
+    }
   }
 }
