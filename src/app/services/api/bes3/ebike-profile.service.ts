@@ -1,7 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { Observable } from 'rxjs';
+import { firstValueFrom, from, Observable } from 'rxjs';
+import Dexie, { liveQuery, Table } from 'dexie';
 
 export type ComponentType =
   | 'DRIVE_UNIT'
@@ -161,6 +162,39 @@ export interface HeadUnit {
   partNumber: string;
 }
 
+//
+// Cache
+//
+
+/**
+ * Represents a database item
+ */
+interface DatabaseItem {
+  /** ID */
+  id: string;
+  /** eBike profile */
+  ebikeProfile: EbikeProfile;
+}
+
+/**
+ * Represents a database
+ */
+class Database extends Dexie {
+  /** Database items */
+  items!: Table<DatabaseItem, string>;
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    super('ebikeProfileDatabase');
+    this.version(1).stores({
+      items: 'id',
+      syncState: 'id',
+    });
+  }
+}
+
 /**
  * Handles eBike profiles
  */
@@ -171,12 +205,25 @@ export class EbikeProfileService {
   /** http client */
   http = inject(HttpClient);
 
+  //
+  // Access
+  //
+
   /**
    * Lists all bikes
    */
   getAllBikes(): Observable<EbikeProfiles> {
-    return this.http.get<EbikeProfiles>(
-      `${environment.eBikeApiUrl}/bike-profile/smart-system/v1/bikes`,
+    return from(
+      liveQuery(async () => {
+        const collection = this.database.items;
+        const items = await collection.toArray();
+
+        return {
+          bikes: items.map((item) => {
+            return item.ebikeProfile;
+          }),
+        } as EbikeProfiles;
+      }),
     );
   }
 
@@ -184,9 +231,57 @@ export class EbikeProfileService {
    * Retrieve a single eBike
    * @param bikeId bike ID
    */
-  getBike(bikeId: string): Observable<EbikeProfile> {
-    return this.http.get<EbikeProfile>(
-      `${environment.eBikeApiUrl}/bike-profile/smart-system/v1/bikes/${bikeId}`,
+  getBike(bikeId: string): Observable<EbikeProfile | undefined> {
+    return from(
+      liveQuery(async () => {
+        return (await this.database.items.get(bikeId))?.ebikeProfile;
+      }),
     );
+  }
+
+  //
+  // API calls
+  //
+
+  /**
+   * Lists all bikes
+   */
+  private fetchAllBikes(): Observable<EbikeProfiles> {
+    return this.http.get<EbikeProfiles>(
+      `${environment.eBikeApiUrl}/bike-profile/smart-system/v1/bikes`,
+    );
+  }
+
+  //
+  // Cache
+  //
+
+  /** Database */
+  private database = new Database();
+  /** Loading state */
+  loading = signal<boolean>(false);
+
+  /**
+   * Fetches all items from API and stores them in IndexedDB
+   */
+  async fetchAll() {
+    this.loading.set(true);
+
+    try {
+      // Fetch items
+      const ebikes = await firstValueFrom(this.fetchAllBikes());
+
+      // Save fetched items to database
+      const itemsToSave: DatabaseItem[] = ebikes.bikes.map((ebike) => ({
+        id: ebike.id,
+        ebikeProfile: ebike,
+      }));
+      await this.database.items.bulkPut(itemsToSave);
+      this.loading.set(false);
+      return true;
+    } catch {
+      this.loading.set(false);
+      return false;
+    }
   }
 }

@@ -94,6 +94,8 @@
         "drive-unit-serial-number": "drive unit serial number"
       },
       "messages": {
+        "fetching-ebikes-successful": "fetching eBikes successful",
+        "fetching-ebikes-failed": "fetching eBikes failed",
         "no-ebikes": "no eBikes registered",
         "missing-ebikes": "Are you missing any eBikes? Grant access to your eBike's data to client application {{clientId}} via the <a href='https://flow.bosch-ebike.com/data-act' target='_blank'>Flow Portal</a>"
       }

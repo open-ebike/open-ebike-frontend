@@ -1,6 +1,10 @@
 @use "../../../../styles";
 @use "../../../../sizes";
 
+.refresh-button {
+  align-self: end;
+}
+
 @media #{sizes.$breakpoint-large} {
   .grid.wide {
     grid-template-columns: 1fr 1fr;

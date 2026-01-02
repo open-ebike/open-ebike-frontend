@@ -11,6 +11,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Media, MediaService } from '../../services/media.service';
 import { environment } from '../../../environments/environment';
 import { ActivityRecordsService } from '../../services/api/bes3/activity-records.service';
+import { EbikeProfileService } from '../../services/api/bes3/ebike-profile.service';
 
 /**
  * Displays toolbar
@@ -45,6 +46,8 @@ export class ToolbarComponent {
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
 
+  /** eBike profile service */
+  public ebikeProfileService = inject(EbikeProfileService);
   /** Activity records service */
   public activityRecordsService = inject(ActivityRecordsService);
 

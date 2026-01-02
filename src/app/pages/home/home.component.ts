@@ -22,6 +22,7 @@ import { MatButton } from '@angular/material/button';
 import { ActivityRecordsService } from '../../services/api/bes3/activity-records.service';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EbikeProfileService } from '../../services/api/bes3/ebike-profile.service';
 
 /**
  * Displays home component
@@ -61,6 +62,8 @@ export class HomeComponent implements OnInit {
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
 
+  /** eBike profile service */
+  public ebikeProfileService = inject(EbikeProfileService);
   /** Activity records service */
   public activityRecordsService = inject(ActivityRecordsService);
 
@@ -91,6 +94,7 @@ export class HomeComponent implements OnInit {
         this.authenticationService.loggedIn() &&
         this.authenticationService.ebikeGeneration() == 'BES3'
       ) {
+        this.ebikeProfileService.fetchAll().then();
         this.activityRecordsService.fetchAll().then((success) => {
           this.snackbar.open(
             this.translocoService.translate(

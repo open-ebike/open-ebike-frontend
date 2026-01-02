@@ -142,7 +142,7 @@ export class Bes3AchievementService {
         const bikeProfile = await firstValueFrom(
           this.ebikeProfileService.getBike(bike.id),
         );
-        bikeProfile.batteries.forEach((battery) => {
+        bikeProfile?.batteries.forEach((battery) => {
           totalBatteryChargeCycles += battery.chargeCycles.total;
         });
 

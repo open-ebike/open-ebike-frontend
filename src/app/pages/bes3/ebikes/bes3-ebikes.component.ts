@@ -2,7 +2,11 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Theme, ThemeService } from '../../../services/theme.service';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
+import {
+  getBrowserLang,
+  TranslocoDirective,
+  TranslocoService,
+} from '@jsverse/transloco';
 import { combineLatest, first } from 'rxjs';
 import {
   EbikeProfile,
@@ -23,6 +27,9 @@ import {
   EbikeRegistrationService,
   Registration,
 } from '../../../services/api/bes3/ebike-registration.service';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 /**
  * Displays eBikes
@@ -41,6 +48,8 @@ import {
     MatCardContent,
     MatCardActions,
     MatCardFooter,
+    MatIcon,
+    MatIconButton,
   ],
   templateUrl: './bes3-ebikes.component.html',
   styleUrl: './bes3-ebikes.component.scss',
@@ -51,14 +60,18 @@ export class Bes3EbikesComponent implements OnInit {
   // Injections
   //
 
+  /** Snack bar */
+  private snackbar = inject(MatSnackBar);
   /** Activated route */
   private route = inject(ActivatedRoute);
+  /** Transloco service */
+  private translocoService = inject(TranslocoService);
   /** Theme service */
   public themeService = inject(ThemeService);
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
   /** eBike profile service */
-  private ebikeProfileService = inject(EbikeProfileService);
+  public ebikeProfileService = inject(EbikeProfileService);
   /** eBike registration service */
   private ebikeRegistrationService = inject(EbikeRegistrationService);
 
@@ -125,6 +138,27 @@ export class Bes3EbikesComponent implements OnInit {
 
         this.themeService.switchTheme(theme ? theme : Theme.LIGHT);
       });
+  }
+
+  //
+  // Actions
+  //
+
+  /**
+   * Handles click on refresh button
+   */
+  onRefreshClicked() {
+    this.ebikeProfileService.fetchAll().then((success) => {
+      this.snackbar.open(
+        this.translocoService.translate(
+          `pages.ebikes.messages.fetching-ebikes-${success ? 'successful' : 'failed'}`,
+        ),
+        undefined,
+        {
+          duration: 1_500,
+        },
+      );
+    });
   }
 
   //

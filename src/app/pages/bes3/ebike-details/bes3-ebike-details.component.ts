@@ -105,7 +105,7 @@ export class Bes3EbikeDetailsComponent implements OnInit {
   //
 
   /** Signal providing eBike profile */
-  ebikeProfile = signal<EbikeProfile | null>(null);
+  ebikeProfile = signal<EbikeProfile | undefined>(undefined);
   /** Signal providing bike passes */
   bikePasses = signal<BikePass[] | null>([]);
   /** Signal providing bulk installation reports */

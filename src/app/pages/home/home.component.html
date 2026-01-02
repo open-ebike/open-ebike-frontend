@@ -24,7 +24,10 @@
             <div class="grid-0">
               <mat-card
                 class="selectable-card bes3"
-                [routerLink]="['/bes3/ebikes']"
+                [class.grey]="ebikeProfileService.loading()"
+                [routerLink]="
+                  ebikeProfileService.loading() ? [] : ['/bes3/ebikes']
+                "
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 <mat-card-header>

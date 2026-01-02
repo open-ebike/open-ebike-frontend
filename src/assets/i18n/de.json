@@ -93,6 +93,8 @@
         "drive-unit-serial-number": "Drive Unit Seriennummer"
       },
       "messages": {
+        "fetching-ebikes-successful": "eBikes erfolgreich geladen",
+        "fetching-ebikes-failed": "Laden von eBikes fehlgeschlagen",
         "no-ebikes": "keine eBikes registriert",
         "missing-ebikes": "Vermisst du eBikes? Gib im <a href='https://flow.bosch-ebike.com/data-act' target='_blank'>Flow Portal</a> die Daten deines eBikes für die Client Application {{clientId}} frei"
       }
