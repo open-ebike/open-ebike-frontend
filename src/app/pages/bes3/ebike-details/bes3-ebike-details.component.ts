@@ -115,7 +115,7 @@ export class Bes3EbikeDetailsComponent implements OnInit {
   /** Signal providing remote configuration cases */
   remoteConfigurationCases = signal<Case[] | null>([]);
   /** Signal providing installation reports */
-  installationReports = signal<InstallationReport[] | null>([]);
+  installationReports = signal<InstallationReport[] | undefined>([]);
   /** Signal providing registrations */
   registrations = signal<Registration[]>([]);
 
@@ -224,7 +224,7 @@ export class Bes3EbikeDetailsComponent implements OnInit {
     this.releaseManagementService
       .getInstallationReports(bikeId)
       .subscribe((installationReports) => {
-        this.installationReports.set(installationReports.installationReports);
+        this.installationReports.set(installationReports?.installationReports);
       });
   }
 
