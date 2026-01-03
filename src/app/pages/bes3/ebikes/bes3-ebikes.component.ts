@@ -33,6 +33,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BikePassService } from '../../../services/api/bes3/bike-pass.service';
 import { BulkConfigurationService } from '../../../services/api/bes3/bulk-configuration.service';
 import { DiagnosisFieldDataService } from '../../../services/api/bes3/diagnosis-field-data.service';
+import { DigitalServiceBookService } from '../../../services/api/bes3/digital-service-book.service';
 
 /**
  * Displays eBikes
@@ -81,6 +82,8 @@ export class Bes3EbikesComponent implements OnInit {
   private bulkConfigurationService = inject(BulkConfigurationService);
   /** Diagnosis field data service */
   private diagnosisFieldDataService = inject(DiagnosisFieldDataService);
+  /** Digital service book service */
+  private digitalServiceBookService = inject(DigitalServiceBookService);
   /** eBike registration service */
   private ebikeRegistrationService = inject(EbikeRegistrationService);
 
@@ -172,7 +175,6 @@ export class Bes3EbikesComponent implements OnInit {
         bikes.bikes.forEach((bike) => {
           this.bikePassService.fetch(bike.id);
           this.bulkConfigurationService.fetch(bike.id);
-
           this.diagnosisFieldDataService.fetch(
             bike.driveUnit.partNumber,
             bike.driveUnit.serialNumber,
@@ -205,6 +207,7 @@ export class Bes3EbikesComponent implements OnInit {
               bike.headUnit.serialNumber,
             );
           }
+          this.digitalServiceBookService.fetch(bike.id);
         });
       });
     });

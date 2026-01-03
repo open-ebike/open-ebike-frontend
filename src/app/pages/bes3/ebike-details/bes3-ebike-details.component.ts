@@ -111,7 +111,7 @@ export class Bes3EbikeDetailsComponent implements OnInit {
   /** Signal providing bulk installation reports */
   bulkInstallationReports = signal<BulkInstallationReport[] | undefined>([]);
   /** Signal providing service records */
-  serviceRecords = signal<ServiceRecord[] | null>([]);
+  serviceRecords = signal<ServiceRecord[] | undefined>([]);
   /** Signal providing remote configuration cases */
   remoteConfigurationCases = signal<Case[] | null>([]);
   /** Signal providing installation reports */
@@ -202,7 +202,7 @@ export class Bes3EbikeDetailsComponent implements OnInit {
     this.digitalServiceBookService
       .getServiceRecords(bikeId)
       .subscribe((serviceRecords) => {
-        this.serviceRecords.set(serviceRecords.serviceRecords);
+        this.serviceRecords.set(serviceRecords?.serviceRecords);
       });
   }
 

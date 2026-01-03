@@ -1,6 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import Dexie, { liveQuery, Table } from 'dexie';
+import { firstValueFrom, from, Observable } from 'rxjs';
 
 export interface ServiceRecords {
   serviceRecords: ServiceRecord[];
@@ -339,6 +341,38 @@ export interface Measurement {
   onBikeMeasurement: boolean;
 }
 
+//
+// Cache
+//
+
+/**
+ * Represents a database item
+ */
+interface DatabaseItem {
+  /** Bike ID */
+  id: string;
+  /** Service records */
+  serviceRecords: ServiceRecords;
+}
+
+/**
+ * Represents a database
+ */
+class Database extends Dexie {
+  /** Database items */
+  items!: Table<DatabaseItem, string>;
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    super('digitalServiceBookDatabase');
+    this.version(1).stores({
+      items: '[partNumber+serialNumber]',
+    });
+  }
+}
+
 /**
  * Handles service records
  */
@@ -349,13 +383,69 @@ export class DigitalServiceBookService {
   /** http client */
   http = inject(HttpClient);
 
+  //
+  // Access
+  //
+
   /**
    * Gets the service records of a Smart System bike
    * @param bikeId bike ID
    */
-  getServiceRecords(bikeId: string) {
+  getServiceRecords(bikeId: string): Observable<ServiceRecords | undefined> {
+    return from(
+      liveQuery(async () => {
+        return (await this.database.items.get(bikeId))?.serviceRecords;
+      }),
+    );
+  }
+
+  //
+  // API calls
+  //
+
+  /**
+   * Gets the service records of a Smart System bike
+   * @param bikeId bike ID
+   */
+  private fetchServiceRecords(bikeId: string) {
     return this.http.get<ServiceRecords>(
       `${environment.eBikeApiUrl}/service-book/smart-system/v1/service-records?bikeId=${bikeId}`,
     );
+  }
+
+  //
+  // Cache
+  //
+
+  /** Database */
+  private database = new Database();
+  /** Loading state */
+  loading = signal<boolean>(false);
+
+  /**
+   * Fetches all items from API and stores them in IndexedDB
+   * @param bikeId bike ID
+   */
+  async fetch(bikeId: string) {
+    this.loading.set(true);
+
+    try {
+      // Fetch items
+      const serviceRecords = await firstValueFrom(
+        this.fetchServiceRecords(bikeId),
+      );
+
+      // Save fetched items to database
+      const itemToSave: DatabaseItem = {
+        id: bikeId,
+        serviceRecords: serviceRecords,
+      };
+      await this.database.items.put(itemToSave);
+      this.loading.set(false);
+      return true;
+    } catch {
+      this.loading.set(false);
+      return false;
+    }
   }
 }
