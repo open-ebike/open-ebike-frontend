@@ -35,6 +35,7 @@ import { BulkConfigurationService } from '../../../services/api/bes3/bulk-config
 import { DiagnosisFieldDataService } from '../../../services/api/bes3/diagnosis-field-data.service';
 import { DigitalServiceBookService } from '../../../services/api/bes3/digital-service-book.service';
 import { ReleaseManagementService } from '../../../services/api/bes3/release-management.service';
+import { RemoteConfigurationService } from '../../../services/api/bes3/remote-configuration.service';
 
 /**
  * Displays eBikes
@@ -89,6 +90,8 @@ export class Bes3EbikesComponent implements OnInit {
   private ebikeRegistrationService = inject(EbikeRegistrationService);
   /** Release management service */
   private releaseManagementService = inject(ReleaseManagementService);
+  /** Remote configuration service */
+  private remoteConfigurationService = inject(RemoteConfigurationService);
 
   //
   // Signals
@@ -212,6 +215,7 @@ export class Bes3EbikesComponent implements OnInit {
           }
           this.digitalServiceBookService.fetch(bike.id);
           this.releaseManagementService.fetch(bike.id);
+          this.remoteConfigurationService.fetch(bike.id);
         });
       });
     });

@@ -29,6 +29,7 @@ import { DiagnosisFieldDataService } from '../../services/api/bes3/diagnosis-fie
 import { DigitalServiceBookService } from '../../services/api/bes3/digital-service-book.service';
 import { EbikeRegistrationService } from '../../services/api/bes3/ebike-registration.service';
 import { ReleaseManagementService } from '../../services/api/bes3/release-management.service';
+import { RemoteConfigurationService } from '../../services/api/bes3/remote-configuration.service';
 
 /**
  * Displays home component
@@ -80,6 +81,8 @@ export class HomeComponent implements OnInit {
   private digitalServiceBookService = inject(DigitalServiceBookService);
   /** Release management service */
   private releaseManagementService = inject(ReleaseManagementService);
+  /** Remote configuration service */
+  private remoteConfigurationService = inject(RemoteConfigurationService);
   /** Activity records service */
   public activityRecordsService = inject(ActivityRecordsService);
   // eBike Registration service */
@@ -151,6 +154,7 @@ export class HomeComponent implements OnInit {
               }
               this.digitalServiceBookService.fetch(bike.id);
               this.releaseManagementService.fetch(bike.id);
+              this.remoteConfigurationService.fetch(bike.id);
             });
           });
         });

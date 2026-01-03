@@ -1,6 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import Dexie, { liveQuery, Table } from 'dexie';
+import { firstValueFrom, from, Observable } from 'rxjs';
 
 export interface Cases {
   cases: Case[];
@@ -179,6 +181,39 @@ export interface UpdatedConfiguration {
   newBikeId: string;
 }
 
+//
+// Cache
+//
+
+/**
+ * Represents a database item
+ */
+interface DatabaseItem {
+  /** ID */
+  id: string;
+  /** Cases */
+  cases: Cases;
+}
+
+/**
+ * Represents a database
+ */
+class Database extends Dexie {
+  /** Database items */
+  items!: Table<DatabaseItem, string>;
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    super('remoteConfigurationDatabase');
+    this.version(1).stores({
+      items: 'id',
+      syncState: 'id',
+    });
+  }
+}
+
 /**
  * Handles remote configurations
  */
@@ -189,17 +224,73 @@ export class RemoteConfigurationService {
   /** http client */
   http = inject(HttpClient);
 
+  //
+  // Access
+  //
+
   /**
    * Gets all available remote configuration cases for a Smart System bike
    * @param bikeId bike ID
    */
-  getRemoteConfigurationCases(bikeId: string) {
+  getRemoteConfigurationCases(bikeId: string): Observable<Cases | undefined> {
+    return from(
+      liveQuery(async () => {
+        return (await this.database.items.get(bikeId))?.cases;
+      }),
+    );
+  }
+
+  //
+  // API calls
+  //
+
+  /**
+   * Gets all available remote configuration cases for a Smart System bike
+   * @param bikeId bike ID
+   */
+  private fetchRemoteConfigurationCases(bikeId: string) {
     let params = new HttpParams();
-    params.set('bikeId', bikeId);
+    params = params.set('bikeId', bikeId);
 
     return this.http.get<Cases>(
       `${environment.eBikeApiUrl}/remote-configuration/smart-system/v1/cases`,
       { params: params },
     );
+  }
+
+  //
+  // Cache
+  //
+
+  /** Database */
+  private database = new Database();
+  /** Loading state */
+  loading = signal<boolean>(false);
+
+  /**
+   * Fetches all items from API and stores them in IndexedDB
+   * @param bikeId bike ID
+   */
+  async fetch(bikeId: string) {
+    this.loading.set(true);
+
+    try {
+      // Fetch items
+      const cases = await firstValueFrom(
+        this.fetchRemoteConfigurationCases(bikeId),
+      );
+
+      // Save fetched items to database
+      const itemToSave: DatabaseItem = {
+        id: bikeId,
+        cases: cases,
+      };
+      await this.database.items.put(itemToSave);
+      this.loading.set(false);
+      return true;
+    } catch {
+      this.loading.set(false);
+      return false;
+    }
   }
 }
