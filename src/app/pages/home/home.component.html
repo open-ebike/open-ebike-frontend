@@ -62,7 +62,10 @@
               </mat-card>
               <mat-card
                 class="selectable-card bes3"
-                [routerLink]="['/bes3/registrations']"
+                [class.grey]="registrationService.loading()"
+                [routerLink]="
+                  registrationService.loading() ? [] : ['/bes3/registrations']
+                "
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 <mat-card-header>

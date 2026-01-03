@@ -27,6 +27,7 @@ import { BikePassService } from '../../services/api/bes3/bike-pass.service';
 import { BulkConfigurationService } from '../../services/api/bes3/bulk-configuration.service';
 import { DiagnosisFieldDataService } from '../../services/api/bes3/diagnosis-field-data.service';
 import { DigitalServiceBookService } from '../../services/api/bes3/digital-service-book.service';
+import { EbikeRegistrationService } from '../../services/api/bes3/ebike-registration.service';
 
 /**
  * Displays home component
@@ -78,6 +79,8 @@ export class HomeComponent implements OnInit {
   private digitalServiceBookService = inject(DigitalServiceBookService);
   /** Activity records service */
   public activityRecordsService = inject(ActivityRecordsService);
+  // eBike Registration service */
+  public registrationService = inject(EbikeRegistrationService);
 
   //
   // Signals
@@ -158,6 +161,7 @@ export class HomeComponent implements OnInit {
             },
           );
         });
+        this.registrationService.fetchAll().then(() => {});
       }
     });
   }

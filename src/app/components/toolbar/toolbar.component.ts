@@ -12,6 +12,7 @@ import { Media, MediaService } from '../../services/media.service';
 import { environment } from '../../../environments/environment';
 import { ActivityRecordsService } from '../../services/api/bes3/activity-records.service';
 import { EbikeProfileService } from '../../services/api/bes3/ebike-profile.service';
+import { EbikeRegistrationService } from '../../services/api/bes3/ebike-registration.service';
 
 /**
  * Displays toolbar
@@ -50,6 +51,8 @@ export class ToolbarComponent {
   public ebikeProfileService = inject(EbikeProfileService);
   /** Activity records service */
   public activityRecordsService = inject(ActivityRecordsService);
+  // eBike Registration service */
+  public registrationService = inject(EbikeRegistrationService);
 
   /** Language */
   lang = getBrowserLang();
