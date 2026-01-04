@@ -7,16 +7,15 @@
             <div class="activity-summary flex-container">
               <h2>{{ t("terms.activities") }}</h2>
               <div class="flex-box"></div>
-              @if (!activityRecordsService.loading()) {
-                <button
-                  mat-icon-button
-                  color="primary"
-                  class="refresh-button"
-                  (click)="onRefreshClicked()"
-                >
-                  <mat-icon>refresh</mat-icon>
-                </button>
-              }
+              <button
+                mat-icon-button
+                color="primary"
+                class="refresh-button"
+                [disabled]="activityRecordsService.loading()"
+                (click)="onRefreshClicked()"
+              >
+                <mat-icon>refresh</mat-icon>
+              </button>
             </div>
             <mat-list class="activities-list">
               @if (activityRecordsService.loading()) {

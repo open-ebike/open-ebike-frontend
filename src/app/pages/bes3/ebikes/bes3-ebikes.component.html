@@ -5,16 +5,15 @@
         <div class="flex-container">
           <h2>{{ t("title") }}</h2>
           <div class="flex-box"></div>
-          @if (!ebikeProfileService.loading()) {
-            <button
-              mat-icon-button
-              color="primary"
-              class="refresh-button"
-              (click)="onRefreshClicked()"
-            >
-              <mat-icon>refresh</mat-icon>
-            </button>
-          }
+          <button
+            mat-icon-button
+            color="primary"
+            class="refresh-button"
+            [disabled]="ebikeProfileService.loading()"
+            (click)="onRefreshClicked()"
+          >
+            <mat-icon>refresh</mat-icon>
+          </button>
         </div>
         <div class="grid wide">
           @for (ebikeProfile of ebikeProfiles(); track ebikeProfile) {
