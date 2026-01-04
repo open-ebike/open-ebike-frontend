@@ -67,6 +67,7 @@
                 class="toolbar-menu-item"
                 routerLinkActive="toolbar-menu-item-active"
                 routerLink="/bes3/achievements"
+                [disabled]="achievementService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 {{ t("pages.achievements.title") }}
@@ -282,6 +283,7 @@
                   class="toolbar-menu-item"
                   routerLinkActive="toolbar-menu-item-active"
                   routerLink="/bes3/achievements"
+                  [disabled]="achievementService.loading()"
                   [queryParams]="{ theme: themeService.theme() }"
                 >
                   {{ t("pages.achievements.title") }}

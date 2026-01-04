@@ -19,6 +19,7 @@ import { ActivityRecordsService } from '../../services/api/bes3/activity-records
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { EbikeProfileService } from '../../services/api/bes3/ebike-profile.service';
 import { EbikeRegistrationService } from '../../services/api/bes3/ebike-registration.service';
+import { Bes3AchievementService } from '../../services/achievement/bes3/bes3-achievement.service';
 
 /**
  * Displays home component
@@ -61,6 +62,8 @@ export class HomeComponent implements OnInit {
   public activityRecordsService = inject(ActivityRecordsService);
   // eBike Registration service */
   public registrationService = inject(EbikeRegistrationService);
+  /** Achievement service */
+  public achievementService = inject(Bes3AchievementService);
 
   //
   // Signals

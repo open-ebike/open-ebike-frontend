@@ -13,6 +13,7 @@ import { environment } from '../../../environments/environment';
 import { ActivityRecordsService } from '../../services/api/bes3/activity-records.service';
 import { EbikeProfileService } from '../../services/api/bes3/ebike-profile.service';
 import { EbikeRegistrationService } from '../../services/api/bes3/ebike-registration.service';
+import { Bes3AchievementService } from '../../services/achievement/bes3/bes3-achievement.service';
 
 /**
  * Displays toolbar
@@ -51,8 +52,10 @@ export class ToolbarComponent {
   public ebikeProfileService = inject(EbikeProfileService);
   /** Activity records service */
   public activityRecordsService = inject(ActivityRecordsService);
-  // eBike Registration service */
+  /** eBike Registration service */
   public registrationService = inject(EbikeRegistrationService);
+  /** Achievement service */
+  public achievementService = inject(Bes3AchievementService);
 
   /** Language */
   lang = getBrowserLang();

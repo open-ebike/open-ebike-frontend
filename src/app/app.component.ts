@@ -19,6 +19,7 @@ import { EbikeRegistrationService } from './services/api/bes3/ebike-registration
 import { Bes3AchievementService } from './services/achievement/bes3/bes3-achievement.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@jsverse/transloco';
+import { firstValueFrom, map } from 'rxjs';
 
 /**
  * Displays app component
@@ -169,6 +170,30 @@ export class AppComponent implements OnInit {
           );
         });
         this.registrationService.fetchAll().then(() => {});
+      }
+    });
+
+    // Handle achievement evaluation after required data is loaded
+    effect(() => {
+      if (
+        this.ebikeProfileService.loaded() &&
+        this.activityRecordsService.loaded() &&
+        this.bikePassService.loaded() &&
+        this.registrationService.loaded()
+      ) {
+        // Retrieve data of first activity
+        firstValueFrom(
+          this.activityRecordsService.getAllActivitySummaries(1, 0).pipe(
+            map((activitySummaries) => {
+              return activitySummaries.activitySummaries.length > 0
+                ? new Date(activitySummaries.activitySummaries[0].startTime)
+                : new Date();
+            }),
+          ),
+        ).then((firstActivityDate) => {
+          this.achievementService.initialize(firstActivityDate);
+          this.achievementService.evaluate();
+        });
       }
     });
   }

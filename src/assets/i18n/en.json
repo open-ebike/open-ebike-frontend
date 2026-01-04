@@ -494,6 +494,7 @@
         }
       },
       "actions": {
+        "calculate-achievements": "Calculate Achievements",
         "share-achievement": "Share Achievement"
       }
     },

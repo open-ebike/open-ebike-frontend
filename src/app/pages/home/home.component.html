@@ -84,7 +84,10 @@
               </mat-card>
               <mat-card
                 class="selectable-card bes3"
-                [routerLink]="['/bes3/achievements']"
+                [class.grey]="achievementService.loading()"
+                [routerLink]="
+                  achievementService.loading() ? [] : ['/bes3/achievements']
+                "
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 <mat-card-header>
@@ -276,6 +279,22 @@
               <mat-progress-bar
                 mode="determinate"
                 [value]="activityRecordsService.percentage()"
+              ></mat-progress-bar>
+            }
+            @if (achievementService.loading()) {
+              <div class="flex-container">
+                <p>
+                  {{ t("achievements.actions.calculate-achievements") }} ({{
+                    achievementService.itemCount()
+                  }}
+                  /
+                  {{ achievementService.totalItemCount() }})
+                </p>
+                <div class="flex-box"></div>
+              </div>
+              <mat-progress-bar
+                mode="determinate"
+                [value]="achievementService.percentage()"
               ></mat-progress-bar>
             }
           }

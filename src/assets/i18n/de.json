@@ -493,6 +493,7 @@
         }
       },
       "actions": {
+        "calculate-achievements": "Berechne Errungenschaften",
         "share-achievement": "Errungenschaft teilen"
       }
     },

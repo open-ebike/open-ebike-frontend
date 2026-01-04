@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { ActivityRecordsService } from '../../api/bes3/activity-records.service';
 import { RegionFinderService } from '../../region-finder.service';
-import { firstValueFrom, map } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { EbikeRegistrationService } from '../../api/bes3/ebike-registration.service';
 import { EbikeProfileService } from '../../api/bes3/ebike-profile.service';
 import { Achievement, AchievementService } from '../achievement.service';
@@ -92,24 +92,22 @@ export class Bes3AchievementService {
     ]);
   });
 
-  /**
-   * Constructor
-   */
-  constructor() {
-    this.activityRecordsService
-      .getAllActivitySummaries(1, 0)
-      .pipe(
-        map((activitySummaries) => {
-          return activitySummaries.activitySummaries.length > 0
-            ? new Date(activitySummaries.activitySummaries[0].startTime)
-            : new Date();
-        }),
-      )
-      .subscribe((firstActivityDate) => {
-        this.initialize(firstActivityDate);
-        this.evaluate();
-      });
-  }
+  /** Actual item count */
+  itemCount = signal(0);
+  /** Total item count */
+  totalItemCount = signal(-1);
+  /** Percentage of loaded items */
+  percentage = computed(() => {
+    try {
+      return (this.itemCount() / this.totalItemCount()) * 100;
+    } catch {
+      return 0;
+    }
+  });
+  /** Loading state */
+  loading = computed<boolean>(() => {
+    return this.itemCount() != this.totalItemCount();
+  });
 
   //
   // Initialization
@@ -126,7 +124,9 @@ export class Bes3AchievementService {
   /**
    * Loads bikes, activities, registrations and evaluates if achievements have been reached
    */
-  private async evaluate() {
+  async evaluate() {
+    this.itemCount.set(0);
+
     /** Battery charge cycles */
     let totalBatteryChargeCycles = 0;
 
@@ -167,8 +167,11 @@ export class Bes3AchievementService {
     });
 
     this.activityRecordsService
-      .getAllActivitySummaries(100)
+      .getAllActivitySummaries(Infinity)
       .subscribe(async (activitySummaries) => {
+        // Update total items count
+        this.totalItemCount.set(activitySummaries.activitySummaries.length);
+
         for (let activitySummary of activitySummaries.activitySummaries) {
           const activityDetails = await firstValueFrom(
             this.activityRecordsService.getActivityDetails(activitySummary.id),
@@ -243,6 +246,9 @@ export class Bes3AchievementService {
               activitySummary.startTime,
             ),
           );
+
+          // Update actual items count
+          this.itemCount.update((value) => value + 1);
         }
       });
 
