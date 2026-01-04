@@ -104,7 +104,12 @@
               </mat-card>
               <mat-card
                 class="selectable-card bes3"
-                [routerLink]="['/bes3/yearly-achievements']"
+                [class.grey]="yearlyAchievementService.loading()"
+                [routerLink]="
+                  yearlyAchievementService.loading()
+                    ? []
+                    : ['/bes3/yearly-achievements']
+                "
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 <mat-card-header>
@@ -295,6 +300,23 @@
               <mat-progress-bar
                 mode="determinate"
                 [value]="achievementService.percentage()"
+              ></mat-progress-bar>
+            }
+            @if (yearlyAchievementService.loading()) {
+              <div class="flex-container">
+                <p>
+                  {{
+                    t("yearly-achievements.actions.calculate-achievements")
+                  }}
+                  ({{ yearlyAchievementService.itemCount() }}
+                  /
+                  {{ yearlyAchievementService.totalItemCount() }})
+                </p>
+                <div class="flex-box"></div>
+              </div>
+              <mat-progress-bar
+                mode="determinate"
+                [value]="yearlyAchievementService.percentage()"
               ></mat-progress-bar>
             }
           }

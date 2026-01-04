@@ -511,6 +511,10 @@
           "total-calories-burned": "This year I burned {{value}} kcal using my Bosch-powered eBike",
           "max-altitude": "This year I reached an altitude of {{value}} meters on my Bosch-powered eBike"
         }
+      },
+      "actions": {
+        "calculate-achievements": "Calculate Yearly Achievements",
+        "share-achievement": "Share Achievement"
       }
     },
     "login": {

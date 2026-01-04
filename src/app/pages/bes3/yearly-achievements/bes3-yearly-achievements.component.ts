@@ -5,6 +5,9 @@ import { YearlyAchievementGridComponent } from '../../../components/yearly-achie
 import { Bes3YearlyAchievementService } from '../../../services/yearly-achievement/bes3/bes3-yearly-achievement.service';
 import { YearlyAchievementCarouselComponent } from '../../../components/yearly-achievement-carousel/yearly-achievement-carousel.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 /**
  * Displays yearly achievements
@@ -15,6 +18,9 @@ import { ActivatedRoute, Router } from '@angular/router';
     TranslocoDirective,
     YearlyAchievementGridComponent,
     YearlyAchievementCarouselComponent,
+    MatProgressBar,
+    MatIcon,
+    MatIconButton,
   ],
   templateUrl: './bes3-yearly-achievements.component.html',
   styleUrl: './bes3-yearly-achievements.component.scss',
@@ -58,5 +64,16 @@ export class Bes3YearlyAchievementsComponent {
         `/bes3/yearly-achievements/${this.yearSelected() ?? ''}`,
       ]);
     });
+  }
+
+  //
+  // Actions
+  //
+
+  /**
+   * Handles click on refresh button
+   */
+  onRefreshClicked() {
+    this.yearlyAchievementService.evaluate();
   }
 }

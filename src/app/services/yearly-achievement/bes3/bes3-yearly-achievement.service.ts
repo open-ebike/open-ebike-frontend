@@ -1,5 +1,5 @@
-import { inject, Injectable, signal } from '@angular/core';
-import { firstValueFrom, map } from 'rxjs';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import {
   YearlyAchievement,
   YearlyAchievementService,
@@ -39,25 +39,6 @@ export class Bes3YearlyAchievementService {
     new Map<number, Map<YearlyAchievementType, YearlyAchievement>>(),
   );
 
-  /**
-   * Constructor
-   */
-  constructor() {
-    this.activityRecordsService
-      .getAllActivitySummaries(1, 0)
-      .pipe(
-        map((activitySummaries) => {
-          return activitySummaries.activitySummaries.length > 0
-            ? new Date(activitySummaries.activitySummaries[0].startTime)
-            : new Date();
-        }),
-      )
-      .subscribe((firstActivityDate) => {
-        this.initialize(firstActivityDate);
-        this.evaluate();
-      });
-  }
-
   //
   // Initialization
   //
@@ -71,13 +52,35 @@ export class Bes3YearlyAchievementService {
     );
   }
 
+  /** Actual item count */
+  itemCount = signal(0);
+  /** Total item count */
+  totalItemCount = signal(-1);
+  /** Percentage of loaded items */
+  percentage = computed(() => {
+    try {
+      return (this.itemCount() / this.totalItemCount()) * 100;
+    } catch {
+      return 0;
+    }
+  });
+  /** Loading state */
+  loading = computed<boolean>(() => {
+    return this.itemCount() != this.totalItemCount();
+  });
+
   /**
    * Loads activities and evaluates if achievements have been reached
    */
-  private async evaluate() {
+  async evaluate() {
+    this.itemCount.set(0);
+
     this.activityRecordsService
       .getAllActivitySummaries(100)
       .subscribe(async (activitySummaries) => {
+        // Update total items count
+        this.totalItemCount.set(activitySummaries.activitySummaries.length);
+
         for (let activitySummary of activitySummaries.activitySummaries) {
           const activityDetails = await firstValueFrom(
             this.activityRecordsService.getActivityDetails(activitySummary.id),
@@ -101,6 +104,9 @@ export class Bes3YearlyAchievementService {
               activityDetails.activityDetails,
             ),
           );
+
+          // Update actual items count
+          this.itemCount.update((value) => value + 1);
         }
       });
   }

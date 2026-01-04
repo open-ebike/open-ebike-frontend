@@ -20,6 +20,7 @@ import { Bes3AchievementService } from './services/achievement/bes3/bes3-achieve
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@jsverse/transloco';
 import { firstValueFrom, map } from 'rxjs';
+import { Bes3YearlyAchievementService } from './services/yearly-achievement/bes3/bes3-yearly-achievement.service';
 
 /**
  * Displays app component
@@ -70,6 +71,8 @@ export class AppComponent implements OnInit {
   public registrationService = inject(EbikeRegistrationService);
   /** Achievement service */
   public achievementService = inject(Bes3AchievementService);
+  /** Yearly achievement service */
+  public yearlyAchievementService = inject(Bes3YearlyAchievementService);
 
   /**
    * Constructor
@@ -193,6 +196,25 @@ export class AppComponent implements OnInit {
         ).then((firstActivityDate) => {
           this.achievementService.initialize(firstActivityDate);
           this.achievementService.evaluate();
+        });
+      }
+    });
+
+    // Handle yearly achievement evaluation after required data is loaded
+    effect(() => {
+      if (this.activityRecordsService.loaded()) {
+        // Retrieve data of first activity
+        firstValueFrom(
+          this.activityRecordsService.getAllActivitySummaries(1, 0).pipe(
+            map((activitySummaries) => {
+              return activitySummaries.activitySummaries.length > 0
+                ? new Date(activitySummaries.activitySummaries[0].startTime)
+                : new Date();
+            }),
+          ),
+        ).then((firstActivityDate) => {
+          this.yearlyAchievementService.initialize(firstActivityDate);
+          this.yearlyAchievementService.evaluate();
         });
       }
     });

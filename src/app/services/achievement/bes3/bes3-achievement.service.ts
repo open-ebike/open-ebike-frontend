@@ -92,6 +92,18 @@ export class Bes3AchievementService {
     ]);
   });
 
+  //
+  // Initialization
+  //
+
+  async initialize(firstActivityDate: Date) {
+    const achievementsTimePeriods =
+      this.achievementService.initializeAchievementsTimePeriods(
+        firstActivityDate,
+      );
+    this.achievementsTimePeriods.set(achievementsTimePeriods);
+  }
+
   /** Actual item count */
   itemCount = signal(0);
   /** Total item count */
@@ -108,18 +120,6 @@ export class Bes3AchievementService {
   loading = computed<boolean>(() => {
     return this.itemCount() != this.totalItemCount();
   });
-
-  //
-  // Initialization
-  //
-
-  async initialize(firstActivityDate: Date) {
-    const achievementsTimePeriods =
-      this.achievementService.initializeAchievementsTimePeriods(
-        firstActivityDate,
-      );
-    this.achievementsTimePeriods.set(achievementsTimePeriods);
-  }
 
   /**
    * Loads bikes, activities, registrations and evaluates if achievements have been reached

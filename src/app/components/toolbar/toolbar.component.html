@@ -77,6 +77,7 @@
                 class="toolbar-menu-item"
                 routerLinkActive="toolbar-menu-item-active"
                 routerLink="/bes3/yearly-achievements"
+                [disabled]="yearlyAchievementService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 {{ t("pages.yearly-achievements.title") }}
@@ -293,6 +294,7 @@
                   class="toolbar-menu-item"
                   routerLinkActive="toolbar-menu-item-active"
                   routerLink="/bes3/yearly-achievements"
+                  [disabled]="yearlyAchievementService.loading()"
                   [queryParams]="{ theme: themeService.theme() }"
                 >
                   {{ t("pages.yearly-achievements.title") }}

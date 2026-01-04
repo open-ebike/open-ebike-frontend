@@ -20,6 +20,8 @@ import { MatProgressBar } from '@angular/material/progress-bar';
 import { EbikeProfileService } from '../../services/api/bes3/ebike-profile.service';
 import { EbikeRegistrationService } from '../../services/api/bes3/ebike-registration.service';
 import { Bes3AchievementService } from '../../services/achievement/bes3/bes3-achievement.service';
+import { yearlyAchievements } from '../../../environments/yearly-achievements';
+import { Bes3YearlyAchievementService } from '../../services/yearly-achievement/bes3/bes3-yearly-achievement.service';
 
 /**
  * Displays home component
@@ -64,6 +66,8 @@ export class HomeComponent implements OnInit {
   public registrationService = inject(EbikeRegistrationService);
   /** Achievement service */
   public achievementService = inject(Bes3AchievementService);
+  /** Yearly achievement service */
+  public yearlyAchievementService = inject(Bes3YearlyAchievementService);
 
   //
   // Signals
@@ -111,4 +115,6 @@ export class HomeComponent implements OnInit {
         this.themeService.switchTheme(theme ? theme : Theme.LIGHT);
       });
   }
+
+  protected readonly yearlyAchievements = yearlyAchievements;
 }

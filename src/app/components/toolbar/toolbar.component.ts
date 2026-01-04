@@ -14,6 +14,7 @@ import { ActivityRecordsService } from '../../services/api/bes3/activity-records
 import { EbikeProfileService } from '../../services/api/bes3/ebike-profile.service';
 import { EbikeRegistrationService } from '../../services/api/bes3/ebike-registration.service';
 import { Bes3AchievementService } from '../../services/achievement/bes3/bes3-achievement.service';
+import { Bes3YearlyAchievementService } from '../../services/yearly-achievement/bes3/bes3-yearly-achievement.service';
 
 /**
  * Displays toolbar
@@ -56,6 +57,8 @@ export class ToolbarComponent {
   public registrationService = inject(EbikeRegistrationService);
   /** Achievement service */
   public achievementService = inject(Bes3AchievementService);
+  /** Yearly achievement service */
+  public yearlyAchievementService = inject(Bes3YearlyAchievementService);
 
   /** Language */
   lang = getBrowserLang();
