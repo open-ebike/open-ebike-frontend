@@ -112,7 +112,7 @@ class Database extends Dexie {
    * Constructor
    */
   constructor() {
-    super('diagnosisFieldDataDatabase');
+    super('diagnosis-field-data-database');
     this.version(1).stores({
       items: '[partNumber+serialNumber]',
     });

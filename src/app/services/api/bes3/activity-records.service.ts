@@ -140,7 +140,7 @@ class Database extends Dexie {
    * Constructor
    */
   constructor() {
-    super('activityRecordsDatabase');
+    super('activity-records-database');
     this.version(1).stores({
       items: 'id, startTime',
       syncState: 'id',
@@ -260,7 +260,7 @@ export class ActivityRecordsService {
   /** Actual item count */
   itemCount = signal(0);
   /** Total item count */
-  totalItemCount = signal(0);
+  totalItemCount = signal(-1);
   /** Percentage of loaded items */
   percentage = computed(() => {
     try {
@@ -273,6 +273,8 @@ export class ActivityRecordsService {
   loading = computed<boolean>(() => {
     return this.itemCount() != this.totalItemCount();
   });
+  /** Loaded state */
+  loaded = signal<boolean>(false);
 
   /** Chunk size */
   CHUNK_SIZE = 20;
@@ -339,6 +341,7 @@ export class ActivityRecordsService {
           pageIndex++;
         }
       }
+      this.loaded.set(true);
       return true;
     } catch {
       return false;

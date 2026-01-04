@@ -49,7 +49,7 @@ class Database extends Dexie {
    * Constructor
    */
   constructor() {
-    super('bikePassDatabase');
+    super('bike-pass-database');
     this.version(1).stores({
       items: 'id',
       syncState: 'id',
@@ -105,6 +105,8 @@ export class BikePassService {
   private database = new Database();
   /** Loading state */
   loading = signal<boolean>(false);
+  /** Loaded state */
+  loaded = signal<boolean>(false);
 
   /**
    * Fetches all items from API and stores them in IndexedDB
@@ -124,6 +126,7 @@ export class BikePassService {
       };
       await this.database.items.put(itemToSave);
       this.loading.set(false);
+      this.loaded.set(true);
       return true;
     } catch {
       this.loading.set(false);

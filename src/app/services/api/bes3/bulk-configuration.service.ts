@@ -186,7 +186,7 @@ class Database extends Dexie {
    * Constructor
    */
   constructor() {
-    super('bulkConfigurationDatabase');
+    super('bulk-configuration-database');
     this.version(1).stores({
       items: 'id',
       syncState: 'id',

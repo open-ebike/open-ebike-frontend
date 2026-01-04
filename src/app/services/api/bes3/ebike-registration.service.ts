@@ -59,7 +59,7 @@ class Database extends Dexie {
    * Constructor
    */
   constructor() {
-    super('ebikeRegistrationDatabase');
+    super('ebike-registration-database');
     this.version(1).stores({
       items: 'createdAt',
       syncState: 'createdAt',
@@ -120,6 +120,8 @@ export class EbikeRegistrationService {
   private database = new Database();
   /** Loading state */
   loading = signal<boolean>(false);
+  /** Loaded state */
+  loaded = signal<boolean>(false);
 
   /**
    * Fetches all items from API and stores them in IndexedDB
@@ -140,6 +142,7 @@ export class EbikeRegistrationService {
       );
       await this.database.items.bulkPut(itemsToSave);
       this.loading.set(false);
+      this.loaded.set(true);
       return true;
     } catch {
       this.loading.set(false);

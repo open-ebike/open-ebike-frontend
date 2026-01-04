@@ -366,7 +366,7 @@ class Database extends Dexie {
    * Constructor
    */
   constructor() {
-    super('digitalServiceBookDatabase');
+    super('digital-service-book-database');
     this.version(1).stores({
       items: '[partNumber+serialNumber]',
     });
