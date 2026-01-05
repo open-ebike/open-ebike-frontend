@@ -140,7 +140,7 @@ class Database extends Dexie {
    * Constructor
    */
   constructor() {
-    super('activity-records-database');
+    super('bes3-activity-records-database');
     this.version(1).stores({
       items: 'id, startTime',
       syncState: 'id',

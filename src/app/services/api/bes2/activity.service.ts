@@ -1,8 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { EMPTY, expand, map, Observable, reduce } from 'rxjs';
+import { firstValueFrom, from, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { ActivitySummarySort } from '../bes3/activity-records.service';
+import Dexie, { liveQuery, Table } from 'dexie';
 
 export interface ActivitySummaries {
   pagination: ActivitySummariesPagination;
@@ -180,6 +180,72 @@ export interface TotalStatistics {
   yearlyDistance?: number;
 }
 
+//
+// Cache
+//
+
+/**
+ * Represents a database item
+ */
+interface DatabaseItem {
+  /** ID */
+  id: string;
+  /** Start time */
+  startTime: string;
+  /** Activity summary */
+  activitySummary: ActivitySummary;
+  /** Activity details */
+  activityDetails: ActivityDetail;
+}
+
+/**
+ * Represents a database
+ */
+class Database extends Dexie {
+  /** Database items */
+  items!: Table<DatabaseItem, string>;
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    super('bes2-activity-database');
+    this.version(1).stores({
+      items: 'id, startTime',
+      syncState: 'id',
+    });
+  }
+}
+
+/**
+ * Represents a database item
+ */
+interface StatisticsDatabaseItem {
+  /** ID */
+  id: string;
+  /** Statistics */
+  statistics: Statistics;
+}
+
+/**
+ * Represents a database
+ */
+class StatisticsDatabase extends Dexie {
+  /** Database items */
+  items!: Table<StatisticsDatabaseItem, string>;
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    super('bes2-activity-statistics-database');
+    this.version(1).stores({
+      items: 'id',
+      syncState: 'id',
+    });
+  }
+}
+
 /**
  * Handles activities
  */
@@ -190,51 +256,40 @@ export class ActivityService {
   /** http client */
   http = inject(HttpClient);
 
+  //
+  // Access
+  //
+
   /**
    * Lists all activity summaries
    * @param limit limit
    * @param offset offset
    */
   getAllActivitySummaries(
-    limit: number,
-    offset: number,
+    limit: number = 20,
+    offset: number = 0,
   ): Observable<ActivitySummaries> {
-    return this.http.get<ActivitySummaries>(
-      `${environment.eBikeApiUrl}/activity/ebike-system-2/v1/activities?limit=${limit}&offset=${offset}`,
-    );
-  }
+    return from(
+      liveQuery(async () => {
+        const collection = this.database.items.orderBy('startTime').reverse();
 
-  /** Maximum limit of activity API calls */
-  MAX_LIMIT = 100;
+        const [items, totalCount] = await Promise.all([
+          collection.offset(offset).limit(limit).toArray(),
+          this.database.items.count(),
+        ]);
 
-  /**
-   * Lists all activity summaries
-   * @param chunkSize chunk size
-   */
-  getAllActivitySummariesRecursively(
-    chunkSize: number = this.MAX_LIMIT,
-  ): Observable<ActivitySummary[]> {
-    chunkSize = Math.min(chunkSize, this.MAX_LIMIT);
-
-    let offset = 0;
-    let total = 0;
-
-    return this.getAllActivitySummaries(chunkSize, offset).pipe(
-      expand((response) => {
-        total = response.pagination.total || 0;
-        offset = offset + chunkSize;
-
-        if (offset < total) {
-          return this.getAllActivitySummaries(chunkSize, offset);
-        } else {
-          return EMPTY;
-        }
+        return {
+          activities: items.map((item) => {
+            return item.activitySummary;
+          }),
+          pagination: {
+            total: totalCount,
+            offset: offset,
+            limit: limit,
+          },
+          links: {},
+        } as ActivitySummaries;
       }),
-
-      map((response) => response.activities),
-      reduce((acc: ActivitySummary[], pageData: ActivitySummary[]) => {
-        return acc.concat(pageData);
-      }, []),
     );
   }
 
@@ -243,6 +298,48 @@ export class ActivityService {
    * @param id activity ID
    */
   getActivityDetails(id: number): Observable<ActivityDetail> {
+    return from(
+      liveQuery(async () => {
+        return (await this.database.items.get(id.toString()))
+          ?.activityDetails as ActivityDetail;
+      }),
+    );
+  }
+
+  /**
+   * Lists statistics
+   */
+  getStatistics(): Observable<Statistics | undefined> {
+    return from(
+      liveQuery(async () => {
+        return (await this.statisticsDatabase.items.get('0'))?.statistics;
+      }),
+    );
+  }
+
+  //
+  // API calls
+  //
+
+  /**
+   * Lists all activity summaries
+   * @param limit limit
+   * @param offset offset
+   */
+  private fetchAllActivitySummaries(
+    limit: number,
+    offset: number,
+  ): Observable<ActivitySummaries> {
+    return this.http.get<ActivitySummaries>(
+      `${environment.eBikeApiUrl}/activity/ebike-system-2/v1/activities?limit=${limit}&offset=${offset}`,
+    );
+  }
+
+  /**
+   * Retrieve details of a single activity
+   * @param id activity ID
+   */
+  private fetchActivityDetails(id: number): Observable<ActivityDetail> {
     return this.http.get<ActivityDetail>(
       `${environment.eBikeApiUrl}/activity/ebike-system-2/v1/activities/${id}`,
     );
@@ -251,9 +348,121 @@ export class ActivityService {
   /**
    * Lists statistics
    */
-  getStatistics(): Observable<Statistics> {
+  private fetchStatistics(): Observable<Statistics> {
     return this.http.get<Statistics>(
       `${environment.eBikeApiUrl}/activity/ebike-system-2/v1/statistics`,
     );
+  }
+
+  //
+  // Cache
+  //
+
+  /** Database */
+  private database = new Database();
+  /** Database */
+  private statisticsDatabase = new StatisticsDatabase();
+  /** Actual item count */
+  itemCount = signal(0);
+  /** Total item count */
+  totalItemCount = signal(-1);
+  /** Percentage of loaded items */
+  percentage = computed(() => {
+    try {
+      return (this.itemCount() / this.totalItemCount()) * 100;
+    } catch {
+      return 0;
+    }
+  });
+  /** Loading state */
+  loading = computed<boolean>(() => {
+    return this.itemCount() != this.totalItemCount();
+  });
+  /** Loaded state */
+  loaded = signal<boolean>(false);
+
+  /** Chunk size */
+  CHUNK_SIZE = 20;
+
+  /**
+   * Fetches all items from API and stores them in IndexedDB
+   */
+  async fetchAll() {
+    try {
+      // Update actual items count
+      this.itemCount.set(await this.database.items.count());
+
+      // Get the latest known date
+      const mostRecentItem = await this.database.items
+        .orderBy('startTime')
+        .reverse()
+        .first();
+      const latestKnownDate = mostRecentItem ? mostRecentItem.startTime : null;
+
+      let pageIndex = 0;
+      let keepFetching = true;
+
+      while (keepFetching) {
+        // Fetch page
+        const page = await firstValueFrom(
+          this.fetchAllActivitySummaries(this.CHUNK_SIZE, pageIndex),
+        );
+
+        // Update total items count
+        this.totalItemCount.set(page.pagination.total);
+
+        // Check if page is empty
+        if (!page || page.activities.length === 0) {
+          keepFetching = false;
+          break;
+        }
+
+        // Save fetched items to database
+        const itemsToSave: DatabaseItem[] = await Promise.all(
+          page.activities.map(async (activity) => ({
+            id: activity.id.toString(),
+            startTime: activity.startTime,
+            activitySummary: activity,
+            activityDetails: await firstValueFrom(
+              this.fetchActivityDetails(activity.id),
+            ),
+          })),
+        );
+        await this.database.items.bulkPut(itemsToSave);
+
+        // Update actual items count
+        this.itemCount.set(await this.database.items.count());
+
+        // Check for overlap
+        if (latestKnownDate) {
+          if (itemsToSave.find((i) => i.startTime <= latestKnownDate!!)) {
+            keepFetching = false;
+          } else {
+            pageIndex++;
+          }
+        } else {
+          pageIndex++;
+        }
+      }
+
+      //
+      // Statistics
+      //
+
+      // Fetch items
+      const statistics = await firstValueFrom(this.fetchStatistics());
+
+      // Save fetched items to database
+      const itemToSave: StatisticsDatabaseItem = {
+        id: '0',
+        statistics: statistics,
+      };
+      await this.statisticsDatabase.items.put(itemToSave);
+
+      this.loaded.set(true);
+      return true;
+    } catch {
+      return false;
+    }
   }
 }

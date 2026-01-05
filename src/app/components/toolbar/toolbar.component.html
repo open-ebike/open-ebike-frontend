@@ -37,7 +37,7 @@
                 class="toolbar-menu-item"
                 routerLinkActive="toolbar-menu-item-active"
                 routerLink="/bes3/ebikes"
-                [disabled]="ebikeProfileService.loading()"
+                [disabled]="bes3EbikeProfileService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 {{ t("pages.ebikes.title") }}
@@ -47,7 +47,7 @@
                 class="toolbar-menu-item"
                 routerLinkActive="toolbar-menu-item-active"
                 routerLink="/bes3/activities"
-                [disabled]="activityRecordsService.loading()"
+                [disabled]="bes3ActivityRecordsService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 {{ t("pages.activities.title") }}
@@ -57,7 +57,7 @@
                 class="toolbar-menu-item"
                 routerLinkActive="toolbar-menu-item-active"
                 routerLink="/bes3/registrations"
-                [disabled]="registrationService.loading()"
+                [disabled]="bes3RegistrationService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 {{ t("pages.registrations.title") }}
@@ -67,7 +67,7 @@
                 class="toolbar-menu-item"
                 routerLinkActive="toolbar-menu-item-active"
                 routerLink="/bes3/achievements"
-                [disabled]="achievementService.loading()"
+                [disabled]="bes3AchievementService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 {{ t("pages.achievements.title") }}
@@ -77,7 +77,7 @@
                 class="toolbar-menu-item"
                 routerLinkActive="toolbar-menu-item-active"
                 routerLink="/bes3/yearly-achievements"
-                [disabled]="yearlyAchievementService.loading()"
+                [disabled]="bes3YearlyAchievementService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 {{ t("pages.yearly-achievements.title") }}
@@ -98,6 +98,7 @@
                 class="toolbar-menu-item"
                 routerLinkActive="toolbar-menu-item-active"
                 routerLink="/bes2/activities"
+                [disabled]="bes2ActivityService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 {{ t("pages.activities.title") }}
@@ -107,6 +108,7 @@
                 class="toolbar-menu-item"
                 routerLinkActive="toolbar-menu-item-active"
                 routerLink="/bes2/statistics"
+                [disabled]="bes2ActivityService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 {{ t("pages.statistics.title") }}
@@ -253,7 +255,7 @@
                   class="toolbar-menu-item"
                   routerLinkActive="toolbar-menu-item-active"
                   routerLink="/bes3/ebikes"
-                  [disabled]="ebikeProfileService.loading()"
+                  [disabled]="bes3EbikeProfileService.loading()"
                   [queryParams]="{ theme: themeService.theme() }"
                 >
                   {{ t("pages.ebikes.title") }}
@@ -264,7 +266,7 @@
                   routerLinkActive="toolbar-menu-item-active"
                   queryParamsHandling="merge"
                   routerLink="/bes3/activities"
-                  [disabled]="activityRecordsService.loading()"
+                  [disabled]="bes3ActivityRecordsService.loading()"
                   [queryParams]="{ theme: themeService.theme() }"
                 >
                   {{ t("pages.activities.title") }}
@@ -274,7 +276,7 @@
                   class="toolbar-menu-item"
                   routerLinkActive="toolbar-menu-item-active"
                   routerLink="/bes3/registrations"
-                  [disabled]="registrationService.loading()"
+                  [disabled]="bes3RegistrationService.loading()"
                   [queryParams]="{ theme: themeService.theme() }"
                 >
                   {{ t("pages.registrations.title") }}
@@ -284,7 +286,7 @@
                   class="toolbar-menu-item"
                   routerLinkActive="toolbar-menu-item-active"
                   routerLink="/bes3/achievements"
-                  [disabled]="achievementService.loading()"
+                  [disabled]="bes3AchievementService.loading()"
                   [queryParams]="{ theme: themeService.theme() }"
                 >
                   {{ t("pages.achievements.title") }}
@@ -294,7 +296,7 @@
                   class="toolbar-menu-item"
                   routerLinkActive="toolbar-menu-item-active"
                   routerLink="/bes3/yearly-achievements"
-                  [disabled]="yearlyAchievementService.loading()"
+                  [disabled]="bes3YearlyAchievementService.loading()"
                   [queryParams]="{ theme: themeService.theme() }"
                 >
                   {{ t("pages.yearly-achievements.title") }}
@@ -315,6 +317,7 @@
                   class="toolbar-menu-item"
                   routerLinkActive="toolbar-menu-item-active"
                   routerLink="/bes2/activities"
+                  [disabled]="bes2ActivityService.loading()"
                   [queryParams]="{ theme: themeService.theme() }"
                 >
                   {{ t("pages.activities.title") }}

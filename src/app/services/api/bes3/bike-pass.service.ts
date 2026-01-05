@@ -49,7 +49,7 @@ class Database extends Dexie {
    * Constructor
    */
   constructor() {
-    super('bike-pass-database');
+    super('bes3-bike-pass-database');
     this.version(1).stores({
       items: 'id',
       syncState: 'id',

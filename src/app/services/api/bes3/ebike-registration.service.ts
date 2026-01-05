@@ -59,7 +59,7 @@ class Database extends Dexie {
    * Constructor
    */
   constructor() {
-    super('ebike-registration-database');
+    super('bes3-ebike-registration-database');
     this.version(1).stores({
       items: 'createdAt',
       syncState: 'createdAt',

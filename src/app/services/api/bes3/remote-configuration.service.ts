@@ -206,7 +206,7 @@ class Database extends Dexie {
    * Constructor
    */
   constructor() {
-    super('remote-configuration-database');
+    super('bes3-remote-configuration-database');
     this.version(1).stores({
       items: 'id',
       syncState: 'id',

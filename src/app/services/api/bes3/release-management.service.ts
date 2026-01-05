@@ -144,7 +144,7 @@ class Database extends Dexie {
    * Constructor
    */
   constructor() {
-    super('release-management-database');
+    super('bes3-release-management-database');
     this.version(1).stores({
       items: 'id',
       syncState: 'id',

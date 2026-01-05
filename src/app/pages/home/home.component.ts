@@ -15,13 +15,13 @@ import {
 } from '@angular/material/card';
 import { EbikeGeneration } from '../../services/auth/ebike-generation.type';
 import { MatButton } from '@angular/material/button';
-import { ActivityRecordsService } from '../../services/api/bes3/activity-records.service';
+import { ActivityRecordsService as Bes3ActivityRecordsService } from '../../services/api/bes3/activity-records.service';
 import { MatProgressBar } from '@angular/material/progress-bar';
-import { EbikeProfileService } from '../../services/api/bes3/ebike-profile.service';
-import { EbikeRegistrationService } from '../../services/api/bes3/ebike-registration.service';
+import { EbikeProfileService as Bes3EbikeProfileService } from '../../services/api/bes3/ebike-profile.service';
+import { EbikeRegistrationService as Bes3EbikeRegistrationService } from '../../services/api/bes3/ebike-registration.service';
 import { Bes3AchievementService } from '../../services/achievement/bes3/bes3-achievement.service';
-import { yearlyAchievements } from '../../../environments/yearly-achievements';
 import { Bes3YearlyAchievementService } from '../../services/yearly-achievement/bes3/bes3-yearly-achievement.service';
+import { ActivityService as Bes2ActivityService } from '../../services/api/bes2/activity.service';
 
 /**
  * Displays home component
@@ -59,15 +59,18 @@ export class HomeComponent implements OnInit {
   public authenticationService = inject(AuthenticationService);
 
   /** eBike profile service */
-  public ebikeProfileService = inject(EbikeProfileService);
+  public bes3EbikeProfileService = inject(Bes3EbikeProfileService);
   /** Activity records service */
-  public activityRecordsService = inject(ActivityRecordsService);
+  public bes3ActivityRecordsService = inject(Bes3ActivityRecordsService);
   // eBike Registration service */
-  public registrationService = inject(EbikeRegistrationService);
+  public bes3RegistrationService = inject(Bes3EbikeRegistrationService);
   /** Achievement service */
-  public achievementService = inject(Bes3AchievementService);
+  public bes3AchievementService = inject(Bes3AchievementService);
   /** Yearly achievement service */
-  public yearlyAchievementService = inject(Bes3YearlyAchievementService);
+  public bes3YearlyAchievementService = inject(Bes3YearlyAchievementService);
+
+  /** Activity service */
+  public bes2ActivityService = inject(Bes2ActivityService);
 
   //
   // Signals
@@ -115,6 +118,4 @@ export class HomeComponent implements OnInit {
         this.themeService.switchTheme(theme ? theme : Theme.LIGHT);
       });
   }
-
-  protected readonly yearlyAchievements = yearlyAchievements;
 }

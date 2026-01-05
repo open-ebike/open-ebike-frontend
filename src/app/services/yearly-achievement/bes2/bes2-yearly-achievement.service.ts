@@ -11,7 +11,6 @@ import {
 import { firstValueFrom, map } from 'rxjs';
 import { RegionFinderService } from '../../region-finder.service';
 import { YearlyAchievementType } from '../../../../environments/yearly-achievements';
-import { ActivityDetails } from '../../api/bes3/activity-records.service';
 
 /**
  * Handles yearly achievements
@@ -77,9 +76,9 @@ export class Bes2YearlyAchievementService {
    */
   private async evaluate() {
     this.activityService
-      .getAllActivitySummariesRecursively(100)
+      .getAllActivitySummaries(Infinity)
       .subscribe(async (activitySummaries) => {
-        for (let activitySummary of activitySummaries) {
+        for (let activitySummary of activitySummaries.activities) {
           const activityDetails = await firstValueFrom(
             this.activityService.getActivityDetails(activitySummary.id),
           );

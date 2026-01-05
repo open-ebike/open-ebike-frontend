@@ -76,7 +76,7 @@ export class Bes3YearlyAchievementService {
     this.itemCount.set(0);
 
     this.activityRecordsService
-      .getAllActivitySummaries(100)
+      .getAllActivitySummaries(Infinity)
       .subscribe(async (activitySummaries) => {
         // Update total items count
         this.totalItemCount.set(activitySummaries.activitySummaries.length);

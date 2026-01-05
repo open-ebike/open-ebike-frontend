@@ -4,10 +4,37 @@
       <mat-drawer-container hasBackdrop="true" class="drawer-container">
         <mat-drawer #drawerStart mode="over" class="drawer">
           <div class="flex-container-vertical" style="min-height: 100%">
-            <div class="activity-summary">
+            <div class="activity-summary flex-container">
               <h2>{{ t("terms.activities") }}</h2>
+              <div class="flex-box"></div>
+              <button
+                mat-icon-button
+                color="primary"
+                class="refresh-button"
+                [disabled]="activityService.loading()"
+                (click)="onRefreshClicked()"
+              >
+                <mat-icon>refresh</mat-icon>
+              </button>
             </div>
             <mat-list class="activities-list">
+              @if (activityService.loading()) {
+                <mat-list-item class="list-item">
+                  <div class="flex-container">
+                    <p>
+                      {{ t("actions.fetch-activities") }} ({{
+                        activityService.itemCount()
+                      }}
+                      /
+                      {{ activityService.totalItemCount() }})
+                    </p>
+                  </div>
+                  <mat-progress-bar
+                    mode="determinate"
+                    [value]="activityService.percentage()"
+                  ></mat-progress-bar>
+                </mat-list-item>
+              }
               @for (
                 activitySummary of activitySummaries();
                 track activitySummary

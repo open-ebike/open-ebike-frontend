@@ -7,20 +7,21 @@ import { environment } from '../environments/environment';
 import { AuthenticationService } from './services/authentication.service';
 import { Meta } from '@angular/platform-browser';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { EbikeProfileService } from './services/api/bes3/ebike-profile.service';
-import { BikePassService } from './services/api/bes3/bike-pass.service';
-import { BulkConfigurationService } from './services/api/bes3/bulk-configuration.service';
-import { DiagnosisFieldDataService } from './services/api/bes3/diagnosis-field-data.service';
-import { DigitalServiceBookService } from './services/api/bes3/digital-service-book.service';
-import { ReleaseManagementService } from './services/api/bes3/release-management.service';
-import { RemoteConfigurationService } from './services/api/bes3/remote-configuration.service';
-import { ActivityRecordsService } from './services/api/bes3/activity-records.service';
-import { EbikeRegistrationService } from './services/api/bes3/ebike-registration.service';
+import { EbikeProfileService as Bes3EbikeProfileService } from './services/api/bes3/ebike-profile.service';
+import { BikePassService as Bes3BikePassService } from './services/api/bes3/bike-pass.service';
+import { BulkConfigurationService as Bes3BulkConfigurationService } from './services/api/bes3/bulk-configuration.service';
+import { DiagnosisFieldDataService as Bes3DiagnosisFieldDataService } from './services/api/bes3/diagnosis-field-data.service';
+import { DigitalServiceBookService as Bes3DigitalServiceBookService } from './services/api/bes3/digital-service-book.service';
+import { ReleaseManagementService as Bes3ReleaseManagementService } from './services/api/bes3/release-management.service';
+import { RemoteConfigurationService as Bes3RemoteConfigurationService } from './services/api/bes3/remote-configuration.service';
+import { ActivityRecordsService as Bes3ActivityRecordsService } from './services/api/bes3/activity-records.service';
+import { EbikeRegistrationService as Bes3EbikeRegistrationService } from './services/api/bes3/ebike-registration.service';
 import { Bes3AchievementService } from './services/achievement/bes3/bes3-achievement.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@jsverse/transloco';
 import { firstValueFrom, map } from 'rxjs';
 import { Bes3YearlyAchievementService } from './services/yearly-achievement/bes3/bes3-yearly-achievement.service';
+import { ActivityService as Bes2ActivityService } from './services/api/bes2/activity.service';
 
 /**
  * Displays app component
@@ -52,27 +53,32 @@ export class AppComponent implements OnInit {
   private translocoService = inject(TranslocoService);
 
   /** eBike profile service */
-  public ebikeProfileService = inject(EbikeProfileService);
+  private bes3EbikeProfileService = inject(Bes3EbikeProfileService);
   /** Bike pass service */
-  private bikePassService = inject(BikePassService);
+  private bes3BikePassService = inject(Bes3BikePassService);
   /** Bulk configuration service */
-  private bulkConfigurationService = inject(BulkConfigurationService);
+  private bes3BulkConfigurationService = inject(Bes3BulkConfigurationService);
   /** Diagnosis field data service */
-  private diagnosisFieldDataService = inject(DiagnosisFieldDataService);
+  private bes3DiagnosisFieldDataService = inject(Bes3DiagnosisFieldDataService);
   /** Digital service book service */
-  private digitalServiceBookService = inject(DigitalServiceBookService);
+  private bes3DigitalServiceBookService = inject(Bes3DigitalServiceBookService);
   /** Release management service */
-  private releaseManagementService = inject(ReleaseManagementService);
+  private bes3ReleaseManagementService = inject(Bes3ReleaseManagementService);
   /** Remote configuration service */
-  private remoteConfigurationService = inject(RemoteConfigurationService);
+  private bes3RemoteConfigurationService = inject(
+    Bes3RemoteConfigurationService,
+  );
   /** Activity records service */
-  public activityRecordsService = inject(ActivityRecordsService);
-  // eBike Registration service */
-  public registrationService = inject(EbikeRegistrationService);
+  private bes3ActivityRecordsService = inject(Bes3ActivityRecordsService);
+  /** eBike Registration service */
+  private bes3RegistrationService = inject(Bes3EbikeRegistrationService);
   /** Achievement service */
-  public achievementService = inject(Bes3AchievementService);
+  private bes3AchievementService = inject(Bes3AchievementService);
   /** Yearly achievement service */
-  public yearlyAchievementService = inject(Bes3YearlyAchievementService);
+  private bes3YearlyAchievementService = inject(Bes3YearlyAchievementService);
+
+  /** Activity service */
+  private bes2ActivityService = inject(Bes2ActivityService);
 
   /**
    * Constructor
@@ -112,56 +118,56 @@ export class AppComponent implements OnInit {
       }
     });
 
-    // Handle initial load after login
+    // Handle initial load after login (BES3)
     effect(() => {
       if (
         this.authenticationService.loggedIn() &&
         this.authenticationService.ebikeGeneration() == 'BES3'
       ) {
-        this.ebikeProfileService.fetchAll().then(() => {
-          this.ebikeProfileService.getAllBikes().subscribe((bikes) => {
+        this.bes3EbikeProfileService.fetchAll().then(() => {
+          this.bes3EbikeProfileService.getAllBikes().subscribe((bikes) => {
             bikes.bikes.forEach((bike) => {
-              this.bikePassService.fetch(bike.id);
-              this.bulkConfigurationService.fetch(bike.id);
-              this.diagnosisFieldDataService.fetch(
+              this.bes3BikePassService.fetch(bike.id);
+              this.bes3BulkConfigurationService.fetch(bike.id);
+              this.bes3DiagnosisFieldDataService.fetch(
                 bike.driveUnit.partNumber,
                 bike.driveUnit.serialNumber,
               );
-              this.diagnosisFieldDataService.fetch(
+              this.bes3DiagnosisFieldDataService.fetch(
                 bike.remoteControl.partNumber,
                 bike.remoteControl.serialNumber,
               );
               bike.batteries?.forEach((battery) => {
-                this.diagnosisFieldDataService.fetch(
+                this.bes3DiagnosisFieldDataService.fetch(
                   battery.partNumber,
                   battery.serialNumber,
                 );
               });
               bike.antiLockBrakeSystems?.forEach((antiLockBrakeSystem) => {
-                this.diagnosisFieldDataService.fetch(
+                this.bes3DiagnosisFieldDataService.fetch(
                   antiLockBrakeSystem.partNumber,
                   antiLockBrakeSystem.serialNumber,
                 );
               });
               if (bike.connectModule) {
-                this.diagnosisFieldDataService.fetch(
+                this.bes3DiagnosisFieldDataService.fetch(
                   bike.connectModule.partNumber,
                   bike.connectModule.serialNumber,
                 );
               }
               if (bike.headUnit) {
-                this.diagnosisFieldDataService.fetch(
+                this.bes3DiagnosisFieldDataService.fetch(
                   bike.headUnit.partNumber,
                   bike.headUnit.serialNumber,
                 );
               }
-              this.digitalServiceBookService.fetch(bike.id);
-              this.releaseManagementService.fetch(bike.id);
-              this.remoteConfigurationService.fetch(bike.id);
+              this.bes3DigitalServiceBookService.fetch(bike.id);
+              this.bes3ReleaseManagementService.fetch(bike.id);
+              this.bes3RemoteConfigurationService.fetch(bike.id);
             });
           });
         });
-        this.activityRecordsService.fetchAll().then((success) => {
+        this.bes3ActivityRecordsService.fetchAll().then((success) => {
           this.snackbar.open(
             this.translocoService.translate(
               `pages.activities.messages.fetching-activities-${success ? 'successful' : 'failed'}`,
@@ -172,21 +178,41 @@ export class AppComponent implements OnInit {
             },
           );
         });
-        this.registrationService.fetchAll().then(() => {});
+        this.bes3RegistrationService.fetchAll().then(() => {});
+      }
+    });
+
+    // Handle initial load after login (BES2)
+    effect(() => {
+      if (
+        this.authenticationService.loggedIn() &&
+        this.authenticationService.ebikeGeneration() == 'BES2'
+      ) {
+        this.bes2ActivityService.fetchAll().then((success) => {
+          this.snackbar.open(
+            this.translocoService.translate(
+              `pages.activities.messages.fetching-activities-${success ? 'successful' : 'failed'}`,
+            ),
+            undefined,
+            {
+              duration: 1_500,
+            },
+          );
+        });
       }
     });
 
     // Handle achievement evaluation after required data is loaded
     effect(() => {
       if (
-        this.ebikeProfileService.loaded() &&
-        this.activityRecordsService.loaded() &&
-        this.bikePassService.loaded() &&
-        this.registrationService.loaded()
+        this.bes3EbikeProfileService.loaded() &&
+        this.bes3ActivityRecordsService.loaded() &&
+        this.bes3BikePassService.loaded() &&
+        this.bes3RegistrationService.loaded()
       ) {
         // Retrieve data of first activity
         firstValueFrom(
-          this.activityRecordsService.getAllActivitySummaries(1, 0).pipe(
+          this.bes3ActivityRecordsService.getAllActivitySummaries(1, 0).pipe(
             map((activitySummaries) => {
               return activitySummaries.activitySummaries.length > 0
                 ? new Date(activitySummaries.activitySummaries[0].startTime)
@@ -194,18 +220,18 @@ export class AppComponent implements OnInit {
             }),
           ),
         ).then((firstActivityDate) => {
-          this.achievementService.initialize(firstActivityDate);
-          this.achievementService.evaluate();
+          this.bes3AchievementService.initialize(firstActivityDate);
+          this.bes3AchievementService.evaluate();
         });
       }
     });
 
     // Handle yearly achievement evaluation after required data is loaded
     effect(() => {
-      if (this.activityRecordsService.loaded()) {
+      if (this.bes3ActivityRecordsService.loaded()) {
         // Retrieve data of first activity
         firstValueFrom(
-          this.activityRecordsService.getAllActivitySummaries(1, 0).pipe(
+          this.bes3ActivityRecordsService.getAllActivitySummaries(1, 0).pipe(
             map((activitySummaries) => {
               return activitySummaries.activitySummaries.length > 0
                 ? new Date(activitySummaries.activitySummaries[0].startTime)
@@ -213,8 +239,8 @@ export class AppComponent implements OnInit {
             }),
           ),
         ).then((firstActivityDate) => {
-          this.yearlyAchievementService.initialize(firstActivityDate);
-          this.yearlyAchievementService.evaluate();
+          this.bes3YearlyAchievementService.initialize(firstActivityDate);
+          this.bes3YearlyAchievementService.evaluate();
         });
       }
     });

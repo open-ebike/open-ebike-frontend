@@ -187,7 +187,7 @@ class Database extends Dexie {
    * Constructor
    */
   constructor() {
-    super('ebike-profile-database');
+    super('bes3-ebike-profile-database');
     this.version(1).stores({
       items: 'id',
       syncState: 'id',

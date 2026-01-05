@@ -111,9 +111,9 @@ export class Bes2AchievementService {
     let totalElevationGain = 0;
 
     this.activityService
-      .getAllActivitySummariesRecursively(100)
+      .getAllActivitySummaries(Infinity)
       .subscribe(async (activitySummaries) => {
-        for (let activitySummary of activitySummaries) {
+        for (let activitySummary of activitySummaries.activities) {
           const activityDetails = await firstValueFrom(
             this.activityService.getActivityDetails(activitySummary.id),
           );

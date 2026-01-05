@@ -10,11 +10,12 @@ import { getBrowserLang, TranslocoModule } from '@jsverse/transloco';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Media, MediaService } from '../../services/media.service';
 import { environment } from '../../../environments/environment';
-import { ActivityRecordsService } from '../../services/api/bes3/activity-records.service';
-import { EbikeProfileService } from '../../services/api/bes3/ebike-profile.service';
-import { EbikeRegistrationService } from '../../services/api/bes3/ebike-registration.service';
+import { ActivityRecordsService as Bes3ActivityRecordsService } from '../../services/api/bes3/activity-records.service';
+import { EbikeProfileService as Bes3EbikeProfileService } from '../../services/api/bes3/ebike-profile.service';
+import { EbikeRegistrationService as Bes3EbikeRegistrationService } from '../../services/api/bes3/ebike-registration.service';
 import { Bes3AchievementService } from '../../services/achievement/bes3/bes3-achievement.service';
 import { Bes3YearlyAchievementService } from '../../services/yearly-achievement/bes3/bes3-yearly-achievement.service';
+import { ActivityService as Bes2ActivityService } from '../../services/api/bes2/activity.service';
 
 /**
  * Displays toolbar
@@ -50,15 +51,18 @@ export class ToolbarComponent {
   public authenticationService = inject(AuthenticationService);
 
   /** eBike profile service */
-  public ebikeProfileService = inject(EbikeProfileService);
+  public bes3EbikeProfileService = inject(Bes3EbikeProfileService);
   /** Activity records service */
-  public activityRecordsService = inject(ActivityRecordsService);
-  /** eBike Registration service */
-  public registrationService = inject(EbikeRegistrationService);
+  public bes3ActivityRecordsService = inject(Bes3ActivityRecordsService);
+  // eBike Registration service */
+  public bes3RegistrationService = inject(Bes3EbikeRegistrationService);
   /** Achievement service */
-  public achievementService = inject(Bes3AchievementService);
+  public bes3AchievementService = inject(Bes3AchievementService);
   /** Yearly achievement service */
-  public yearlyAchievementService = inject(Bes3YearlyAchievementService);
+  public bes3YearlyAchievementService = inject(Bes3YearlyAchievementService);
+
+  /** Activity service */
+  public bes2ActivityService = inject(Bes2ActivityService);
 
   /** Language */
   lang = getBrowserLang();

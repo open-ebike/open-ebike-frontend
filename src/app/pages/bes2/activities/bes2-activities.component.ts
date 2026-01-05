@@ -20,7 +20,7 @@ import { DatePipe } from '@angular/common';
 import { MatRipple } from '@angular/material/core';
 import { MetersToKilometersPipe } from '../../../pipes/meters-to-kilometers.pipe';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import {
   ImageMarker,
   MapBoxStyle,
@@ -52,6 +52,8 @@ import {
 } from '../../../services/mapillary.service';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { SharePictureActivityBottomSheetComponent } from '../../../components/share-picture-activity-bottom-sheet/share-picture-activity-bottom-sheet.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatProgressBar } from '@angular/material/progress-bar';
 
 /**
  * Displays activities
@@ -74,6 +76,8 @@ import { SharePictureActivityBottomSheetComponent } from '../../../components/sh
     MatCardFooter,
     MatCard,
     MatCardContent,
+    MatIconButton,
+    MatProgressBar,
   ],
   templateUrl: './bes2-activities.component.html',
   styleUrl: './bes2-activities.component.scss',
@@ -84,6 +88,8 @@ export class Bes2ActivitiesComponent implements OnInit {
   // Injections
   //
 
+  /** Snack bar */
+  private snackbar = inject(MatSnackBar);
   /** Bottom sheet */
   private bottomSheet = inject(MatBottomSheet);
   /** Transloco service */
@@ -97,7 +103,7 @@ export class Bes2ActivitiesComponent implements OnInit {
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
   /** Activity service */
-  private activityService = inject(ActivityService);
+  public activityService = inject(ActivityService);
   /** Mapbox service */
   public mapboxService = inject(MapboxService);
   /** Mapillary service */
@@ -380,6 +386,23 @@ export class Bes2ActivitiesComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   onResize(_: any) {
     this.windowWidth.set(window.innerWidth);
+  }
+
+  /**
+   * Handles click on refresh button
+   */
+  onRefreshClicked() {
+    this.activityService.fetchAll().then((success) => {
+      this.snackbar.open(
+        this.translocoService.translate(
+          `pages.activities.messages.fetching-activities-${success ? 'successful' : 'failed'}`,
+        ),
+        undefined,
+        {
+          duration: 1_500,
+        },
+      );
+    });
   }
 
   /**

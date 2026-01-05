@@ -24,9 +24,9 @@
             <div class="grid-0">
               <mat-card
                 class="selectable-card bes3"
-                [class.grey]="ebikeProfileService.loading()"
+                [class.grey]="bes3EbikeProfileService.loading()"
                 [routerLink]="
-                  ebikeProfileService.loading() ? [] : ['/bes3/ebikes']
+                  bes3EbikeProfileService.loading() ? [] : ['/bes3/ebikes']
                 "
                 [queryParams]="{ theme: themeService.theme() }"
               >
@@ -44,9 +44,11 @@
               </mat-card>
               <mat-card
                 class="selectable-card bes3"
-                [class.grey]="activityRecordsService.loading()"
+                [class.grey]="bes3ActivityRecordsService.loading()"
                 [routerLink]="
-                  activityRecordsService.loading() ? [] : ['/bes3/activities']
+                  bes3ActivityRecordsService.loading()
+                    ? []
+                    : ['/bes3/activities']
                 "
                 [queryParams]="{ theme: themeService.theme() }"
               >
@@ -62,9 +64,11 @@
               </mat-card>
               <mat-card
                 class="selectable-card bes3"
-                [class.grey]="registrationService.loading()"
+                [class.grey]="bes3RegistrationService.loading()"
                 [routerLink]="
-                  registrationService.loading() ? [] : ['/bes3/registrations']
+                  bes3RegistrationService.loading()
+                    ? []
+                    : ['/bes3/registrations']
                 "
                 [queryParams]="{ theme: themeService.theme() }"
               >
@@ -84,9 +88,9 @@
               </mat-card>
               <mat-card
                 class="selectable-card bes3"
-                [class.grey]="achievementService.loading()"
+                [class.grey]="bes3AchievementService.loading()"
                 [routerLink]="
-                  achievementService.loading() ? [] : ['/bes3/achievements']
+                  bes3AchievementService.loading() ? [] : ['/bes3/achievements']
                 "
                 [queryParams]="{ theme: themeService.theme() }"
               >
@@ -104,9 +108,9 @@
               </mat-card>
               <mat-card
                 class="selectable-card bes3"
-                [class.grey]="yearlyAchievementService.loading()"
+                [class.grey]="bes3YearlyAchievementService.loading()"
                 [routerLink]="
-                  yearlyAchievementService.loading()
+                  bes3YearlyAchievementService.loading()
                     ? []
                     : ['/bes3/yearly-achievements']
                 "
@@ -155,7 +159,10 @@
               </mat-card>
               <mat-card
                 class="selectable-card bes2"
-                [routerLink]="['/bes2/activities']"
+                [class.grey]="bes2ActivityService.loading()"
+                [routerLink]="
+                  bes2ActivityService.loading() ? [] : ['/bes2/activities']
+                "
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 <mat-card-header>
@@ -170,7 +177,10 @@
               </mat-card>
               <mat-card
                 class="selectable-card bes2"
-                [routerLink]="['/bes2/statistics']"
+                [class.grey]="bes2ActivityService.loading()"
+                [routerLink]="
+                  bes2ActivityService.loading() ? [] : ['/bes2/statistics']
+                "
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 <mat-card-header>
@@ -270,53 +280,69 @@
       <div class="inner-container">
         @switch (authenticationService.ebikeGeneration()) {
           @case ("BES3") {
-            @if (activityRecordsService.loading()) {
+            @if (bes3ActivityRecordsService.loading()) {
               <div class="flex-container">
                 <p>
                   {{ t("activities.actions.fetch-activities") }} ({{
-                    activityRecordsService.itemCount()
+                    bes3ActivityRecordsService.itemCount()
                   }}
                   /
-                  {{ activityRecordsService.totalItemCount() }})
+                  {{ bes3ActivityRecordsService.totalItemCount() }})
                 </p>
                 <div class="flex-box"></div>
               </div>
               <mat-progress-bar
                 mode="determinate"
-                [value]="activityRecordsService.percentage()"
+                [value]="bes3ActivityRecordsService.percentage()"
               ></mat-progress-bar>
             }
-            @if (achievementService.loading()) {
+            @if (bes3AchievementService.loading()) {
               <div class="flex-container">
                 <p>
                   {{ t("achievements.actions.calculate-achievements") }} ({{
-                    achievementService.itemCount()
+                    bes3AchievementService.itemCount()
                   }}
                   /
-                  {{ achievementService.totalItemCount() }})
+                  {{ bes3AchievementService.totalItemCount() }})
                 </p>
                 <div class="flex-box"></div>
               </div>
               <mat-progress-bar
                 mode="determinate"
-                [value]="achievementService.percentage()"
+                [value]="bes3AchievementService.percentage()"
               ></mat-progress-bar>
             }
-            @if (yearlyAchievementService.loading()) {
+            @if (bes3YearlyAchievementService.loading()) {
               <div class="flex-container">
                 <p>
-                  {{
-                    t("yearly-achievements.actions.calculate-achievements")
-                  }}
-                  ({{ yearlyAchievementService.itemCount() }}
+                  {{ t("yearly-achievements.actions.calculate-achievements") }}
+                  ({{ bes3YearlyAchievementService.itemCount() }}
                   /
-                  {{ yearlyAchievementService.totalItemCount() }})
+                  {{ bes3YearlyAchievementService.totalItemCount() }})
                 </p>
                 <div class="flex-box"></div>
               </div>
               <mat-progress-bar
                 mode="determinate"
-                [value]="yearlyAchievementService.percentage()"
+                [value]="bes3YearlyAchievementService.percentage()"
+              ></mat-progress-bar>
+            }
+          }
+          @case ("BES2") {
+            @if (bes2ActivityService.loading()) {
+              <div class="flex-container">
+                <p>
+                  {{ t("activities.actions.fetch-activities") }} ({{
+                    bes2ActivityService.itemCount()
+                  }}
+                  /
+                  {{ bes2ActivityService.totalItemCount() }})
+                </p>
+                <div class="flex-box"></div>
+              </div>
+              <mat-progress-bar
+                mode="determinate"
+                [value]="bes2ActivityService.percentage()"
               ></mat-progress-bar>
             }
           }
