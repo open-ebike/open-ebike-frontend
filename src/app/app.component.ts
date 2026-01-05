@@ -27,6 +27,7 @@ import { DiagnosisEventService as Bes2DiagnosisEventService } from './services/a
 import { DiagnosisFieldDataService as Bes2DiagnosisFieldDataService } from './services/api/bes2/diagnosis-field-data.service';
 import { ReleaseManagementService as Bes2ReleaseManagementService } from './services/api/bes2/release-management.service';
 import { RemoteConfigurationService as Bes2RemoteConfigurationService } from './services/api/bes2/remote-configuration.service';
+import { Bes2AchievementService } from './services/achievement/bes2/bes2-achievement.service';
 
 /**
  * Displays app component
@@ -96,6 +97,8 @@ export class AppComponent implements OnInit {
   );
   /** Activity service */
   private bes2ActivityService = inject(Bes2ActivityService);
+  /** Achievement service */
+  private bes2AchievementService = inject(Bes2AchievementService);
 
   /**
    * Constructor
@@ -111,6 +114,7 @@ export class AppComponent implements OnInit {
       );
     }
 
+    // Handle theme switch
     effect(() => {
       // Theme menus and dialogs
       const overlayContainerClasses =
@@ -241,7 +245,7 @@ export class AppComponent implements OnInit {
       }
     });
 
-    // Handle achievement evaluation after required data is loaded
+    // Handle achievement evaluation after required data is loaded (BES3)
     effect(() => {
       if (
         this.bes3EbikeProfileService.loaded() &&
@@ -265,7 +269,7 @@ export class AppComponent implements OnInit {
       }
     });
 
-    // Handle yearly achievement evaluation after required data is loaded
+    // Handle yearly achievement evaluation after required data is loaded (BES3)
     effect(() => {
       if (this.bes3ActivityRecordsService.loaded()) {
         // Retrieve data of first activity
@@ -280,6 +284,25 @@ export class AppComponent implements OnInit {
         ).then((firstActivityDate) => {
           this.bes3YearlyAchievementService.initialize(firstActivityDate);
           this.bes3YearlyAchievementService.evaluate();
+        });
+      }
+    });
+
+    // Handle achievement evaluation after required data is loaded (BES2)
+    effect(() => {
+      if (this.bes2ActivityService.loaded()) {
+        // Retrieve data of first activity
+        firstValueFrom(
+          this.bes2ActivityService.getAllActivitySummaries(1, 0).pipe(
+            map((activitySummaries) => {
+              return activitySummaries.activities.length > 0
+                ? new Date(activitySummaries.activities[0].startTime)
+                : new Date();
+            }),
+          ),
+        ).then((firstActivityDate) => {
+          this.bes2AchievementService.initialize(firstActivityDate);
+          this.bes2AchievementService.evaluate();
         });
       }
     });

@@ -425,23 +425,24 @@ export class ActivityService {
         }
       }
 
+      // //
+      // // Statistics
+      // //
       //
-      // Statistics
+      // // Fetch items
+      // const statistics = await firstValueFrom(this.fetchStatistics());
       //
-
-      // Fetch items
-      const statistics = await firstValueFrom(this.fetchStatistics());
-
-      // Save fetched items to database
-      const itemToSave: StatisticsDatabaseItem = {
-        id: '0',
-        statistics: statistics,
-      };
-      await this.database.statistics.put(itemToSave);
+      // // Save fetched items to database
+      // const itemToSave: StatisticsDatabaseItem = {
+      //   id: '0',
+      //   statistics: statistics,
+      // };
+      // await this.database.statistics.put(itemToSave);
 
       this.loaded.set(true);
       return true;
-    } catch {
+    } catch (e) {
+      console.log(`FAIL ${JSON.stringify(e)}`);
       return false;
     }
   }

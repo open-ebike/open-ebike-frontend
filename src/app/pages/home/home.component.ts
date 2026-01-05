@@ -22,6 +22,7 @@ import { EbikeRegistrationService as Bes3EbikeRegistrationService } from '../../
 import { Bes3AchievementService } from '../../services/achievement/bes3/bes3-achievement.service';
 import { Bes3YearlyAchievementService } from '../../services/yearly-achievement/bes3/bes3-yearly-achievement.service';
 import { ActivityService as Bes2ActivityService } from '../../services/api/bes2/activity.service';
+import { Bes2AchievementService } from '../../services/achievement/bes2/bes2-achievement.service';
 
 /**
  * Displays home component
@@ -71,6 +72,8 @@ export class HomeComponent implements OnInit {
 
   /** Activity service */
   public bes2ActivityService = inject(Bes2ActivityService);
+  /** Achievement service */
+  public bes2AchievementService = inject(Bes2AchievementService);
 
   //
   // Signals

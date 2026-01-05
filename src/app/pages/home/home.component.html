@@ -197,7 +197,10 @@
               </mat-card>
               <mat-card
                 class="selectable-card bes2"
-                [routerLink]="['/bes2/achievements']"
+                [class.grey]="bes2AchievementService.loading()"
+                [routerLink]="
+                  bes2AchievementService.loading() ? [] : ['/bes2/achievements']
+                "
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 <mat-card-header>
@@ -343,6 +346,22 @@
               <mat-progress-bar
                 mode="determinate"
                 [value]="bes2ActivityService.percentage()"
+              ></mat-progress-bar>
+            }
+            @if (bes2AchievementService.loading()) {
+              <div class="flex-container">
+                <p>
+                  {{ t("achievements.actions.calculate-achievements") }} ({{
+                    bes2AchievementService.itemCount()
+                  }}
+                  /
+                  {{ bes2AchievementService.totalItemCount() }})
+                </p>
+                <div class="flex-box"></div>
+              </div>
+              <mat-progress-bar
+                mode="determinate"
+                [value]="bes2AchievementService.percentage()"
               ></mat-progress-bar>
             }
           }
