@@ -1,7 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { firstValueFrom, from, Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import Dexie, { liveQuery, Table } from 'dexie';
 
 export type ComponentType = 'DRIVE_UNIT' | 'HEAD_UNIT' | 'BATTERY';
 
@@ -84,6 +85,40 @@ export interface HeadUnit extends BaseComponent {
 
 export interface Battery extends BaseComponent {}
 
+//
+// Cache
+//
+
+/**
+ * Represents a database item
+ */
+interface DatabaseItem {
+  /** Part number */
+  duPartNumber: string;
+  /** Serial number */
+  duSerialNumber: string;
+  /** eBike profile */
+  ebikeProfile: EbikeProfile;
+}
+
+/**
+ * Represents a database
+ */
+class Database extends Dexie {
+  /** Database items */
+  items!: Table<DatabaseItem, string>;
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    super('bes2-ebike-profile-database');
+    this.version(1).stores({
+      items: '[duPartNumber+duSerialNumber]',
+    });
+  }
+}
+
 /**
  * Handles eBike profiles
  */
@@ -94,12 +129,55 @@ export class EbikeProfileService {
   /** http client */
   http = inject(HttpClient);
 
+  //
+  // Access
+  //
+
   /**
    * Retrieves details for bikes
    * @partNumber drive unit part number
    * @serialNumber drive unit serial number
    */
   getAllBikes(
+    partNumber?: string,
+    serialNumber?: string,
+  ): Observable<EbikeProfiles | undefined> {
+    return from(
+      liveQuery(async () => {
+        if (partNumber != null && serialNumber != null) {
+          return {
+            bikes: [
+              (
+                await this.database.items.get({
+                  duPartNumber: partNumber,
+                  duSerialNumber: serialNumber,
+                })
+              )?.ebikeProfile,
+            ].filter((item) => {
+              return item !== undefined;
+            }),
+          };
+        } else {
+          return {
+            bikes: (await this.database.items.toArray()).map((item) => {
+              return item.ebikeProfile;
+            }),
+          };
+        }
+      }),
+    );
+  }
+
+  //
+  // API Calls
+  //
+
+  /**
+   * Retrieves details for bikes
+   * @partNumber drive unit part number
+   * @serialNumber drive unit serial number
+   */
+  private fetchAllBikes(
     partNumber?: string,
     serialNumber?: string,
   ): Observable<EbikeProfiles> {
@@ -116,5 +194,42 @@ export class EbikeProfileService {
       `${environment.eBikeApiUrl}/bike-profile/ebike-system-2/v1/bikes`,
       { params: params },
     );
+  }
+
+  //
+  // Cache
+  //
+
+  /** Database */
+  private database = new Database();
+  /** Loading state */
+  loading = signal<boolean>(false);
+
+  /**
+   * Fetches all items from API and stores them in IndexedDB
+   */
+  async fetchAll() {
+    this.loading.set(true);
+
+    try {
+      // Fetch items
+      const bikes = await firstValueFrom(this.fetchAllBikes());
+
+      // Save fetched items to database
+      const itemsToSave: DatabaseItem[] = bikes.bikes.map((bike) => {
+        return {
+          duPartNumber: bike.driveUnit.partNumber,
+          duSerialNumber: bike.driveUnit.serialNumber,
+          ebikeProfile: bike,
+        };
+      });
+
+      await this.database.items.bulkPut(itemsToSave);
+      this.loading.set(false);
+      return true;
+    } catch {
+      this.loading.set(false);
+      return false;
+    }
   }
 }

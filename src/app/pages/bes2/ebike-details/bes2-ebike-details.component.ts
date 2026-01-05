@@ -5,7 +5,6 @@ import {
   MatCardActions,
   MatCardAvatar,
   MatCardContent,
-  MatCardFooter,
   MatCardHeader,
   MatCardSubtitle,
   MatCardTitle,
@@ -120,7 +119,7 @@ export class Bes2EbikeDetailsComponent implements OnInit {
     this.ebikeProfileService
       .getAllBikes(duPartNumber, duSerialNumber)
       .subscribe((eBikeProfiles) => {
-        if (eBikeProfiles.bikes.length == 1) {
+        if (eBikeProfiles?.bikes.length == 1) {
           this.ebikeProfile.set(eBikeProfiles.bikes[0]);
         }
       });

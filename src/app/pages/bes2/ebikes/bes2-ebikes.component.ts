@@ -1,5 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
+import {
+  getBrowserLang,
+  TranslocoDirective,
+  TranslocoService,
+} from '@jsverse/transloco';
 import {
   MatCard,
   MatCardActions,
@@ -19,6 +23,9 @@ import {
 import { AuthenticationService } from '../../../services/authentication.service';
 import { Theme, ThemeService } from '../../../services/theme.service';
 import { combineLatest, first } from 'rxjs';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 /**
  * Displays eBikes
@@ -37,6 +44,8 @@ import { combineLatest, first } from 'rxjs';
     MatCardContent,
     MatCardActions,
     MatCardFooter,
+    MatIcon,
+    MatIconButton,
   ],
   templateUrl: './bes2-ebikes.component.html',
   styleUrl: './bes2-ebikes.component.scss',
@@ -47,21 +56,25 @@ export class Bes2EbikesComponent implements OnInit {
   // Injections
   //
 
+  /** Snack bar */
+  private snackbar = inject(MatSnackBar);
   /** Activated route */
   private route = inject(ActivatedRoute);
+  /** Transloco service */
+  private translocoService = inject(TranslocoService);
   /** Theme service */
   public themeService = inject(ThemeService);
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
   /** eBike profile service */
-  private ebikeProfileService = inject(EbikeProfileService);
+  public ebikeProfileService = inject(EbikeProfileService);
 
   //
   // Signals
   //
 
   /** Signal providing eBike profiles */
-  ebikeProfiles = signal<EbikeProfile[]>([]);
+  ebikeProfiles = signal<EbikeProfile[] | undefined>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -90,7 +103,7 @@ export class Bes2EbikesComponent implements OnInit {
    */
   private initializeEbikes() {
     this.ebikeProfileService.getAllBikes().subscribe((eBikeProfiles) => {
-      this.ebikeProfiles.set(eBikeProfiles.bikes);
+      this.ebikeProfiles.set(eBikeProfiles?.bikes);
     });
   }
 
@@ -105,5 +118,26 @@ export class Bes2EbikesComponent implements OnInit {
 
         this.themeService.switchTheme(theme ? theme : Theme.LIGHT);
       });
+  }
+
+  //
+  // Actions
+  //
+
+  /**
+   * Handles click on refresh button
+   */
+  onRefreshClicked() {
+    this.ebikeProfileService.fetchAll().then((success) => {
+      this.snackbar.open(
+        this.translocoService.translate(
+          `pages.ebikes.messages.fetching-ebikes-${success ? 'successful' : 'failed'}`,
+        ),
+        undefined,
+        {
+          duration: 1_500,
+        },
+      );
+    });
   }
 }

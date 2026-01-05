@@ -22,6 +22,7 @@ import { TranslocoService } from '@jsverse/transloco';
 import { firstValueFrom, map } from 'rxjs';
 import { Bes3YearlyAchievementService } from './services/yearly-achievement/bes3/bes3-yearly-achievement.service';
 import { ActivityService as Bes2ActivityService } from './services/api/bes2/activity.service';
+import { EbikeProfileService as Bes2EbikeProfileService } from './services/api/bes2/ebike-profile.service';
 
 /**
  * Displays app component
@@ -77,6 +78,8 @@ export class AppComponent implements OnInit {
   /** Yearly achievement service */
   private bes3YearlyAchievementService = inject(Bes3YearlyAchievementService);
 
+  /** eBike profile service */
+  private bes2EbikeProfileService = inject(Bes2EbikeProfileService);
   /** Activity service */
   private bes2ActivityService = inject(Bes2ActivityService);
 
@@ -188,6 +191,7 @@ export class AppComponent implements OnInit {
         this.authenticationService.loggedIn() &&
         this.authenticationService.ebikeGeneration() == 'BES2'
       ) {
+        this.bes2EbikeProfileService.fetchAll().then(() => {});
         this.bes2ActivityService.fetchAll().then((success) => {
           this.snackbar.open(
             this.translocoService.translate(
