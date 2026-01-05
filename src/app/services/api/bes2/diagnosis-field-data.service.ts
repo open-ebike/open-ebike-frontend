@@ -1,7 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { firstValueFrom, from, Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import Dexie, { liveQuery, Table } from 'dexie';
 
 export interface CapacityTesterFieldDataResponse {
   /** List of battery measurement data by the Bosch Capacity Tester. */
@@ -318,6 +319,71 @@ export interface DriveUnitFieldData {
   motorMatrix?: string[][];
 }
 
+//
+// Cache
+//
+
+/**
+ * Represents a database item
+ */
+interface CapacityTesterFieldDataDatabaseItem {
+  /** Part number */
+  duPartNumber: string;
+  /** Serial number */
+  duSerialNumber: string;
+  /** Capacity tester field data */
+  capacityTesterFieldData: CapacityTesterFieldDataResponse;
+}
+
+/**
+ * Represents a database item
+ */
+interface BatteryMeasurementFieldDataDatabaseItem {
+  /** Part number */
+  duPartNumber: string;
+  /** Serial number */
+  duSerialNumber: string;
+  /** Battery field data */
+  batteryFieldData: BatteryFieldDataResponse;
+}
+
+/**
+ * Represents a database item
+ */
+interface DriveUnitFieldDataDatabaseItem {
+  /** Part number */
+  duPartNumber: string;
+  /** Serial number */
+  duSerialNumber: string;
+  /** Drive unit field data */
+  driveUnitFieldData: DriveUnitFieldDataResponse;
+}
+
+/**
+ * Represents a database
+ */
+class Database extends Dexie {
+  /** Database items */
+  capacityTesterFieldData!: Table<CapacityTesterFieldDataDatabaseItem, string>;
+  batteryMeasurementFieldData!: Table<
+    BatteryMeasurementFieldDataDatabaseItem,
+    string
+  >;
+  driveUnitFieldData!: Table<DriveUnitFieldDataDatabaseItem, string>;
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    super('bes2-diagnosis-field-data-database');
+    this.version(1).stores({
+      capacityTesterFieldData: '[duPartNumber+duSerialNumber]',
+      batteryMeasurementFieldData: '[duPartNumber+duSerialNumber]',
+      driveUnitFieldData: '[duPartNumber+duSerialNumber]',
+    });
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -325,12 +391,119 @@ export class DiagnosisFieldDataService {
   /** http client */
   http = inject(HttpClient);
 
+  //
+  // Access
+  //
+
   /**
    * Get all available battery measurement field data collected by Bosch Capacity Tester (eBike System 2)
    * @param partNumber part number
    * @param serialNumber serial number
    */
   getAllBatteryMeasurementFieldData(
+    partNumber?: string,
+    serialNumber?: string,
+  ): Observable<CapacityTesterFieldDataResponse> {
+    return from(
+      liveQuery(async () => {
+        if (partNumber != null && serialNumber != null) {
+          return {
+            capacityTesters: (
+              await this.database.capacityTesterFieldData.get({
+                duPartNumber: partNumber,
+                duSerialNumber: serialNumber,
+              })
+            )?.capacityTesterFieldData.capacityTesters!!,
+          };
+        } else {
+          return {
+            capacityTesters: (
+              await this.database.capacityTesterFieldData.toArray()
+            ).flatMap((item) => {
+              return item.capacityTesterFieldData.capacityTesters!!;
+            }),
+          };
+        }
+      }),
+    );
+  }
+
+  /**
+   * Get all available battery field data collected by the battery (eBike System 2)
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  getAllBatteryFieldData(
+    partNumber?: string,
+    serialNumber?: string,
+  ): Observable<BatteryFieldDataResponse> {
+    return from(
+      liveQuery(async () => {
+        if (partNumber != null && serialNumber != null) {
+          return {
+            batteries: (
+              await this.database.batteryMeasurementFieldData.get({
+                duPartNumber: partNumber,
+                duSerialNumber: serialNumber,
+              })
+            )?.batteryFieldData.batteries!!,
+          };
+        } else {
+          return {
+            batteries: (
+              await this.database.batteryMeasurementFieldData.toArray()
+            ).flatMap((item) => {
+              return item.batteryFieldData.batteries!!;
+            }),
+          };
+        }
+      }),
+    );
+  }
+
+  /**
+   * Get all available drive unit field data (eBike System 2)
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  getAllDriveUnitFieldData(
+    partNumber?: string,
+    serialNumber?: string,
+  ): Observable<DriveUnitFieldDataResponse> {
+    return from(
+      liveQuery(async () => {
+        if (partNumber != null && serialNumber != null) {
+          return {
+            driveUnits: (
+              await this.database.driveUnitFieldData.get({
+                duPartNumber: partNumber,
+                duSerialNumber: serialNumber,
+              })
+            )?.driveUnitFieldData.driveUnits!!,
+          };
+        } else {
+          return {
+            driveUnits: (
+              await this.database.driveUnitFieldData.toArray()
+            ).flatMap((item) => {
+              return item.driveUnitFieldData.driveUnits!!;
+            }),
+          };
+        }
+      }),
+    );
+  }
+
+  //
+  // API Calls
+  //
+
+  /**
+   * Get all available battery measurement field data collected by Bosch Capacity Tester (eBike System 2)
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  private fetchAllBatteryMeasurementFieldData(
     partNumber?: string,
     serialNumber?: string,
   ): Observable<CapacityTesterFieldDataResponse> {
@@ -353,7 +526,7 @@ export class DiagnosisFieldDataService {
    * @param partNumber part number
    * @param serialNumber serial number
    */
-  getAllBatteryFieldData(
+  private fetchAllBatteryFieldData(
     partNumber?: string,
     serialNumber?: string,
   ): Observable<BatteryFieldDataResponse> {
@@ -376,7 +549,7 @@ export class DiagnosisFieldDataService {
    * @param partNumber part number
    * @param serialNumber serial number
    */
-  getAllDriveUnitFieldData(
+  private fetchAllDriveUnitFieldData(
     partNumber?: string,
     serialNumber?: string,
   ): Observable<DriveUnitFieldDataResponse> {
@@ -392,5 +565,91 @@ export class DiagnosisFieldDataService {
       `${environment.eBikeApiUrl}/diagnosis-field-data/ebike-system-2/v1/drive-units`,
       { params: params },
     );
+  }
+
+  //
+  // Cache
+  //
+
+  /** Database */
+  private database = new Database();
+  /** Loading state */
+  loading = signal<boolean>(false);
+
+  /**
+   * Fetches all items from API and stores them in IndexedDB
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  async fetch(partNumber: string, serialNumber: string) {
+    this.loading.set(true);
+
+    try {
+      //
+      // Capacity tester field data
+      //
+
+      // Fetch items
+      const capacityTesterFieldData = await firstValueFrom(
+        this.fetchAllBatteryMeasurementFieldData(partNumber, serialNumber),
+      );
+
+      // Save fetched items to database
+      const capacityTesterFieldDataItemToSave: CapacityTesterFieldDataDatabaseItem =
+        {
+          duPartNumber: partNumber,
+          duSerialNumber: serialNumber,
+          capacityTesterFieldData: capacityTesterFieldData,
+        };
+
+      await this.database.capacityTesterFieldData.put(
+        capacityTesterFieldDataItemToSave,
+      );
+
+      //
+      // Battery field data
+      //
+
+      // Fetch items
+      const batteryMeasurementFieldData = await firstValueFrom(
+        this.fetchAllBatteryFieldData(partNumber, serialNumber),
+      );
+
+      // Save fetched items to database
+      const batteryMeasurementFieldDataItemToSave: BatteryMeasurementFieldDataDatabaseItem =
+        {
+          duPartNumber: partNumber,
+          duSerialNumber: serialNumber,
+          batteryFieldData: batteryMeasurementFieldData,
+        };
+
+      await this.database.batteryMeasurementFieldData.put(
+        batteryMeasurementFieldDataItemToSave,
+      );
+
+      //
+      // Drive unit field data
+      //
+
+      // Fetch items
+      const driveUnitFieldData = await firstValueFrom(
+        this.fetchAllDriveUnitFieldData(partNumber, serialNumber),
+      );
+
+      // Save fetched items to database
+      const driveUnitFieldDataItemToSave: DriveUnitFieldDataDatabaseItem = {
+        duPartNumber: partNumber,
+        duSerialNumber: serialNumber,
+        driveUnitFieldData: driveUnitFieldData,
+      };
+
+      await this.database.driveUnitFieldData.put(driveUnitFieldDataItemToSave);
+
+      this.loading.set(false);
+      return true;
+    } catch {
+      this.loading.set(false);
+      return false;
+    }
   }
 }

@@ -106,11 +106,13 @@ export class Bes2ComponentDetailsComponent implements OnInit {
   lockResetEvents = signal<Event[] | undefined>([]);
 
   /** Signal providing battery management field data */
-  batteryMeasurementFieldData = signal<CapacityTesterFieldData[]>([]);
+  batteryMeasurementFieldData = signal<CapacityTesterFieldData[] | undefined>(
+    [],
+  );
   /** Signal providing battery field data */
-  batteryFieldData = signal<BatteryFieldData[]>([]);
+  batteryFieldData = signal<BatteryFieldData[] | undefined>([]);
   /** Signal providing drive unit field data */
-  driveUnitFieldData = signal<DriveUnitFieldData[]>([]);
+  driveUnitFieldData = signal<DriveUnitFieldData[] | undefined>([]);
 
   /** Language */
   lang = getBrowserLang();
@@ -359,7 +361,7 @@ export class Bes2ComponentDetailsComponent implements OnInit {
       .getAllBatteryMeasurementFieldData(partNumber, serialNumber)
       .subscribe((batteryMeasurementFieldData) => {
         this.batteryMeasurementFieldData.set(
-          batteryMeasurementFieldData.capacityTesters,
+          batteryMeasurementFieldData?.capacityTesters,
         );
       });
   }
@@ -376,7 +378,7 @@ export class Bes2ComponentDetailsComponent implements OnInit {
     this.diagnosisFieldDataService
       .getAllBatteryFieldData(partNumber, serialNumber)
       .subscribe((batteryFieldData) => {
-        this.batteryFieldData.set(batteryFieldData.batteries);
+        this.batteryFieldData.set(batteryFieldData?.batteries);
       });
   }
 

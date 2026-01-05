@@ -27,6 +27,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DiagnosisEventService } from '../../../services/api/bes2/diagnosis-event.service';
+import { DiagnosisFieldDataService } from '../../../services/api/bes2/diagnosis-field-data.service';
 
 /**
  * Displays eBikes
@@ -71,6 +72,8 @@ export class Bes2EbikesComponent implements OnInit {
   public ebikeProfileService = inject(EbikeProfileService);
   /** Diagnosis event service */
   private diagnosisEventService = inject(DiagnosisEventService);
+  /** Diagnosis field data service */
+  private diagnosisFieldDataService = inject(DiagnosisFieldDataService);
 
   //
   // Signals
@@ -145,6 +148,10 @@ export class Bes2EbikesComponent implements OnInit {
       this.ebikeProfileService.getAllBikes().subscribe((bikes) => {
         bikes?.bikes.forEach((bike) => {
           this.diagnosisEventService.fetch(
+            bike.driveUnit.partNumber,
+            bike.driveUnit.serialNumber,
+          );
+          this.diagnosisFieldDataService.fetch(
             bike.driveUnit.partNumber,
             bike.driveUnit.serialNumber,
           );
