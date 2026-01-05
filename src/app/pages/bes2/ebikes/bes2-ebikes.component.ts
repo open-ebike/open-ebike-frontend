@@ -29,6 +29,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DiagnosisEventService } from '../../../services/api/bes2/diagnosis-event.service';
 import { DiagnosisFieldDataService } from '../../../services/api/bes2/diagnosis-field-data.service';
 import { ReleaseManagementService } from '../../../services/api/bes2/release-management.service';
+import { RemoteConfigurationService } from '../../../services/api/bes2/remote-configuration.service';
 
 /**
  * Displays eBikes
@@ -77,6 +78,8 @@ export class Bes2EbikesComponent implements OnInit {
   private diagnosisFieldDataService = inject(DiagnosisFieldDataService);
   /** Release management service */
   private releaseManagementService = inject(ReleaseManagementService);
+  /** Remote configuration service */
+  private remoteConfigurationService = inject(RemoteConfigurationService);
 
   //
   // Signals
@@ -159,6 +162,10 @@ export class Bes2EbikesComponent implements OnInit {
             bike.driveUnit.serialNumber,
           );
           this.releaseManagementService.fetch(
+            bike.driveUnit.partNumber,
+            bike.driveUnit.serialNumber,
+          );
+          this.remoteConfigurationService.fetch(
             bike.driveUnit.partNumber,
             bike.driveUnit.serialNumber,
           );

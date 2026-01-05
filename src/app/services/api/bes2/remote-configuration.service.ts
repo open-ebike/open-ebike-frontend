@@ -1,7 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { firstValueFrom, from, Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import Dexie, { liveQuery, Table } from 'dexie';
 
 export interface Cases {
   cases: Case[];
@@ -213,6 +214,40 @@ export interface ManufactureDate {
   value: string;
 }
 
+//
+// Cache
+//
+
+/**
+ * Represents a database item
+ */
+interface DatabaseItem {
+  /** Part number */
+  duPartNumber: string;
+  /** Serial number */
+  duSerialNumber: string;
+  /** Cases */
+  cases: Cases;
+}
+
+/**
+ * Represents a database
+ */
+class DiagnosisEventsDatabase extends Dexie {
+  /** Database items */
+  items!: Table<DatabaseItem, string>;
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    super('bes2-remote-configuration-database');
+    this.version(1).stores({
+      items: '[duPartNumber+duSerialNumber]',
+    });
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -220,12 +255,43 @@ export class RemoteConfigurationService {
   /** http client */
   http = inject(HttpClient);
 
+  //
+  // Access
+  //
+
   /**
    * Gets all available remote configuration cases for an eBike System 2 bike
    * @param partNumber part number
    * @param serialNumber serial number
    */
   getAllRemoteConfigurationCases(
+    partNumber: string,
+    serialNumber: string,
+  ): Observable<Cases> {
+    return from(
+      liveQuery(async () => {
+        return {
+          cases: (
+            await this.database.items.get({
+              duPartNumber: partNumber,
+              duSerialNumber: serialNumber,
+            })
+          )?.cases.cases!!,
+        };
+      }),
+    );
+  }
+
+  //
+  // API Calls
+  //
+
+  /**
+   * Gets all available remote configuration cases for an eBike System 2 bike
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  private fetchAllRemoteConfigurationCases(
     partNumber: string,
     serialNumber: string,
   ): Observable<Cases> {
@@ -237,5 +303,45 @@ export class RemoteConfigurationService {
       `${environment.eBikeApiUrl}/remote-configuration/ebike-system-2/v1/cases`,
       { params: params },
     );
+  }
+
+  //
+  // Cache
+  //
+
+  /** Database */
+  private database = new DiagnosisEventsDatabase();
+  /** Loading state */
+  loading = signal<boolean>(false);
+
+  /**
+   * Fetches all items from API and stores them in IndexedDB
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  async fetch(partNumber: string, serialNumber: string) {
+    this.loading.set(true);
+
+    try {
+      // Fetch items
+      const cases = await firstValueFrom(
+        this.fetchAllRemoteConfigurationCases(partNumber, serialNumber),
+      );
+
+      // Save fetched items to database
+      const itemToSave: DatabaseItem = {
+        duPartNumber: partNumber,
+        duSerialNumber: serialNumber,
+        cases: cases,
+      };
+
+      await this.database.items.put(itemToSave);
+
+      this.loading.set(false);
+      return true;
+    } catch {
+      this.loading.set(false);
+      return false;
+    }
   }
 }
