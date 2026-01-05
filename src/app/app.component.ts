@@ -25,6 +25,7 @@ import { ActivityService as Bes2ActivityService } from './services/api/bes2/acti
 import { EbikeProfileService as Bes2EbikeProfileService } from './services/api/bes2/ebike-profile.service';
 import { DiagnosisEventService as Bes2DiagnosisEventService } from './services/api/bes2/diagnosis-event.service';
 import { DiagnosisFieldDataService as Bes2DiagnosisFieldDataService } from './services/api/bes2/diagnosis-field-data.service';
+import { ReleaseManagementService as Bes2ReleaseManagementService } from './services/api/bes2/release-management.service';
 
 /**
  * Displays app component
@@ -86,6 +87,8 @@ export class AppComponent implements OnInit {
   private bes2DiagnosisEventService = inject(Bes2DiagnosisEventService);
   /** Diagnosis field data service */
   private bes2DiagnosisFieldDataService = inject(Bes2DiagnosisFieldDataService);
+  /** Release management service */
+  private bes2ReleaseManagementService = inject(Bes2ReleaseManagementService);
   /** Activity service */
   private bes2ActivityService = inject(Bes2ActivityService);
 
@@ -205,6 +208,10 @@ export class AppComponent implements OnInit {
                 bike.driveUnit.serialNumber,
               );
               this.bes2DiagnosisFieldDataService.fetch(
+                bike.driveUnit.partNumber,
+                bike.driveUnit.serialNumber,
+              );
+              this.bes2ReleaseManagementService.fetch(
                 bike.driveUnit.partNumber,
                 bike.driveUnit.serialNumber,
               );

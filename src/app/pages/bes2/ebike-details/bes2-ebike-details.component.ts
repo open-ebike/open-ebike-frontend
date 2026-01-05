@@ -135,7 +135,7 @@ export class Bes2EbikeDetailsComponent implements OnInit {
     duSerialNumber: string,
   ) {
     this.releaseManagementService
-      .getInstallationReports(duPartNumber, duSerialNumber)
+      .getInstallationReports(duPartNumber, duSerialNumber, Infinity)
       .subscribe((installationReports) => {
         this.installationReports.set(installationReports.installationReports);
       });

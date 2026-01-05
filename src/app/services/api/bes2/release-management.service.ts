@@ -1,7 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { firstValueFrom, from, Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import Dexie, { liveQuery, Table } from 'dexie';
 
 export interface InstallationReports {
   installationReports: InstallationReport[];
@@ -83,12 +84,102 @@ export interface InstallationReportLinks {
   last?: string;
 }
 
+//
+// Cache
+//
+
+/**
+ * Represents a database item
+ */
+interface DatabaseItem {
+  /** Part number */
+  duPartNumber: string;
+  /** Serial number */
+  duSerialNumber: string;
+  /** Installation reports */
+  installationReports: InstallationReports;
+}
+
+/**
+ * Represents a database
+ */
+class Database extends Dexie {
+  /** Database items */
+  items!: Table<DatabaseItem, string>;
+
+  /**
+   * Constructor
+   */
+  constructor() {
+    super('bes2-release-management-database');
+    this.version(1).stores({
+      items: '[duPartNumber+duSerialNumber]',
+    });
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class ReleaseManagementService {
   /** http client */
   http = inject(HttpClient);
+
+  //
+  // Access
+  //
+
+  /**
+   * Get installation reports of a specified bike
+   * @param partNumber part number
+   * @param serialNumber serial number
+   * @param limit limit
+   * @param offset offset
+   */
+  getInstallationReports(
+    partNumber: string,
+    serialNumber: string,
+    limit: number = 20,
+    offset: number = 0,
+  ): Observable<InstallationReports> {
+    return from(
+      liveQuery(async () => {
+        const collection = this.database.items;
+
+        const [items, totalCount] = await Promise.all([
+          collection
+            .filter((item) => {
+              return (
+                item.duPartNumber == partNumber &&
+                item.duSerialNumber == serialNumber
+              );
+            })
+            .offset(offset)
+            .limit(limit)
+            .toArray(),
+          this.database.items.count(),
+        ]);
+
+        return {
+          installationReports: items.flatMap((item) => {
+            return item.installationReports.installationReports;
+          }),
+          pagination: {
+            total: totalCount,
+            offset: offset,
+            limit: limit,
+          },
+          links: {
+            self: '',
+          },
+        } as InstallationReports;
+      }),
+    );
+  }
+
+  //
+  // API Calls
+  //
 
   /**
    * Get installation reports of a specified bike
@@ -99,7 +190,7 @@ export class ReleaseManagementService {
    * @param limit limit
    * @param offset offset
    */
-  getInstallationReports(
+  private fetchInstallationReports(
     partNumber: string,
     serialNumber: string,
     createdAfter?: string,
@@ -128,5 +219,45 @@ export class ReleaseManagementService {
       `${environment.eBikeApiUrl}/software-update/ebike-system-2/v1/installation-reports`,
       { params: params },
     );
+  }
+
+  //
+  // Cache
+  //
+
+  /** Database */
+  private database = new Database();
+  /** Loading state */
+  loading = signal<boolean>(false);
+
+  /**
+   * Fetches all items from API and stores them in IndexedDB
+   * @param partNumber part number
+   * @param serialNumber serial number
+   */
+  async fetch(partNumber: string, serialNumber: string) {
+    this.loading.set(true);
+
+    try {
+      // Fetch items
+      const installationReports = await firstValueFrom(
+        this.fetchInstallationReports(partNumber, serialNumber),
+      );
+
+      // Save fetched items to database
+      const itemToSave: DatabaseItem = {
+        duPartNumber: partNumber,
+        duSerialNumber: serialNumber,
+        installationReports: installationReports,
+      };
+
+      await this.database.items.put(itemToSave);
+
+      this.loading.set(false);
+      return true;
+    } catch {
+      this.loading.set(false);
+      return false;
+    }
   }
 }
