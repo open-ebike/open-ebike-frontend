@@ -23,6 +23,7 @@ import { Bes3AchievementService } from '../../services/achievement/bes3/bes3-ach
 import { Bes3YearlyAchievementService } from '../../services/yearly-achievement/bes3/bes3-yearly-achievement.service';
 import { ActivityService as Bes2ActivityService } from '../../services/api/bes2/activity.service';
 import { Bes2AchievementService } from '../../services/achievement/bes2/bes2-achievement.service';
+import { Bes2YearlyAchievementService } from '../../services/yearly-achievement/bes2/bes2-yearly-achievement.service';
 
 /**
  * Displays home component
@@ -74,6 +75,8 @@ export class HomeComponent implements OnInit {
   public bes2ActivityService = inject(Bes2ActivityService);
   /** Achievement service */
   public bes2AchievementService = inject(Bes2AchievementService);
+  /** Yearly achievement service */
+  public bes2YearlyAchievementService = inject(Bes2YearlyAchievementService);
 
   //
   // Signals

@@ -28,6 +28,7 @@ import { DiagnosisFieldDataService as Bes2DiagnosisFieldDataService } from './se
 import { ReleaseManagementService as Bes2ReleaseManagementService } from './services/api/bes2/release-management.service';
 import { RemoteConfigurationService as Bes2RemoteConfigurationService } from './services/api/bes2/remote-configuration.service';
 import { Bes2AchievementService } from './services/achievement/bes2/bes2-achievement.service';
+import { Bes2YearlyAchievementService } from './services/yearly-achievement/bes2/bes2-yearly-achievement.service';
 
 /**
  * Displays app component
@@ -99,6 +100,8 @@ export class AppComponent implements OnInit {
   private bes2ActivityService = inject(Bes2ActivityService);
   /** Achievement service */
   private bes2AchievementService = inject(Bes2AchievementService);
+  /** Yearly achievement service */
+  private bes2YearlyAchievementService = inject(Bes2YearlyAchievementService);
 
   /**
    * Constructor
@@ -303,6 +306,25 @@ export class AppComponent implements OnInit {
         ).then((firstActivityDate) => {
           this.bes2AchievementService.initialize(firstActivityDate);
           this.bes2AchievementService.evaluate();
+        });
+      }
+    });
+
+    // Handle yearly achievement evaluation after required data is loaded (BES2)
+    effect(() => {
+      if (this.bes2ActivityService.loaded()) {
+        // Retrieve data of first activity
+        firstValueFrom(
+          this.bes2ActivityService.getAllActivitySummaries(1, 0).pipe(
+            map((activitySummaries) => {
+              return activitySummaries.activities.length > 0
+                ? new Date(activitySummaries.activities[0].startTime)
+                : new Date();
+            }),
+          ),
+        ).then((firstActivityDate) => {
+          this.bes2YearlyAchievementService.initialize(firstActivityDate);
+          this.bes2YearlyAchievementService.evaluate();
         });
       }
     });

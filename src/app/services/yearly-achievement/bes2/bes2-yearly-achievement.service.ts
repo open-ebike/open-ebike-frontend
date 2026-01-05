@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import {
   YearlyAchievement,
   YearlyAchievementService,
@@ -39,25 +39,6 @@ export class Bes2YearlyAchievementService {
     new Map<number, Map<YearlyAchievementType, YearlyAchievement>>(),
   );
 
-  /**
-   * Constructor
-   */
-  constructor() {
-    this.activityService
-      .getAllActivitySummaries(1, 0)
-      .pipe(
-        map((activities) => {
-          return activities.activities.length > 0
-            ? new Date(activities.activities[0].startTime)
-            : new Date();
-        }),
-      )
-      .subscribe((firstActivityDate) => {
-        this.initialize(firstActivityDate);
-        this.evaluate();
-      });
-  }
-
   //
   // Initialization
   //
@@ -71,13 +52,35 @@ export class Bes2YearlyAchievementService {
     );
   }
 
+  /** Actual item count */
+  itemCount = signal(0);
+  /** Total item count */
+  totalItemCount = signal(-1);
+  /** Percentage of loaded items */
+  percentage = computed(() => {
+    try {
+      return (this.itemCount() / this.totalItemCount()) * 100;
+    } catch {
+      return 0;
+    }
+  });
+  /** Loading state */
+  loading = computed<boolean>(() => {
+    return this.itemCount() != this.totalItemCount();
+  });
+
   /**
    * Loads activities and evaluates if achievements have been reached
    */
-  private async evaluate() {
+  async evaluate() {
+    this.itemCount.set(0);
+
     this.activityService
       .getAllActivitySummaries(Infinity)
       .subscribe(async (activitySummaries) => {
+        // Update total items count
+        this.totalItemCount.set(activitySummaries.activities.length);
+
         for (let activitySummary of activitySummaries.activities) {
           const activityDetails = await firstValueFrom(
             this.activityService.getActivityDetails(activitySummary.id),
@@ -101,6 +104,9 @@ export class Bes2YearlyAchievementService {
               activityDetails,
             ),
           );
+
+          // Update actual items count
+          this.itemCount.update((value) => value + 1);
         }
       });
   }
