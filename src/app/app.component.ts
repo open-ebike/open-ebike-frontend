@@ -23,6 +23,7 @@ import { firstValueFrom, map } from 'rxjs';
 import { Bes3YearlyAchievementService } from './services/yearly-achievement/bes3/bes3-yearly-achievement.service';
 import { ActivityService as Bes2ActivityService } from './services/api/bes2/activity.service';
 import { EbikeProfileService as Bes2EbikeProfileService } from './services/api/bes2/ebike-profile.service';
+import { DiagnosisEventService as Bes2DiagnosisEventService } from './services/api/bes2/diagnosis-event.service';
 
 /**
  * Displays app component
@@ -80,6 +81,8 @@ export class AppComponent implements OnInit {
 
   /** eBike profile service */
   private bes2EbikeProfileService = inject(Bes2EbikeProfileService);
+  /** Diagnosis event service */
+  private bes2DiagnosisEventService = inject(Bes2DiagnosisEventService);
   /** Activity service */
   private bes2ActivityService = inject(Bes2ActivityService);
 
@@ -191,7 +194,16 @@ export class AppComponent implements OnInit {
         this.authenticationService.loggedIn() &&
         this.authenticationService.ebikeGeneration() == 'BES2'
       ) {
-        this.bes2EbikeProfileService.fetchAll().then(() => {});
+        this.bes2EbikeProfileService.fetchAll().then(() => {
+          this.bes2EbikeProfileService.getAllBikes().subscribe((bikes) => {
+            bikes?.bikes.forEach((bike) => {
+              this.bes2DiagnosisEventService.fetch(
+                bike.driveUnit.partNumber,
+                bike.driveUnit.serialNumber,
+              );
+            });
+          });
+        });
         this.bes2ActivityService.fetchAll().then((success) => {
           this.snackbar.open(
             this.translocoService.translate(

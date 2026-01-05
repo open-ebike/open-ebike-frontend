@@ -199,25 +199,6 @@ interface DatabaseItem {
 }
 
 /**
- * Represents a database
- */
-class Database extends Dexie {
-  /** Database items */
-  items!: Table<DatabaseItem, string>;
-
-  /**
-   * Constructor
-   */
-  constructor() {
-    super('bes2-activity-database');
-    this.version(1).stores({
-      items: 'id, startTime',
-      syncState: 'id',
-    });
-  }
-}
-
-/**
  * Represents a database item
  */
 interface StatisticsDatabaseItem {
@@ -230,17 +211,18 @@ interface StatisticsDatabaseItem {
 /**
  * Represents a database
  */
-class StatisticsDatabase extends Dexie {
+class Database extends Dexie {
   /** Database items */
-  items!: Table<StatisticsDatabaseItem, string>;
+  items!: Table<DatabaseItem, string>;
+  statistics!: Table<StatisticsDatabaseItem, string>;
 
   /**
    * Constructor
    */
   constructor() {
-    super('bes2-activity-statistics-database');
+    super('bes2-activity-database');
     this.version(1).stores({
-      items: 'id',
+      items: 'id, startTime',
       syncState: 'id',
     });
   }
@@ -312,7 +294,7 @@ export class ActivityService {
   getStatistics(): Observable<Statistics | undefined> {
     return from(
       liveQuery(async () => {
-        return (await this.statisticsDatabase.items.get('0'))?.statistics;
+        return (await this.database.statistics.get('0'))?.statistics;
       }),
     );
   }
@@ -360,8 +342,6 @@ export class ActivityService {
 
   /** Database */
   private database = new Database();
-  /** Database */
-  private statisticsDatabase = new StatisticsDatabase();
   /** Actual item count */
   itemCount = signal(0);
   /** Total item count */
@@ -457,7 +437,7 @@ export class ActivityService {
         id: '0',
         statistics: statistics,
       };
-      await this.statisticsDatabase.items.put(itemToSave);
+      await this.database.statistics.put(itemToSave);
 
       this.loaded.set(true);
       return true;

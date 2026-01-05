@@ -26,6 +26,7 @@ import { combineLatest, first } from 'rxjs';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DiagnosisEventService } from '../../../services/api/bes2/diagnosis-event.service';
 
 /**
  * Displays eBikes
@@ -68,6 +69,8 @@ export class Bes2EbikesComponent implements OnInit {
   public authenticationService = inject(AuthenticationService);
   /** eBike profile service */
   public ebikeProfileService = inject(EbikeProfileService);
+  /** Diagnosis event service */
+  private diagnosisEventService = inject(DiagnosisEventService);
 
   //
   // Signals
@@ -138,6 +141,15 @@ export class Bes2EbikesComponent implements OnInit {
           duration: 1_500,
         },
       );
+
+      this.ebikeProfileService.getAllBikes().subscribe((bikes) => {
+        bikes?.bikes.forEach((bike) => {
+          this.diagnosisEventService.fetch(
+            bike.driveUnit.partNumber,
+            bike.driveUnit.serialNumber,
+          );
+        });
+      });
     });
   }
 }

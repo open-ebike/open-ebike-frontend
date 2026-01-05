@@ -99,11 +99,11 @@ export class Bes2ComponentDetailsComponent implements OnInit {
   componentType = signal<ComponentType | undefined>(undefined);
 
   /** Signal providing tuning resets */
-  tuningResetEvents = signal<Event[]>([]);
+  tuningResetEvents = signal<Event[] | undefined>([]);
   /** Signal providing battery deactivations */
-  batteryDeactivationEvents = signal<Event[]>([]);
+  batteryDeactivationEvents = signal<Event[] | undefined>([]);
   /** Signal providing lock reset */
-  lockResetEvents = signal<Event[]>([]);
+  lockResetEvents = signal<Event[] | undefined>([]);
 
   /** Signal providing battery management field data */
   batteryMeasurementFieldData = signal<CapacityTesterFieldData[]>([]);
@@ -308,7 +308,7 @@ export class Bes2ComponentDetailsComponent implements OnInit {
     this.diagnosisEventService
       .getAllTuningResetEvents(partNumber, serialNumber)
       .subscribe((tuningResets) => {
-        this.tuningResetEvents.set(tuningResets.tuningResets);
+        this.tuningResetEvents.set(tuningResets?.tuningResets);
       });
   }
 
@@ -325,7 +325,7 @@ export class Bes2ComponentDetailsComponent implements OnInit {
       .getAllBatteryDeactivationEvents(partNumber, serialNumber)
       .subscribe((batteryDeactivations) => {
         this.batteryDeactivationEvents.set(
-          batteryDeactivations.batteryDeactivations,
+          batteryDeactivations?.batteryDeactivations,
         );
       });
   }
@@ -342,7 +342,7 @@ export class Bes2ComponentDetailsComponent implements OnInit {
     this.diagnosisEventService
       .getAllLockResetEvents(partNumber, serialNumber)
       .subscribe((lockResets) => {
-        this.lockResetEvents.set(lockResets.lockResets);
+        this.lockResetEvents.set(lockResets?.lockResets);
       });
   }
 

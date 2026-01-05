@@ -368,7 +368,8 @@ class Database extends Dexie {
   constructor() {
     super('bes3-digital-service-book-database');
     this.version(1).stores({
-      items: '[partNumber+serialNumber]',
+      items: 'id',
+      syncState: 'id',
     });
   }
 }
