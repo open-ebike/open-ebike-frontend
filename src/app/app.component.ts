@@ -30,6 +30,7 @@ import { RemoteConfigurationService as Bes2RemoteConfigurationService } from './
 import { Bes2AchievementService } from './services/achievement/bes2/bes2-achievement.service';
 import { Bes2YearlyAchievementService } from './services/yearly-achievement/bes2/bes2-yearly-achievement.service';
 import { HubService as CobiHubService } from './services/api/cobi/hub.service';
+import { ActivityService as CobiActivityService } from './services/api/cobi/activity.service';
 
 /**
  * Displays app component
@@ -106,6 +107,8 @@ export class AppComponent implements OnInit {
 
   /** Hub service */
   private cobiHubService = inject(CobiHubService);
+  /** Activity service */
+  private cobiActivityService = inject(CobiActivityService);
 
   /**
    * Constructor
@@ -259,6 +262,7 @@ export class AppComponent implements OnInit {
         this.authenticationService.ebikeGeneration() == 'COBI'
       ) {
         this.cobiHubService.fetchAll();
+        this.cobiActivityService.fetchAll();
       }
     });
 

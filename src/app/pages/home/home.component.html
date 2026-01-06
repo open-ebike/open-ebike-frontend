@@ -4,7 +4,7 @@
       <h1>
         {{ t("home.terms.welcome-to") }}
         <span class="app-title"
-          >OPEN <span class="shimmer-text">EBIKE</span></span
+        >OPEN <span class="shimmer-text">EBIKE</span></span
         >
       </h1>
       <h2 [innerHTML]="t('home.terms.app-description')"></h2>
@@ -38,7 +38,7 @@
                   </div>
                   <mat-card-title>{{ t("ebikes.title") }}</mat-card-title>
                   <mat-card-subtitle
-                    >{{ t("ebikes.description") }}
+                  >{{ t("ebikes.description") }}
                   </mat-card-subtitle>
                 </mat-card-header>
               </mat-card>
@@ -58,7 +58,7 @@
                   </div>
                   <mat-card-title>{{ t("activities.title") }}</mat-card-title>
                   <mat-card-subtitle
-                    >{{ t("activities.description") }}
+                  >{{ t("activities.description") }}
                   </mat-card-subtitle>
                 </mat-card-header>
               </mat-card>
@@ -79,10 +79,10 @@
                     </span>
                   </div>
                   <mat-card-title
-                    >{{ t("registrations.title") }}
+                  >{{ t("registrations.title") }}
                   </mat-card-title>
                   <mat-card-subtitle
-                    >{{ t("registrations.description") }}
+                  >{{ t("registrations.description") }}
                   </mat-card-subtitle>
                 </mat-card-header>
               </mat-card>
@@ -102,7 +102,7 @@
                   </div>
                   <mat-card-title>{{ t("achievements.title") }}</mat-card-title>
                   <mat-card-subtitle
-                    >{{ t("achievements.description") }}
+                  >{{ t("achievements.description") }}
                   </mat-card-subtitle>
                 </mat-card-header>
               </mat-card>
@@ -121,10 +121,10 @@
                     <span class="material-symbols-outlined icon"> trophy </span>
                   </div>
                   <mat-card-title
-                    >{{ t("yearly-achievements.title") }}
+                  >{{ t("yearly-achievements.title") }}
                   </mat-card-title>
                   <mat-card-subtitle
-                    >{{ t("yearly-achievements.description") }}
+                  >{{ t("yearly-achievements.description") }}
                   </mat-card-subtitle>
                 </mat-card-header>
               </mat-card>
@@ -153,7 +153,7 @@
                   </div>
                   <mat-card-title>{{ t("ebikes.title") }}</mat-card-title>
                   <mat-card-subtitle
-                    >{{ t("ebikes.description") }}
+                  >{{ t("ebikes.description") }}
                   </mat-card-subtitle>
                 </mat-card-header>
               </mat-card>
@@ -171,7 +171,7 @@
                   </div>
                   <mat-card-title>{{ t("activities.title") }}</mat-card-title>
                   <mat-card-subtitle
-                    >{{ t("activities.description") }}
+                  >{{ t("activities.description") }}
                   </mat-card-subtitle>
                 </mat-card-header>
               </mat-card>
@@ -191,7 +191,7 @@
                   </div>
                   <mat-card-title>{{ t("statistics.title") }}</mat-card-title>
                   <mat-card-subtitle
-                    >{{ t("statistics.description") }}
+                  >{{ t("statistics.description") }}
                   </mat-card-subtitle>
                 </mat-card-header>
               </mat-card>
@@ -211,7 +211,7 @@
                   </div>
                   <mat-card-title>{{ t("achievements.title") }}</mat-card-title>
                   <mat-card-subtitle
-                    >{{ t("achievements.description") }}
+                  >{{ t("achievements.description") }}
                   </mat-card-subtitle>
                 </mat-card-header>
               </mat-card>
@@ -230,10 +230,10 @@
                     <span class="material-symbols-outlined icon"> trophy </span>
                   </div>
                   <mat-card-title
-                    >{{ t("yearly-achievements.title") }}
+                  >{{ t("yearly-achievements.title") }}
                   </mat-card-title>
                   <mat-card-subtitle
-                    >{{ t("yearly-achievements.description") }}
+                  >{{ t("yearly-achievements.description") }}
                   </mat-card-subtitle>
                 </mat-card-header>
               </mat-card>
@@ -262,13 +262,14 @@
                   </div>
                   <mat-card-title>{{ t("hubs.title") }}</mat-card-title>
                   <mat-card-subtitle
-                    >{{ t("hubs.description") }}
+                  >{{ t("hubs.description") }}
                   </mat-card-subtitle>
                 </mat-card-header>
               </mat-card>
               <mat-card
                 class="selectable-card cobi"
-                [routerLink]="['/cobi/activities']"
+                [class.grey]="cobiActivityService.loading()"
+                [routerLink]="cobiActivityService.loading() ? [] : ['/cobi/activities']"
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 <mat-card-header>
@@ -277,7 +278,7 @@
                   </div>
                   <mat-card-title>{{ t("activities.title") }}</mat-card-title>
                   <mat-card-subtitle
-                    >{{ t("activities.description") }}
+                  >{{ t("activities.description") }}
                   </mat-card-subtitle>
                 </mat-card-header>
               </mat-card>
@@ -403,10 +404,10 @@
                 <span class="material-symbols-outlined icon"> mobile </span>
               </div>
               <mat-card-title
-                >{{ t("home.terms.option-a.title") }}
+              >{{ t("home.terms.option-a.title") }}
               </mat-card-title>
               <mat-card-subtitle
-                >{{ t("home.terms.option-a.subtitle") }}
+              >{{ t("home.terms.option-a.subtitle") }}
               </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
@@ -439,10 +440,10 @@
                 </span>
               </div>
               <mat-card-title
-                >{{ t("home.terms.option-b.title") }}
+              >{{ t("home.terms.option-b.title") }}
               </mat-card-title>
               <mat-card-subtitle
-                >{{ t("home.terms.option-b.subtitle") }}
+              >{{ t("home.terms.option-b.subtitle") }}
               </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
@@ -475,10 +476,10 @@
                 </span>
               </div>
               <mat-card-title
-                >{{ t("home.terms.option-c.title") }}
+              >{{ t("home.terms.option-c.title") }}
               </mat-card-title>
               <mat-card-subtitle
-                >{{ t("home.terms.option-c.subtitle") }}
+              >{{ t("home.terms.option-c.subtitle") }}
               </mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
@@ -510,7 +511,7 @@
                     </span>
                   </div>
                   <mat-card-title
-                    >{{ t("home.terms.option-a.step-1-title") }}
+                  >{{ t("home.terms.option-a.step-1-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
@@ -527,19 +528,19 @@
                     <ul class="client-application">
                       <li>
                         <strong class="highlight"
-                          >{{ t("home.terms.login-url") }}:</strong
+                        >{{ t("home.terms.login-url") }}:</strong
                         >
                         https://open-ebike.web.app
                       </li>
                       <li>
                         <strong class="highlight"
-                          >{{ t("home.terms.redirect-uris") }}:</strong
+                        >{{ t("home.terms.redirect-uris") }}:</strong
                         >
                         https://open-ebike.web.app/*
                       </li>
                       <li>
                         <strong class="highlight"
-                          >{{ t("home.terms.confidential-client") }}:</strong
+                        >{{ t("home.terms.confidential-client") }}:</strong
                         >
                         {{ t("home.terms.false") }}
                       </li>
@@ -558,7 +559,7 @@
                     </span>
                   </div>
                   <mat-card-title
-                    >{{ t("home.terms.option-a.step-2-title") }}
+                  >{{ t("home.terms.option-a.step-2-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
@@ -578,7 +579,7 @@
                     <span class="material-symbols-outlined icon"> login </span>
                   </div>
                   <mat-card-title
-                    >{{ t("home.terms.option-a.step-3-title") }}
+                  >{{ t("home.terms.option-a.step-3-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
@@ -612,7 +613,7 @@
                     </span>
                   </div>
                   <mat-card-title
-                    >{{ t("home.terms.option-b.step-1-title") }}
+                  >{{ t("home.terms.option-b.step-1-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
@@ -629,19 +630,19 @@
                     <ul class="client-application">
                       <li>
                         <strong class="highlight"
-                          >{{ t("home.terms.login-url") }}:</strong
+                        >{{ t("home.terms.login-url") }}:</strong
                         >
                         https://open-ebike.web.app
                       </li>
                       <li>
                         <strong class="highlight"
-                          >{{ t("home.terms.redirect-uris") }}:</strong
+                        >{{ t("home.terms.redirect-uris") }}:</strong
                         >
                         https://open-ebike.web.app/*
                       </li>
                       <li>
                         <strong class="highlight"
-                          >{{ t("home.terms.confidential-client") }}:</strong
+                        >{{ t("home.terms.confidential-client") }}:</strong
                         >
                         {{ t("home.terms.false") }}
                       </li>
@@ -660,7 +661,7 @@
                     </span>
                   </div>
                   <mat-card-title
-                    >{{ t("home.terms.option-b.step-2-title") }}
+                  >{{ t("home.terms.option-b.step-2-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
@@ -680,7 +681,7 @@
                     <span class="material-symbols-outlined icon"> login </span>
                   </div>
                   <mat-card-title
-                    >{{ t("home.terms.option-b.step-3-title") }}
+                  >{{ t("home.terms.option-b.step-3-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
@@ -714,7 +715,7 @@
                     </span>
                   </div>
                   <mat-card-title
-                    >{{ t("home.terms.option-c.step-1-title") }}
+                  >{{ t("home.terms.option-c.step-1-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
@@ -731,19 +732,19 @@
                     <ul class="client-application">
                       <li>
                         <strong class="highlight"
-                          >{{ t("home.terms.login-url") }}:</strong
+                        >{{ t("home.terms.login-url") }}:</strong
                         >
                         https://open-ebike.web.app
                       </li>
                       <li>
                         <strong class="highlight"
-                          >{{ t("home.terms.redirect-uris") }}:</strong
+                        >{{ t("home.terms.redirect-uris") }}:</strong
                         >
                         https://open-ebike.web.app/*
                       </li>
                       <li>
                         <strong class="highlight"
-                          >{{ t("home.terms.confidential-client") }}:</strong
+                        >{{ t("home.terms.confidential-client") }}:</strong
                         >
                         {{ t("home.terms.false") }}
                       </li>
@@ -762,7 +763,7 @@
                     </span>
                   </div>
                   <mat-card-title
-                    >{{ t("home.terms.option-c.step-2-title") }}
+                  >{{ t("home.terms.option-c.step-2-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
@@ -782,7 +783,7 @@
                     <span class="material-symbols-outlined icon"> login </span>
                   </div>
                   <mat-card-title
-                    >{{ t("home.terms.option-c.step-3-title") }}
+                  >{{ t("home.terms.option-c.step-3-title") }}
                   </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>

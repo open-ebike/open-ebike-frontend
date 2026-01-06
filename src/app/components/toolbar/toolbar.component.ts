@@ -19,6 +19,7 @@ import { ActivityService as Bes2ActivityService } from '../../services/api/bes2/
 import { Bes2AchievementService } from '../../services/achievement/bes2/bes2-achievement.service';
 import { Bes2YearlyAchievementService } from '../../services/yearly-achievement/bes2/bes2-yearly-achievement.service';
 import { HubService as CobiHubService } from '../../services/api/cobi/hub.service';
+import { ActivityService as CobiActivityService } from '../../services/api/cobi/activity.service';
 
 /**
  * Displays toolbar
@@ -73,6 +74,8 @@ export class ToolbarComponent {
 
   /** Hub service */
   public cobiHubService = inject(CobiHubService);
+  /** Activity service */
+  public cobiActivityService = inject(CobiActivityService);
 
   /** Language */
   lang = getBrowserLang();

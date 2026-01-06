@@ -150,6 +150,7 @@
                 class="toolbar-menu-item"
                 routerLinkActive="toolbar-menu-item-active"
                 routerLink="/cobi/activities"
+                [disabled]="cobiActivityService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 {{ t("pages.activities.title") }}
@@ -159,10 +160,8 @@
         </div>
         <div class="flex-box"></div>
         <div class="toolbar-block end">
-          @if (
-            authenticationService.isLoggedIn() &&
-            environment.mapbox.accessToken == null
-          ) {
+          @if (authenticationService.isLoggedIn() &&
+          environment.mapbox.accessToken == null) {
             <button
               mat-button
               class="toolbar-menu-item"
@@ -171,7 +170,7 @@
               [queryParams]="{ theme: themeService.theme() }"
             >
               <span class="material-symbols-outlined toolbar-icon"
-                >settings</span
+              >settings</span
               >
             </button>
           }
@@ -182,7 +181,7 @@
               (click)="onDarkModeClicked()"
             >
               <span class="material-symbols-outlined toolbar-icon"
-                >dark_mode</span
+              >dark_mode</span
               >
             </button>
           }
@@ -193,7 +192,7 @@
               (click)="onLightModeClicked()"
             >
               <span class="material-symbols-outlined toolbar-icon"
-                >light_mode</span
+              >light_mode</span
               >
             </button>
           }
@@ -238,7 +237,7 @@
             [matMenuTriggerFor]="menu"
           >
             <span class="material-symbols-outlined toolbar-icon"
-              >more_vert</span
+            >more_vert</span
             >
           </button>
           <mat-menu #menu="matMenu">
@@ -371,6 +370,7 @@
                   class="toolbar-menu-item"
                   routerLinkActive="toolbar-menu-item-active"
                   routerLink="/cobi/activities"
+                  [disabled]="cobiActivityService.loading()"
                   [queryParams]="{ theme: themeService.theme() }"
                 >
                   {{ t("pages.activities.title") }}
@@ -384,7 +384,7 @@
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 <span class="material-symbols-outlined toolbar-icon"
-                  >settings</span
+                >settings</span
                 >
                 {{ t("pages.configuration.title") }}
               </button>
@@ -396,7 +396,7 @@
                 (click)="onDarkModeClicked()"
               >
                 <span class="material-symbols-outlined toolbar-icon"
-                  >dark_mode</span
+                >dark_mode</span
                 >
                 {{ t("actions.switch-to-dark-mode") }}
               </button>
@@ -408,7 +408,7 @@
                 (click)="onLightModeClicked()"
               >
                 <span class="material-symbols-outlined toolbar-icon"
-                  >light_mode</span
+                >light_mode</span
                 >
                 {{ t("actions.switch-to-light-mode") }}
               </button>
