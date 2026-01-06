@@ -140,6 +140,7 @@
                 class="toolbar-menu-item"
                 routerLinkActive="toolbar-menu-item-active"
                 routerLink="/cobi/hubs"
+                [disabled]="cobiHubService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 {{ t("pages.hubs.title") }}
@@ -360,6 +361,7 @@
                   class="toolbar-menu-item"
                   routerLinkActive="toolbar-menu-item-active"
                   routerLink="/cobi/hubs"
+                  [disabled]="cobiHubService.loading()"
                   [queryParams]="{ theme: themeService.theme() }"
                 >
                   {{ t("pages.hubs.title") }}

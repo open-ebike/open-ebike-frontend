@@ -29,6 +29,7 @@ import { ReleaseManagementService as Bes2ReleaseManagementService } from './serv
 import { RemoteConfigurationService as Bes2RemoteConfigurationService } from './services/api/bes2/remote-configuration.service';
 import { Bes2AchievementService } from './services/achievement/bes2/bes2-achievement.service';
 import { Bes2YearlyAchievementService } from './services/yearly-achievement/bes2/bes2-yearly-achievement.service';
+import { HubService as CobiHubService } from './services/api/cobi/hub.service';
 
 /**
  * Displays app component
@@ -102,6 +103,9 @@ export class AppComponent implements OnInit {
   private bes2AchievementService = inject(Bes2AchievementService);
   /** Yearly achievement service */
   private bes2YearlyAchievementService = inject(Bes2YearlyAchievementService);
+
+  /** Hub service */
+  private cobiHubService = inject(CobiHubService);
 
   /**
    * Constructor
@@ -245,6 +249,16 @@ export class AppComponent implements OnInit {
             },
           );
         });
+      }
+    });
+
+    // Handle initial load after login (BES2)
+    effect(() => {
+      if (
+        this.authenticationService.loggedIn() &&
+        this.authenticationService.ebikeGeneration() == 'COBI'
+      ) {
+        this.cobiHubService.fetchAll();
       }
     });
 

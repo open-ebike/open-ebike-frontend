@@ -250,7 +250,8 @@
             <div class="grid-0">
               <mat-card
                 class="selectable-card cobi"
-                [routerLink]="['/cobi/hubs']"
+                [class.grey]="cobiHubService.loading()"
+                [routerLink]="cobiHubService.loading() ? [] : ['/cobi/hubs']"
                 [queryParams]="{ theme: themeService.theme() }"
               >
                 <mat-card-header>
