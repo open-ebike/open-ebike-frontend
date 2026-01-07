@@ -8,6 +8,8 @@ import { YearlyAchievementCarouselComponent } from '../../../components/yearly-a
 import { MatIconButton } from '@angular/material/button';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatIcon } from '@angular/material/icon';
+import { firstValueFrom, map } from 'rxjs';
+import { ActivityService } from '../../../services/api/bes2/activity.service';
 
 /**
  * Displays yearly achievements
@@ -39,6 +41,8 @@ export class Bes2YearlyAchievementsComponent {
   public yearlyAchievementService = inject(Bes2YearlyAchievementService);
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
+  /** Activity service */
+  private activityService = inject(ActivityService);
 
   //
   // Selections
@@ -74,6 +78,18 @@ export class Bes2YearlyAchievementsComponent {
    * Handles click on refresh button
    */
   onRefreshClicked() {
-    this.yearlyAchievementService.evaluate();
+    // Retrieve data of first activity
+    firstValueFrom(
+      this.activityService.getAllActivitySummaries(1, 0).pipe(
+        map((activitySummaries) => {
+          return activitySummaries.activities.length > 0
+            ? new Date(activitySummaries.activities[0].startTime)
+            : new Date();
+        }),
+      ),
+    ).then((firstActivityDate) => {
+      this.yearlyAchievementService.initialize(firstActivityDate);
+      this.yearlyAchievementService.evaluate();
+    });
   }
 }

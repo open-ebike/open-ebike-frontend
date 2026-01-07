@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { firstValueFrom, map } from 'rxjs';
+import { ActivityRecordsService } from '../../../services/api/bes3/activity-records.service';
 
 /**
  * Displays yearly achievements
@@ -39,6 +41,8 @@ export class Bes3YearlyAchievementsComponent {
   public yearlyAchievementService = inject(Bes3YearlyAchievementService);
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
+  /** Activity record service */
+  private activityRecordsService = inject(ActivityRecordsService);
 
   //
   // Selections
@@ -74,6 +78,18 @@ export class Bes3YearlyAchievementsComponent {
    * Handles click on refresh button
    */
   onRefreshClicked() {
-    this.yearlyAchievementService.evaluate();
+    // Retrieve data of first activity
+    firstValueFrom(
+      this.activityRecordsService.getAllActivitySummaries(1, 0).pipe(
+        map((activitySummaries) => {
+          return activitySummaries.activitySummaries.length > 0
+            ? new Date(activitySummaries.activitySummaries[0].startTime)
+            : new Date();
+        }),
+      ),
+    ).then((firstActivityDate) => {
+      this.yearlyAchievementService.initialize(firstActivityDate);
+      this.yearlyAchievementService.evaluate();
+    });
   }
 }

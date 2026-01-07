@@ -117,7 +117,7 @@ export class Bes2YearlyAchievementService {
    * @param activitySummary activity summary
    * @param activityDetails activity details
    */
-  evaluateYearlyStatistics(
+  private evaluateYearlyStatistics(
     yearlyAchievements: Map<
       number,
       Map<YearlyAchievementType, YearlyAchievement>
