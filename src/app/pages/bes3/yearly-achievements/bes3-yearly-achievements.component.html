@@ -18,22 +18,24 @@
           </button>
         </div>
 
-        @if (yearlyAchievementService.loading()) {
-          <div class="flex-container">
-            <p>
-              {{ t("actions.calculate-achievements") }} ({{
-                yearlyAchievementService.itemCount()
-              }}
-              /
-              {{ yearlyAchievementService.totalItemCount() }})
-            </p>
-            <div class="flex-box"></div>
-          </div>
-          <mat-progress-bar
-            mode="determinate"
-            [value]="yearlyAchievementService.percentage()"
-          ></mat-progress-bar>
-        }
+        <div class="progress-bar-container">
+          @if (yearlyAchievementService.loading()) {
+            <div class="flex-container">
+              <p>
+                {{ t("actions.calculate-achievements") }} ({{
+                  yearlyAchievementService.itemCount()
+                }}
+                /
+                {{ yearlyAchievementService.totalItemCount() }})
+              </p>
+              <div class="flex-box"></div>
+            </div>
+            <mat-progress-bar
+              mode="determinate"
+              [value]="yearlyAchievementService.percentage()"
+            ></mat-progress-bar>
+          }
+        </div>
       </div>
       <div class="inner-container">
         <app-yearly-achievement-grid

@@ -16,22 +16,24 @@
           </button>
         </div>
 
-        @if (achievementService.loading()) {
-          <div class="flex-container">
-            <p>
-              {{ t("actions.calculate-achievements") }} ({{
-                achievementService.itemCount()
-              }}
-              /
-              {{ achievementService.totalItemCount() }})
-            </p>
-            <div class="flex-box"></div>
-          </div>
-          <mat-progress-bar
-            mode="determinate"
-            [value]="achievementService.percentage()"
-          ></mat-progress-bar>
-        }
+        <div class="progress-bar-container">
+          @if (achievementService.loading()) {
+            <div class="flex-container">
+              <p>
+                {{ t("actions.calculate-achievements") }} ({{
+                  achievementService.itemCount()
+                }}
+                /
+                {{ achievementService.totalItemCount() }})
+              </p>
+              <div class="flex-box"></div>
+            </div>
+            <mat-progress-bar
+              mode="determinate"
+              [value]="achievementService.percentage()"
+            ></mat-progress-bar>
+          }
+        </div>
       </div>
       <div class="inner-container">
         <app-achievement-grid
