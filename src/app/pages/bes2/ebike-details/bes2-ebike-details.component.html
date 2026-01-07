@@ -61,7 +61,7 @@
             </mat-card>
           }
 
-          @for (battery of ebikeProfile()?.batteries; track battery) {
+          @for (battery of ebikeProfile()?.batteries; track $index) {
             <mat-card
               mat-ripple
               [routerLink]="['/bes2/component-details']"
@@ -98,7 +98,7 @@
             </mat-card>
           }
 
-          @for (headUnit of ebikeProfile()?.headUnits; track headUnit) {
+          @for (headUnit of ebikeProfile()?.headUnits; track $index) {
             <mat-card
               mat-ripple
               [routerLink]="['/bes2/component-details']"

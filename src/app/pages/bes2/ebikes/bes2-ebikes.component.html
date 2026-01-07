@@ -16,7 +16,7 @@
           </button>
         </div>
         <div class="grid wide">
-          @for (ebikeProfile of ebikeProfiles(); track ebikeProfile) {
+          @for (ebikeProfile of ebikeProfiles(); track $index) {
             <mat-card
               mat-ripple
               [routerLink]="['/bes2/ebike-details']"

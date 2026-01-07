@@ -4,7 +4,7 @@
       <div class="inner-container">
         <h2>{{ t("title") }}</h2>
         <div class="grid">
-          @for (activity of activities(); track activity) {
+          @for (activity of activities(); track activity.id) {
             <mat-card mat-ripple>
               <mat-card-header>
                 <div mat-card-avatar>

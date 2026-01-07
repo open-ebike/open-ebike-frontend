@@ -4,7 +4,7 @@
       <div class="inner-container">
         <h2>{{ t("title") }}</h2>
         <div class="grid wide">
-          @for (hub of hubs(); track hub) {
+          @for (hub of hubs(); track $index) {
             <mat-card mat-ripple>
               <mat-card-header>
                 <div mat-card-avatar>

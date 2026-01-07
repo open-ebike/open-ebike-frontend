@@ -251,7 +251,7 @@
         <h3>{{ t("terms.diagnosis-events") }}</h3>
 
         <div class="grid">
-          @for (event of tuningResetEvents(); track event) {
+          @for (event of tuningResetEvents(); track $index) {
             <mat-card mat-ripple>
               <mat-card-header>
                 <div mat-card-avatar>
@@ -330,7 +330,7 @@
             </mat-card>
           }
 
-          @for (event of batteryDeactivationEvents(); track event) {
+          @for (event of batteryDeactivationEvents(); track $index) {
             <mat-card mat-ripple>
               <mat-card-header>
                 <div mat-card-avatar>
@@ -409,7 +409,7 @@
             </mat-card>
           }
 
-          @for (event of lockResetEvents(); track event) {
+          @for (event of lockResetEvents(); track $index) {
             <mat-card mat-ripple>
               <mat-card-header>
                 <div mat-card-avatar>
@@ -492,7 +492,7 @@
         <h3>{{ t("terms.diagnosis-field-data") }}</h3>
 
         <div class="grid">
-          @for (fieldData of batteryMeasurementFieldData(); track fieldData) {
+          @for (fieldData of batteryMeasurementFieldData(); track $index) {
             <mat-card>
               <mat-card-header>
                 <div mat-card-avatar>
@@ -510,7 +510,7 @@
             </mat-card>
           }
 
-          @for (fieldData of batteryFieldData(); track fieldData) {
+          @for (fieldData of batteryFieldData(); track $index) {
             <mat-card>
               <mat-card-header>
                 <div mat-card-avatar>
@@ -528,7 +528,7 @@
             </mat-card>
           }
 
-          @for (fieldData of driveUnitFieldData(); track fieldData) {
+          @for (fieldData of driveUnitFieldData(); track $index) {
             <mat-card>
               <mat-card-header>
                 <div mat-card-avatar>

@@ -179,7 +179,7 @@
             </mat-card>
           }
 
-          @for (battery of ebikeProfile()?.batteries; track battery) {
+          @for (battery of ebikeProfile()?.batteries; track $index) {
             <mat-card
               mat-ripple
               [routerLink]="['/bes3/component-details', ebikeProfile()?.id]"
@@ -338,7 +338,7 @@
         <h3>{{ t("terms.bike-passes") }}</h3>
 
         <div class="grid">
-          @for (bikePass of bikePasses(); track bikePass) {
+          @for (bikePass of bikePasses(); track bikePass.bikeId) {
             <mat-card mat-ripple>
               <mat-card-header>
                 <div mat-card-avatar>
@@ -416,7 +416,7 @@
         <h3>{{ t("terms.service-book") }}</h3>
 
         <div class="grid">
-          @for (serviceRecord of serviceRecords(); track serviceRecord) {
+          @for (serviceRecord of serviceRecords(); track serviceRecord.id) {
             <mat-card class="service-record-card">
               <mat-card-header>
                 <div mat-card-avatar>

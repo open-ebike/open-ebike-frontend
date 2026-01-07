@@ -4,7 +4,7 @@
       <div class="inner-container">
         <h2>{{ t("title") }}</h2>
         <div class="grid">
-          @for (registration of registrations(); track registration) {
+          @for (registration of registrations(); track $index) {
             @if (registration.registrationType == "BIKE_REGISTRATION") {
               <mat-card
                 mat-ripple

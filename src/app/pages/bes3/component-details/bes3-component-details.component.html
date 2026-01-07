@@ -200,7 +200,7 @@
 
         <h3>{{ t("terms.field-data") }}</h3>
 
-        @for (capacityTester of capacityTesters(); track capacityTester) {
+        @for (capacityTester of capacityTesters(); track $index) {
           <mat-card>
             <mat-card-header>
               <div mat-card-avatar>

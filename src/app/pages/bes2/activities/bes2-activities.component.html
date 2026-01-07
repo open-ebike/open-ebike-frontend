@@ -37,7 +37,7 @@
               }
               @for (
                 activitySummary of activitySummaries();
-                track activitySummary
+                track activitySummary.id
               ) {
                 <mat-list-item
                   mat-ripple
@@ -164,7 +164,7 @@
                 </li>
               </ul>
 
-              @for (bikeRide of selectedActivity()?.bikeRides; track bikeRide) {
+              @for (bikeRide of selectedActivity()?.bikeRides; track $index) {
                 <h3>{{ t("terms.bike-ride") }}</h3>
                 <ul class="list">
                   <li>
