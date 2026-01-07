@@ -107,7 +107,7 @@ export class Bes3AchievementService {
   /** Actual item count */
   itemCount = signal(0);
   /** Total item count */
-  totalItemCount = signal(-1);
+  totalItemCount = signal(0);
   /** Percentage of loaded items */
   percentage = computed(() => {
     try {
@@ -118,7 +118,9 @@ export class Bes3AchievementService {
   });
   /** Loading state */
   loading = computed<boolean>(() => {
-    return this.itemCount() != this.totalItemCount();
+    return (
+      this.totalItemCount() != 0 && this.itemCount() != this.totalItemCount()
+    );
   });
 
   /**
