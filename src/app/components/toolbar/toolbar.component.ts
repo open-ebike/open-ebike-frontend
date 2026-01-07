@@ -15,6 +15,7 @@ import { EbikeProfileService as Bes3EbikeProfileService } from '../../services/a
 import { EbikeRegistrationService as Bes3EbikeRegistrationService } from '../../services/api/bes3/ebike-registration.service';
 import { Bes3AchievementService } from '../../services/achievement/bes3/bes3-achievement.service';
 import { Bes3YearlyAchievementService } from '../../services/yearly-achievement/bes3/bes3-yearly-achievement.service';
+import { EbikeProfileService as Bes2EbikeProfileService } from '../../services/api/bes2/ebike-profile.service';
 import { ActivityService as Bes2ActivityService } from '../../services/api/bes2/activity.service';
 import { Bes2AchievementService } from '../../services/achievement/bes2/bes2-achievement.service';
 import { Bes2YearlyAchievementService } from '../../services/yearly-achievement/bes2/bes2-yearly-achievement.service';
@@ -65,6 +66,8 @@ export class ToolbarComponent {
   /** Yearly achievement service */
   public bes3YearlyAchievementService = inject(Bes3YearlyAchievementService);
 
+  /** eBike profile service */
+  public bes2EbikeProfileService = inject(Bes2EbikeProfileService);
   /** Activity service */
   public bes2ActivityService = inject(Bes2ActivityService);
   /** Achievement service */

@@ -8,6 +8,7 @@
             <li>
               <a
                 routerLink="/bes3/ebikes"
+                [class.grey]="bes3EbikeProfileService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
                 >{{ t("pages.ebikes.title") }}</a
               >
@@ -15,6 +16,7 @@
             <li>
               <a
                 routerLink="/bes3/activities"
+                [class.grey]="bes3ActivityRecordsService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
                 >{{ t("pages.activities.title") }}</a
               >
@@ -22,6 +24,7 @@
             <li>
               <a
                 routerLink="/bes3/registrations"
+                [class.grey]="bes3RegistrationService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
                 >{{ t("pages.registrations.title") }}</a
               >
@@ -29,6 +32,7 @@
             <li>
               <a
                 routerLink="/bes3/achievements"
+                [class.grey]="bes3AchievementService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
                 >{{ t("pages.achievements.title") }}</a
               >
@@ -36,6 +40,7 @@
             <li>
               <a
                 routerLink="/bes3/yearly-achievements"
+                [class.grey]="bes3YearlyAchievementService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
                 >{{ t("pages.yearly-achievements.title") }}</a
               >
@@ -50,6 +55,7 @@
             <li>
               <a
                 routerLink="/bes2/ebikes"
+                [class.grey]="bes2EbikeProfileService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
                 >{{ t("pages.ebikes.title") }}</a
               >
@@ -57,6 +63,7 @@
             <li>
               <a
                 routerLink="/bes2/activities"
+                [class.grey]="bes2ActivityService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
                 >{{ t("pages.activities.title") }}</a
               >
@@ -64,6 +71,7 @@
             <li>
               <a
                 routerLink="/bes2/statistics"
+                [class.grey]="bes2ActivityService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
                 >{{ t("pages.statistics.title") }}</a
               >
@@ -71,6 +79,7 @@
             <li>
               <a
                 routerLink="/bes2/achievements"
+                [class.grey]="bes2AchievementService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
                 >{{ t("pages.achievements.title") }}</a
               >
@@ -78,6 +87,7 @@
             <li>
               <a
                 routerLink="/bes2/yearly-achievements"
+                [class.grey]="bes2YearlyAchievementService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
                 >{{ t("pages.yearly-achievements.title") }}</a
               >
@@ -92,6 +102,7 @@
             <li>
               <a
                 routerLink="/cobi/hubs"
+                [class.grey]="cobiHubService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
                 >{{ t("pages.hubs.title") }}</a
               >
@@ -99,6 +110,7 @@
             <li>
               <a
                 routerLink="/cobi/activities"
+                [class.grey]="cobiActivityService.loading()"
                 [queryParams]="{ theme: themeService.theme() }"
                 >{{ t("pages.activities.title") }}</a
               >
