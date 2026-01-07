@@ -8,7 +8,7 @@ import {
   ActivityService,
   ActivitySummary,
 } from '../../api/bes2/activity.service';
-import { firstValueFrom, map } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { RegionFinderService } from '../../region-finder.service';
 import { YearlyAchievementType } from '../../../../environments/yearly-achievements';
 
@@ -141,21 +141,20 @@ export class Bes2YearlyAchievementService {
         .get(year)
         ?.get(YearlyAchievementType.TOTAL_DISTANCE);
       if (achievementTotalDistance) {
-        achievementTotalDistance.value =
+        achievementTotalDistance.value = this.roundDecimals(
           (achievementTotalDistance.value ?? 0) +
-          Math.round((activitySummary.totalDistance / 1_000) * 100) / 100;
+            activitySummary.totalDistance / 1_000,
+        );
       }
 
       const achievementTotalDuration = yearlyAchievements
         .get(year)
         ?.get(YearlyAchievementType.TOTAL_DURATION);
       if (achievementTotalDuration) {
-        achievementTotalDuration.value =
+        achievementTotalDuration.value = this.roundDecimals(
           (achievementTotalDuration.value ?? 0) +
-          Math.round(
-            (activitySummary.durationWithoutStops ?? 0 / 60 / 60) * 100,
-          ) /
-            100;
+            (activitySummary.durationWithoutStops ?? 0 / 60 / 60),
+        );
       }
 
       const achievementTotalElevationGain = yearlyAchievements
@@ -196,5 +195,14 @@ export class Bes2YearlyAchievementService {
     }
 
     return new Map(yearlyAchievements);
+  }
+
+  /**
+   * Rounds a value to a given number of decimals
+   * @param value value
+   * @param decimals decimals
+   */
+  roundDecimals(value: number, decimals: number = 2) {
+    return Math.round(value * Math.pow(10, 2)) / Math.pow(10, 2);
   }
 }
