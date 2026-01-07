@@ -161,35 +161,35 @@ export class AppComponent implements OnInit {
               this.bes3BikePassService.fetch(bike.id);
               this.bes3BulkConfigurationService.fetch(bike.id);
               this.bes3DiagnosisFieldDataService.fetch(
-                bike.driveUnit.partNumber,
-                bike.driveUnit.serialNumber,
+                bike.driveUnit?.partNumber,
+                bike.driveUnit?.serialNumber,
               );
               this.bes3DiagnosisFieldDataService.fetch(
-                bike.remoteControl.partNumber,
-                bike.remoteControl.serialNumber,
+                bike.remoteControl?.partNumber,
+                bike.remoteControl?.serialNumber,
               );
               bike.batteries?.forEach((battery) => {
                 this.bes3DiagnosisFieldDataService.fetch(
-                  battery.partNumber,
-                  battery.serialNumber,
+                  battery?.partNumber,
+                  battery?.serialNumber,
                 );
               });
               bike.antiLockBrakeSystems?.forEach((antiLockBrakeSystem) => {
                 this.bes3DiagnosisFieldDataService.fetch(
-                  antiLockBrakeSystem.partNumber,
-                  antiLockBrakeSystem.serialNumber,
+                  antiLockBrakeSystem?.partNumber,
+                  antiLockBrakeSystem?.serialNumber,
                 );
               });
               if (bike.connectModule) {
                 this.bes3DiagnosisFieldDataService.fetch(
-                  bike.connectModule.partNumber,
-                  bike.connectModule.serialNumber,
+                  bike.connectModule?.partNumber,
+                  bike.connectModule?.serialNumber,
                 );
               }
               if (bike.headUnit) {
                 this.bes3DiagnosisFieldDataService.fetch(
-                  bike.headUnit.partNumber,
-                  bike.headUnit.serialNumber,
+                  bike.headUnit?.partNumber,
+                  bike.headUnit?.serialNumber,
                 );
               }
               this.bes3DigitalServiceBookService.fetch(bike.id);

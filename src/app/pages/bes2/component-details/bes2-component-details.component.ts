@@ -239,58 +239,58 @@ export class Bes2ComponentDetailsComponent implements OnInit {
     serialNumber?: string,
   ) {
     if (
-      ebikeProfile?.driveUnit.serialNumber == serialNumber &&
-      ebikeProfile?.driveUnit.partNumber == partNumber
+      ebikeProfile?.driveUnit?.serialNumber == serialNumber &&
+      ebikeProfile?.driveUnit?.partNumber == partNumber
     ) {
       this.component.set(ebikeProfile?.driveUnit);
       this.driveUnit.set(ebikeProfile?.driveUnit);
       this.componentType.set('DRIVE_UNIT');
     } else if (
-      this.ebikeProfile()?.headUnits.find((headUnit) => {
+      this.ebikeProfile()?.headUnits?.find((headUnit) => {
         return (
-          headUnit.serialNumber == this.duSerialNumber() &&
-          headUnit.partNumber == this.duPartNumber()
+          headUnit?.serialNumber == this.duSerialNumber() &&
+          headUnit?.partNumber == this.duPartNumber()
         );
       })
     ) {
       this.component.set(
-        this.ebikeProfile()?.headUnits.find((headUnit) => {
+        this.ebikeProfile()?.headUnits?.find((headUnit) => {
           return (
-            headUnit.serialNumber == this.duSerialNumber() &&
-            headUnit.partNumber == this.duPartNumber()
+            headUnit?.serialNumber == this.duSerialNumber() &&
+            headUnit?.partNumber == this.duPartNumber()
           );
         }),
       );
       this.headUnit.set(
-        this.ebikeProfile()?.headUnits.find((headUnit) => {
+        this.ebikeProfile()?.headUnits?.find((headUnit) => {
           return (
-            headUnit.serialNumber == this.duSerialNumber() &&
-            headUnit.partNumber == this.duPartNumber()
+            headUnit?.serialNumber == this.duSerialNumber() &&
+            headUnit?.partNumber == this.duPartNumber()
           );
         }),
       );
       this.componentType.set('HEAD_UNIT');
     } else if (
-      ebikeProfile?.batteries.find((battery) => {
+      ebikeProfile?.batteries?.find((battery) => {
         return (
-          battery.serialNumber == serialNumber &&
-          battery.partNumber == partNumber
+          battery?.serialNumber == serialNumber &&
+          battery?.partNumber == partNumber
         );
       })
     ) {
       this.component.set(
-        ebikeProfile?.batteries.find((battery) => {
+        ebikeProfile?.batteries?.find((battery) => {
           return (
-            battery.serialNumber == serialNumber &&
-            battery.partNumber == partNumber
+            battery?.serialNumber == serialNumber &&
+            battery?.partNumber == partNumber
           );
         }),
       );
       this.battery.set(
-        ebikeProfile?.batteries.find((battery) => {
+        ebikeProfile?.batteries?.find((battery) => {
           return (
-            battery.serialNumber == serialNumber &&
-            battery.partNumber == partNumber
+            battery?.serialNumber == serialNumber &&
+            battery?.partNumber == partNumber
           );
         }),
       );

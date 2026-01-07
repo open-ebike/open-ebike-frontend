@@ -192,69 +192,69 @@ export class Bes3ComponentDetailsComponent implements OnInit {
     partNumber?: string,
   ) {
     if (
-      ebikeProfile?.driveUnit.serialNumber == serialNumber &&
-      ebikeProfile?.driveUnit.partNumber == partNumber
+      ebikeProfile?.driveUnit?.serialNumber == serialNumber &&
+      ebikeProfile?.driveUnit?.partNumber == partNumber
     ) {
       this.component.set(ebikeProfile?.driveUnit);
       this.driveUnit.set(ebikeProfile?.driveUnit);
       this.componentType.set('DRIVE_UNIT');
     } else if (
-      ebikeProfile?.remoteControl.serialNumber == serialNumber &&
-      ebikeProfile?.remoteControl.partNumber == partNumber
+      ebikeProfile?.remoteControl?.serialNumber == serialNumber &&
+      ebikeProfile?.remoteControl?.partNumber == partNumber
     ) {
       this.component.set(ebikeProfile?.remoteControl);
       this.componentType.set('REMOTE_CONTROL');
     } else if (
-      ebikeProfile?.batteries.find((battery) => {
+      ebikeProfile?.batteries?.find((battery) => {
         return (
-          battery.serialNumber == serialNumber &&
-          battery.partNumber == partNumber
+          battery?.serialNumber == serialNumber &&
+          battery?.partNumber == partNumber
         );
       })
     ) {
       this.component.set(
-        ebikeProfile?.batteries.find((battery) => {
+        ebikeProfile?.batteries?.find((battery) => {
           return (
-            battery.serialNumber == serialNumber &&
-            battery.partNumber == partNumber
+            battery?.serialNumber == serialNumber &&
+            battery?.partNumber == partNumber
           );
         }),
       );
       this.battery.set(
-        ebikeProfile?.batteries.find((battery) => {
+        ebikeProfile?.batteries?.find((battery) => {
           return (
-            battery.serialNumber == serialNumber &&
-            battery.partNumber == partNumber
+            battery?.serialNumber == serialNumber &&
+            battery?.partNumber == partNumber
           );
         }),
       );
       this.componentType.set('BATTERY');
     } else if (
-      ebikeProfile?.antiLockBrakeSystems.find((antiLockBrakeSystem) => {
+      ebikeProfile?.antiLockBrakeSystems?.find((antiLockBrakeSystem) => {
         return (
-          antiLockBrakeSystem.serialNumber == serialNumber &&
-          antiLockBrakeSystem.partNumber == partNumber
+          antiLockBrakeSystem?.serialNumber == serialNumber &&
+          antiLockBrakeSystem?.partNumber == partNumber
         );
       })
     ) {
       this.component.set(
         ebikeProfile?.antiLockBrakeSystems.find((antiLockBrakeSystem) => {
           return (
-            antiLockBrakeSystem.serialNumber == serialNumber &&
-            antiLockBrakeSystem.partNumber == partNumber
+            antiLockBrakeSystem?.serialNumber == serialNumber &&
+            antiLockBrakeSystem?.partNumber == partNumber
           );
         }),
       );
       this.componentType.set('ANTI_LOCK_BRAKE_SYSTEM');
     } else if (
-      ebikeProfile?.connectModule.serialNumber == serialNumber &&
-      ebikeProfile?.connectModule.partNumber == partNumber
+      ebikeProfile?.connectModule?.serialNumber == serialNumber &&
+      ebikeProfile?.connectModule?.partNumber == partNumber
     ) {
       this.component.set(ebikeProfile?.connectModule);
       this.componentType.set('CONNECT_MODULE');
     } else if (
-      ebikeProfile?.headUnit.serialNumber == serialNumber &&
-      ebikeProfile?.headUnit.partNumber == partNumber
+      ebikeProfile?.headUnit?.serialNumber == serialNumber &&
+      ebikeProfile?.headUnit?.partNumber == partNumber
     ) {
       this.component.set(ebikeProfile?.headUnit);
       this.componentType.set('HEAD_UNIT');
