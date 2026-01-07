@@ -15,7 +15,7 @@ import { ActivityService } from '../../../services/api/bes2/activity.service';
  * Displays yearly achievements
  */
 @Component({
-  selector: 'app-yearly-achievements',
+  selector: 'app-bes2-yearly-achievements',
   imports: [
     TranslocoDirective,
     YearlyAchievementGridComponent,
