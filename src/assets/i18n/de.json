@@ -8,9 +8,9 @@
       "consent-caching-data-description": "für reduzierte Ladezeiten und geringeres Datenvolumen",
       "consent-caching-client-id": "Caching Client ID in <a href='https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage' target='_blank'>Local Storage</a> (notwendig)",
       "consent-caching-client-id-description": "für Loginvorgang",
-      "consent-mapbox": "Mapbox in <a href='https://developer.mozilla.org/docs/Web/API/Window/localStorage' target='_blank'>local storage</a>",
+      "consent-mapbox": "<a href='https://mapbox.com/' target='_blank'>Mapbox</a> Daten in <a href='https://developer.mozilla.org/docs/Web/API/Window/localStorage' target='_blank'>Local Storage</a>",
       "consent-mapbox-description": "für die Darstellung von Activities auf Karten",
-      "consent-mapillary": "Mapillary <a href='https://developer.mozilla.org/docs/Web/HTTP/Guides/Cookies' target='_blank'>Cookies</a>",
+      "consent-mapillary": "<a href='https://mapillary.com/' target='_blank'>Mapillary</a> Daten in <a href='https://developer.mozilla.org/docs/Web/HTTP/Guides/Cookies' target='_blank'>Cookies</a>",
       "consent-mapillary-description": "für die Darstellung von Bilder entlang von Activities"
     },
     "actions": {

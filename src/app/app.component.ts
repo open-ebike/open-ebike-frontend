@@ -368,8 +368,8 @@ export class AppComponent implements OnInit {
     this.initializeTheme();
 
     localStorage.setItem('openEbikeConsentCachingData', 'true');
-    localStorage.setItem('openEbikeCachingClientId', 'true');
-    localStorage.setItem('openEbikeCachingApiTokens', 'true');
+    localStorage.setItem('openEbikeConsentCachingClientId', 'true');
+
     if (localStorage.getItem('openEbikePrivacySettingsSelected') != 'true') {
       this.bottomSheet.open(CookieBottomSheetComponent, {
         disableClose:
