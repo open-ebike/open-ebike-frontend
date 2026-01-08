@@ -57,7 +57,7 @@ export class ConfigurationComponent implements OnInit {
    * @param mapboxAccessToken Mapbox access token
    */
   onSaveMapboxClicked(mapboxAccessToken: string) {
-    localStorage.setItem('mapboxAccessToken', mapboxAccessToken);
+    localStorage.setItem('openEbikeMapboxAccessToken', mapboxAccessToken);
   }
 
   /**
@@ -65,6 +65,6 @@ export class ConfigurationComponent implements OnInit {
    * @param mapillaryAccessToken Mapillary access token
    */
   onSaveMapillaryClicked(mapillaryAccessToken: string) {
-    localStorage.setItem('mapillaryAccessToken', mapillaryAccessToken);
+    localStorage.setItem('openEbikeMapillaryAccessToken', mapillaryAccessToken);
   }
 }

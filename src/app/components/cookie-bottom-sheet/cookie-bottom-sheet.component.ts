@@ -103,7 +103,7 @@ export class CookieBottomSheetComponent {
    * Handles click on accept-only-essentials button
    */
   onAcceptOnlyEssentialsClicked() {
-    localStorage.setItem('privacySettingsSelected', 'true');
+    localStorage.setItem('openEbikePrivacySettingsSelected', 'true');
     this.consentMapbox.set(false);
     this.consentMapillary.set(false);
     this.bottomSheetRef.dismiss();
@@ -113,7 +113,7 @@ export class CookieBottomSheetComponent {
    * Handles click on accept-selected button
    */
   onAcceptOnlySelectedClicked() {
-    localStorage.setItem('privacySettingsSelected', 'true');
+    localStorage.setItem('openEbikePrivacySettingsSelected', 'true');
     this.bottomSheetRef.dismiss();
   }
 
@@ -121,7 +121,7 @@ export class CookieBottomSheetComponent {
    * Handles click on accept-all button
    */
   onAcceptAllClicked() {
-    localStorage.setItem('privacySettingsSelected', 'true');
+    localStorage.setItem('openEbikePrivacySettingsSelected', 'true');
     this.consentMapbox.set(true);
     this.consentMapillary.set(true);
     this.bottomSheetRef.dismiss();

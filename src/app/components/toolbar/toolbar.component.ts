@@ -123,7 +123,8 @@ export class ToolbarComponent {
    */
   onCookieClicked() {
     this.bottomSheet.open(CookieBottomSheetComponent, {
-      disableClose: localStorage.getItem('privacySettingsSelected') != 'true',
+      disableClose:
+        localStorage.getItem('openEbikePrivacySettingsSelected') != 'true',
     });
   }
 

@@ -478,6 +478,4 @@ export class Bes3ActivitiesComponent implements OnInit {
       })
       .then();
   }
-
-  protected readonly localStorage = localStorage;
 }

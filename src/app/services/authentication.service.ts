@@ -83,8 +83,8 @@ export class AuthenticationService {
    * Restores client ID from local storage
    */
   async restoreConfig() {
-    const clientId = localStorage.getItem('clientId');
-    const ebikeGeneration = localStorage.getItem('ebikeGeneration');
+    const clientId = localStorage.getItem('openEbikeClientId');
+    const ebikeGeneration = localStorage.getItem('openEbikeEbikeGeneration');
 
     if (!clientId) return false;
 
@@ -108,7 +108,7 @@ export class AuthenticationService {
    */
   saveClientId(clientId: string) {
     this.clientId.set(clientId);
-    localStorage.setItem('clientId', clientId);
+    localStorage.setItem('openEbikeClientId', clientId);
   }
 
   /**
@@ -117,7 +117,7 @@ export class AuthenticationService {
    */
   saveEbikeGeneration(ebikeGeneration: EbikeGeneration) {
     this.ebikeGeneration.set(ebikeGeneration);
-    localStorage.setItem('ebikeGeneration', ebikeGeneration);
+    localStorage.setItem('openEbikeEbikeGeneration', ebikeGeneration);
   }
 
   /**

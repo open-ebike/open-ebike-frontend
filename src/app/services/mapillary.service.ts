@@ -40,7 +40,9 @@ export class MapillaryService {
    * Restores access token from local storage
    */
   async restoreConfig() {
-    const mapillaryAccessToken = localStorage.getItem('mapillaryAccessToken');
+    const mapillaryAccessToken = localStorage.getItem(
+      'openEbikeMapillaryAccessToken',
+    );
 
     if (!mapillaryAccessToken) return false;
 

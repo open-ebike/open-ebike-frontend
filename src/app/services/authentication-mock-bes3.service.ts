@@ -86,7 +86,7 @@ export class AuthenticationService {
    */
   saveClientId(clientId: string) {
     this.clientId.set(clientId);
-    localStorage.setItem('clientId', clientId);
+    localStorage.setItem('openEbikeClientId', clientId);
   }
 
   /**
@@ -95,7 +95,7 @@ export class AuthenticationService {
    */
   saveEbikeGeneration(ebikeGeneration: EbikeGeneration) {
     this.ebikeGeneration.set(ebikeGeneration);
-    localStorage.setItem('ebikeGeneration', ebikeGeneration);
+    localStorage.setItem('openEbikeEbikeGeneration', ebikeGeneration);
   }
 
   /**

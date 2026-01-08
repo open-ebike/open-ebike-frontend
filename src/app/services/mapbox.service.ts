@@ -34,7 +34,9 @@ export class MapboxService {
    * Restores client ID from local storage
    */
   async restoreConfig() {
-    const mapboxAccessToken = localStorage.getItem('mapboxAccessToken');
+    const mapboxAccessToken = localStorage.getItem(
+      'openEbikeMapboxAccessToken',
+    );
 
     if (!mapboxAccessToken) return false;
 
