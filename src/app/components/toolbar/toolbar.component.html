@@ -160,6 +160,14 @@
         </div>
         <div class="flex-box"></div>
         <div class="toolbar-block end">
+          <button
+            mat-button
+            class="toolbar-menu-item"
+            routerLinkActive="toolbar-menu-item-active"
+            (click)="onCookieClicked()"
+          >
+            <span class="material-symbols-outlined toolbar-icon">cookie</span>
+          </button>
           @if (
             authenticationService.isLoggedIn() &&
             environment.mapbox.accessToken == null
@@ -379,6 +387,16 @@
                   {{ t("pages.activities.title") }}
                 </button>
               }
+              <button
+                mat-menu-item
+                class="toolbar-menu-item"
+                (click)="onCookieClicked()"
+              >
+                <span class="material-symbols-outlined toolbar-icon"
+                  >cookie</span
+                >
+                {{ t("cookie-banner.title") }}
+              </button>
               <button
                 mat-menu-item
                 class="toolbar-menu-item"

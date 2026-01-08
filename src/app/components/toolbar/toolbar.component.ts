@@ -21,6 +21,8 @@ import { Bes2AchievementService } from '../../services/achievement/bes2/bes2-ach
 import { Bes2YearlyAchievementService } from '../../services/yearly-achievement/bes2/bes2-yearly-achievement.service';
 import { HubService as CobiHubService } from '../../services/api/cobi/hub.service';
 import { ActivityService as CobiActivityService } from '../../services/api/cobi/activity.service';
+import { CookieBottomSheetComponent } from '../cookie-bottom-sheet/cookie-bottom-sheet.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 /**
  * Displays toolbar
@@ -44,6 +46,8 @@ export class ToolbarComponent {
   // Injections
   //
 
+  /** Bottom sheet */
+  private bottomSheet = inject(MatBottomSheet);
   /** Activated route */
   private route = inject(ActivatedRoute);
   /** Router */
@@ -99,7 +103,7 @@ export class ToolbarComponent {
   //
 
   /**
-   * On dark mode clicked
+   * Handles click on dark mode button
    */
   onDarkModeClicked() {
     this.themeService.switchTheme(Theme.DARK);
@@ -107,11 +111,18 @@ export class ToolbarComponent {
   }
 
   /**
-   * On light mode clicked
+   * Handles click on light mode button
    */
   onLightModeClicked() {
     this.themeService.switchTheme(Theme.LIGHT);
     this.updateQueryParameters();
+  }
+
+  /**
+   * Handles click on cookie button
+   */
+  onCookieClicked() {
+    this.bottomSheet.open(CookieBottomSheetComponent);
   }
 
   //

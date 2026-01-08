@@ -31,6 +31,8 @@ import { Bes2AchievementService } from './services/achievement/bes2/bes2-achieve
 import { Bes2YearlyAchievementService } from './services/yearly-achievement/bes2/bes2-yearly-achievement.service';
 import { HubService as CobiHubService } from './services/api/cobi/hub.service';
 import { ActivityService as CobiActivityService } from './services/api/cobi/activity.service';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { CookieBottomSheetComponent } from './components/cookie-bottom-sheet/cookie-bottom-sheet.component';
 
 /**
  * Displays app component
@@ -47,17 +49,20 @@ export class AppComponent implements OnInit {
   // Injections
   //
 
-  /** Theme service */
-  public themeService = inject(ThemeService);
-  /** Overlay container */
-  private overlayContainer = inject(OverlayContainer);
-  /** Authentication service */
-  public authenticationService = inject(AuthenticationService);
   /** Meta service */
   private meta = inject(Meta);
+  /** Overlay container */
+  private overlayContainer = inject(OverlayContainer);
 
+  /** Bottom sheet */
+  private bottomSheet = inject(MatBottomSheet);
   /** Snack bar */
   private snackbar = inject(MatSnackBar);
+
+  /** Theme service */
+  public themeService = inject(ThemeService);
+  /** Authentication service */
+  public authenticationService = inject(AuthenticationService);
   /** Transloco service */
   private translocoService = inject(TranslocoService);
 
@@ -115,11 +120,14 @@ export class AppComponent implements OnInit {
    */
   constructor() {
     if (environment.mapbox.accessToken) {
-      localStorage.setItem('mapboxAccessToken', environment.mapbox.accessToken);
+      localStorage.setItem(
+        'openEbikeMapboxAccessToken',
+        environment.mapbox.accessToken,
+      );
     }
     if (environment.mapillary.accessToken) {
       localStorage.setItem(
-        'mapillaryAccessToken',
+        'openEbikeMapillaryAccessToken',
         environment.mapillary.accessToken,
       );
     }
@@ -358,6 +366,16 @@ export class AppComponent implements OnInit {
   async ngOnInit() {
     await this.authenticationService.restoreConfig();
     this.initializeTheme();
+
+    localStorage.setItem('openEbikeConsentCachingData', 'true');
+    localStorage.setItem('openEbikeCachingClientId', 'true');
+    localStorage.setItem('openEbikeCachingApiTokens', 'true');
+    if (localStorage.getItem('openEbikePrivacySettingsSelected') != 'true') {
+      this.bottomSheet.open(CookieBottomSheetComponent, {
+        disableClose:
+          localStorage.getItem('openEbikePrivacySettingsSelected') != 'true',
+      });
+    }
   }
 
   //

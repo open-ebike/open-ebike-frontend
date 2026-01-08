@@ -1,5 +1,24 @@
 {
   "app-title": "Open eBike",
+  "cookie-banner": {
+    "title": "Auf deinem Gerät gespeicherte Daten",
+    "description": "Open eBike ist eine Web App. Sie speichert deine Daten nicht in der Cloud. Einige Daten werden auf deinem Gerät gespeichert, um eine bessere Nutzererfahrung zu bieten, Ladezeiten zu reduzieren, Datenübertragungsvolumen zu sparen und Offlinenutzung zu ermöglichen",
+    "terms": {
+      "consent-caching-data": "Caching Data in <a href='https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API' target='_blank'>IndexedDB</a> (notwendig)",
+      "consent-caching-data-description": "für reduzierte Ladezeiten und geringeres Datenvolumen",
+      "consent-caching-client-id": "Caching Client ID in <a href='https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage' target='_blank'>Local Storage</a> (notwendig)",
+      "consent-caching-client-id-description": "für Loginvorgang",
+      "consent-mapbox": "Mapbox in <a href='https://developer.mozilla.org/docs/Web/API/Window/localStorage' target='_blank'>local storage</a>",
+      "consent-mapbox-description": "für die Darstellung von Activities auf Karten",
+      "consent-mapillary": "Mapillary <a href='https://developer.mozilla.org/docs/Web/HTTP/Guides/Cookies' target='_blank'>Cookies</a>",
+      "consent-mapillary-description": "für die Darstellung von Bilder entlang von Activities"
+    },
+    "actions": {
+      "accept-only-selected": "Nur ausgewählte akzeptieren",
+      "accept-only-essentials": "Nur notwendige akzeptieren",
+      "accept-all": "Alle akzeptieren"
+    }
+  },
   "pages": {
     "home": {
       "title": "Startseite",

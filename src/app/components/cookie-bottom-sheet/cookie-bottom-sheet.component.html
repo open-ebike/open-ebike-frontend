@@ -1,0 +1,89 @@
+<ng-container *transloco="let t; lang: lang; prefix: 'cookie-banner'">
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <span class="material-symbols-outlined"> cookie </span>
+      </div>
+      <mat-card-title>{{ t("title") }}</mat-card-title>
+      <mat-card-subtitle> </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content style="max-width: 480px">
+      {{ t("description") }}
+    </mat-card-content>
+  </mat-card>
+  <mat-list>
+    <mat-list-item>
+      <span
+        matListItemTitle
+        [innerHTML]="t('terms.consent-caching-data')"
+      ></span>
+      <span
+        matListItemLine
+        [innerHTML]="t('terms.consent-caching-data-description')"
+      ></span>
+      <mat-slide-toggle
+        matListItemMeta
+        class="slide-toggle"
+        disabled="true"
+        [(ngModel)]="consentCachingData"
+      >
+      </mat-slide-toggle>
+    </mat-list-item>
+    <mat-list-item>
+      <span
+        matListItemTitle
+        [innerHTML]="t('terms.consent-caching-client-id')"
+      ></span>
+      <span
+        matListItemLine
+        [innerHTML]="t('terms.consent-caching-client-id-description')"
+      ></span>
+      <mat-slide-toggle
+        matListItemMeta
+        class="slide-toggle"
+        disabled="true"
+        [(ngModel)]="consentCachingClientId"
+      >
+      </mat-slide-toggle>
+    </mat-list-item>
+    <mat-list-item>
+      <span matListItemTitle [innerHTML]="t('terms.consent-mapbox')"></span>
+      <span
+        matListItemLine
+        [innerHTML]="t('terms.consent-mapbox-description')"
+      ></span>
+      <mat-slide-toggle
+        matListItemMeta
+        class="slide-toggle"
+        [(ngModel)]="consentMapbox"
+      >
+      </mat-slide-toggle>
+    </mat-list-item>
+    <mat-list-item>
+      <span matListItemTitle [innerHTML]="t('terms.consent-mapillary')"></span>
+      <span
+        matListItemLine
+        [innerHTML]="t('terms.consent-mapillary-description')"
+      ></span>
+      <mat-slide-toggle
+        matListItemMeta
+        class="slide-toggle"
+        [(ngModel)]="consentMapillary"
+      >
+      </mat-slide-toggle>
+    </mat-list-item>
+  </mat-list>
+  <div class="flex-container">
+    <button mat-flat-button (click)="onAcceptOnlyEssentialsClicked()">
+      {{ t("actions.accept-only-essentials") }}
+    </button>
+    <div class="flex-box"></div>
+    <button mat-flat-button (click)="onAcceptOnlySelectedClicked()">
+      {{ t("actions.accept-only-selected") }}
+    </button>
+    <div class="flex-box"></div>
+    <button mat-flat-button color="primary" (click)="onAcceptAllClicked()">
+      {{ t("actions.accept-all") }}
+    </button>
+  </div>
+</ng-container>
