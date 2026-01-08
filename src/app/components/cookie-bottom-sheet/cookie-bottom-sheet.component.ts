@@ -92,6 +92,13 @@ export class CookieBottomSheetComponent {
         'openEbikeConsentMapillary',
         this.consentMapillary().toString(),
       );
+
+      if (!this.consentMapbox()) {
+        this.removeLocalStorage('mapbox');
+      }
+      if (!this.consentMapillary()) {
+        this.removeCookie('mly_cb');
+      }
     });
   }
 
@@ -125,5 +132,30 @@ export class CookieBottomSheetComponent {
     this.consentMapbox.set(true);
     this.consentMapillary.set(true);
     this.bottomSheetRef.dismiss();
+  }
+
+  //
+  // Helpers
+  //
+
+  /**
+   * Removes local storage
+   * @param prefix prefix
+   */
+  private removeLocalStorage(prefix: string) {
+    Object.keys(localStorage)
+      .filter((key) => key.startsWith(prefix))
+      .forEach((key) => {
+        localStorage.removeItem(key);
+      });
+  }
+
+  /**
+   * Removes a cookie
+   * @param name name
+   * @param path path
+   */
+  private removeCookie(name: string, path: string = '/') {
+    document.cookie = `${name}=; Max-Age=0; path=${path}`;
   }
 }
