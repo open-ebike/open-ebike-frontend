@@ -192,7 +192,9 @@ export class Bes2ComponentDetailsComponent implements OnInit {
         this.partNumber() == undefined ||
         this.serialNumber() == undefined
       ) {
-        this.router.navigate(['/bes2/ebikes']);
+        this.router.navigate(['/bes2/ebikes'], {
+          queryParams: { theme: this.themeService.theme() },
+        });
       }
     });
   }

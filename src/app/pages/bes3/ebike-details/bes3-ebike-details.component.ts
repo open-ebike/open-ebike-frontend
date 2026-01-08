@@ -135,7 +135,9 @@ export class Bes3EbikeDetailsComponent implements OnInit {
   constructor() {
     this.route.params.subscribe((params) => {
       if (params['id'] == undefined && params['id'].length == 0) {
-        this.router.navigate(['/bes3/ebikes']);
+        this.router.navigate(['/bes3/ebikes'], {
+          queryParams: { theme: this.themeService.theme() },
+        });
       }
 
       this.initializeEbike(params['id']);

@@ -51,32 +51,13 @@ export class ContactComponent implements OnInit {
    * Handles on-init phase
    */
   ngOnInit() {
-    this.initializeTheme();
     this.initializeIcons();
-
-    // Handle query parameters
     this.handleQueryParameters();
   }
 
   //
   // Initialization
   //
-
-  /**
-   * Initializes theme
-   */
-  private initializeTheme() {
-    switch (this.themeService.theme()) {
-      case Theme.LIGHT: {
-        this.updateQueryParameters();
-        break;
-      }
-      case Theme.DARK: {
-        this.updateQueryParameters();
-        break;
-      }
-    }
-  }
 
   /**
    * Initializes icons

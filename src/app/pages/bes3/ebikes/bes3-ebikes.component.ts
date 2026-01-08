@@ -125,6 +125,10 @@ export class Bes3EbikesComponent implements OnInit {
     this.handleQueryParameters();
   }
 
+  //
+  // Initialization
+  //
+
   /**
    * Initializes eBikes
    */

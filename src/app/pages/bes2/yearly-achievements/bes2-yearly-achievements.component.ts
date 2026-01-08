@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { YearlyAchievementGridComponent } from '../../../components/yearly-achievement-grid/yearly-achievement-grid.component';
@@ -8,8 +8,9 @@ import { YearlyAchievementCarouselComponent } from '../../../components/yearly-a
 import { MatIconButton } from '@angular/material/button';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatIcon } from '@angular/material/icon';
-import { firstValueFrom, map } from 'rxjs';
+import { combineLatest, first, firstValueFrom, map } from 'rxjs';
 import { ActivityService } from '../../../services/api/bes2/activity.service';
+import { Theme, ThemeService } from '../../../services/theme.service';
 
 /**
  * Displays yearly achievements
@@ -28,7 +29,7 @@ import { ActivityService } from '../../../services/api/bes2/activity.service';
   styleUrl: './bes2-yearly-achievements.component.scss',
   standalone: true,
 })
-export class Bes2YearlyAchievementsComponent {
+export class Bes2YearlyAchievementsComponent implements OnInit {
   //
   // Injections
   //
@@ -37,6 +38,8 @@ export class Bes2YearlyAchievementsComponent {
   private route = inject(ActivatedRoute);
   /** Router */
   private router = inject(Router);
+  /** Theme service */
+  public themeService = inject(ThemeService);
   /** Yearly achievement service */
   public yearlyAchievementService = inject(Bes2YearlyAchievementService);
   /** Authentication service */
@@ -54,6 +57,13 @@ export class Bes2YearlyAchievementsComponent {
   /** Language */
   lang = getBrowserLang();
 
+  //
+  // Constants
+  //
+
+  /** Query parameter theme */
+  private QUERY_PARAM_THEME: string = 'theme';
+
   /**
    * Constructor
    */
@@ -64,10 +74,41 @@ export class Bes2YearlyAchievementsComponent {
     });
 
     effect(() => {
-      this.router.navigate([
-        `/bes2/yearly-achievements/${this.yearSelected() ?? ''}`,
-      ]);
+      this.router.navigate(
+        [`/bes2/yearly-achievements/${this.yearSelected() ?? ''}`],
+        {
+          queryParams: { theme: this.themeService.theme() },
+        },
+      );
     });
+  }
+
+  //
+  // Lifecycle hooks
+  //
+
+  /**
+   * Handles on-init phase
+   */
+  ngOnInit() {
+    this.handleQueryParameters();
+  }
+
+  //
+  // Initialization
+  //
+
+  /**
+   * Handles query parameters
+   */
+  private handleQueryParameters() {
+    combineLatest([this.route.queryParams])
+      .pipe(first())
+      .subscribe(([queryParams]) => {
+        const theme = queryParams[this.QUERY_PARAM_THEME];
+
+        this.themeService.switchTheme(theme ? theme : Theme.LIGHT);
+      });
   }
 
   //
