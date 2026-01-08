@@ -134,6 +134,12 @@ export class Bes3ActivitiesComponent implements OnInit {
   drawerEnd = viewChild<MatDrawer>('drawerEnd');
 
   showImages = signal(true);
+  consentMapbox = signal(
+    localStorage.getItem('openEbikeConsentMapbox') === 'true',
+  );
+  consentMapillary = signal(
+    localStorage.getItem('openEbikeConsentMapillary') === 'true',
+  );
 
   //
   // Paginator
@@ -200,10 +206,13 @@ export class Bes3ActivitiesComponent implements OnInit {
       if (this.mapLoaded() && this.activityDetails().length > 0)
         setTimeout(() => {
           this.initializeMapOverlay(this.id(), this.activityDetails());
-          this.initializeMapillaryImages(
-            Math.ceil((this.selectedActivity()?.distance ?? 0) / 500),
-            this.activityDetails(),
-          );
+
+          if (this.consentMapillary()) {
+            this.initializeMapillaryImages(
+              Math.ceil((this.selectedActivity()?.distance ?? 0) / 500),
+              this.activityDetails(),
+            );
+          }
         }, 500);
     });
 
@@ -469,4 +478,6 @@ export class Bes3ActivitiesComponent implements OnInit {
       })
       .then();
   }
+
+  protected readonly localStorage = localStorage;
 }

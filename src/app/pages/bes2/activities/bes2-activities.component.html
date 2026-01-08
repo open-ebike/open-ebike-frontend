@@ -556,19 +556,21 @@
                       {{ t("actions.show-summary") }}
                     }
                   </button>
-                  <span class="delimiter">·</span>
-                  <button mat-button (click)="onToggleImagesClicked()">
-                    @if (showImages()) {
-                      {{ t("actions.hide-images") }}
-                    } @else {
-                      {{ t("actions.show-images") }}
-                    }
-                  </button>
+                  @if (this.consentMapillary()) {
+                    <span class="delimiter">·</span>
+                    <button mat-button (click)="onToggleImagesClicked()">
+                      @if (showImages()) {
+                        {{ t("actions.hide-images") }}
+                      } @else {
+                        {{ t("actions.show-images") }}
+                      }
+                    </button>
+                  }
                 }
               </h2>
             </div>
 
-            @if (mapboxService.mapboxAccessToken()) {
+            @if (mapboxService.mapboxAccessToken() && consentMapbox()) {
               <div class="map-container">
                 <app-map
                   [id]="mapId"

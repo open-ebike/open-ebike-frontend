@@ -132,6 +132,12 @@ export class Bes2ActivitiesComponent implements OnInit {
   drawerEnd = viewChild<MatDrawer>('drawerEnd');
 
   showImages = signal(true);
+  consentMapbox = signal(
+    localStorage.getItem('openEbikeConsentMapbox') === 'true',
+  );
+  consentMapillary = signal(
+    localStorage.getItem('openEbikeConsentMapillary') === 'true',
+  );
 
   //
   // Paginator
@@ -204,10 +210,12 @@ export class Bes2ActivitiesComponent implements OnInit {
       if (this.mapLoaded() && this.activitySummaries().length > 0)
         setTimeout(() => {
           this.initializeMapOverlay(this.id(), this.activityDetails());
-          this.initializeMapillaryImages(
-            Math.ceil((this.selectedActivity()?.totalDistance ?? 0) / 500),
-            this.activityDetails(),
-          );
+          if (this.consentMapillary()) {
+            this.initializeMapillaryImages(
+              Math.ceil((this.selectedActivity()?.totalDistance ?? 0) / 500),
+              this.activityDetails(),
+            );
+          }
         }, 500);
     });
 
