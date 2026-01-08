@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Theme, ThemeService } from '../../services/theme.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
@@ -26,8 +26,6 @@ import { Bes2AchievementService } from '../../services/achievement/bes2/bes2-ach
 import { Bes2YearlyAchievementService } from '../../services/yearly-achievement/bes2/bes2-yearly-achievement.service';
 import { HubService as CobiHubService } from '../../services/api/cobi/hub.service';
 import { ActivityService as CobiActivityService } from '../../services/api/cobi/activity.service';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { CookieBottomSheetComponent } from '../../components/cookie-bottom-sheet/cookie-bottom-sheet.component';
 
 /**
  * Displays home component

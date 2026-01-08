@@ -122,7 +122,9 @@ export class ToolbarComponent {
    * Handles click on cookie button
    */
   onCookieClicked() {
-    this.bottomSheet.open(CookieBottomSheetComponent);
+    this.bottomSheet.open(CookieBottomSheetComponent, {
+      disableClose: localStorage.getItem('privacySettingsSelected') != 'true',
+    });
   }
 
   //

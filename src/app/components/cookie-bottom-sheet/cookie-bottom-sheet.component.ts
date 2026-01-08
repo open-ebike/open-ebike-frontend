@@ -5,11 +5,7 @@ import {
   MatListItemLine,
   MatListItemTitle,
 } from '@angular/material/list';
-import {
-  getBrowserLang,
-  TranslocoDirective,
-  TranslocoService,
-} from '@jsverse/transloco';
+import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { MatButton } from '@angular/material/button';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import {
@@ -21,6 +17,7 @@ import {
   MatCardTitle,
 } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
 /**
  * Displays cookie banner
@@ -53,8 +50,10 @@ export class CookieBottomSheetComponent {
   // Injections
   //
 
-  /** Transloco service */
-  private translocoService = inject(TranslocoService);
+  /** Bottom sheet reference */
+  private bottomSheetRef = inject(
+    MatBottomSheetRef<CookieBottomSheetComponent>,
+  );
 
   //
   // Signals
@@ -104,20 +103,27 @@ export class CookieBottomSheetComponent {
    * Handles click on accept-only-essentials button
    */
   onAcceptOnlyEssentialsClicked() {
+    localStorage.setItem('privacySettingsSelected', 'true');
     this.consentMapbox.set(false);
     this.consentMapillary.set(false);
+    this.bottomSheetRef.dismiss();
   }
 
   /**
    * Handles click on accept-selected button
    */
-  onAcceptOnlySelectedClicked() {}
+  onAcceptOnlySelectedClicked() {
+    localStorage.setItem('privacySettingsSelected', 'true');
+    this.bottomSheetRef.dismiss();
+  }
 
   /**
    * Handles click on accept-all button
    */
   onAcceptAllClicked() {
+    localStorage.setItem('privacySettingsSelected', 'true');
     this.consentMapbox.set(true);
     this.consentMapillary.set(true);
+    this.bottomSheetRef.dismiss();
   }
 }
