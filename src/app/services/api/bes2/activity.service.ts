@@ -212,8 +212,8 @@ interface StatisticsDatabaseItem {
  * Represents a database
  */
 class Database extends Dexie {
-  /** Database items */
-  items!: Table<DatabaseItem, string>;
+  /** Database activities */
+  activities!: Table<DatabaseItem, string>;
   statistics!: Table<StatisticsDatabaseItem, string>;
 
   /**
@@ -222,7 +222,8 @@ class Database extends Dexie {
   constructor() {
     super('bes2-activity-database');
     this.version(1).stores({
-      items: 'id, startTime',
+      activities: 'id, startTime',
+      statistics: 'id, startTime',
       syncState: 'id',
     });
   }
@@ -253,15 +254,17 @@ export class ActivityService {
   ): Observable<ActivitySummaries> {
     return from(
       liveQuery(async () => {
-        const collection = this.database.items.orderBy('startTime').reverse();
+        const collection = this.database.activities
+          .orderBy('startTime')
+          .reverse();
 
-        const [items, totalCount] = await Promise.all([
+        const [activities, totalCount] = await Promise.all([
           collection.offset(offset).limit(limit).toArray(),
-          this.database.items.count(),
+          this.database.activities.count(),
         ]);
 
         return {
-          activities: items.map((item) => {
+          activities: activities.map((item) => {
             return item.activitySummary;
           }),
           pagination: {
@@ -282,7 +285,7 @@ export class ActivityService {
   getActivityDetails(id: number): Observable<ActivityDetail> {
     return from(
       liveQuery(async () => {
-        return (await this.database.items.get(id.toString()))
+        return (await this.database.activities.get(id.toString()))
           ?.activityDetails as ActivityDetail;
       }),
     );
@@ -346,7 +349,7 @@ export class ActivityService {
   itemCount = signal(0);
   /** Total item count */
   totalItemCount = signal(0);
-  /** Percentage of loaded items */
+  /** Percentage of loaded activities */
   percentage = computed(() => {
     try {
       return (this.itemCount() / this.totalItemCount()) * 100;
@@ -367,15 +370,15 @@ export class ActivityService {
   CHUNK_SIZE = 20;
 
   /**
-   * Fetches all items from API and stores them in IndexedDB
+   * Fetches all activities from API and stores them in IndexedDB
    */
   async fetchAll() {
     try {
-      // Update actual items count
-      this.itemCount.set(await this.database.items.count());
+      // Update actual activities count
+      this.itemCount.set(await this.database.activities.count());
 
       // Get the latest known date
-      const mostRecentItem = await this.database.items
+      const mostRecentItem = await this.database.activities
         .orderBy('startTime')
         .reverse()
         .first();
@@ -390,7 +393,7 @@ export class ActivityService {
           this.fetchAllActivitySummaries(this.CHUNK_SIZE, pageIndex),
         );
 
-        // Update total items count
+        // Update total activities count
         this.totalItemCount.set(page.pagination.total);
 
         // Check if page is empty
@@ -399,8 +402,8 @@ export class ActivityService {
           break;
         }
 
-        // Save fetched items to database
-        const itemsToSave: DatabaseItem[] = await Promise.all(
+        // Save fetched activities to database
+        const activitiesToSave: DatabaseItem[] = await Promise.all(
           page.activities.map(async (activity) => ({
             id: activity.id.toString(),
             startTime: activity.startTime,
@@ -410,14 +413,14 @@ export class ActivityService {
             ),
           })),
         );
-        await this.database.items.bulkPut(itemsToSave);
+        await this.database.activities.bulkPut(activitiesToSave);
 
-        // Update actual items count
-        this.itemCount.set(await this.database.items.count());
+        // Update actual activities count
+        this.itemCount.set(await this.database.activities.count());
 
         // Check for overlap
         if (latestKnownDate) {
-          if (itemsToSave.find((i) => i.startTime <= latestKnownDate!!)) {
+          if (activitiesToSave.find((i) => i.startTime <= latestKnownDate!!)) {
             keepFetching = false;
           } else {
             pageIndex++;
@@ -427,24 +430,24 @@ export class ActivityService {
         }
       }
 
-      // //
-      // // Statistics
-      // //
       //
-      // // Fetch items
-      // const statistics = await firstValueFrom(this.fetchStatistics());
+      // Statistics
       //
-      // // Save fetched items to database
-      // const itemToSave: StatisticsDatabaseItem = {
-      //   id: '0',
-      //   statistics: statistics,
-      // };
-      // await this.database.statistics.put(itemToSave);
+
+      // Fetch activities
+      const statistics = await firstValueFrom(this.fetchStatistics());
+
+      // Save fetched activities to database
+      const itemToSave: StatisticsDatabaseItem = {
+        id: '0',
+        statistics: statistics,
+      };
+
+      await this.database.statistics.put(itemToSave);
 
       this.loaded.set(true);
       return true;
-    } catch (e) {
-      console.log(`FAIL ${JSON.stringify(e)}`);
+    } catch {
       return false;
     }
   }
