@@ -1,22 +1,24 @@
 {
   "app-title": "Open eBike",
-  "cookie-banner": {
-    "title": "Data stored on your Device",
-    "description": "Open eBike is a pure web app. It does not store any of your data in the cloud. Some data is cached on your device to improve the user experience, improve load times, reduce data transfer volume and enable offline usage",
-    "terms": {
-      "consent-caching-data": "Caching Data in <a href='https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API' target='_blank'>IndexedDB</a> (essential)",
-      "consent-caching-data-description": "for shorter load times and reduced data transfer",
-      "consent-caching-client-id": "Caching Client ID in <a href='https://developer.mozilla.org/docs/Web/API/Window/localStorage' target='_blank'>local storage</a> (essential)",
-      "consent-caching-client-id-description": "for login process",
-      "consent-mapbox": "<a href='https://mapbox.com/' target='_blank'>Mapbox</a> data in <a href='https://developer.mozilla.org/docs/Web/API/Window/localStorage' target='_blank'>local storage</a>",
-      "consent-mapbox-description": "for displaying activities on maps",
-      "consent-mapillary": "<a href='https://mapillary.com/' target='_blank'>Mapillary</a> data in <a href='https://developer.mozilla.org/docs/Web/HTTP/Guides/Cookies' target='_blank'>cookies</a>",
-      "consent-mapillary-description": "for displaying images along activities"
-    },
-    "actions": {
-      "accept-only-selected": "Accept only selected",
-      "accept-only-essentials": "Accept only essentials",
-      "accept-all": "Accept All"
+  "components": {
+    "cookie-banner": {
+      "title": "Data stored on your Device",
+      "description": "Open eBike is a pure web app. It does not store any of your data in the cloud. Some data is cached on your device to improve the user experience, improve load times, reduce data transfer volume and enable offline usage",
+      "terms": {
+        "consent-caching-data": "Caching Data in <a href='https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API' target='_blank'>IndexedDB</a> (essential)",
+        "consent-caching-data-description": "for shorter load times and reduced data transfer",
+        "consent-caching-client-id": "Caching Client ID in <a href='https://developer.mozilla.org/docs/Web/API/Window/localStorage' target='_blank'>local storage</a> (essential)",
+        "consent-caching-client-id-description": "for login process",
+        "consent-mapbox": "<a href='https://mapbox.com/' target='_blank'>Mapbox</a> data in <a href='https://developer.mozilla.org/docs/Web/API/Window/localStorage' target='_blank'>local storage</a>",
+        "consent-mapbox-description": "for displaying activities on maps",
+        "consent-mapillary": "<a href='https://mapillary.com/' target='_blank'>Mapillary</a> data in <a href='https://developer.mozilla.org/docs/Web/HTTP/Guides/Cookies' target='_blank'>cookies</a>",
+        "consent-mapillary-description": "for displaying images along activities"
+      },
+      "actions": {
+        "accept-only-selected": "Accept only selected",
+        "accept-only-essentials": "Accept only essentials",
+        "accept-all": "Accept All"
+      }
     }
   },
   "pages": {
@@ -613,4 +615,4 @@
     "login": "Login",
     "logout": "Logout"
   }
-}
+},
