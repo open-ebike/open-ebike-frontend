@@ -327,6 +327,7 @@
                   [style]="mapStyle"
                   [interactiveEnabled]="false"
                   [overlays]="overlays"
+                  [markers]="markers"
                   [imageMarkers]="showImages() ? imageMarkers : []"
                   [boundingBox]="boundingBox"
                   (mapLoadedEmitter)="mapLoaded.set($event)"
@@ -338,7 +339,9 @@
                 <app-map-leaflet
                   [id]="mapId"
                   [height]="mapHeight()"
-                  [coordinates]="coordinates"
+                  [coordinates]="coordinates()"
+                  [coordinateStart]="coordinateStart"
+                  [coordinateEnd]="coordinateStart"
                   (mapLoadedEmitter)="mapLoaded.set($event)"
                 ></app-map-leaflet>
               </div>

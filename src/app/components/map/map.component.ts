@@ -7,9 +7,9 @@ import {
   output,
   signal,
 } from '@angular/core';
-import mapboxgl, { Marker } from 'mapbox-gl';
+import mapboxgl from 'mapbox-gl';
 import { HttpClient } from '@angular/common/http';
-import { MapboxService } from '../../services/mapbox.service';
+import { MapboxService, Marker } from '../../services/mapbox.service';
 
 /**
  * Map box style
@@ -148,10 +148,12 @@ export class MapComponent implements AfterViewInit {
 
   /** Map of map overlays */
   overlays = input<Map<string, Overlay>>(new Map<string, Overlay>());
+  /** List of markers to be displayed */
+  markers = input<Marker[]>([]);
   /** List of image markers */
   imageMarkers = input<ImageMarker[]>([]);
 
-  currentMarkers: Marker[] = [];
+  currentMarkers: mapboxgl.Marker[] = [];
 
   /** Output signal indicating map being loaded */
   mapLoadedEmitter = output<boolean>();
@@ -174,6 +176,12 @@ export class MapComponent implements AfterViewInit {
     // Handles map initialization
     effect(() => {
       if (this.isLoaded()) {
+        if (this.markers().length > 0) {
+          setTimeout(() => {
+            this.initializeMarkers(this.markers());
+          }, 500);
+        }
+
         this.mapLoadedEmitter.emit(true);
       }
     });
@@ -306,6 +314,25 @@ export class MapComponent implements AfterViewInit {
         });
       });
     }
+  }
+
+  /**
+   * Initializes markers
+   * @param markers markers
+   */
+  private initializeMarkers(markers: Marker[] = []) {
+    this.currentMarkers.forEach((marker) => {
+      marker.remove();
+    });
+
+    markers.forEach((marker) => {
+      const m = new mapboxgl.Marker({
+        color: marker.color,
+      })
+        .setLngLat([marker.longitude, marker.latitude])
+        .addTo(this.map!!);
+      this.currentMarkers.push(m);
+    });
   }
 
   /**

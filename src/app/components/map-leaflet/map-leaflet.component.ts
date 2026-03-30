@@ -47,6 +47,9 @@ export class MapLeafletComponent implements AfterViewInit {
   /** Coordinates */
   coordinates = input<Coordinate[]>([]);
 
+  coordinateStart = input<Coordinate | undefined>(undefined);
+  coordinateEnd = input<Coordinate | undefined>(undefined);
+
   /** Output signal indicating map being loaded */
   mapLoadedEmitter = output<boolean>();
 
@@ -56,6 +59,24 @@ export class MapLeafletComponent implements AfterViewInit {
 
   /** Map */
   private map!: L.Map;
+  /** Start marker */
+  private startMarker = L.circleMarker([0, 0], {
+    radius: 8,
+    fillColor: '#ffffff',
+    color: '#5261ac',
+    weight: 2,
+    fillOpacity: 1,
+    pane: 'fixed-markers',
+  });
+  /** End marker */
+  private endMarker = L.circleMarker([0, 0], {
+    radius: 8,
+    fillColor: '#5261ac',
+    color: '#5261ac',
+    weight: 2,
+    fillOpacity: 1,
+    pane: 'fixed-markers',
+  });
 
   /**
    * Constructor
@@ -91,6 +112,28 @@ export class MapLeafletComponent implements AfterViewInit {
               this.map,
             );
             this.map.fitBounds(polyline.getBounds());
+
+            // Add start marker
+            if (this.coordinateStart()) {
+              this.startMarker
+                .setLatLng([
+                  this.coordinateStart()?.latitude ?? 0,
+                  this.coordinateStart()?.longitude ?? 0,
+                ])
+                .addTo(this.map);
+            }
+
+            // Add end marker
+            if (this.coordinateEnd()) {
+              this.endMarker
+                .setLatLng([
+                  this.coordinateEnd()?.latitude ?? 0,
+                  this.coordinateEnd()?.longitude ?? 0,
+                ])
+                .addTo(this.map);
+              // L.marker([lastPoint.latitude, lastPoint.longitude])
+              //   .addTo(this.map);
+            }
           }
         }, 500);
       }
@@ -120,6 +163,10 @@ export class MapLeafletComponent implements AfterViewInit {
       center: [52.52, 13.4],
       zoom: 13,
     });
+
+    const topPane = this.map.createPane('fixed-markers');
+    topPane.style.zIndex = '650';
+    topPane.style.pointerEvents = 'none';
 
     // Add OpenStreetMap tiles
     const tiles = L.tileLayer(

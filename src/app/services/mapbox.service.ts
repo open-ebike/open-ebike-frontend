@@ -21,6 +21,18 @@ interface GeojsonFeatureCollection {
 export type BoundingBox = [number, number, number, number];
 
 /**
+ * Represents a marker
+ */
+export interface Marker {
+  /** Longitude */
+  longitude: number;
+  /** Latitude */
+  latitude: number;
+  /** Color */
+  color: string;
+}
+
+/**
  * Handles interaction with Mapbox
  */
 @Injectable({

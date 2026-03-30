@@ -38,7 +38,7 @@ import {
   ActivityService,
   ActivitySummary,
 } from '../../../services/api/bes2/activity.service';
-import { MapboxService } from '../../../services/mapbox.service';
+import { MapboxService, Marker } from '../../../services/mapbox.service';
 import { environment } from '../../../../environments/environment';
 import {
   MapillaryImage,
@@ -50,6 +50,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MapLeafletComponent } from '../../../components/map-leaflet/map-leaflet.component';
 import { ConsentService } from '../../../services/consent.service';
+
+/**
+ * Represents a coordinate
+ */
+export interface Coordinate {
+  /** Index */
+  index: number;
+  /** Latitude */
+  latitude: number;
+  /** Longitude */
+  longitude: number;
+}
 
 /**
  * Displays activities
@@ -160,13 +172,16 @@ export class Bes2ActivitiesComponent implements OnInit {
   mapStyle = MapBoxStyle.LIGHT_V10;
 
   overlays: Map<string, Overlay> = new Map<string, Overlay>();
+  markers: Marker[] = [];
   imageMarkers: ImageMarker[] = [];
   boundingBox: number[] | undefined;
 
   // Leaflet
 
   /** Coordinates of activity */
-  coordinates: { index: number; latitude: number; longitude: number }[] = [];
+  coordinates = signal<Coordinate[]>([]);
+  coordinateStart: Coordinate | undefined = undefined;
+  coordinateEnd: Coordinate | undefined = undefined;
 
   /** Language */
   lang = getBrowserLang();
@@ -218,6 +233,25 @@ export class Bes2ActivitiesComponent implements OnInit {
             );
           }
         }, 500);
+    });
+
+    effect(() => {
+      if (this.coordinates().length > 1) {
+        this.coordinateStart = this.coordinates()[0];
+        this.coordinateEnd = this.coordinates()[this.coordinates().length - 1];
+        this.markers = [
+          {
+            longitude: this.coordinateStart.longitude,
+            latitude: this.coordinateStart.latitude,
+            color: '#ffffff',
+          },
+          {
+            longitude: this.coordinateEnd.longitude,
+            latitude: this.coordinateEnd.latitude,
+            color: '#5261ac',
+          },
+        ];
+      }
     });
 
     effect(() => {
@@ -344,7 +378,7 @@ export class Bes2ActivitiesComponent implements OnInit {
    * @param activityDetails activity details
    */
   private initializeMapCoordinates(activityDetails?: ActivityDetail) {
-    this.coordinates =
+    this.coordinates.set(
       activityDetails?.coordinates
         ?.map((outer) => {
           return outer?.map((inner, index) => {
@@ -355,7 +389,8 @@ export class Bes2ActivitiesComponent implements OnInit {
             };
           });
         })
-        .flat() ?? [];
+        .flat() ?? [],
+    );
   }
 
   /**
