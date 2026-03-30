@@ -21,8 +21,9 @@ import { Bes2AchievementService } from '../../services/achievement/bes2/bes2-ach
 import { Bes2YearlyAchievementService } from '../../services/yearly-achievement/bes2/bes2-yearly-achievement.service';
 import { HubService as CobiHubService } from '../../services/api/cobi/hub.service';
 import { ActivityService as CobiActivityService } from '../../services/api/cobi/activity.service';
-import { CookieBottomSheetComponent } from '../cookie-bottom-sheet/cookie-bottom-sheet.component';
+import { ConsentBottomSheetComponent } from '../consent-bottom-sheet/consent-bottom-sheet.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { ConsentService } from '../../services/consent.service';
 
 /**
  * Displays toolbar
@@ -58,6 +59,8 @@ export class ToolbarComponent {
   public themeService = inject(ThemeService);
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
+  /** Consent service */
+  private consentService = inject(ConsentService);
 
   /** eBike profile service */
   public bes3EbikeProfileService = inject(Bes3EbikeProfileService);
@@ -122,9 +125,8 @@ export class ToolbarComponent {
    * Handles click on cookie button
    */
   onCookieClicked() {
-    this.bottomSheet.open(CookieBottomSheetComponent, {
-      disableClose:
-        localStorage.getItem('openEbikePrivacySettingsSelected') != 'true',
+    this.bottomSheet.open(ConsentBottomSheetComponent, {
+      disableClose: !this.consentService.consentChoiceMade(),
     });
   }
 

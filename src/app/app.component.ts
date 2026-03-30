@@ -32,7 +32,8 @@ import { Bes2YearlyAchievementService } from './services/yearly-achievement/bes2
 import { HubService as CobiHubService } from './services/api/cobi/hub.service';
 import { ActivityService as CobiActivityService } from './services/api/cobi/activity.service';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { CookieBottomSheetComponent } from './components/cookie-bottom-sheet/cookie-bottom-sheet.component';
+import { ConsentBottomSheetComponent } from './components/consent-bottom-sheet/consent-bottom-sheet.component';
+import { ConsentService } from './services/consent.service';
 
 /**
  * Displays app component
@@ -65,6 +66,8 @@ export class AppComponent implements OnInit {
   public authenticationService = inject(AuthenticationService);
   /** Transloco service */
   private translocoService = inject(TranslocoService);
+  /** Consent service */
+  public consentService = inject(ConsentService);
 
   /** eBike profile service */
   private bes3EbikeProfileService = inject(Bes3EbikeProfileService);
@@ -367,13 +370,9 @@ export class AppComponent implements OnInit {
     await this.authenticationService.restoreConfig();
     this.initializeTheme();
 
-    localStorage.setItem('openEbikeConsentCachingData', 'true');
-    localStorage.setItem('openEbikeConsentCachingClientId', 'true');
-
-    if (localStorage.getItem('openEbikePrivacySettingsSelected') != 'true') {
-      this.bottomSheet.open(CookieBottomSheetComponent, {
-        disableClose:
-          localStorage.getItem('openEbikePrivacySettingsSelected') != 'true',
+    if (!this.consentService.consentChoiceMade()) {
+      this.bottomSheet.open(ConsentBottomSheetComponent, {
+        disableClose: !this.consentService.consentChoiceMade(),
       });
     }
   }

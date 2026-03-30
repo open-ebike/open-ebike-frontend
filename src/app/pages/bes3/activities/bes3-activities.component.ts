@@ -50,6 +50,7 @@ import { SharePictureActivityBottomSheetComponent } from '../../../components/sh
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MapLeafletComponent } from '../../../components/map-leaflet/map-leaflet.component';
+import { ConsentService } from '../../../services/consent.service';
 
 /**
  * Displays activities
@@ -102,6 +103,8 @@ export class Bes3ActivitiesComponent implements OnInit {
   public mapboxService = inject(MapboxService);
   /** Mapillary service */
   public mapillaryService = inject(MapillaryService);
+  /** Consent service */
+  public consentService = inject(ConsentService);
 
   //
   // Signals
@@ -126,12 +129,6 @@ export class Bes3ActivitiesComponent implements OnInit {
   drawerEnd = viewChild<MatDrawer>('drawerEnd');
 
   showImages = signal(true);
-  consentMapbox = signal(
-    localStorage.getItem('openEbikeConsentMapbox') === 'true',
-  );
-  consentMapillary = signal(
-    localStorage.getItem('openEbikeConsentMapillary') === 'true',
-  );
 
   //
   // Paginator
@@ -209,7 +206,7 @@ export class Bes3ActivitiesComponent implements OnInit {
           this.initializeMapOverlay(this.id(), this.activityDetails());
           this.initializeMapCoordinates(this.activityDetails());
 
-          if (this.consentMapillary()) {
+          if (this.consentService.consentMapillary()) {
             this.initializeMapillaryImages(
               Math.ceil((this.selectedActivity()?.distance ?? 0) / 500),
               this.activityDetails(),

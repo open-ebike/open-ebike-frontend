@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CookieBottomSheetComponent } from './cookie-bottom-sheet.component';
+import { ConsentBottomSheetComponent } from './consent-bottom-sheet.component';
 
 describe('CookieBottomSheetComponent', () => {
-  let component: CookieBottomSheetComponent;
-  let fixture: ComponentFixture<CookieBottomSheetComponent>;
+  let component: ConsentBottomSheetComponent;
+  let fixture: ComponentFixture<ConsentBottomSheetComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CookieBottomSheetComponent],
+      imports: [ConsentBottomSheetComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CookieBottomSheetComponent);
+    fixture = TestBed.createComponent(ConsentBottomSheetComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
