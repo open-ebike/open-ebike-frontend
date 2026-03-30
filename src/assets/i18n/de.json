@@ -19,6 +19,17 @@
         "accept-only-essentials": "Nur notwendige akzeptieren",
         "accept-all": "Alle akzeptieren"
       }
+    },
+    "configuration": {
+      "title": "Konfiguration",
+      "description": "Gib deine Access Tokens hier ein",
+      "terms": {
+        "mapbox-access-token": "Mapbox Access Token",
+        "mapillary-access-token": "Mapillary Access Token"
+      },
+      "actions": {
+        "save": "Speichern"
+      }
     }
   },
   "pages": {
@@ -550,16 +561,6 @@
         "login-cobi": "Login COBI",
         "login": "Login",
         "login-with-singlekey-id": "Login mit SingleKey ID"
-      }
-    },
-    "configuration": {
-      "title": "Konfiguration",
-      "terms": {
-        "mapbox-access-token": "Mapbox Access Token",
-        "mapillary-access-token": "Mapillary Access Token"
-      },
-      "actions": {
-        "save": "Speichern"
       }
     },
     "contact": {

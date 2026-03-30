@@ -556,7 +556,10 @@
                       {{ t("actions.show-summary") }}
                     }
                   </button>
-                  @if (consentService.consentMapillary()) {
+                  @if (
+                    mapillaryService.mapillaryAccessToken() &&
+                    consentService.consentMapillary()
+                  ) {
                     <span class="delimiter">·</span>
                     <button mat-button (click)="onToggleImagesClicked()">
                       @if (showImages()) {

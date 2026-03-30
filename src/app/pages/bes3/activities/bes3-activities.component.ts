@@ -259,8 +259,6 @@ export class Bes3ActivitiesComponent implements OnInit {
    */
   ngOnInit() {
     this.windowWidth.set(window.innerWidth);
-    this.mapboxService.restoreConfig();
-    this.mapillaryService.restoreConfig();
     this.handleQueryParameters();
   }
 

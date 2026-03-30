@@ -168,16 +168,12 @@
           >
             <span class="material-symbols-outlined toolbar-icon">cookie</span>
           </button>
-          @if (
-            authenticationService.isLoggedIn() &&
-            environment.mapbox.accessToken == null
-          ) {
+          @if (authenticationService.isLoggedIn()) {
             <button
               mat-button
               class="toolbar-menu-item"
               routerLinkActive="toolbar-menu-item-active"
-              routerLink="/configuration"
-              [queryParams]="{ theme: themeService.theme() }"
+              (click)="onConfigurationClicked()"
             >
               <span class="material-symbols-outlined toolbar-icon"
                 >settings</span
@@ -395,19 +391,18 @@
                 <span class="material-symbols-outlined toolbar-icon"
                   >cookie</span
                 >
-                {{ t("cookie-banner.title") }}
+                {{ t("components.cookie-banner.title") }}
               </button>
               <button
                 mat-menu-item
                 class="toolbar-menu-item"
                 routerLinkActive="toolbar-menu-item-active"
-                routerLink="/configuration"
-                [queryParams]="{ theme: themeService.theme() }"
+                (click)="onConfigurationClicked()"
               >
                 <span class="material-symbols-outlined toolbar-icon"
                   >settings</span
                 >
-                {{ t("pages.configuration.title") }}
+                {{ t("components.configuration.title") }}
               </button>
             }
             @if (themeService.theme() === themeEnum.LIGHT) {

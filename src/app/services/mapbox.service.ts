@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { effect, Injectable, signal } from '@angular/core';
 import { ActivityDetail as Bes3ActivityDetail } from './api/bes3/activity-records.service';
 import {
   ActivityDetail as Bes2ActivityDetail,
@@ -28,20 +28,20 @@ export type BoundingBox = [number, number, number, number];
 })
 export class MapboxService {
   /** Mapbox access token */
-  public mapboxAccessToken = signal<string>('');
+  public mapboxAccessToken = signal(
+    localStorage.getItem('openEbikeMapboxAccessToken') ?? '',
+  );
 
   /**
-   * Restores client ID from local storage
+   * Constructor
    */
-  async restoreConfig() {
-    const mapboxAccessToken = localStorage.getItem(
-      'openEbikeMapboxAccessToken',
-    );
-
-    if (!mapboxAccessToken) return false;
-
-    this.mapboxAccessToken.set(mapboxAccessToken);
-    return true;
+  constructor() {
+    effect(() => {
+      localStorage.setItem(
+        'openEbikeMapboxAccessToken',
+        this.mapboxAccessToken().toString(),
+      );
+    });
   }
 
   //

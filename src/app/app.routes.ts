@@ -9,7 +9,6 @@ import { Bes3ComponentDetailsComponent } from './pages/bes3/component-details/be
 import { LoginComponent } from './pages/login/login.component';
 import { ImprintComponent } from './pages/imprint/imprint.component';
 import { ContactComponent } from './pages/contact/contact.component';
-import { ConfigurationComponent } from './pages/configuration/configuration.component';
 import { Bes2EbikesComponent } from './pages/bes2/ebikes/bes2-ebikes.component';
 import { Bes2EbikeDetailsComponent } from './pages/bes2/ebike-details/bes2-ebike-details.component';
 import { Bes2ComponentDetailsComponent } from './pages/bes2/component-details/bes2-component-details.component';
@@ -115,11 +114,6 @@ export const routes: Routes = [
   {
     path: 'cobi/activities',
     component: CobiActivitiesComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'configuration',
-    component: ConfigurationComponent,
     canActivate: [AuthGuard],
   },
   {

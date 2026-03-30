@@ -21,7 +21,7 @@ import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { ConsentService } from '../../services/consent.service';
 
 /**
- * Displays cookie banner
+ * Displays consent bottom sheet
  */
 @Component({
   selector: 'app-consent-bottom-sheet',

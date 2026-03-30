@@ -208,7 +208,6 @@ export class MapComponent implements AfterViewInit {
    * Handles after-view-init phase
    */
   ngAfterViewInit() {
-    this.mapboxService.restoreConfig();
     this.initializeMapBox(this.mapboxService.mapboxAccessToken());
 
     this.map?.on('load', () => {

@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -34,20 +34,20 @@ export class MapillaryService {
   private http = inject(HttpClient);
 
   /** Mapillary access token */
-  public mapillaryAccessToken = signal<string>('');
+  public mapillaryAccessToken = signal(
+    localStorage.getItem('openEbikeMapillaryAccessToken') ?? '',
+  );
 
   /**
-   * Restores access token from local storage
+   * Constructor
    */
-  async restoreConfig() {
-    const mapillaryAccessToken = localStorage.getItem(
-      'openEbikeMapillaryAccessToken',
-    );
-
-    if (!mapillaryAccessToken) return false;
-
-    this.mapillaryAccessToken.set(mapillaryAccessToken);
-    return true;
+  constructor() {
+    effect(() => {
+      localStorage.setItem(
+        'openEbikeMapillaryAccessToken',
+        this.mapillaryAccessToken().toString(),
+      );
+    });
   }
 
   /**

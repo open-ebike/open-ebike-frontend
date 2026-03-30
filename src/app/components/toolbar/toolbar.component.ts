@@ -24,6 +24,7 @@ import { ActivityService as CobiActivityService } from '../../services/api/cobi/
 import { ConsentBottomSheetComponent } from '../consent-bottom-sheet/consent-bottom-sheet.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ConsentService } from '../../services/consent.service';
+import { ConfigurationBottomSheetComponent } from '../configuration-bottom-sheet/configuration-bottom-sheet.component';
 
 /**
  * Displays toolbar
@@ -106,6 +107,22 @@ export class ToolbarComponent {
   //
 
   /**
+   * Handles click on cookie button
+   */
+  onCookieClicked() {
+    this.bottomSheet.open(ConsentBottomSheetComponent, {
+      disableClose: !this.consentService.consentChoiceMade(),
+    });
+  }
+
+  /**
+   * Handles click on configuration button
+   */
+  onConfigurationClicked() {
+    this.bottomSheet.open(ConfigurationBottomSheetComponent);
+  }
+
+  /**
    * Handles click on dark mode button
    */
   onDarkModeClicked() {
@@ -119,15 +136,6 @@ export class ToolbarComponent {
   onLightModeClicked() {
     this.themeService.switchTheme(Theme.LIGHT);
     this.updateQueryParameters();
-  }
-
-  /**
-   * Handles click on cookie button
-   */
-  onCookieClicked() {
-    this.bottomSheet.open(ConsentBottomSheetComponent, {
-      disableClose: !this.consentService.consentChoiceMade(),
-    });
   }
 
   //

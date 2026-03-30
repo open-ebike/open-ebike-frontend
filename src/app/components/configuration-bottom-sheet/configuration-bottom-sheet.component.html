@@ -1,0 +1,48 @@
+<ng-container
+  *transloco="let t; lang: lang; prefix: 'components.configuration'"
+>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <span class="material-symbols-outlined"> settings </span>
+      </div>
+      <mat-card-title>{{ t("title") }}</mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content style="max-width: 480px">
+      {{ t("description") }}
+    </mat-card-content>
+  </mat-card>
+  <div class="flex-container">
+    <form class="form">
+      <mat-form-field>
+        <mat-label>{{ t("terms.mapbox-access-token") }}</mat-label>
+        <input
+          matInput
+          placeholder="pk.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxx"
+          [(ngModel)]="mapboxAccessToken"
+          name="mapboxAccessToken"
+        />
+      </mat-form-field>
+    </form>
+  </div>
+  <div class="flex-container">
+    <form class="form">
+      <mat-form-field>
+        <mat-label>{{ t("terms.mapillary-access-token") }}</mat-label>
+        <input
+          matInput
+          placeholder="MLY|xxxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+          [(ngModel)]="mapillaryAccessToken"
+          name="mapillaryAccessToken"
+        />
+      </mat-form-field>
+    </form>
+  </div>
+  <div class="flex-container">
+    <div class="flex-box"></div>
+    <button mat-flat-button color="primary" (click)="onSaveClicked()">
+      {{ t("actions.save") }}
+    </button>
+  </div>
+</ng-container>
