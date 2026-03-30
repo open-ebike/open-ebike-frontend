@@ -28,12 +28,6 @@ import { DatePipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatRipple } from '@angular/material/core';
 import { MetersToKilometersPipe } from '../../../pipes/meters-to-kilometers.pipe';
-import {
-  MatCard,
-  MatCardActions,
-  MatCardContent,
-  MatCardFooter,
-} from '@angular/material/card';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import {
@@ -55,6 +49,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { SharePictureActivityBottomSheetComponent } from '../../../components/share-picture-activity-bottom-sheet/share-picture-activity-bottom-sheet.component';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MapLeafletComponent } from '../../../components/map-leaflet/map-leaflet.component';
 
 /**
  * Displays activities
@@ -69,17 +64,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     DatePipe,
     MatRipple,
     MetersToKilometersPipe,
-    MatCard,
-    MatCardContent,
     MatSidenavModule,
     MatButton,
     MapComponent,
-    MatCardActions,
-    MatCardFooter,
     MatPaginator,
     RoundPipe,
     MatIconButton,
     MatProgressBar,
+    MapLeafletComponent,
   ],
   templateUrl: './bes3-activities.component.html',
   styleUrl: './bes3-activities.component.scss',
@@ -160,7 +152,11 @@ export class Bes3ActivitiesComponent implements OnInit {
 
   /** Map loaded */
   mapLoaded = signal(false);
+  /** Map ID */
   mapId = 'activities';
+
+  // Mapbox
+
   toolbarHeight = signal(64);
   innerContainerHeight = signal(128);
   mapHeight = computed(() => {
@@ -171,6 +167,11 @@ export class Bes3ActivitiesComponent implements OnInit {
   overlays: Map<string, Overlay> = new Map<string, Overlay>();
   imageMarkers: ImageMarker[] = [];
   boundingBox: number[] | undefined;
+
+  // Leaflet
+
+  /** Coordinates of activity */
+  coordinates: { index: number; latitude: number; longitude: number }[] = [];
 
   /** Language */
   lang = getBrowserLang();
@@ -206,6 +207,7 @@ export class Bes3ActivitiesComponent implements OnInit {
       if (this.mapLoaded() && this.activityDetails().length > 0)
         setTimeout(() => {
           this.initializeMapOverlay(this.id(), this.activityDetails());
+          this.initializeMapCoordinates(this.activityDetails());
 
           if (this.consentMapillary()) {
             this.initializeMapillaryImages(
@@ -318,8 +320,8 @@ export class Bes3ActivitiesComponent implements OnInit {
           'line-cap': 'round',
         },
         paint: {
-          'line-color': '#d75b98',
-          'line-width': 8,
+          'line-color': '#5261ac',
+          'line-width': 4,
         },
       }),
     };
@@ -333,6 +335,20 @@ export class Bes3ActivitiesComponent implements OnInit {
     this.boundingBox = this.mapboxService.buildBoundingBoxWithPadding(
       geojson.features[0]['properties']['bounding-box'],
     );
+  }
+
+  /**
+   * Initializes map coordinates
+   * @param activityDetails activity details
+   */
+  private initializeMapCoordinates(activityDetails: ActivityDetail[]) {
+    this.coordinates = activityDetails.map((activityDetail, index) => {
+      return {
+        index,
+        latitude: activityDetail.latitude,
+        longitude: activityDetail.longitude,
+      };
+    });
   }
 
   /**

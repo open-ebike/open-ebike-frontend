@@ -103,7 +103,7 @@ const BOSCH_ECAMPUS: Location = {
 };
 
 /**
- * Displays a map box
+ * Displays a mapbox map
  */
 @Component({
   selector: 'app-map',
@@ -116,6 +116,7 @@ export class MapComponent implements AfterViewInit {
   // Signals
   //
 
+  /** Signal indicating if map is loaded */
   isLoaded = signal(false);
 
   /** Unique ID for this map */
@@ -149,11 +150,12 @@ export class MapComponent implements AfterViewInit {
   overlays = input<Map<string, Overlay>>(new Map<string, Overlay>());
   /** List of image markers */
   imageMarkers = input<ImageMarker[]>([]);
+
   currentMarkers: Marker[] = [];
 
   /** Output signal indicating map being loaded */
   mapLoadedEmitter = output<boolean>();
-
+  /** Output signal indicated an image marker being clicked */
   onImageMarkerClickedEmitter = output<ImageMarker>();
 
   //
@@ -169,6 +171,7 @@ export class MapComponent implements AfterViewInit {
   private map: mapboxgl.Map | undefined;
 
   constructor() {
+    // Handles map initialization
     effect(() => {
       if (this.isLoaded()) {
         this.mapLoadedEmitter.emit(true);

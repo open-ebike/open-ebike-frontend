@@ -39,12 +39,6 @@ import {
   ActivitySummary,
 } from '../../../services/api/bes2/activity.service';
 import { MapboxService } from '../../../services/mapbox.service';
-import {
-  MatCard,
-  MatCardActions,
-  MatCardContent,
-  MatCardFooter,
-} from '@angular/material/card';
 import { environment } from '../../../../environments/environment';
 import {
   MapillaryImage,
@@ -54,6 +48,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { SharePictureActivityBottomSheetComponent } from '../../../components/share-picture-activity-bottom-sheet/share-picture-activity-bottom-sheet.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressBar } from '@angular/material/progress-bar';
+import { MapLeafletComponent } from '../../../components/map-leaflet/map-leaflet.component';
 
 /**
  * Displays activities
@@ -72,12 +67,9 @@ import { MatProgressBar } from '@angular/material/progress-bar';
     MatButton,
     MapComponent,
     MatPaginator,
-    MatCardActions,
-    MatCardFooter,
-    MatCard,
-    MatCardContent,
     MatIconButton,
     MatProgressBar,
+    MapLeafletComponent,
   ],
   templateUrl: './bes2-activities.component.html',
   styleUrl: './bes2-activities.component.scss',
@@ -158,7 +150,11 @@ export class Bes2ActivitiesComponent implements OnInit {
 
   /** Map loaded */
   mapLoaded = signal(false);
+  /** Map ID */
   mapId = 'activities';
+
+  // Mapbox
+
   toolbarHeight = signal(64);
   innerContainerHeight = signal(128);
   mapHeight = computed(() => {
@@ -169,6 +165,11 @@ export class Bes2ActivitiesComponent implements OnInit {
   overlays: Map<string, Overlay> = new Map<string, Overlay>();
   imageMarkers: ImageMarker[] = [];
   boundingBox: number[] | undefined;
+
+  // Leaflet
+
+  /** Coordinates of activity */
+  coordinates: { index: number; latitude: number; longitude: number }[] = [];
 
   /** Language */
   lang = getBrowserLang();
@@ -203,6 +204,7 @@ export class Bes2ActivitiesComponent implements OnInit {
       if (this.mapLoaded() && this.id() && this.activityDetails())
         setTimeout(() => {
           this.initializeMapOverlay(this.id(), this.activityDetails());
+          this.initializeMapCoordinates(this.activityDetails());
         }, 500);
     });
 
@@ -210,6 +212,8 @@ export class Bes2ActivitiesComponent implements OnInit {
       if (this.mapLoaded() && this.activitySummaries().length > 0)
         setTimeout(() => {
           this.initializeMapOverlay(this.id(), this.activityDetails());
+          this.initializeMapCoordinates(this.activityDetails());
+
           if (this.consentMapillary()) {
             this.initializeMapillaryImages(
               Math.ceil((this.selectedActivity()?.totalDistance ?? 0) / 500),
@@ -323,8 +327,8 @@ export class Bes2ActivitiesComponent implements OnInit {
           'line-cap': 'round',
         },
         paint: {
-          'line-color': '#d75b98',
-          'line-width': 8,
+          'line-color': '#5261ac',
+          'line-width': 4,
         },
       }),
     };
@@ -338,6 +342,25 @@ export class Bes2ActivitiesComponent implements OnInit {
     this.boundingBox = this.mapboxService.buildBoundingBoxWithPadding(
       geojson.features[0]['properties']['bounding-box'],
     );
+  }
+
+  /**
+   * Initializes map coordinates
+   * @param activityDetails activity details
+   */
+  private initializeMapCoordinates(activityDetails?: ActivityDetail) {
+    this.coordinates =
+      activityDetails?.coordinates
+        ?.map((outer) => {
+          return outer?.map((inner, index) => {
+            return {
+              index,
+              latitude: inner?.latitude ?? 0,
+              longitude: inner?.longitude ?? 0,
+            };
+          });
+        })
+        .flat() ?? [];
   }
 
   /**

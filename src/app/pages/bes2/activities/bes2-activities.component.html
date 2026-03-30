@@ -585,102 +585,14 @@
                 ></app-map>
               </div>
             } @else {
-              <div class="inner-container">
-                @if (activityDetails()) {
-                  <div class="grid">
-                    @for (
-                      outer of activityDetails()?.coordinates;
-                      track outer;
-                      let outerIndex = $index
-                    ) {
-                      @for (
-                        inner of outer;
-                        track inner;
-                        let innerIndex = $index
-                      ) {
-                        <mat-card mat-ripple>
-                          <mat-card-content>
-                            <ul class="list">
-                              <li>
-                                <strong class="label">{{
-                                  t("terms.altitude")
-                                }}</strong
-                                >:
-                                {{
-                                  activityDetails()?.altitudes?.[outerIndex]?.[
-                                    innerIndex
-                                  ]
-                                }}
-                              </li>
-                              <li>
-                                <strong class="label">{{
-                                  t("terms.cadence")
-                                }}</strong
-                                >:
-                                {{
-                                  activityDetails()?.cadence?.[outerIndex]?.[
-                                    innerIndex
-                                  ]
-                                }}
-                              </li>
-
-                              <li>
-                                <strong class="label">{{
-                                  t("terms.heart-rate")
-                                }}</strong
-                                >:
-                                {{
-                                  activityDetails()?.heartRate?.[outerIndex]?.[
-                                    innerIndex
-                                  ]
-                                }}
-                              </li>
-                              <li>
-                                <strong class="label">{{
-                                  t("terms.speed")
-                                }}</strong
-                                >:
-                                {{
-                                  activityDetails()?.speed?.[outerIndex]?.[
-                                    innerIndex
-                                  ]
-                                }}
-                              </li>
-                            </ul>
-                            <ul class="list">
-                              <li>
-                                <strong class="label">{{
-                                  t("terms.latitude")
-                                }}</strong
-                                >:
-                                {{
-                                  activityDetails()?.coordinates?.[
-                                    outerIndex
-                                  ]?.[innerIndex]?.latitude
-                                }}
-                              </li>
-                              <li>
-                                <strong class="label">{{
-                                  t("terms.longitude")
-                                }}</strong
-                                >:
-                                {{
-                                  activityDetails()?.coordinates?.[
-                                    outerIndex
-                                  ]?.[innerIndex]?.longitude
-                                }}
-                              </li>
-                            </ul>
-                          </mat-card-content>
-                          <mat-card-actions></mat-card-actions>
-                          <mat-card-footer></mat-card-footer>
-                        </mat-card>
-                      }
-                    }
-                  </div>
-                }
+              <div class="map-container">
+                <app-map-leaflet
+                  [id]="mapId"
+                  [height]="mapHeight()"
+                  [coordinates]="coordinates"
+                  (mapLoadedEmitter)="mapLoaded.set($event)"
+                ></app-map-leaflet>
               </div>
-              <div class="flex-box"></div>
             }
           </div>
         </mat-drawer-content>
