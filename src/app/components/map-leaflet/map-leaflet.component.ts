@@ -3,6 +3,7 @@ import {
   Component,
   effect,
   input,
+  model,
   output,
   signal,
 } from '@angular/core';
@@ -46,6 +47,8 @@ export class MapLeafletComponent implements AfterViewInit {
 
   /** Coordinates */
   coordinates = input<Coordinate[]>([]);
+  /** Hovered coordinate */
+  hoveredCoordinate = model<Coordinate | undefined>(undefined);
 
   coordinateStart = input<Coordinate | undefined>(undefined);
   coordinateEnd = input<Coordinate | undefined>(undefined);
@@ -76,6 +79,14 @@ export class MapLeafletComponent implements AfterViewInit {
     weight: 2,
     fillOpacity: 1,
     pane: 'fixed-markers',
+  });
+  /** Highlight marker */
+  private highlightMarker?: L.CircleMarker = L.circleMarker([0, 0], {
+    radius: 6,
+    fillColor: '#d75b98',
+    color: '#d75b98',
+    weight: 2,
+    fillOpacity: 1,
   });
 
   /**
@@ -134,8 +145,50 @@ export class MapLeafletComponent implements AfterViewInit {
               // L.marker([lastPoint.latitude, lastPoint.longitude])
               //   .addTo(this.map);
             }
+
+            // Detect on-hover events
+            polyline.on('mousemove', (e: L.LeafletMouseEvent) => {
+              const mouseLatLng = e.latlng;
+              let closestCoordinate = undefined;
+              let minDistance = Infinity;
+
+              // Find the point in your array closest to the mouse position
+              this.coordinates().forEach((coordinate) => {
+                const dist = mouseLatLng.distanceTo([
+                  coordinate.latitude,
+                  coordinate.longitude,
+                ]);
+                if (dist < minDistance) {
+                  minDistance = dist;
+                  closestCoordinate = coordinate;
+                }
+              });
+
+              // Only emit if the mouse is within a reasonable distance (e.g., 20 meters)
+              if (minDistance < 50) {
+                this.hoveredCoordinate.set(closestCoordinate);
+              } else {
+                this.hoveredCoordinate.set(undefined);
+              }
+            });
           }
         }, 500);
+      }
+    });
+
+    // Handles hovered coordinate
+    effect(() => {
+      if (this.isLoaded()) {
+        const hovered = this.hoveredCoordinate();
+        if (hovered) {
+          const latLng: L.LatLngExpression = [
+            hovered.latitude,
+            hovered.longitude,
+          ];
+          this.highlightMarker?.setLatLng(latLng).addTo(this.map);
+        } else {
+          this.highlightMarker?.remove();
+        }
       }
     });
   }

@@ -4,12 +4,14 @@ import {
   effect,
   inject,
   input,
+  model,
   output,
   signal,
 } from '@angular/core';
 import mapboxgl from 'mapbox-gl';
 import { HttpClient } from '@angular/common/http';
 import { MapboxService, Marker } from '../../services/mapbox.service';
+import { Coordinate } from '../map-leaflet/map-leaflet.component';
 
 /**
  * Map box style
@@ -143,6 +145,9 @@ export class MapComponent implements AfterViewInit {
   /** Initial bounding box of map */
   boundingBox = input<number[]>();
 
+  /** Hovered coordinate */
+  hoveredCoordinate = model<Coordinate | undefined>(undefined);
+
   /** Whether interactive mode is enabled or not */
   interactiveEnabled = input(true);
 
@@ -171,6 +176,12 @@ export class MapComponent implements AfterViewInit {
 
   /** Map Box object */
   private map: mapboxgl.Map | undefined;
+
+  /** Highlight marker for hovered coordinate */
+  private highlightMarker: mapboxgl.Marker | undefined;
+
+  /** Extracted coordinates from GeoJSON layers for hovering */
+  private geoJsonCoordinates: Coordinate[] = [];
 
   constructor() {
     // Handles map initialization
@@ -204,6 +215,36 @@ export class MapComponent implements AfterViewInit {
       if (this.isLoaded() && this.boundingBox() != undefined) {
         // @ts-ignore
         this.map?.fitBounds(this.boundingBox());
+      }
+    });
+    effect(() => {
+      if (this.isLoaded()) {
+        const hovered = this.hoveredCoordinate();
+        if (hovered) {
+          if (!this.highlightMarker) {
+            const el = document.createElement('div');
+            el.style.width = '12px';
+            el.style.height = '12px';
+            el.style.backgroundColor = '#d75b98';
+            el.style.borderRadius = '50%';
+
+            this.highlightMarker = new mapboxgl.Marker({
+              element: el,
+            }).setLngLat([hovered.longitude, hovered.latitude]);
+          } else {
+            this.highlightMarker.setLngLat([
+              hovered.longitude,
+              hovered.latitude,
+            ]);
+          }
+          if (this.map) {
+            this.highlightMarker.addTo(this.map);
+          }
+        } else {
+          if (this.highlightMarker) {
+            this.highlightMarker.remove();
+          }
+        }
       }
     });
   }
@@ -256,6 +297,25 @@ export class MapComponent implements AfterViewInit {
    */
   private initializeOverlays(overlays: Map<string, Overlay>) {
     if (this.map != null) {
+      this.geoJsonCoordinates = [];
+      let coordinateIndex = 0;
+
+      const parseGeojsonForCoordinates = (geojson: any) => {
+        if (geojson && geojson.type === 'FeatureCollection' && geojson.features) {
+          geojson.features.forEach((feature: any) => {
+            if (feature.geometry?.type === 'LineString') {
+              feature.geometry.coordinates.forEach((coord: number[]) => {
+                this.geoJsonCoordinates.push({
+                  index: coordinateIndex++,
+                  longitude: coord[0],
+                  latitude: coord[1],
+                });
+              });
+            }
+          });
+        }
+      };
+
       overlays.forEach((overlay: Overlay, name: string) => {
         // Remove existing layers
         this.map?.getStyle()?.layers.forEach((layer) => {
@@ -278,10 +338,14 @@ export class MapComponent implements AfterViewInit {
               type: 'geojson',
               data: overlay.source.value,
             });
+            this.http.get(overlay.source.value, { responseType: 'json' }).subscribe((data: any) => {
+              parseGeojsonForCoordinates(data);
+            });
             break;
           }
           case Origin.INLINE: {
             const geojson = JSON.parse(overlay.source.value);
+            parseGeojsonForCoordinates(geojson);
 
             this.map?.addSource(overlay.source.name, {
               type: 'geojson',
@@ -390,6 +454,34 @@ export class MapComponent implements AfterViewInit {
     // Add layer
     if (this.map?.getSource(sourceName)) {
       this.map?.addLayer(layer);
+
+      if (layer.type === 'line') {
+        this.map?.on('mousemove', layer.id, (e) => {
+          const mouseLngLat = e.lngLat;
+          let closestCoordinate: Coordinate | undefined = undefined;
+          let minDistance = Infinity;
+
+          this.geoJsonCoordinates.forEach((coordinate) => {
+            const dist = mouseLngLat.distanceTo(
+              new mapboxgl.LngLat(coordinate.longitude, coordinate.latitude),
+            );
+            if (dist < minDistance) {
+              minDistance = dist;
+              closestCoordinate = coordinate;
+            }
+          });
+
+          if (minDistance < 50) {
+            this.hoveredCoordinate.set(closestCoordinate);
+          } else {
+            this.hoveredCoordinate.set(undefined);
+          }
+        });
+
+        this.map?.on('mouseleave', layer.id, () => {
+          this.hoveredCoordinate.set(undefined);
+        });
+      }
     }
   }
 }
