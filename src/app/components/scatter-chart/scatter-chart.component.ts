@@ -19,6 +19,7 @@ import {
 } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { NgStyle } from '@angular/common';
+import { Theme } from '../../services/theme.service';
 
 Chart.register(
   ScatterController,
@@ -64,6 +65,9 @@ export class ScatterChartComponent {
   // Signals
   //
 
+  /** Theme */
+  theme = input<Theme>(Theme.LIGHT);
+  /** ID */
   id = signal('scatter-chart');
   /** Height of the map */
   height = input('500px');
@@ -103,7 +107,12 @@ export class ScatterChartComponent {
     effect(() => {
       if (this.id() && this.coordinates().length > 0 && this.attributes()) {
         setTimeout(() => {
-          this.updateChart(this.id(), this.coordinates(), this.attributes());
+          this.updateChart(
+            this.theme(),
+            this.id(),
+            this.coordinates(),
+            this.attributes(),
+          );
         }, 500);
       }
     });
@@ -180,11 +189,13 @@ export class ScatterChartComponent {
 
   /**
    * Updates chart
+   * @param theme theme
    * @param id ID
    * @param coordinates coordinates
    * @param attributes attributes
    */
   private updateChart(
+    theme: Theme,
     id: string,
     coordinates: Coordinate[],
     attributes: string[],
@@ -216,9 +227,12 @@ export class ScatterChartComponent {
       x: {
         ticks: {
           display: false,
+          color: theme == Theme.DARK ? '#eeeeee' : '#000000',
         },
         grid: {
           display: true,
+          color: theme == Theme.DARK ? '#616161' : '#eeeeee',
+          tickColor: theme == Theme.DARK ? '#616161' : '#eeeeee',
         },
       },
     };
@@ -226,7 +240,17 @@ export class ScatterChartComponent {
       scales[attribute] = {
         type: 'linear',
         position: 'left',
-        title: { display: true, text: attribute.toString() },
+        title: {
+          display: true,
+          text: attribute.toString(),
+          color: theme == Theme.DARK ? '#eeeeee' : '#000000',
+        },
+        ticks: {
+          color: theme == Theme.DARK ? '#eeeeee' : '#000000',
+        },
+        grid: {
+          color: theme == Theme.DARK ? '#616161' : '#eeeeee',
+        },
         stack: 'stack',
         stackWeight: 1,
       };
@@ -257,6 +281,9 @@ export class ScatterChartComponent {
       },
       plugins: {
         legend: {
+          labels: {
+            color: theme == Theme.DARK ? '#fefefe' : '#000000',
+          },
           onClick: (_) => {},
         },
       },

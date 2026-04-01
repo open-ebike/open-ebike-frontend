@@ -358,6 +358,7 @@
                   [ngStyle]="{ height: mapHeight() }"
                 >
                   <app-scatter-chart
+                    [theme]="themeService.theme()"
                     [height]="mapHeight()"
                     [coordinates]="coordinates()"
                     [(hoveredCoordinate)]="hoveredCoordinate"

@@ -122,7 +122,7 @@ export class Bes3ActivitiesComponent implements OnInit {
   /** Media service */
   public mediaService = inject(MediaService);
   /** Theme service */
-  private themeService = inject(ThemeService);
+  public themeService = inject(ThemeService);
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
   /** Activity records service */
