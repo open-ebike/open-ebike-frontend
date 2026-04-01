@@ -315,37 +315,48 @@
                 }
               </h2>
             </div>
-
-            @if (
-              mapboxService.mapboxAccessToken() &&
-              consentService.consentMapbox()
-            ) {
+            <div class="flex-container full-width">
               <div class="map-container">
-                <app-map
-                  [id]="mapId"
-                  [height]="mapHeight()"
-                  [style]="mapStyle"
-                  [interactiveEnabled]="false"
-                  [overlays]="overlays"
-                  [markers]="markers"
-                  [imageMarkers]="showImages() ? imageMarkers : []"
-                  [boundingBox]="boundingBox"
-                  (mapLoadedEmitter)="mapLoaded.set($event)"
-                  (onImageMarkerClickedEmitter)="onImageMarkerClicked($event)"
-                ></app-map>
+                @if (
+                  mapboxService.mapboxAccessToken() &&
+                  consentService.consentMapbox()
+                ) {
+                  <app-map
+                    [id]="mapId"
+                    [height]="mapHeight()"
+                    [style]="mapStyle"
+                    [interactiveEnabled]="true"
+                    [overlays]="overlays"
+                    [markers]="markers"
+                    [imageMarkers]="showImages() ? imageMarkers : []"
+                    [boundingBox]="boundingBox"
+                    [(hoveredCoordinate)]="hoveredCoordinate"
+                    (mapLoadedEmitter)="mapLoaded.set($event)"
+                    (onImageMarkerClickedEmitter)="onImageMarkerClicked($event)"
+                  ></app-map>
+                } @else {
+                  <app-map-leaflet
+                    [id]="mapId"
+                    [height]="mapHeight()"
+                    [coordinates]="coordinates()"
+                    [coordinateStart]="coordinateStart"
+                    [coordinateEnd]="coordinateEnd"
+                    [(hoveredCoordinate)]="hoveredCoordinate"
+                    (mapLoadedEmitter)="mapLoaded.set($event)"
+                  ></app-map-leaflet>
+                }
               </div>
-            } @else {
-              <div class="map-container">
-                <app-map-leaflet
-                  [id]="mapId"
-                  [height]="mapHeight()"
-                  [coordinates]="coordinates()"
-                  [coordinateStart]="coordinateStart"
-                  [coordinateEnd]="coordinateStart"
-                  (mapLoadedEmitter)="mapLoaded.set($event)"
-                ></app-map-leaflet>
-              </div>
-            }
+              @if (mediaService.media() > mediaEnum.SMALL) {
+                <div class="chart-container">
+                  <app-scatter-chart
+                    [height]="mapHeight()"
+                    [coordinates]="coordinates()"
+                    [(hoveredCoordinate)]="hoveredCoordinate"
+                    [attribute]="'altitude'"
+                  ></app-scatter-chart>
+                </div>
+              }
+            </div>
           </div>
         </mat-drawer-content>
       </mat-drawer-container>

@@ -4,6 +4,7 @@ import {
   effect,
   HostListener,
   inject,
+  model,
   OnInit,
   Signal,
   signal,
@@ -51,6 +52,8 @@ import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MapLeafletComponent } from '../../../components/map-leaflet/map-leaflet.component';
 import { ConsentService } from '../../../services/consent.service';
+import { Media, MediaService } from '../../../services/media.service';
+import { ScatterChartComponent } from '../../../components/scatter-chart/scatter-chart.component';
 
 /**
  * Represents a coordinate
@@ -62,6 +65,15 @@ export interface Coordinate {
   latitude: number;
   /** Longitude */
   longitude: number;
+
+  /** Altitude */
+  altitude: number;
+  /** Speed */
+  speed: number;
+  /** Cadence */
+  cadence: number;
+  /** Rider power */
+  riderPower: number;
 }
 
 /**
@@ -85,6 +97,7 @@ export interface Coordinate {
     MatIconButton,
     MatProgressBar,
     MapLeafletComponent,
+    ScatterChartComponent,
   ],
   templateUrl: './bes3-activities.component.html',
   styleUrl: './bes3-activities.component.scss',
@@ -105,6 +118,8 @@ export class Bes3ActivitiesComponent implements OnInit {
   private route = inject(ActivatedRoute);
   /** Router */
   private router = inject(Router);
+  /** Media service */
+  public mediaService = inject(MediaService);
   /** Theme service */
   private themeService = inject(ThemeService);
   /** Authentication service */
@@ -163,6 +178,8 @@ export class Bes3ActivitiesComponent implements OnInit {
   mapLoaded = signal(false);
   /** Map ID */
   mapId = 'activities';
+  /** Hovered coordinate */
+  hoveredCoordinate = model<Coordinate | undefined>(undefined);
 
   // Mapbox
 
@@ -187,6 +204,8 @@ export class Bes3ActivitiesComponent implements OnInit {
 
   /** Language */
   lang = getBrowserLang();
+  /** Media enum */
+  mediaEnum = Media;
 
   //
   // Constants
@@ -377,6 +396,10 @@ export class Bes3ActivitiesComponent implements OnInit {
           index,
           latitude: activityDetail.latitude,
           longitude: activityDetail.longitude,
+          altitude: activityDetail.altitude,
+          speed: activityDetail.speed,
+          cadence: activityDetail.cadence,
+          riderPower: activityDetail.riderPower,
         };
       }),
     );
