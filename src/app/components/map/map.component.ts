@@ -2,11 +2,14 @@ import {
   AfterViewInit,
   Component,
   effect,
+  ElementRef,
   inject,
   input,
   model,
+  OnDestroy,
   output,
   signal,
+  ViewChild,
 } from '@angular/core';
 import mapboxgl from 'mapbox-gl';
 import { HttpClient } from '@angular/common/http';
@@ -113,7 +116,7 @@ const BOSCH_ECAMPUS: Location = {
   styleUrls: ['./map.component.scss'],
   standalone: true,
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements AfterViewInit, OnDestroy {
   //
   // Signals
   //
@@ -164,6 +167,9 @@ export class MapComponent implements AfterViewInit {
   mapLoadedEmitter = output<boolean>();
   /** Output signal indicated an image marker being clicked */
   onImageMarkerClickedEmitter = output<ImageMarker>();
+
+  @ViewChild('mapContainer') mapContainer!: ElementRef;
+  private resizeObserver!: ResizeObserver;
 
   //
   // Injections
@@ -262,6 +268,21 @@ export class MapComponent implements AfterViewInit {
     this.map?.on('load', () => {
       this.isLoaded.set(true);
     });
+
+    this.resizeObserver = new ResizeObserver(() => {
+      if (this.map) {
+        this.map.resize();
+      }
+    });
+
+    this.resizeObserver.observe(this.mapContainer.nativeElement);
+  }
+
+  /**
+   * Handles on-destroy phase
+   */
+  ngOnDestroy() {
+    this.resizeObserver.disconnect();
   }
 
   //

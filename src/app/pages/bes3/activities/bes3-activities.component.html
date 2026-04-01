@@ -35,10 +35,8 @@
                   ></mat-progress-bar>
                 </mat-list-item>
               }
-              @for (
-                activitySummary of activitySummaries();
-                track activitySummary.id
-              ) {
+              @for (activitySummary of activitySummaries();
+                track activitySummary.id) {
                 <mat-list-item
                   mat-ripple
                   class="list-item"
@@ -49,18 +47,18 @@
                     class="activity icon"
                     [class.grey]="activitySummary.id != id()"
                     style="margin: 8px"
-                    >route
+                  >route
                   </mat-icon>
                   <div matListItemTitle class="title">
                     {{ activitySummary.title }}
                   </div>
                   <div matListItemLine class="subtitle">
                     <span>{{
-                      activitySummary.startTime | date: "medium"
-                    }}</span>
+                        activitySummary.startTime | date: "medium"
+                      }}</span>
                     <span class="delimiter">·</span>
                     <span
-                      >{{
+                    >{{
                         activitySummary.distance | metersToKilometers
                       }}
                       km</span
@@ -69,7 +67,7 @@
                 </mat-list-item>
               } @empty {
                 <mat-list-item class="list-item"
-                  >{{ t("messages.no-activities") }}
+                >{{ t("messages.no-activities") }}
                 </mat-list-item>
               }
               <div class="context-box" style="margin: 24px 24px 24px">
@@ -137,8 +135,8 @@
                 </li>
                 <li>
                   <strong class="label">{{
-                    t("terms.duration-without-stops")
-                  }}</strong
+                      t("terms.duration-without-stops")
+                    }}</strong
                   >:
                   @if (selectedActivity()?.durationWithoutStops) {
                     {{
@@ -236,8 +234,8 @@
                 </li>
                 <li>
                   <strong class="label">{{
-                    t("terms.rider-power-average")
-                  }}</strong
+                      t("terms.rider-power-average")
+                    }}</strong
                   >:
                   @if (selectedActivity()?.riderPower) {
                     {{
@@ -249,8 +247,8 @@
                 </li>
                 <li>
                   <strong class="label">{{
-                    t("terms.rider-power-maximum")
-                  }}</strong
+                      t("terms.rider-power-maximum")
+                    }}</strong
                   >:
                   @if (selectedActivity()?.riderPower) {
                     {{
@@ -302,6 +300,16 @@
                       {{ t("actions.show-summary") }}
                     }
                   </button>
+                  @if (mediaService.media() > mediaEnum.SMALL) {
+                    <span class="delimiter">·</span>
+                    <button mat-button (click)="onToggleChartsClicked()">
+                      @if (showCharts()) {
+                        {{ t("actions.hide-charts") }}
+                      } @else {
+                        {{ t("actions.show-charts") }}
+                      }
+                    </button>
+                  }
                   @if (consentService.consentMapillary()) {
                     <span class="delimiter">·</span>
                     <button mat-button (click)="onToggleImagesClicked()">
@@ -317,10 +325,8 @@
             </div>
             <div class="flex-container full-width">
               <div class="map-container">
-                @if (
-                  mapboxService.mapboxAccessToken() &&
-                  consentService.consentMapbox()
-                ) {
+                @if (mapboxService.mapboxAccessToken() &&
+                consentService.consentMapbox()) {
                   <app-map
                     [id]="mapId"
                     [height]="mapHeight()"
@@ -346,7 +352,7 @@
                   ></app-map-leaflet>
                 }
               </div>
-              @if (mediaService.media() > mediaEnum.SMALL) {
+              @if (mediaService.media() > mediaEnum.SMALL && showCharts()) {
                 <div
                   class="chart-container"
                   [ngStyle]="{ height: mapHeight() }"

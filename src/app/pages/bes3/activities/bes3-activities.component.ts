@@ -157,6 +157,7 @@ export class Bes3ActivitiesComponent implements OnInit {
   drawerEnd = viewChild<MatDrawer>('drawerEnd');
 
   showImages = signal(true);
+  showCharts = signal(true);
 
   //
   // Paginator
@@ -494,6 +495,13 @@ export class Bes3ActivitiesComponent implements OnInit {
    */
   onToggleImagesClicked() {
     this.showImages.set(!this.showImages());
+  }
+
+  /**
+   * Handles toggle of charts visibility
+   */
+  onToggleChartsClicked() {
+    this.showCharts.set(!this.showCharts());
   }
 
   /**

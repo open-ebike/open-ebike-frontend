@@ -2,10 +2,13 @@ import {
   AfterViewInit,
   Component,
   effect,
+  ElementRef,
   input,
   model,
+  OnDestroy,
   output,
   signal,
+  ViewChild,
 } from '@angular/core';
 import * as L from 'leaflet';
 import { NgStyle } from '@angular/common';
@@ -32,7 +35,7 @@ export interface Coordinate {
   styleUrl: './map-leaflet.component.scss',
   standalone: true,
 })
-export class MapLeafletComponent implements AfterViewInit {
+export class MapLeafletComponent implements AfterViewInit, OnDestroy {
   //
   // Signals
   //
@@ -55,6 +58,9 @@ export class MapLeafletComponent implements AfterViewInit {
 
   /** Output signal indicating map being loaded */
   mapLoadedEmitter = output<boolean>();
+
+  @ViewChild('mapContainer') mapContainer!: ElementRef;
+  private resizeObserver!: ResizeObserver;
 
   //
   // Map
@@ -202,6 +208,23 @@ export class MapLeafletComponent implements AfterViewInit {
    */
   ngAfterViewInit(): void {
     this.initMap();
+
+    this.resizeObserver = new ResizeObserver(() => {
+      if (this.map) {
+        this.map.invalidateSize({
+          animate: true,
+        });
+      }
+    });
+
+    this.resizeObserver.observe(this.mapContainer.nativeElement);
+  }
+
+  /**
+   * Handles on-destroy phase
+   */
+  ngOnDestroy() {
+    this.resizeObserver.disconnect();
   }
 
   //
