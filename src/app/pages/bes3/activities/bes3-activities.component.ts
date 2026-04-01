@@ -25,7 +25,7 @@ import {
 } from '@jsverse/transloco';
 import { combineLatest, first, range } from 'rxjs';
 import { MatList, MatListItem } from '@angular/material/list';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgStyle } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatRipple } from '@angular/material/core';
 import { MetersToKilometersPipe } from '../../../pipes/meters-to-kilometers.pipe';
@@ -98,6 +98,7 @@ export interface Coordinate {
     MatProgressBar,
     MapLeafletComponent,
     ScatterChartComponent,
+    NgStyle,
   ],
   templateUrl: './bes3-activities.component.html',
   styleUrl: './bes3-activities.component.scss',
@@ -198,9 +199,28 @@ export class Bes3ActivitiesComponent implements OnInit {
   // Leaflet
 
   /** Coordinates of activity */
-  coordinates = signal<Coordinate[]>([]);
+  coordinates = computed<Coordinate[]>(() => {
+    return this.activityDetails().map((activityDetail, index) => {
+      return {
+        index,
+        latitude: activityDetail.latitude,
+        longitude: activityDetail.longitude,
+        altitude: activityDetail.altitude,
+        speed: activityDetail.speed,
+        cadence: activityDetail.cadence,
+        riderPower: activityDetail.riderPower,
+      };
+    });
+  });
   coordinateStart: Coordinate | undefined = undefined;
   coordinateEnd: Coordinate | undefined = undefined;
+
+  //
+  // Chart
+  //
+
+  attributes = ['altitude', 'speed', 'cadence', 'riderPower'];
+  selectedAttribute = signal(this.attributes[0]);
 
   /** Language */
   lang = getBrowserLang();
@@ -238,7 +258,6 @@ export class Bes3ActivitiesComponent implements OnInit {
       if (this.mapLoaded() && this.activityDetails().length > 0)
         setTimeout(() => {
           this.initializeMapOverlay(this.id(), this.activityDetails());
-          this.initializeMapCoordinates(this.activityDetails());
 
           if (this.consentService.consentMapillary()) {
             this.initializeMapillaryImages(
@@ -382,26 +401,6 @@ export class Bes3ActivitiesComponent implements OnInit {
     this.overlays = new Map(this.overlays);
     this.boundingBox = this.mapboxService.buildBoundingBoxWithPadding(
       geojson.features[0]['properties']['bounding-box'],
-    );
-  }
-
-  /**
-   * Initializes map coordinates
-   * @param activityDetails activity details
-   */
-  private initializeMapCoordinates(activityDetails: ActivityDetail[]) {
-    this.coordinates.set(
-      activityDetails.map((activityDetail, index) => {
-        return {
-          index,
-          latitude: activityDetail.latitude,
-          longitude: activityDetail.longitude,
-          altitude: activityDetail.altitude,
-          speed: activityDetail.speed,
-          cadence: activityDetail.cadence,
-          riderPower: activityDetail.riderPower,
-        };
-      }),
     );
   }
 

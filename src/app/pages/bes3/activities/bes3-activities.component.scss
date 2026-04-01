@@ -1,6 +1,10 @@
 @use "../../../../styles";
 @use "../../../../sizes";
 
+.full-width {
+  width: 100%;
+}
+
 //
 // Overlays
 //
@@ -36,6 +40,17 @@ $inner-container-height: 128px;
 .map-container {
   height: calc(100vh - var(--toolbar-height) - $inner-container-height);
   width: 100%;
+}
+
+.attribute-container {
+  padding: 0 56px;
+  width: 50%;
+  display: flex;
+  gap: 16px;
+
+  button {
+    min-width: 128px;
+  }
 }
 
 .heading {

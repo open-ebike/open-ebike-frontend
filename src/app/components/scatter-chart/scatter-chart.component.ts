@@ -5,10 +5,13 @@ import {
   HostListener,
   input,
   model,
+  signal,
   ViewChild,
 } from '@angular/core';
 import {
   Chart,
+  ChartData,
+  ChartOptions,
   LinearScale,
   LineElement,
   PointElement,
@@ -61,6 +64,7 @@ export class ScatterChartComponent {
   // Signals
   //
 
+  id = signal('scatter-chart');
   /** Height of the map */
   height = input('500px');
   /** Coordinates */
@@ -68,7 +72,7 @@ export class ScatterChartComponent {
   /** Hovered coordinate */
   hoveredCoordinate = model<Coordinate | undefined>(undefined);
   /** Attribute to be rendered */
-  attribute = input();
+  attribute = input<string>();
 
   @ViewChild('chartCanvas') canvas!: ElementRef;
   private chart!: Chart<
@@ -86,19 +90,29 @@ export class ScatterChartComponent {
   constructor() {
     // Handles initialization
     effect(() => {
-      setTimeout(() => {
-        if (this.coordinates().length > 0) {
-          this.initializeChart(this.coordinates());
-        }
-      }, 500);
+      if (this.id()) {
+        setTimeout(() => {
+          this.initializeChart(this.id());
+        }, 500);
+      }
+    });
+
+    // Handles update
+    effect(() => {
+      if (this.id() && this.coordinates().length > 0 && this.attribute()) {
+        setTimeout(() => {
+          this.updateChart(this.id(), this.coordinates(), this.attribute());
+        }, 500);
+      }
     });
 
     // Handles hovered coordinate
     effect(() => {
       const hovered = this.hoveredCoordinate();
-      if (this.chart) {
-        (this.chart as any).hoveredIndex = hovered?.index;
-        this.chart.update('none');
+      const chart = this.chart || Chart.getChart(this.id());
+      if (chart) {
+        (chart as any).hoveredIndex = hovered?.index;
+        chart.update('none');
       }
     });
   }
@@ -109,102 +123,137 @@ export class ScatterChartComponent {
 
   /**
    * Initializes chart
-   * @param coordinates coordinates
-   * @private
+   * @param id ID
    */
-  private initializeChart(coordinates: Coordinate[]) {
-    const chartData = coordinates.map((coordinate) => ({
-      x: coordinate.index,
-      y: coordinate.altitude,
-    }));
+  private initializeChart(id: string) {
+    let chart = Chart.getChart(id);
 
-    // Define the plugin constant
-    const verticalLinePlugin = {
-      id: 'verticalLine',
-      afterDraw: (chart: any) => {
-        // We check for a timestamp attached to the chart instance
-        if (chart.hoveredIndex) {
-          const {
-            ctx,
-            chartArea: { top, bottom },
-            scales: { x: xAxis },
-          } = chart;
+    // Initialize chart
+    if (!chart) {
+      const verticalLinePlugin = {
+        id: 'verticalLine',
+        afterDraw: (chart: any) => {
+          // We check for a timestamp attached to the chart instance
+          if (chart.hoveredIndex !== undefined) {
+            const {
+              ctx,
+              chartArea: { top, bottom },
+              scales: { x: xAxis },
+            } = chart;
 
-          // Convert the timestamp (Date or number) into a pixel coordinate
-          const xPixel = xAxis.getPixelForValue(chart.hoveredIndex);
+            // Convert the timestamp (Date or number) into a pixel coordinate
+            const xPixel = xAxis.getPixelForValue(chart.hoveredIndex);
 
-          // Only draw if the pixel is within the actual chart area
-          if (
-            xPixel >= chart.chartArea.left &&
-            xPixel <= chart.chartArea.right
-          ) {
-            ctx.save();
-            ctx.beginPath();
-            ctx.lineWidth = 2;
-            ctx.strokeStyle = '#d75b98';
-            ctx.setLineDash([3, 3]);
-            ctx.moveTo(xPixel, top);
-            ctx.lineTo(xPixel, bottom);
-            ctx.stroke();
-            ctx.restore();
+            // Only draw if the pixel is within the actual chart area
+            if (
+              xPixel >= chart.chartArea.left &&
+              xPixel <= chart.chartArea.right
+            ) {
+              ctx.save();
+              ctx.beginPath();
+              ctx.lineWidth = 2;
+              ctx.strokeStyle = '#d75b98';
+              ctx.setLineDash([3, 3]);
+              ctx.moveTo(xPixel, top);
+              ctx.lineTo(xPixel, bottom);
+              ctx.stroke();
+              ctx.restore();
+            }
+          }
+        },
+      };
+
+      chart = new Chart(id, {
+        type: 'scatter',
+        data: {
+          labels: [],
+          datasets: [],
+        },
+        plugins: [verticalLinePlugin],
+        options: {},
+      });
+    }
+    this.chart = chart as any;
+  }
+
+  /**
+   * Updates chart
+   * @param id ID
+   * @param coordinates coordinates
+   * @param attribute attribute
+   */
+  private updateChart(
+    id: string,
+    coordinates: Coordinate[],
+    attribute: string | undefined,
+  ) {
+    if (!attribute) return;
+
+    let chart = Chart.getChart(id);
+
+    if (!chart) return;
+
+    const chartData: ChartData = {
+      datasets: [
+        {
+          label: this.attribute()?.toString(),
+          data: coordinates.map((coordinate) => ({
+            x: coordinate.index,
+            // @ts-ignore
+            y: coordinate[attribute],
+          })),
+          showLine: true,
+          borderColor: '#5261ac',
+          backgroundColor: '#5261ac',
+          pointRadius: 1,
+          tension: 0.1,
+        },
+      ],
+    };
+    const chartOptions: ChartOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          ticks: {
+            display: false,
+          },
+          grid: {
+            display: true,
+          },
+        },
+        y: {
+          title: { display: true, text: attribute.toString() },
+        },
+      },
+      onHover: (event, elements, chart) => {
+        const nearestElements = chart.getElementsAtEventForMode(
+          // @ts-ignore
+          event.native,
+          'nearest',
+          { intersect: false, axis: 'x' },
+          true,
+        );
+
+        if (nearestElements.length > 0) {
+          const index = nearestElements[0].index;
+          const coord = this.coordinates()[index];
+
+          // Setting this signal triggers the effect above
+          if (this.hoveredCoordinate() !== coord) {
+            this.hoveredCoordinate.set(coord);
           }
         }
       },
     };
 
-    this.chart = new Chart(this.canvas.nativeElement, {
-      type: 'scatter',
-      data: {
-        datasets: [
-          {
-            label: this.attribute()?.toString(),
-            data: chartData,
-            showLine: true,
-            borderColor: '#5261ac',
-            backgroundColor: '#5261ac',
-            pointRadius: 1,
-            tension: 0.1,
-          },
-        ],
-      },
-      plugins: [verticalLinePlugin],
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          x: {
-            ticks: {
-              display: false,
-            },
-            grid: {
-              display: true,
-            },
-          },
-          y: {
-            title: { display: true, text: this.attribute()?.toString() },
-          },
-        },
-        onHover: (event, elements, chart) => {
-          const nearestElements = chart.getElementsAtEventForMode(
-            // @ts-ignore
-            event.native,
-            'nearest',
-            { intersect: false, axis: 'x' },
-            true,
-          );
+    // Update chart data and options
+    chart.data = chartData;
+    chart.options = chartOptions;
 
-          if (nearestElements.length > 0) {
-            const index = nearestElements[0].index;
-            const coord = this.coordinates()[index];
-
-            // Setting this signal triggers the effect above
-            if (this.hoveredCoordinate() !== coord) {
-              this.hoveredCoordinate.set(coord);
-            }
-          }
-        },
-      },
-    });
+    try {
+      chart.update();
+    } catch (_) {}
   }
 
   //
@@ -213,6 +262,9 @@ export class ScatterChartComponent {
 
   @HostListener('window:resize', ['$event'])
   onResize(_: any) {
-    this.chart.resize();
+    const chart = this.chart || Chart.getChart(this.id());
+    if (chart) {
+      chart.resize();
+    }
   }
 }

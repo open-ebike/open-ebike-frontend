@@ -347,12 +347,31 @@
                 }
               </div>
               @if (mediaService.media() > mediaEnum.SMALL) {
-                <div class="chart-container">
+                <div
+                  class="chart-container"
+                  [ngStyle]="{ height: mapHeight() }"
+                >
+                  <div class="attribute-container">
+                    @for (attribute of attributes; track attribute) {
+                      @if (attribute == selectedAttribute()) {
+                        <button matButton="outlined" color="accent">
+                          {{ attribute }}
+                        </button>
+                      } @else {
+                        <button
+                          mat-button
+                          (click)="selectedAttribute.set(attribute)"
+                        >
+                          {{ attribute }}
+                        </button>
+                      }
+                    }
+                  </div>
                   <app-scatter-chart
                     [height]="mapHeight()"
                     [coordinates]="coordinates()"
                     [(hoveredCoordinate)]="hoveredCoordinate"
-                    [attribute]="'altitude'"
+                    [attribute]="selectedAttribute()"
                   ></app-scatter-chart>
                 </div>
               }

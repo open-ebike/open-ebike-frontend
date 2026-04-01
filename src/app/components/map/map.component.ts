@@ -301,7 +301,11 @@ export class MapComponent implements AfterViewInit {
       let coordinateIndex = 0;
 
       const parseGeojsonForCoordinates = (geojson: any) => {
-        if (geojson && geojson.type === 'FeatureCollection' && geojson.features) {
+        if (
+          geojson &&
+          geojson.type === 'FeatureCollection' &&
+          geojson.features
+        ) {
           geojson.features.forEach((feature: any) => {
             if (feature.geometry?.type === 'LineString') {
               feature.geometry.coordinates.forEach((coord: number[]) => {
@@ -338,9 +342,11 @@ export class MapComponent implements AfterViewInit {
               type: 'geojson',
               data: overlay.source.value,
             });
-            this.http.get(overlay.source.value, { responseType: 'json' }).subscribe((data: any) => {
-              parseGeojsonForCoordinates(data);
-            });
+            this.http
+              .get(overlay.source.value, { responseType: 'json' })
+              .subscribe((data: any) => {
+                parseGeojsonForCoordinates(data);
+              });
             break;
           }
           case Origin.INLINE: {
