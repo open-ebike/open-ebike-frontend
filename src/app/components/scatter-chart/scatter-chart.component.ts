@@ -71,8 +71,10 @@ export class ScatterChartComponent {
   coordinates = input<Coordinate[]>([]);
   /** Hovered coordinate */
   hoveredCoordinate = model<Coordinate | undefined>(undefined);
-  /** Attribute to be rendered */
-  attribute = input<string>();
+  /** Attributes to be rendered */
+  attributes = input<string[]>([]);
+
+  colors = ['#3c5297', '#5261ac', '#4e9dce', '#8bd2fb'];
 
   @ViewChild('chartCanvas') canvas!: ElementRef;
   private chart!: Chart<
@@ -99,9 +101,9 @@ export class ScatterChartComponent {
 
     // Handles update
     effect(() => {
-      if (this.id() && this.coordinates().length > 0 && this.attribute()) {
+      if (this.id() && this.coordinates().length > 0 && this.attributes()) {
         setTimeout(() => {
-          this.updateChart(this.id(), this.coordinates(), this.attribute());
+          this.updateChart(this.id(), this.coordinates(), this.attributes());
         }, 500);
       }
     });
@@ -180,52 +182,60 @@ export class ScatterChartComponent {
    * Updates chart
    * @param id ID
    * @param coordinates coordinates
-   * @param attribute attribute
+   * @param attributes attributes
    */
   private updateChart(
     id: string,
     coordinates: Coordinate[],
-    attribute: string | undefined,
+    attributes: string[],
   ) {
-    if (!attribute) return;
-
     let chart = Chart.getChart(id);
 
     if (!chart) return;
 
     const chartData: ChartData = {
-      datasets: [
-        {
-          label: this.attribute()?.toString(),
+      datasets: attributes.map((attribute, index) => {
+        return {
+          label: attribute,
           data: coordinates.map((coordinate) => ({
             x: coordinate.index,
             // @ts-ignore
             y: coordinate[attribute],
           })),
           showLine: true,
-          borderColor: '#5261ac',
-          backgroundColor: '#5261ac',
+          borderColor: this.colors[index],
+          backgroundColor: this.colors[index],
           pointRadius: 1,
           tension: 0.1,
-        },
-      ],
+          yAxisID: attribute,
+        };
+      }),
     };
+
+    const scales: any = {
+      x: {
+        ticks: {
+          display: false,
+        },
+        grid: {
+          display: true,
+        },
+      },
+    };
+    attributes.forEach((attribute) => {
+      scales[attribute] = {
+        type: 'linear',
+        position: 'left',
+        title: { display: true, text: attribute.toString() },
+        stack: 'stack',
+        stackWeight: 1,
+      };
+    });
+
     const chartOptions: ChartOptions = {
       responsive: true,
       maintainAspectRatio: false,
-      scales: {
-        x: {
-          ticks: {
-            display: false,
-          },
-          grid: {
-            display: true,
-          },
-        },
-        y: {
-          title: { display: true, text: attribute.toString() },
-        },
-      },
+      scales: scales,
       onHover: (event, elements, chart) => {
         const nearestElements = chart.getElementsAtEventForMode(
           // @ts-ignore
@@ -244,6 +254,11 @@ export class ScatterChartComponent {
             this.hoveredCoordinate.set(coord);
           }
         }
+      },
+      plugins: {
+        legend: {
+          onClick: (_) => {},
+        },
       },
     };
 

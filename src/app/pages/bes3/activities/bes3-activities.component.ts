@@ -220,7 +220,6 @@ export class Bes3ActivitiesComponent implements OnInit {
   //
 
   attributes = ['altitude', 'speed', 'cadence', 'riderPower'];
-  selectedAttribute = signal(this.attributes[0]);
 
   /** Language */
   lang = getBrowserLang();

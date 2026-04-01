@@ -42,17 +42,6 @@ $inner-container-height: 128px;
   width: 100%;
 }
 
-.attribute-container {
-  padding: 0 56px;
-  width: 50%;
-  display: flex;
-  gap: 16px;
-
-  button {
-    min-width: 128px;
-  }
-}
-
 .heading {
   height: $inner-container-height;
 }
