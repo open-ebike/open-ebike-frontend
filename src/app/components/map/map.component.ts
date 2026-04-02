@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  computed,
   effect,
   ElementRef,
   inject,
@@ -14,7 +15,6 @@ import {
 import mapboxgl from 'mapbox-gl';
 import { HttpClient } from '@angular/common/http';
 import { MapboxService, Marker } from '../../services/mapbox.service';
-import { Coordinate } from '../map-leaflet/map-leaflet.component';
 
 /**
  * Map box style
@@ -108,6 +108,18 @@ const BOSCH_ECAMPUS: Location = {
 };
 
 /**
+ * Represents a coordinate
+ */
+export interface Coordinate {
+  /** Index */
+  index: number;
+  /** Latitude */
+  latitude: number;
+  /** Longitude */
+  longitude: number;
+}
+
+/**
  * Displays a mapbox map
  */
 @Component({
@@ -187,7 +199,25 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private highlightMarker: mapboxgl.Marker | undefined;
 
   /** Extracted coordinates from GeoJSON layers for hovering */
-  private geoJsonCoordinates: Coordinate[] = [];
+  private geoJsonCoordinates = computed<Coordinate[]>(() => {
+    return Array.from(this.overlays().values())
+      .filter((overlay) => overlay.source.origin === Origin.INLINE)
+      .flatMap((overlay) => {
+        const geojson = JSON.parse(overlay.source.value);
+        if (geojson?.type !== 'FeatureCollection' || !geojson.features)
+          return [];
+
+        return geojson.features
+          .filter((f: any) => f.geometry?.type === 'LineString')
+          .flatMap((f: any) =>
+            f.geometry.coordinates.map((coord: number[], index: number) => ({
+              index,
+              longitude: coord[0],
+              latitude: coord[1],
+            })),
+          );
+      });
+  });
 
   constructor() {
     // Handles map initialization
@@ -318,29 +348,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
    */
   private initializeOverlays(overlays: Map<string, Overlay>) {
     if (this.map != null) {
-      this.geoJsonCoordinates = [];
-      let coordinateIndex = 0;
-
-      const parseGeojsonForCoordinates = (geojson: any) => {
-        if (
-          geojson &&
-          geojson.type === 'FeatureCollection' &&
-          geojson.features
-        ) {
-          geojson.features.forEach((feature: any) => {
-            if (feature.geometry?.type === 'LineString') {
-              feature.geometry.coordinates.forEach((coord: number[]) => {
-                this.geoJsonCoordinates.push({
-                  index: coordinateIndex++,
-                  longitude: coord[0],
-                  latitude: coord[1],
-                });
-              });
-            }
-          });
-        }
-      };
-
       overlays.forEach((overlay: Overlay, name: string) => {
         // Remove existing layers
         this.map?.getStyle()?.layers.forEach((layer) => {
@@ -363,16 +370,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
               type: 'geojson',
               data: overlay.source.value,
             });
-            this.http
-              .get(overlay.source.value, { responseType: 'json' })
-              .subscribe((data: any) => {
-                parseGeojsonForCoordinates(data);
-              });
             break;
           }
           case Origin.INLINE: {
             const geojson = JSON.parse(overlay.source.value);
-            parseGeojsonForCoordinates(geojson);
 
             this.map?.addSource(overlay.source.name, {
               type: 'geojson',
@@ -488,7 +489,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           let closestCoordinate: Coordinate | undefined = undefined;
           let minDistance = Infinity;
 
-          this.geoJsonCoordinates.forEach((coordinate) => {
+          this.geoJsonCoordinates().forEach((coordinate) => {
             const dist = mouseLngLat.distanceTo(
               new mapboxgl.LngLat(coordinate.longitude, coordinate.latitude),
             );
