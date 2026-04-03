@@ -1,0 +1,19 @@
+<div class="component-container flex-container full-width">
+  @if (!playing()) {
+    <button mat-icon-button (click)="onPlayClicked()">
+      <span class="material-symbols-outlined toolbar-icon">play_arrow</span>
+    </button>
+  } @else {
+    <button mat-icon-button (click)="onPauseCLicked()">
+      <span class="material-symbols-outlined toolbar-icon">pause</span>
+    </button>
+  }
+  <mat-slider style="flex: 1">
+    <input
+      type="range"
+      [(ngModel)]="progress"
+      [disabled]="playing()"
+      matSliderThumb
+    />
+  </mat-slider>
+</div>

@@ -1,0 +1,13 @@
+@use "../../../styles";
+@use "../../../sizes";
+
+.component-container {
+  margin: 8px 0 8px;
+  padding: 4px;
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+.full-width {
+  width: 100%;
+}
