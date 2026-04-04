@@ -26,7 +26,7 @@ export enum MapBoxStyle {
   LIGHT_V10 = 'mapbox://styles/mapbox/light-v10',
   DARK_V10 = 'mapbox://styles/mapbox/dark-v10',
   // SATELLITE_V9 = 'mapbox://styles/mapbox/satellite-v9',
-  // SATELLITE_STREETS_V11 = 'mapbox://styles/mapbox/satellite-streets-v11',
+  SATELLITE_STREETS_V11 = 'mapbox://styles/mapbox/satellite-streets-v11',
   // NAVIGATION_GUIDANCE_DAY_V2 = 'mapbox://styles/mapbox/navigation-guidance-day-v2',
   // NAVIGATION_GUIDANCE_NIGHT_V2 = 'mapbox://styles/mapbox/navigation-guidance-night-v2',
 }
@@ -117,6 +117,14 @@ export interface Coordinate {
   latitude: number;
   /** Longitude */
   longitude: number;
+}
+
+/**
+ * Represents free camera options
+ */
+export interface FreeCameraOptions {
+  position: Coordinate;
+  lookAtPoint: Coordinate;
 }
 
 /**

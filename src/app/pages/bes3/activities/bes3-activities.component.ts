@@ -32,6 +32,7 @@ import { MetersToKilometersPipe } from '../../../pipes/meters-to-kilometers.pipe
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import {
+  FreeCameraOptions,
   ImageMarker,
   MapBoxStyle,
   MapComponent,
@@ -54,6 +55,8 @@ import { MapLeafletComponent } from '../../../components/map-leaflet/map-leaflet
 import { ConsentService } from '../../../services/consent.service';
 import { Media, MediaService } from '../../../services/media.service';
 import { ScatterChartComponent } from '../../../components/scatter-chart/scatter-chart.component';
+import { FlyoverControlsComponent } from '../../../components/flyover-controls/flyover-controls.component';
+import { bearing, destination } from '@turf/turf';
 
 /**
  * Represents a coordinate
@@ -99,6 +102,7 @@ export interface Coordinate {
     MapLeafletComponent,
     ScatterChartComponent,
     NgStyle,
+    FlyoverControlsComponent,
   ],
   templateUrl: './bes3-activities.component.html',
   styleUrl: './bes3-activities.component.scss',
@@ -158,6 +162,12 @@ export class Bes3ActivitiesComponent implements OnInit {
 
   showImages = signal(true);
   showCharts = signal(true);
+  flyoverModeEnabled = signal(false);
+
+  flyoverProgress = signal(0);
+  flyoverPeriod = computed<number>(() => {
+    return this.selectedActivity()?.distance ?? 5_000 / 500;
+  });
 
   //
   // Paginator
@@ -186,16 +196,24 @@ export class Bes3ActivitiesComponent implements OnInit {
   // Mapbox
 
   toolbarHeight = signal(64);
-  innerContainerHeight = signal(128);
+  innerContainerHeight = signal(160);
   mapHeight = computed(() => {
     return `calc(100vh - ${this.toolbarHeight()}px - ${this.innerContainerHeight()}px)`;
   });
   mapStyle = MapBoxStyle.LIGHT_V10;
+  zoom = 15.5;
+  pitch = 0;
+  bearing = 0;
+  interactiveEnabled = true;
+  preserveDrawingBuffer = false;
 
   overlays: Map<string, Overlay> = new Map<string, Overlay>();
   markers: Marker[] = [];
   imageMarkers: ImageMarker[] = [];
   boundingBox: number[] | undefined;
+
+  /** Camera-to options */
+  cameraTo = signal<FreeCameraOptions | undefined>(undefined);
 
   // Leaflet
 
@@ -256,16 +274,18 @@ export class Bes3ActivitiesComponent implements OnInit {
 
     effect(() => {
       if (this.mapLoaded() && this.activityDetails().length > 0)
-        setTimeout(() => {
+        if (!this.flyoverModeEnabled()) {
           this.initializeMapOverlay(this.id(), this.activityDetails());
+        } else {
+          this.initializeMapOverlayFlyOver(this.id(), this.activityDetails());
+        }
 
-          if (this.consentService.consentMapillary()) {
-            this.initializeMapillaryImages(
-              Math.ceil((this.selectedActivity()?.distance ?? 0) / 500),
-              this.activityDetails(),
-            );
-          }
-        }, 500);
+      if (this.consentService.consentMapillary()) {
+        this.initializeMapillaryImages(
+          Math.ceil((this.selectedActivity()?.distance ?? 0) / 500),
+          this.activityDetails(),
+        );
+      }
     });
 
     effect(() => {
@@ -308,16 +328,68 @@ export class Bes3ActivitiesComponent implements OnInit {
       }
     });
 
+    // Handles theme
     effect(() => {
-      switch (this.themeService.theme()) {
-        case Theme.LIGHT: {
-          this.mapStyle = MapBoxStyle.LIGHT_V10;
-          break;
+      if (this.flyoverModeEnabled()) {
+        this.mapStyle = MapBoxStyle.SATELLITE_STREETS_V11;
+      } else {
+        switch (this.themeService.theme()) {
+          case Theme.LIGHT: {
+            this.mapStyle = MapBoxStyle.LIGHT_V10;
+            break;
+          }
+          case Theme.DARK: {
+            this.mapStyle = MapBoxStyle.DARK_V10;
+            break;
+          }
         }
-        case Theme.DARK: {
-          this.mapStyle = MapBoxStyle.DARK_V10;
-          break;
+      }
+    });
+
+    // Handles fly-over progress
+    effect(() => {
+      if (this.flyoverModeEnabled() && this.coordinates().length > 0) {
+        this.interactiveEnabled = false;
+        this.preserveDrawingBuffer = true;
+        const index = Math.floor(
+          (this.flyoverProgress() / 100) * this.coordinates().length,
+        );
+        const padding = 400;
+        const indexPrev = Math.max(0, index - padding);
+        const indexNext = Math.min(
+          index + padding,
+          this.coordinates().length - 1,
+        );
+
+        const center = this.coordinates()[index];
+        const prev = this.coordinates()[indexPrev];
+        const next = this.coordinates()[indexNext];
+
+        const behind = this.getPointBehind(
+          [center.longitude, center.latitude],
+          [next.longitude, next.latitude],
+          5.0,
+        );
+
+        if (center && prev && next && behind) {
+          this.cameraTo.set({
+            position: {
+              index,
+              latitude: behind[1],
+              longitude: behind[0],
+            },
+            lookAtPoint: {
+              index: indexNext,
+              latitude: center.latitude,
+              longitude: center.longitude,
+            },
+          });
         }
+      } else {
+        this.interactiveEnabled = true;
+        this.preserveDrawingBuffer = false;
+        this.pitch = 0;
+        this.bearing = 0;
       }
     });
   }
@@ -389,6 +461,52 @@ export class Bes3ActivitiesComponent implements OnInit {
         paint: {
           'line-color': '#5261ac',
           'line-width': 4,
+        },
+      }),
+    };
+    const overlay = {
+      source,
+      layers: [layer],
+    };
+
+    this.overlays.set(id, overlay);
+    this.overlays = new Map(this.overlays);
+    this.boundingBox = this.mapboxService.buildBoundingBoxWithPadding(
+      geojson.features[0]['properties']['bounding-box'],
+    );
+  }
+
+  /**
+   * Initializes map overlay
+   * @param id activity ID
+   * @param activityDetails activity details
+   */
+  private initializeMapOverlayFlyOver(
+    id: string,
+    activityDetails: ActivityDetail[],
+  ) {
+    const geojson = this.mapboxService.buildBes3Geojson(activityDetails);
+
+    const overlayId = 'activity-details';
+    const source = {
+      origin: Origin.INLINE,
+      name: overlayId,
+      value: JSON.stringify(geojson),
+    };
+    const layer = {
+      origin: Origin.INLINE,
+      name: `${overlayId}-layer`,
+      value: JSON.stringify({
+        id: `${overlayId}-layer`,
+        type: 'line',
+        source: overlayId,
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round',
+        },
+        paint: {
+          'line-color': 'white',
+          'line-width': 8,
         },
       }),
     };
@@ -498,6 +616,13 @@ export class Bes3ActivitiesComponent implements OnInit {
   }
 
   /**
+   * Handles toggle of flyover mode
+   */
+  onToggleFlyoverModeClicked() {
+    this.flyoverModeEnabled.set(!this.flyoverModeEnabled());
+  }
+
+  /**
    * Handles toggle of charts visibility
    */
   onToggleChartsClicked() {
@@ -539,6 +664,23 @@ export class Bes3ActivitiesComponent implements OnInit {
   //
   // Helpers
   //
+
+  /**
+   * Retrieves a point on a geodesic defined by two given points
+   * @param pointA point A
+   * @param pointB point B
+   * @param kilometersBehind distance behind point A
+   */
+  private getPointBehind(
+    pointA: number[],
+    pointB: number[],
+    kilometersBehind: number,
+  ) {
+    const reverseBearing = bearing(pointA, pointB) - 180;
+    return destination(pointA, kilometersBehind, reverseBearing, {
+      units: 'kilometers',
+    }).geometry.coordinates;
+  }
 
   /**
    * Updates query parameters

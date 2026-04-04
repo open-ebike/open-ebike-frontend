@@ -253,10 +253,12 @@
         "hide-all": "alle verbergen",
         "show-summary": "Zusammenfassung anzeigen",
         "hide-summary": "Zusammenfassung verbergen",
-        "show-charts": "Diagramme anzeigen",
-        "hide-charts": "Diagramme verbergen",
         "show-images": "Bilder anzeigen",
         "hide-images": "Bilder verbergen",
+        "show-charts": "Diagramme anzeigen",
+        "hide-charts": "Diagramme verbergen",
+        "start-fly-over-mode": "Fly-Over Modus starten",
+        "stop-fly-over-mode": "Fly-Over Modus beenden",
         "share-activity": "Activity teilen"
       }
     },

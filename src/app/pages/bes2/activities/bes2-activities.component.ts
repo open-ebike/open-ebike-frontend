@@ -165,7 +165,7 @@ export class Bes2ActivitiesComponent implements OnInit {
   // Mapbox
 
   toolbarHeight = signal(64);
-  innerContainerHeight = signal(128);
+  innerContainerHeight = signal(160);
   mapHeight = computed(() => {
     return `calc(100vh - ${this.toolbarHeight()}px - ${this.innerContainerHeight()}px)`;
   });

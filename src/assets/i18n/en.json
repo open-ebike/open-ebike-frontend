@@ -254,10 +254,12 @@
         "hide-all": "hide all",
         "show-summary": "show summary",
         "hide-summary": "hide summary",
-        "show-charts": "show charts",
-        "hide-charts": "hide charts",
         "show-images": "show images",
         "hide-images": "hide images",
+        "show-charts": "show charts",
+        "hide-charts": "hide charts",
+        "start-fly-over-mode": "start fly-over mode",
+        "stop-fly-over-mode": "stop fly-over mode",
         "share-activity": "Share Activity"
       }
     },
