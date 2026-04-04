@@ -165,6 +165,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   /** Whether interactive mode is enabled or not */
   interactiveEnabled = input(true);
+  /** Whether drawing buffer shall be preserved */
+  preserveDrawingBuffer = input(false);
 
   /** Map of map overlays */
   overlays = input<Map<string, Overlay>>(new Map<string, Overlay>());
@@ -174,6 +176,11 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   imageMarkers = input<ImageMarker[]>([]);
 
   currentMarkers: mapboxgl.Marker[] = [];
+
+  /** Camera-to */
+  cameraTo = input<FreeCameraOptions | undefined>(undefined);
+  /** Camera altitude */
+  cameraAltitude = input(4_500);
 
   /** Output signal indicating map being loaded */
   mapLoadedEmitter = output<boolean>();
@@ -283,6 +290,29 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         }
       }
     });
+
+    // Handles camera-to
+    effect(() => {
+      if (this.cameraTo()) {
+        if (this.map) {
+          const camera = this.map.getFreeCameraOptions();
+
+          camera.position = mapboxgl.MercatorCoordinate.fromLngLat(
+            {
+              lng: this.cameraTo()!.position.longitude,
+              lat: this.cameraTo()!.position.latitude,
+            },
+            this.cameraAltitude(),
+          );
+          camera.lookAtPoint({
+            lng: this.cameraTo()!.lookAtPoint.longitude,
+            lat: this.cameraTo()!.lookAtPoint.latitude,
+          });
+
+          this.map.setFreeCameraOptions(camera);
+        }
+      }
+    });
   }
 
   //
@@ -334,6 +364,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       bearing: this.bearing(),
       center: [this.center().longitude, this.center().latitude],
       interactive: this.interactiveEnabled(),
+      preserveDrawingBuffer: this.preserveDrawingBuffer(),
     });
 
     if (this.boundingBox() != null) {
