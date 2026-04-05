@@ -219,17 +219,23 @@ export class Bes3ActivitiesComponent implements OnInit {
 
   /** Coordinates of activity */
   coordinates = computed<Coordinate[]>(() => {
-    return this.activityDetails().map((activityDetail, index) => {
-      return {
-        index,
-        latitude: activityDetail.latitude,
-        longitude: activityDetail.longitude,
-        altitude: activityDetail.altitude,
-        speed: activityDetail.speed,
-        cadence: activityDetail.cadence,
-        riderPower: activityDetail.riderPower,
-      };
-    });
+    return this.activityDetails()
+      .filter((activityDetail) => {
+        return (
+          activityDetail.latitude != 0.0 || activityDetail.longitude != 0.0
+        );
+      })
+      .map((activityDetail, index) => {
+        return {
+          index,
+          latitude: activityDetail.latitude,
+          longitude: activityDetail.longitude,
+          altitude: activityDetail.altitude,
+          speed: activityDetail.speed,
+          cadence: activityDetail.cadence,
+          riderPower: activityDetail.riderPower,
+        };
+      });
   });
   coordinateStart: Coordinate | undefined = undefined;
   coordinateEnd: Coordinate | undefined = undefined;

@@ -110,18 +110,10 @@ export class MapLeafletComponent implements AfterViewInit, OnDestroy {
     effect(() => {
       if (this.isLoaded() && this.coordinates()) {
         setTimeout(() => {
-          const latLngs = this.coordinates()
-            .filter(
-              (coordinate) =>
-                coordinate.latitude != 0.0 || coordinate.longitude != 0.0,
-            )
-            .map(
-              (coordinate) =>
-                [
-                  coordinate.latitude,
-                  coordinate.longitude,
-                ] as L.LatLngExpression,
-            );
+          const latLngs = this.coordinates().map(
+            (coordinate) =>
+              [coordinate.latitude, coordinate.longitude] as L.LatLngExpression,
+          );
 
           if (latLngs.length > 2) {
             // Display coordinates on map

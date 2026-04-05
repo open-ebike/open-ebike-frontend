@@ -87,17 +87,6 @@ export class Bes2YearlyAchievementService {
           const activityDetails = await firstValueFrom(
             this.activityService.getActivityDetails(activitySummary.id),
           );
-          // const coordinate = activityDetails.coordinates
-          //   ?.flat()
-          //   .find((point) => {
-          //     return point?.latitude != 0.0 && point?.longitude != 0.0;
-          //   });
-          // const lat = coordinate?.latitude;
-          // const lon = coordinate?.longitude;
-          // const federalState =
-          //   lat != null && lon != null
-          //     ? this.regionFinderService.getFederalState(lat, lon)
-          //     : null;
 
           this.yearlyAchievements.set(
             this.evaluateYearlyStatistics(
