@@ -15,6 +15,7 @@ import {
 import mapboxgl from 'mapbox-gl';
 import { HttpClient } from '@angular/common/http';
 import { MapboxService, Marker } from '../../services/mapbox.service';
+import { timer } from 'rxjs';
 
 /**
  * Map box style
@@ -101,7 +102,7 @@ const BRANDENBURG_GATE: Location = {
 };
 
 const BOSCH_ECAMPUS: Location = {
-  name: 'Brandenburger Tor',
+  name: 'Bosch eCampus',
   description: '',
   longitude: 9.1351074,
   latitude: 48.4950381,
@@ -234,6 +235,9 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       });
   });
 
+  /**
+   * Constructor
+   */
   constructor() {
     // Handles map initialization
     effect(() => {
@@ -248,22 +252,22 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       }
     });
     effect(() => {
-      if (this.isLoaded() && this.style() != undefined) {
+      if (this.isLoaded() && this.style()) {
         this.map?.setStyle(this.style());
       }
     });
     effect(() => {
-      if (this.isLoaded() && this.overlays != undefined) {
+      if (this.isLoaded() && this.style() && this.overlays()) {
         this.initializeOverlays(this.overlays());
       }
     });
     effect(() => {
-      if (this.isLoaded() && this.imageMarkers != undefined) {
+      if (this.isLoaded() && this.style() && this.imageMarkers()) {
         this.initializeImageMarkers(this.imageMarkers());
       }
     });
     effect(() => {
-      if (this.isLoaded() && this.boundingBox() != undefined) {
+      if (this.isLoaded() && this.style() && this.boundingBox()) {
         // @ts-ignore
         this.map?.fitBounds(this.boundingBox());
       }
@@ -387,61 +391,65 @@ export class MapComponent implements AfterViewInit, OnDestroy {
    */
   private initializeOverlays(overlays: Map<string, Overlay>) {
     if (this.map != null) {
-      overlays.forEach((overlay: Overlay, name: string) => {
-        // Remove existing layers
-        this.map?.getStyle()?.layers.forEach((layer) => {
-          if ('source' in layer && layer.source === overlay.source.name) {
-            if (this.map?.getLayer(layer.id)) {
-              this.map?.removeLayer(layer.id);
+      timer(250).subscribe(() => {
+        overlays.forEach((overlay: Overlay, name: string) => {
+          // Remove existing layers
+          this.map?.getStyle()?.layers.forEach((layer) => {
+            if ('source' in layer && layer.source === overlay.source.name) {
+              if (this.map?.getLayer(layer.id)) {
+                this.map?.removeLayer(layer.id);
+              }
             }
+          });
+
+          // Remove existing source
+          if (this.map?.getSource(overlay.source.name)) {
+            this.map?.removeSource(overlay.source.name);
           }
-        });
 
-        // Remove existing source
-        if (this.map?.getSource(overlay.source.name)) {
-          this.map?.removeSource(overlay.source.name);
-        }
-
-        // Add new source
-        switch (overlay.source.origin) {
-          case Origin.URL: {
-            this.map?.addSource(overlay.source.name, {
-              type: 'geojson',
-              data: overlay.source.value,
-            });
-            break;
-          }
-          case Origin.INLINE: {
-            const geojson = JSON.parse(overlay.source.value);
-
-            this.map?.addSource(overlay.source.name, {
-              type: 'geojson',
-              data: geojson.hasOwnProperty('data') ? geojson['data'] : geojson,
-            });
-            break;
-          }
-        }
-
-        // Add new layers
-        overlay.layers.forEach((layer: any) => {
-          switch (layer.origin) {
+          // Add new source
+          switch (overlay.source.origin) {
             case Origin.URL: {
-              this.http
-                .get(layer.value, { responseType: 'text' as 'json' })
-                .subscribe((data: any) => {
-                  this.initializeLayer(overlay.source.name, layer.name, data);
-                });
+              this.map?.addSource(overlay.source.name, {
+                type: 'geojson',
+                data: overlay.source.value,
+              });
               break;
             }
             case Origin.INLINE: {
-              this.initializeLayer(
-                overlay.source.name,
-                layer.name,
-                layer.value,
-              );
+              const geojson = JSON.parse(overlay.source.value);
+
+              this.map?.addSource(overlay.source.name, {
+                type: 'geojson',
+                data: geojson.hasOwnProperty('data')
+                  ? geojson['data']
+                  : geojson,
+              });
               break;
             }
           }
+
+          // Add new layers
+          overlay.layers.forEach((layer: any) => {
+            switch (layer.origin) {
+              case Origin.URL: {
+                this.http
+                  .get(layer.value, { responseType: 'text' as 'json' })
+                  .subscribe((data: any) => {
+                    this.initializeLayer(overlay.source.name, layer.name, data);
+                  });
+                break;
+              }
+              case Origin.INLINE: {
+                this.initializeLayer(
+                  overlay.source.name,
+                  layer.name,
+                  layer.value,
+                );
+                break;
+              }
+            }
+          });
         });
       });
     }
