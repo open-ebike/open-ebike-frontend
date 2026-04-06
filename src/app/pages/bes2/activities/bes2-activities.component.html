@@ -579,7 +579,7 @@
             ) {
               <div class="map-container">
                 <app-map
-                  [id]="mapId"
+                  [id]="'activities'"
                   [height]="mapHeight()"
                   [style]="mapStyle"
                   [interactiveEnabled]="true"
@@ -594,7 +594,7 @@
             } @else {
               <div class="map-container">
                 <app-map-leaflet
-                  [id]="mapId"
+                  [id]="'activities'"
                   [height]="mapHeight()"
                   [coordinates]="coordinates()"
                   [coordinateStart]="coordinateStart"

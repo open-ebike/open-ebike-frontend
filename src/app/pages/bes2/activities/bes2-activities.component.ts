@@ -159,8 +159,6 @@ export class Bes2ActivitiesComponent implements OnInit {
 
   /** Map loaded */
   mapLoaded = signal(false);
-  /** Map ID */
-  mapId = 'activities';
 
   // Mapbox
 

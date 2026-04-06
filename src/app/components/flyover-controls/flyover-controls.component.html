@@ -1,15 +1,19 @@
 <div class="component-container flex-container full-width">
-  <div class="button-container">
-    @if (!playing()) {
+  @if (!playing()) {
+    @if (progress() >= 100) {
+      <button mat-icon-button (click)="onReplayClicked()">
+        <span class="material-symbols-outlined toolbar-icon">replay</span>
+      </button>
+    } @else {
       <button mat-icon-button (click)="onPlayClicked()">
         <span class="material-symbols-outlined toolbar-icon">play_arrow</span>
       </button>
-    } @else {
-      <button mat-icon-button (click)="playing.set(false)">
-        <span class="material-symbols-outlined toolbar-icon">pause</span>
-      </button>
     }
-  </div>
+  } @else {
+    <button mat-icon-button (click)="playing.set(false)">
+      <span class="material-symbols-outlined toolbar-icon">pause</span>
+    </button>
+  }
   <mat-slider style="flex: 1">
     <input
       type="range"
@@ -18,11 +22,4 @@
       matSliderThumb
     />
   </mat-slider>
-  <div class="button-container">
-    @if (!playing() && progress() >= 100) {
-      <button mat-icon-button (click)="onReplayClicked()">
-        <span class="material-symbols-outlined toolbar-icon">replay</span>
-      </button>
-    }
-  </div>
 </div>

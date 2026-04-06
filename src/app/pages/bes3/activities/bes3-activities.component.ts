@@ -188,8 +188,6 @@ export class Bes3ActivitiesComponent implements OnInit {
 
   /** Map loaded */
   mapLoaded = signal(false);
-  /** Map ID */
-  mapId = 'activities';
   /** Hovered coordinate */
   hoveredCoordinate = model<Coordinate | undefined>(undefined);
 
@@ -201,13 +199,9 @@ export class Bes3ActivitiesComponent implements OnInit {
     return `calc(100vh - ${this.toolbarHeight()}px - ${this.innerContainerHeight()}px)`;
   });
   mapStyle = MapBoxStyle.LIGHT_V10;
-  zoom = 15.5;
-  pitch = 0;
-  bearing = 0;
-  interactiveEnabled = true;
-  preserveDrawingBuffer = false;
 
   overlays: Map<string, Overlay> = new Map<string, Overlay>();
+  overlaysFlyOver: Map<string, Overlay> = new Map<string, Overlay>();
   markers: Marker[] = [];
   imageMarkers: ImageMarker[] = [];
   boundingBox: number[] | undefined;
@@ -246,10 +240,16 @@ export class Bes3ActivitiesComponent implements OnInit {
 
   attributes = ['altitude', 'speed', 'cadence', 'riderPower'];
 
+  //
+  // Enums
+  //
+
   /** Language */
   lang = getBrowserLang();
   /** Media enum */
   mediaEnum = Media;
+  /** Mapbox style */
+  mapboxStyle = MapBoxStyle;
 
   //
   // Constants
@@ -278,14 +278,16 @@ export class Bes3ActivitiesComponent implements OnInit {
       }
     });
 
+    // Handles overlays
     effect(() => {
-      if (this.mapLoaded() && this.activityDetails().length > 0)
-        if (!this.flyoverModeEnabled()) {
-          this.initializeMapOverlay(this.id(), this.activityDetails());
-        } else {
-          this.initializeMapOverlayFlyOver(this.id(), this.activityDetails());
-        }
+      if (this.mapLoaded() && this.activityDetails().length > 0) {
+        this.initializeMapOverlay(this.id(), this.activityDetails());
+        this.initializeMapOverlayFlyOver(this.id(), this.activityDetails());
+      }
+    });
 
+    // Handles image markers
+    effect(() => {
       if (this.consentService.consentMapillary()) {
         this.initializeMapillaryImages(
           Math.ceil((this.selectedActivity()?.distance ?? 0) / 500),
@@ -294,6 +296,7 @@ export class Bes3ActivitiesComponent implements OnInit {
       }
     });
 
+    // Handles markers
     effect(() => {
       if (this.coordinates().length > 1) {
         this.coordinateStart = this.coordinates()[0];
@@ -313,6 +316,7 @@ export class Bes3ActivitiesComponent implements OnInit {
       }
     });
 
+    // Handles image markers
     effect(() => {
       this.imageMarkers = (this.activityImages() ?? []).map((image) => {
         return {
@@ -324,6 +328,7 @@ export class Bes3ActivitiesComponent implements OnInit {
       });
     });
 
+    // Handles resizing
     effect(() => {
       if (this.windowWidth() <= 960) {
         this.toolbarHeight.set(56);
@@ -336,27 +341,21 @@ export class Bes3ActivitiesComponent implements OnInit {
 
     // Handles theme
     effect(() => {
-      if (this.flyoverModeEnabled()) {
-        this.mapStyle = MapBoxStyle.SATELLITE_STREETS_V11;
-      } else {
-        switch (this.themeService.theme()) {
-          case Theme.LIGHT: {
-            this.mapStyle = MapBoxStyle.LIGHT_V10;
-            break;
-          }
-          case Theme.DARK: {
-            this.mapStyle = MapBoxStyle.DARK_V10;
-            break;
-          }
+      switch (this.themeService.theme()) {
+        case Theme.LIGHT: {
+          this.mapStyle = MapBoxStyle.LIGHT_V10;
+          break;
+        }
+        case Theme.DARK: {
+          this.mapStyle = MapBoxStyle.DARK_V10;
+          break;
         }
       }
     });
 
-    // Handles fly-over progress
+    // Handles fly-over animation
     effect(() => {
-      if (this.flyoverModeEnabled() && this.coordinates().length > 0) {
-        this.interactiveEnabled = false;
-        this.preserveDrawingBuffer = true;
+      if (this.coordinates().length > 0) {
         const index = Math.floor(
           (this.flyoverProgress() / 100) * this.coordinates().length,
         );
@@ -391,11 +390,6 @@ export class Bes3ActivitiesComponent implements OnInit {
             },
           });
         }
-      } else {
-        this.interactiveEnabled = true;
-        this.preserveDrawingBuffer = false;
-        this.pitch = 0;
-        this.bearing = 0;
       }
     });
   }
@@ -521,11 +515,8 @@ export class Bes3ActivitiesComponent implements OnInit {
       layers: [layer],
     };
 
-    this.overlays.set(id, overlay);
-    this.overlays = new Map(this.overlays);
-    this.boundingBox = this.mapboxService.buildBoundingBoxWithPadding(
-      geojson.features[0]['properties']['bounding-box'],
-    );
+    this.overlaysFlyOver.set(id, overlay);
+    this.overlaysFlyOver = new Map(this.overlaysFlyOver);
   }
 
   /**

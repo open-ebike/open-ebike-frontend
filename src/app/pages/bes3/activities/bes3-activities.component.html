@@ -347,27 +347,40 @@
                   mapboxService.mapboxAccessToken() &&
                   consentService.consentMapbox()
                 ) {
-                  <app-map
-                    [id]="mapId"
-                    [height]="mapHeight()"
-                    [style]="mapStyle"
-                    [zoom]="zoom"
-                    [pitch]="pitch"
-                    [bearing]="bearing"
-                    [interactiveEnabled]="interactiveEnabled"
-                    [preserveDrawingBuffer]="preserveDrawingBuffer"
-                    [overlays]="overlays"
-                    [markers]="markers"
-                    [imageMarkers]="showImages() ? imageMarkers : []"
-                    [boundingBox]="boundingBox"
-                    [cameraTo]="cameraTo()"
-                    [(hoveredCoordinate)]="hoveredCoordinate"
-                    (mapLoadedEmitter)="mapLoaded.set($event)"
-                    (onImageMarkerClickedEmitter)="onImageMarkerClicked($event)"
-                  ></app-map>
+                  <div [class.hidden]="flyoverModeEnabled()">
+                    <app-map
+                      [id]="'activities'"
+                      [height]="mapHeight()"
+                      [style]="mapStyle"
+                      [interactiveEnabled]="true"
+                      [preserveDrawingBuffer]="false"
+                      [overlays]="overlays"
+                      [markers]="markers"
+                      [imageMarkers]="showImages() ? imageMarkers : []"
+                      [boundingBox]="boundingBox"
+                      [(hoveredCoordinate)]="hoveredCoordinate"
+                      (mapLoadedEmitter)="mapLoaded.set($event)"
+                      (onImageMarkerClickedEmitter)="
+                        onImageMarkerClicked($event)
+                      "
+                    ></app-map>
+                  </div>
+                  <div [class.hidden]="!flyoverModeEnabled()">
+                    <app-map
+                      [id]="'activities-fly-over'"
+                      [height]="mapHeight()"
+                      [style]="mapboxStyle.SATELLITE_STREETS_V11"
+                      [interactiveEnabled]="false"
+                      [preserveDrawingBuffer]="true"
+                      [overlays]="overlaysFlyOver"
+                      [markers]="markers"
+                      [cameraTo]="cameraTo()"
+                      (mapLoadedEmitter)="mapLoaded.set($event)"
+                    ></app-map>
+                  </div>
                 } @else {
                   <app-map-leaflet
-                    [id]="mapId"
+                    [id]="'activities'"
                     [height]="mapHeight()"
                     [coordinates]="coordinates()"
                     [coordinateStart]="coordinateStart"
