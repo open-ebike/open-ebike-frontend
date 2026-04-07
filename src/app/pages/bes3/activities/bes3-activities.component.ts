@@ -243,6 +243,15 @@ export class Bes3ActivitiesComponent implements OnInit {
   coordinateEnd: Coordinate | undefined = undefined;
 
   //
+  // Fly-over
+  //
+
+  /** Camera behind */
+  cameraBehind = 2_500;
+  /** Camera altitude */
+  cameraAltitude = 2_000;
+
+  //
   // Chart
   //
 
@@ -371,7 +380,7 @@ export class Bes3ActivitiesComponent implements OnInit {
         const index = Math.floor(
           (this.flyoverProgress() / 100) * this.coordinates().length,
         );
-        const padding = 400;
+        const padding = 500;
         const indexPrev = Math.max(0, index - padding);
         const indexNext = Math.min(
           index + padding,
@@ -385,7 +394,7 @@ export class Bes3ActivitiesComponent implements OnInit {
         const behind = this.getPointBehind(
           [center.longitude, center.latitude],
           [next.longitude, next.latitude],
-          5.0,
+          this.cameraBehind,
         );
 
         if (center && prev && next && behind) {
@@ -400,6 +409,7 @@ export class Bes3ActivitiesComponent implements OnInit {
               latitude: center.latitude,
               longitude: center.longitude,
             },
+            cameraAltitude: this.cameraAltitude,
           });
         }
       }
@@ -682,16 +692,16 @@ export class Bes3ActivitiesComponent implements OnInit {
    * Retrieves a point on a geodesic defined by two given points
    * @param pointA point A
    * @param pointB point B
-   * @param kilometersBehind distance behind point A
+   * @param cameraBehind distance behind point A in meters
    */
   private getPointBehind(
     pointA: number[],
     pointB: number[],
-    kilometersBehind: number,
+    cameraBehind: number,
   ) {
     const reverseBearing = bearing(pointA, pointB) - 180;
-    return destination(pointA, kilometersBehind, reverseBearing, {
-      units: 'kilometers',
+    return destination(pointA, cameraBehind, reverseBearing, {
+      units: 'meters',
     }).geometry.coordinates;
   }
 

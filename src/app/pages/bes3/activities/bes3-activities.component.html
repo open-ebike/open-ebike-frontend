@@ -374,6 +374,7 @@
                   </div>
                   <div [class.hidden]="showMode() == modeEnum.REGULAR">
                     <app-map
+                      #activitiesFlyover
                       [id]="'activities-fly-over'"
                       [height]="mapHeight()"
                       [style]="mapboxStyle.SATELLITE_STREETS_V11"

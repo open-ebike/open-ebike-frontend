@@ -126,6 +126,7 @@ export interface Coordinate {
 export interface FreeCameraOptions {
   position: Coordinate;
   lookAtPoint: Coordinate;
+  cameraAltitude: number;
 }
 
 /**
@@ -188,8 +189,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   /** Camera-to */
   cameraTo = input<FreeCameraOptions | undefined>(undefined);
-  /** Camera altitude */
-  cameraAltitude = input(4_500);
 
   /** Output signal indicating map being loaded */
   mapLoadedEmitter = output<boolean>();
@@ -314,7 +313,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
               lng: this.cameraTo()!.position.longitude,
               lat: this.cameraTo()!.position.latitude,
             },
-            this.cameraAltitude(),
+            this.cameraTo()!.cameraAltitude,
           );
           camera.lookAtPoint({
             lng: this.cameraTo()!.lookAtPoint.longitude,
