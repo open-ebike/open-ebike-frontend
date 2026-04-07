@@ -1,9 +1,10 @@
-import { Component, effect, input, model, signal } from '@angular/core';
+import { Component, effect, inject, input, model, signal } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule } from '@angular/forms';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { MatIconButton } from '@angular/material/button';
 import { interval, map, scan, takeWhile } from 'rxjs';
+import { ThemeService } from '../../services/theme.service';
 
 /**
  * Displays fly-over controls
@@ -22,6 +23,13 @@ import { interval, map, scan, takeWhile } from 'rxjs';
   standalone: true,
 })
 export class FlyoverControlsComponent {
+  //
+  // Injections
+  //
+
+  /** Theme service */
+  public themeService = inject(ThemeService);
+
   //
   // Signals
   //

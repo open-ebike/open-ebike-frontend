@@ -13,6 +13,9 @@
 //
 
 .theme-light {
+  --icon-color: #212121; /* Near black */
+  --icon-disabled: #bdbdbd;
+
   a {
     color: #424242;
     text-decoration-style: dotted;
@@ -93,6 +96,9 @@
 //
 
 .theme-dark {
+  --icon-color: #ffffff; /* White */
+  --icon-disabled: #424242;
+
   a {
     color: #ffffff;
     text-decoration-style: dotted;
@@ -247,6 +253,14 @@
   :root {
     --toolbar-height: 56px;
   }
+}
+
+.mat-mdc-icon-button {
+  color: var(--icon-color) !important;
+}
+
+.mat-mdc-icon-button:disabled {
+  color: var(--icon-disabled) !important;
 }
 
 //

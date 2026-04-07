@@ -1,17 +1,20 @@
-<div class="component-container flex-container full-width">
+<div
+  class="component-container flex-container full-width"
+  [class]="themeService.theme()"
+>
   @if (!playing()) {
     @if (progress() >= 100) {
       <button mat-icon-button (click)="onReplayClicked()">
-        <span class="material-symbols-outlined toolbar-icon">replay</span>
+        <span class="material-symbols-outlined">replay</span>
       </button>
     } @else {
       <button mat-icon-button (click)="onPlayClicked()">
-        <span class="material-symbols-outlined toolbar-icon">play_arrow</span>
+        <span class="material-symbols-outlined">play_arrow</span>
       </button>
     }
   } @else {
     <button mat-icon-button (click)="playing.set(false)">
-      <span class="material-symbols-outlined toolbar-icon">pause</span>
+      <span class="material-symbols-outlined">pause</span>
     </button>
   }
   <mat-slider style="flex: 1">
