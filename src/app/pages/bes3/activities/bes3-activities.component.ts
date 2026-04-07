@@ -80,6 +80,14 @@ export interface Coordinate {
 }
 
 /**
+ * Represents a mode
+ */
+enum Mode {
+  REGULAR = 'regular',
+  FLY_OVER = 'fly-over',
+}
+
+/**
  * Displays activities
  */
 @Component({
@@ -162,7 +170,7 @@ export class Bes3ActivitiesComponent implements OnInit {
 
   showImages = signal(true);
   showCharts = signal(true);
-  flyoverModeEnabled = signal(false);
+  showMode = signal<Mode>(Mode.REGULAR);
 
   flyoverProgress = signal(0);
   flyoverPeriod = computed<number>(() => {
@@ -246,6 +254,8 @@ export class Bes3ActivitiesComponent implements OnInit {
 
   /** Language */
   lang = getBrowserLang();
+  /** Mode enum */
+  modeEnum = Mode;
   /** Media enum */
   mediaEnum = Media;
   /** Mapbox style */
@@ -258,7 +268,9 @@ export class Bes3ActivitiesComponent implements OnInit {
   /** Query parameter theme */
   private QUERY_PARAM_THEME: string = 'theme';
   /** Query parameter activity ID */
-  private QUERY_ACTIVITY_ID: string = 'id';
+  private QUERY_PARAM_ACTIVITY_ID: string = 'id';
+  /** Query parameter mode */
+  private QUERY_PARAM_MODE: string = 'mode';
 
   /**
    * Constructor
@@ -557,12 +569,14 @@ export class Bes3ActivitiesComponent implements OnInit {
       .pipe(first())
       .subscribe(([queryParams]) => {
         const theme = queryParams[this.QUERY_PARAM_THEME];
-        const id = queryParams[this.QUERY_ACTIVITY_ID];
+        const id = queryParams[this.QUERY_PARAM_ACTIVITY_ID];
+        const mode = queryParams[this.QUERY_PARAM_MODE];
 
         this.themeService.switchTheme(theme ? theme : Theme.LIGHT);
         if (id?.trim().length > 0) {
           this.id.set(id);
         }
+        this.showMode.set(mode ?? Mode.REGULAR);
       });
   }
 
@@ -616,7 +630,9 @@ export class Bes3ActivitiesComponent implements OnInit {
    * Handles toggle of flyover mode
    */
   onToggleFlyoverModeClicked() {
-    this.flyoverModeEnabled.set(!this.flyoverModeEnabled());
+    this.showMode.set(
+      this.showMode() == Mode.FLY_OVER ? Mode.REGULAR : Mode.FLY_OVER,
+    );
   }
 
   /**
@@ -688,7 +704,8 @@ export class Bes3ActivitiesComponent implements OnInit {
         relativeTo: this.route,
         queryParams: {
           [this.QUERY_PARAM_THEME]: this.themeService.theme(),
-          [this.QUERY_ACTIVITY_ID]: this.id() ? this.id() : null,
+          [this.QUERY_PARAM_ACTIVITY_ID]: this.id() ? this.id() : null,
+          [this.QUERY_PARAM_MODE]: this.showMode() ? this.showMode() : null,
         },
       })
       .then();

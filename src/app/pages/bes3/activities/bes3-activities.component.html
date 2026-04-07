@@ -315,7 +315,7 @@
                     }
                     @if (
                       mediaService.media() > mediaEnum.SMALL &&
-                      !flyoverModeEnabled()
+                      showMode() == modeEnum.REGULAR
                     ) {
                       <span class="delimiter">·</span>
                       <button mat-button (click)="onToggleChartsClicked()">
@@ -333,14 +333,14 @@
                   mat-stroked-button
                   (click)="onToggleFlyoverModeClicked()"
                 >
-                  @if (flyoverModeEnabled()) {
+                  @if (showMode() == modeEnum.FLY_OVER) {
                     {{ t("actions.stop-fly-over-mode") }}
                   } @else {
                     {{ t("actions.start-fly-over-mode") }}
                   }
                 </button>
               </div>
-              @if (flyoverModeEnabled()) {
+              @if (showMode() == modeEnum.FLY_OVER) {
                 <app-flyover-controls
                   [(progress)]="flyoverProgress"
                   [steps]="this.coordinates().length"
@@ -354,7 +354,7 @@
                   mapboxService.mapboxAccessToken() &&
                   consentService.consentMapbox()
                 ) {
-                  <div [class.hidden]="flyoverModeEnabled()">
+                  <div [class.hidden]="showMode() == modeEnum.FLY_OVER">
                     <app-map
                       [id]="'activities'"
                       [height]="mapHeight()"
@@ -372,7 +372,7 @@
                       "
                     ></app-map>
                   </div>
-                  <div [class.hidden]="!flyoverModeEnabled()">
+                  <div [class.hidden]="showMode() == modeEnum.REGULAR">
                     <app-map
                       [id]="'activities-fly-over'"
                       [height]="mapHeight()"
@@ -400,7 +400,7 @@
               @if (
                 mediaService.media() > mediaEnum.SMALL &&
                 showCharts() &&
-                !flyoverModeEnabled()
+                showMode() == modeEnum.REGULAR
               ) {
                 <div
                   class="chart-container"
