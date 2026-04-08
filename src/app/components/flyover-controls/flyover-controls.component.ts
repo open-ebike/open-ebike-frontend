@@ -34,6 +34,8 @@ export class FlyoverControlsComponent {
   // Signals
   //
 
+  /** Activity ID */
+  id = input<string>('');
   /** Number of steps */
   steps = input(100);
   /** Period in seconds */
@@ -43,6 +45,9 @@ export class FlyoverControlsComponent {
   playing = signal(false);
   /** Progress */
   progress = model(0);
+
+  /** Whether recording exists in database */
+  recordingExists = input(false);
 
   /**
    * Constructor

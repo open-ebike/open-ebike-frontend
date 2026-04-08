@@ -245,7 +245,9 @@
         "no-activities": "no activities recorded",
         "missing-activities": "Are you missing any activities? Grant access to your eBike's data to client application {{clientId}} via the <a href='https://flow.bosch-ebike.com/data-act' target='_blank'>Flow Portal</a>",
         "activity-on-by-bosch-powered-ebike": "{{title}} on my Bosch-powered eBike",
-        "photo-by": "Photo by {{creator}} via Mapillary"
+        "photo-by": "Photo by {{creator}} via Mapillary",
+        "fly-over-recording-started": "Recording fly-over started",
+        "fly-over-recording-stopped": "Recording fly-over stopped"
       },
       "actions": {
         "fetch-activities": "Fetch Activities",

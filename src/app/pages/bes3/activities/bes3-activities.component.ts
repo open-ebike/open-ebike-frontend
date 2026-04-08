@@ -8,6 +8,7 @@ import {
   OnInit,
   Signal,
   signal,
+  untracked,
   viewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,7 +24,15 @@ import {
   TranslocoDirective,
   TranslocoService,
 } from '@jsverse/transloco';
-import { combineLatest, first, range } from 'rxjs';
+import {
+  combineLatest,
+  first,
+  interval,
+  map,
+  range,
+  scan,
+  takeWhile,
+} from 'rxjs';
 import { MatList, MatListItem } from '@angular/material/list';
 import { DatePipe, NgStyle } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
@@ -57,6 +66,7 @@ import { Media, MediaService } from '../../../services/media.service';
 import { ScatterChartComponent } from '../../../components/scatter-chart/scatter-chart.component';
 import { FlyoverControlsComponent } from '../../../components/flyover-controls/flyover-controls.component';
 import { bearing, destination } from '@turf/turf';
+import { FlyOverRecordingService } from '../../../services/recording/fly-over-recording.service';
 
 /**
  * Represents a coordinate
@@ -139,6 +149,8 @@ export class Bes3ActivitiesComponent implements OnInit {
   public authenticationService = inject(AuthenticationService);
   /** Activity records service */
   public activityRecordsService = inject(ActivityRecordsService);
+  /** Fly-over recording service */
+  private flyOverRecordingService = inject(FlyOverRecordingService);
   /** Mapbox service */
   public mapboxService = inject(MapboxService);
   /** Mapillary service */
@@ -250,6 +262,34 @@ export class Bes3ActivitiesComponent implements OnInit {
   cameraBehind = 2_500;
   /** Camera altitude */
   cameraAltitude = 2_000;
+
+  //
+  // Recording
+  //
+
+  /** Recorder */
+  recorder: any = undefined;
+  /** Chunks */
+  chunks: any[] = [];
+
+  /** Map component */
+  recordingActivitiesFlyover = viewChild<MapComponent | undefined>(
+    'activitiesFlyoverRecording',
+  );
+  /** Map loaded */
+  recordingMapLoaded = signal(false);
+  /** Whether control is playing */
+  recordingPlaying = signal(false);
+  /** Fly-over progress */
+  recordingFlyoverProgress = signal(0);
+  /** Fly-over period */
+  recordingFlyoverPeriod = computed<number>(() => {
+    return this.selectedActivity()?.distance ?? 5_000 / 250;
+  });
+  /** Whether recording exists in database */
+  recordingExists = signal(false);
+  /** Camera-to options */
+  recordingCameraTo = signal<FreeCameraOptions | undefined>(undefined);
 
   //
   // Chart
@@ -391,13 +431,13 @@ export class Bes3ActivitiesComponent implements OnInit {
         const prev = this.coordinates()[indexPrev];
         const next = this.coordinates()[indexNext];
 
-        const behind = this.getPointBehind(
-          [center.longitude, center.latitude],
-          [next.longitude, next.latitude],
-          this.cameraBehind,
-        );
+        if (center && prev && next) {
+          const behind = this.getPointBehind(
+            [center.longitude, center.latitude],
+            [next.longitude, next.latitude],
+            this.cameraBehind,
+          );
 
-        if (center && prev && next && behind) {
           this.cameraTo.set({
             position: {
               index,
@@ -412,6 +452,134 @@ export class Bes3ActivitiesComponent implements OnInit {
             cameraAltitude: this.cameraAltitude,
           });
         }
+      }
+    });
+
+    //
+    // Fly-over recording
+    //
+
+    // Handles recording database lookup
+    effect(() => {
+      this.flyOverRecordingService
+        .existsFlyoverRecording(this.id())
+        .subscribe((exists) => {
+          this.recordingExists.set(exists);
+
+          if (!exists) {
+            this.recordingPlaying.set(true);
+            this.snackbar.open(
+              this.translocoService.translate(
+                `pages.activities.messages.fly-over-recording-started`,
+              ),
+              undefined,
+              {
+                duration: 500,
+              },
+            );
+          }
+        });
+    });
+
+    // Handles recording start
+    effect(() => {
+      if (
+        this.recordingPlaying() &&
+        this.recordingActivitiesFlyover() &&
+        this.recordingMapLoaded() &&
+        this.coordinates().length > 0
+      ) {
+        // @ts-ignore
+        const canvas = this.recordingActivitiesFlyover().map.getCanvas();
+        const stream = canvas.captureStream(30);
+
+        this.recorder = new MediaRecorder(stream, {
+          mimeType: 'video/webm; codecs=vp9', // VP9 is superior to VP8
+          videoBitsPerSecond: 20000000,
+        });
+        this.recorder.ondataavailable = (e: any) => this.chunks.push(e.data);
+        this.recorder.start();
+
+        untracked(() => {
+          // Schedule animation
+          interval(
+            (this.recordingFlyoverPeriod() * 1_000) / this.coordinates().length,
+          )
+            .pipe(
+              map(() => 100 / this.coordinates().length),
+              scan((acc, curr) => acc + curr, this.recordingFlyoverProgress()),
+              takeWhile((_) => {
+                return this.recordingPlaying();
+              }),
+              map((value) => Math.min(value, 100)),
+            )
+            .subscribe((value) => {
+              this.recordingFlyoverProgress.set(value);
+            });
+        });
+      }
+    });
+
+    // Handles recording fly-over animation
+    effect(() => {
+      if (this.coordinates().length > 0) {
+        const index = Math.floor(
+          (this.recordingFlyoverProgress() / 100) * this.coordinates().length,
+        );
+        const padding = 400;
+        const indexPrev = Math.max(0, index - padding);
+        const indexNext = Math.min(
+          index + padding,
+          this.coordinates().length - 1,
+        );
+
+        const center = this.coordinates()[index];
+        const prev = this.coordinates()[indexPrev];
+        const next = this.coordinates()[indexNext];
+
+        if (center && prev && next) {
+          const behind = this.getPointBehind(
+            [center.longitude, center.latitude],
+            [next.longitude, next.latitude],
+            this.cameraBehind,
+          );
+
+          this.recordingCameraTo.set({
+            position: {
+              index,
+              latitude: behind[1],
+              longitude: behind[0],
+            },
+            lookAtPoint: {
+              index: indexNext,
+              latitude: center.latitude,
+              longitude: center.longitude,
+            },
+            cameraAltitude: this.cameraAltitude,
+          });
+        }
+      }
+    });
+
+    // Handles recording stop
+    effect(() => {
+      if (this.recordingFlyoverProgress() >= 100) {
+        this.recordingPlaying.set(false);
+        this.snackbar.open(
+          this.translocoService.translate(
+            `pages.activities.messages.fly-over-recording-stopped`,
+          ),
+          undefined,
+          {
+            duration: 1_500,
+          },
+        );
+
+        this.recorder.stop();
+        this.recorder.onstop = async () => {
+          const blob = new Blob(this.chunks, { type: 'video/webm' });
+          this.flyOverRecordingService.store(this.id(), blob);
+        };
       }
     });
   }

@@ -208,7 +208,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private http = inject(HttpClient);
 
   /** Map Box object */
-  private map: mapboxgl.Map | undefined;
+  public map: mapboxgl.Map | undefined;
 
   /** Highlight marker for hovered coordinate */
   private highlightMarker: mapboxgl.Marker | undefined;
@@ -338,6 +338,31 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     this.map?.on('load', () => {
       this.isLoaded.set(true);
+    });
+    this.map?.on('style.load', () => {
+      // @ts-ignore
+      this.map.addSource('mapbox-dem', {
+        type: 'raster-dem',
+        url: 'mapbox://mapbox.mapbox-terrain-dem-v1',
+        tileSize: 512,
+        maxzoom: 14,
+      });
+
+      // @ts-ignore
+      this.map.setTerrain({
+        source: 'mapbox-dem',
+        exaggeration: 1.5, // 1.0 is realistic, 1.5+ makes it look dramatic
+      });
+
+      // @ts-ignore
+      this.map.setFog({
+        range: [0.5, 10], // Distance where fog starts and ends (in camera units)
+        color: 'white',
+        'horizon-blend': 0.1,
+        'high-color': '#245cdf', // Color of the upper atmosphere
+        'space-color': '#000000', // Color of space above the atmosphere
+        'star-intensity': 0.15,
+      });
     });
 
     this.resizeObserver = new ResizeObserver(() => {

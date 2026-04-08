@@ -143,3 +143,16 @@ mat-card {
   height: 0;
   visibility: hidden;
 }
+
+.map-container-recording {
+  position: absolute;
+  left: -9999px;
+  width: 996px;
+  height: 996px;
+  visibility: hidden;
+}
+
+.activities-fly-over-recording {
+  width: 996px;
+  height: 996px;
+}
