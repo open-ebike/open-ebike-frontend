@@ -25,4 +25,11 @@
       matSliderThumb
     />
   </mat-slider>
+  <button
+    mat-icon-button
+    [disabled]="!recordingExists()"
+    (click)="downloadClickedEmitter.emit()"
+  >
+    <span class="material-symbols-outlined">download</span>
+  </button>
 </div>

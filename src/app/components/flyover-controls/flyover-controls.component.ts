@@ -1,4 +1,12 @@
-import { Component, effect, inject, input, model, signal } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  input,
+  model,
+  output,
+  signal,
+} from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FormsModule } from '@angular/forms';
 import { MatSlider, MatSliderThumb } from '@angular/material/slider';
@@ -48,6 +56,8 @@ export class FlyoverControlsComponent {
 
   /** Whether recording exists in database */
   recordingExists = input(false);
+
+  downloadClickedEmitter = output<void>();
 
   /**
    * Constructor

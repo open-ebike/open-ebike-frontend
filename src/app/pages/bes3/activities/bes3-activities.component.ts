@@ -840,6 +840,27 @@ export class Bes3ActivitiesComponent implements OnInit {
   }
 
   /**
+   * Handles click on download-recording button
+   */
+  onDownloadFlyOverRecordingClicked() {
+    this.flyOverRecordingService
+      .getFlyOverRecording(this.id())
+      .subscribe((blob) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.style.display = 'none';
+        link.href = url;
+        link.download = `flyover-${this.id()}.webm`; // The filename
+        document.body.appendChild(link);
+        link.click();
+        setTimeout(() => {
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+        }, 100);
+      });
+  }
+
+  /**
    * Handles page event
    * @param event event
    */
