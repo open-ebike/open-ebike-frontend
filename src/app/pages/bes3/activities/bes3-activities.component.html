@@ -304,7 +304,10 @@
                           {{ t("actions.show-summary") }}
                         }
                       </button>
-                      @if (consentService.consentMapillary()) {
+                      @if (
+                        consentService.consentMapbox() &&
+                        consentService.consentMapillary()
+                      ) {
                         <span class="delimiter">·</span>
                         <button mat-button (click)="onToggleImagesClicked()">
                           @if (showImages()) {
@@ -329,17 +332,19 @@
                       }
                     }
                   </h2>
-                  <div class="flex-box"></div>
-                  <button
-                    mat-stroked-button
-                    (click)="onToggleFlyoverModeClicked()"
-                  >
-                    @if (showMode() == modeEnum.FLY_OVER) {
-                      {{ t("actions.stop-fly-over-mode") }}
-                    } @else {
-                      {{ t("actions.start-fly-over-mode") }}
-                    }
-                  </button>
+                  @if (consentService.consentMapbox()) {
+                    <div class="flex-box"></div>
+                    <button
+                      mat-stroked-button
+                      (click)="onToggleFlyoverModeClicked()"
+                    >
+                      @if (showMode() == modeEnum.FLY_OVER) {
+                        {{ t("actions.stop-fly-over-mode") }}
+                      } @else {
+                        {{ t("actions.start-fly-over-mode") }}
+                      }
+                    </button>
+                  }
                 </div>
               } @else {
                 <div class="flex-container" style="align-items: baseline">
@@ -353,13 +358,15 @@
                       {{ t("title") }}
                     }
                   </h2>
-                  <div class="flex-box"></div>
-                  <button
-                    mat-icon-button
-                    (click)="onToggleFlyoverModeClicked()"
-                  >
-                    <span class="material-symbols-outlined">raven</span>
-                  </button>
+                  @if (consentService.consentMapbox()) {
+                    <div class="flex-box"></div>
+                    <button
+                      mat-icon-button
+                      (click)="onToggleFlyoverModeClicked()"
+                    >
+                      <span class="material-symbols-outlined">raven</span>
+                    </button>
+                  }
                 </div>
                 <div>
                   <button mat-button (click)="drawerStart.toggle()">
@@ -378,7 +385,10 @@
                         {{ t("actions.show-summary") }}
                       }
                     </button>
-                    @if (consentService.consentMapillary()) {
+                    @if (
+                      consentService.consentMapbox() &&
+                      consentService.consentMapillary()
+                    ) {
                       <span class="delimiter">·</span>
                       <button mat-button (click)="onToggleImagesClicked()">
                         @if (showImages()) {
@@ -404,7 +414,10 @@
                   }
                 </div>
               }
-              @if (showMode() == modeEnum.FLY_OVER) {
+              @if (
+                consentService.consentMapbox() &&
+                showMode() == modeEnum.FLY_OVER
+              ) {
                 <app-flyover-controls
                   [id]="id()"
                   [(progress)]="flyoverProgress"
