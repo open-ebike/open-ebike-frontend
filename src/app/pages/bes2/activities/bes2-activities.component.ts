@@ -276,7 +276,7 @@ export class Bes2ActivitiesComponent implements OnInit {
     effect(() => {
       if (this.windowWidth() <= 960) {
         this.toolbarHeight.set(56);
-        this.innerContainerHeight.set(172);
+        this.innerContainerHeight.set(216);
       } else {
         this.toolbarHeight.set(64);
         this.innerContainerHeight.set(128);

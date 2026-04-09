@@ -276,17 +276,92 @@
         <mat-drawer-content>
           <div class="container flex-container-vertical">
             <div class="inner-container heading">
-              <div class="flex-container" style="align-items: baseline">
-                <h2>
-                  <span class="material-symbols-outlined activity icon">
-                    route
-                  </span>
-                  @if (selectedActivity()) {
-                    {{ selectedActivity()?.title }}
-                  } @else {
-                    {{ t("title") }}
-                  }
-                  <span class="delimiter">·</span>
+              @if (mediaService.media() > mediaEnum.SMALL) {
+                <div class="flex-container" style="align-items: baseline">
+                  <h2>
+                    <span class="material-symbols-outlined activity icon">
+                      route
+                    </span>
+                    @if (selectedActivity()) {
+                      {{ selectedActivity()?.title }}
+                    } @else {
+                      {{ t("title") }}
+                    }
+                    <span class="delimiter">·</span>
+                    <button mat-button (click)="drawerStart.toggle()">
+                      @if (drawerStart.opened) {
+                        {{ t("actions.hide-all") }}
+                      } @else {
+                        {{ t("actions.show-all") }}
+                      }
+                    </button>
+                    @if (selectedActivity()) {
+                      <span class="delimiter">·</span>
+                      <button mat-button (click)="drawerEnd.toggle()">
+                        @if (drawerEnd.opened) {
+                          {{ t("actions.hide-summary") }}
+                        } @else {
+                          {{ t("actions.show-summary") }}
+                        }
+                      </button>
+                      @if (consentService.consentMapillary()) {
+                        <span class="delimiter">·</span>
+                        <button mat-button (click)="onToggleImagesClicked()">
+                          @if (showImages()) {
+                            {{ t("actions.hide-images") }}
+                          } @else {
+                            {{ t("actions.show-images") }}
+                          }
+                        </button>
+                      }
+                      @if (
+                        mediaService.media() > mediaEnum.SMALL &&
+                        showMode() == modeEnum.REGULAR
+                      ) {
+                        <span class="delimiter">·</span>
+                        <button mat-button (click)="onToggleChartsClicked()">
+                          @if (showCharts()) {
+                            {{ t("actions.hide-charts") }}
+                          } @else {
+                            {{ t("actions.show-charts") }}
+                          }
+                        </button>
+                      }
+                    }
+                  </h2>
+                  <div class="flex-box"></div>
+                  <button
+                    mat-stroked-button
+                    (click)="onToggleFlyoverModeClicked()"
+                  >
+                    @if (showMode() == modeEnum.FLY_OVER) {
+                      {{ t("actions.stop-fly-over-mode") }}
+                    } @else {
+                      {{ t("actions.start-fly-over-mode") }}
+                    }
+                  </button>
+                </div>
+              } @else {
+                <div class="flex-container" style="align-items: baseline">
+                  <h2>
+                    <span class="material-symbols-outlined activity icon">
+                      route
+                    </span>
+                    @if (selectedActivity()) {
+                      {{ selectedActivity()?.title }}
+                    } @else {
+                      {{ t("title") }}
+                    }
+                  </h2>
+                  <div class="flex-box"></div>
+                  <button
+                    mat-icon-button
+                    (click)="onToggleFlyoverModeClicked()"
+                  >
+                    <span class="material-symbols-outlined">raven</span>
+                  </button>
+                </div>
+                <div>
                   <button mat-button (click)="drawerStart.toggle()">
                     @if (drawerStart.opened) {
                       {{ t("actions.hide-all") }}
@@ -327,19 +402,8 @@
                       </button>
                     }
                   }
-                </h2>
-                <div class="flex-box"></div>
-                <button
-                  mat-stroked-button
-                  (click)="onToggleFlyoverModeClicked()"
-                >
-                  @if (showMode() == modeEnum.FLY_OVER) {
-                    {{ t("actions.stop-fly-over-mode") }}
-                  } @else {
-                    {{ t("actions.start-fly-over-mode") }}
-                  }
-                </button>
-              </div>
+                </div>
+              }
               @if (showMode() == modeEnum.FLY_OVER) {
                 <app-flyover-controls
                   [id]="id()"

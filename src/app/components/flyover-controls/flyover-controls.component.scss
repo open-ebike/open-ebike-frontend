@@ -6,7 +6,10 @@
   padding: 4px;
   border-radius: 8px;
 
-  background: var(--mat-toolbar-container-background-color, var(--mat-sys-surface));
+  background: var(
+    --mat-toolbar-container-background-color,
+    var(--mat-sys-surface)
+  );
 }
 
 .button-container {
