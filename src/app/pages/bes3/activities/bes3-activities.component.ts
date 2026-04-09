@@ -67,6 +67,7 @@ import { ScatterChartComponent } from '../../../components/scatter-chart/scatter
 import { FlyoverControlsComponent } from '../../../components/flyover-controls/flyover-controls.component';
 import { bearing, destination } from '@turf/turf';
 import { FlyOverRecordingService } from '../../../services/recording/fly-over-recording.service';
+import { ShareFlyOverBottomSheetComponent } from '../../../components/share-fly-over-bottom-sheet/share-fly-over-bottom-sheet.component';
 
 /**
  * Represents a coordinate
@@ -840,7 +841,7 @@ export class Bes3ActivitiesComponent implements OnInit {
   }
 
   /**
-   * Handles click on download-recording button
+   * Handles click on download-fly-over-recording button
    */
   onDownloadFlyOverRecordingClicked() {
     this.flyOverRecordingService
@@ -857,6 +858,23 @@ export class Bes3ActivitiesComponent implements OnInit {
           document.body.removeChild(link);
           URL.revokeObjectURL(url);
         }, 100);
+      });
+  }
+
+  /**
+   * Handles click on share-fly-over-recording button
+   */
+  onShareFlyOverRecordingClicked() {
+    this.flyOverRecordingService
+      .getFlyOverRecording(this.id())
+      .subscribe((blob) => {
+        this.bottomSheet.open(ShareFlyOverBottomSheetComponent, {
+          data: {
+            title: this.selectedActivity()?.title,
+            description: `${environment.appTitle}`,
+            blob: blob,
+          },
+        });
       });
   }
 

@@ -262,7 +262,8 @@
         "hide-charts": "hide charts",
         "start-fly-over-mode": "start fly-over mode",
         "stop-fly-over-mode": "stop fly-over mode",
-        "share-activity": "Share Activity"
+        "share-activity": "Share Activity",
+        "share-fly-over-video": "Share Fly-Over Video"
       }
     },
     "statistics": {

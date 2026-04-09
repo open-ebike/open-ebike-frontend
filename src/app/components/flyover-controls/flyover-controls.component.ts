@@ -58,6 +58,7 @@ export class FlyoverControlsComponent {
   recordingExists = input(false);
 
   downloadClickedEmitter = output<void>();
+  shareClickedEmitter = output<void>();
 
   /**
    * Constructor

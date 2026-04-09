@@ -261,7 +261,8 @@
         "hide-charts": "Diagramme verbergen",
         "start-fly-over-mode": "Fly-Over Modus starten",
         "stop-fly-over-mode": "Fly-Over Modus beenden",
-        "share-activity": "Activity teilen"
+        "share-activity": "Activity teilen",
+        "share-fly-over-video": "Fly-Over Video teilen"
       }
     },
     "statistics": {
