@@ -492,11 +492,11 @@ export class Bes3ActivitiesComponent implements OnInit {
       ) {
         // @ts-ignore
         const canvas = this.recordingActivitiesFlyover().map.getCanvas();
-        const stream = canvas.captureStream(30);
+        const stream = canvas.captureStream(24);
 
         this.recorder = new MediaRecorder(stream, {
           mimeType: 'video/webm; codecs=vp9', // VP9 is superior to VP8
-          videoBitsPerSecond: 20000000,
+          videoBitsPerSecond: 5_000_000,
         });
         this.recorder.ondataavailable = (e: any) => this.chunks.push(e.data);
         this.recorder.start();
