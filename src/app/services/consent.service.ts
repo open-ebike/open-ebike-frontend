@@ -9,7 +9,7 @@ import { effect, Injectable, signal } from '@angular/core';
 export class ConsentService {
   /** Consent choice made */
   consentChoiceMade = signal<boolean>(
-    localStorage.getItem('openEbikePrivacySettingsSelected') === 'true',
+    localStorage.getItem('openEbikeConsentChoiceMade') === 'true',
   );
 
   /** Consent for caching data */
