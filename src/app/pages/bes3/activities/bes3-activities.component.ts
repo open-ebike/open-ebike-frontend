@@ -187,7 +187,7 @@ export class Bes3ActivitiesComponent implements OnInit {
 
   flyoverProgress = signal(0);
   flyoverPeriod = computed<number>(() => {
-    return this.selectedActivity()?.distance ?? 5_000 / 500;
+    return (this.selectedActivity()?.distance ?? 5_000) / 500;
   });
 
   //
@@ -285,7 +285,7 @@ export class Bes3ActivitiesComponent implements OnInit {
   recordingFlyoverProgress = signal(0);
   /** Fly-over period */
   recordingFlyoverPeriod = computed<number>(() => {
-    return this.selectedActivity()?.distance ?? 5_000 / 250;
+    return (this.selectedActivity()?.distance ?? 5_000) / 250;
   });
   /** Whether recording exists in database */
   recordingExists = signal(false);

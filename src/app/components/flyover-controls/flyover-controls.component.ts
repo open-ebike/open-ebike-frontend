@@ -101,6 +101,9 @@ export class FlyoverControlsComponent {
   private play() {
     this.playing.set(true);
 
+    console.log(`DEBUG period: ${this.period()}`);
+    console.log(`DEBUG steps: ${this.steps()}`);
+
     interval((this.period() * 1_000) / this.steps())
       .pipe(
         map(() => 100 / this.steps()),
