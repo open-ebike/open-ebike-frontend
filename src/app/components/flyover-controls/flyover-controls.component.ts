@@ -54,6 +54,8 @@ export class FlyoverControlsComponent {
   /** Progress */
   progress = model(0);
 
+  /** Whether recording is enabled */
+  recordingEnabled = input(false);
   /** Whether recording exists in database */
   recordingExists = input(false);
 

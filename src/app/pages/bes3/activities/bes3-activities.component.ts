@@ -68,6 +68,8 @@ import { FlyoverControlsComponent } from '../../../components/flyover-controls/f
 import { bearing, destination } from '@turf/turf';
 import { FlyOverRecordingService } from '../../../services/recording/fly-over-recording.service';
 import { ShareFlyOverBottomSheetComponent } from '../../../components/share-fly-over-bottom-sheet/share-fly-over-bottom-sheet.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 /**
  * Represents a coordinate
@@ -159,9 +161,19 @@ export class Bes3ActivitiesComponent implements OnInit {
   /** Consent service */
   public consentService = inject(ConsentService);
 
+  /** Breakpoint observer */
+  private breakpointObserver = inject(BreakpointObserver);
+
   //
   // Signals
   //
+
+  /** Whether device is mobile */
+  isMobile = toSignal(
+    this.breakpointObserver
+      .observe(Breakpoints.Handset)
+      .pipe(map((result) => result.matches)),
+  );
 
   /** Signal providing the selected activity ID */
   id = signal<string>('');
@@ -462,29 +474,32 @@ export class Bes3ActivitiesComponent implements OnInit {
 
     // Handles recording database lookup
     effect(() => {
-      this.flyOverRecordingService
-        .existsFlyoverRecording(this.id())
-        .subscribe((exists) => {
-          this.recordingExists.set(exists);
+      if (!this.isMobile()) {
+        this.flyOverRecordingService
+          .existsFlyoverRecording(this.id())
+          .subscribe((exists) => {
+            this.recordingExists.set(exists);
 
-          if (!exists) {
-            this.recordingPlaying.set(true);
-            this.snackbar.open(
-              this.translocoService.translate(
-                `pages.activities.messages.fly-over-recording-started`,
-              ),
-              undefined,
-              {
-                duration: 500,
-              },
-            );
-          }
-        });
+            if (!exists) {
+              this.recordingPlaying.set(true);
+              this.snackbar.open(
+                this.translocoService.translate(
+                  `pages.activities.messages.fly-over-recording-started`,
+                ),
+                undefined,
+                {
+                  duration: 500,
+                },
+              );
+            }
+          });
+      }
     });
 
     // Handles recording start
     effect(() => {
       if (
+        !this.isMobile() &&
         this.recordingPlaying() &&
         this.recordingActivitiesFlyover() &&
         this.recordingMapLoaded() &&
