@@ -279,7 +279,7 @@ export class Bes2ActivitiesComponent implements OnInit {
         this.innerContainerHeight.set(216);
       } else {
         this.toolbarHeight.set(64);
-        this.innerContainerHeight.set(128);
+        this.innerContainerHeight.set(160);
       }
     });
 

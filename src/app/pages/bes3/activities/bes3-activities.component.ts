@@ -228,9 +228,7 @@ export class Bes3ActivitiesComponent implements OnInit {
 
   toolbarHeight = signal(64);
   innerContainerHeight = signal(160);
-  mapHeight = computed(() => {
-    return `calc(100vh - ${this.toolbarHeight()}px - ${this.innerContainerHeight()}px)`;
-  });
+  mapHeight = signal(`100%`);
   mapStyle = MapBoxStyle.LIGHT_V10;
 
   overlays: Map<string, Overlay> = new Map<string, Overlay>();
@@ -409,7 +407,7 @@ export class Bes3ActivitiesComponent implements OnInit {
         this.innerContainerHeight.set(216);
       } else {
         this.toolbarHeight.set(64);
-        this.innerContainerHeight.set(128);
+        this.innerContainerHeight.set(160);
       }
     });
 
