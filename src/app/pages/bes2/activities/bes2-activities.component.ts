@@ -7,6 +7,7 @@ import {
   OnInit,
   Signal,
   signal,
+  untracked,
   viewChild,
 } from '@angular/core';
 import {
@@ -22,6 +23,7 @@ import { MetersToKilometersPipe } from '../../../pipes/meters-to-kilometers.pipe
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import {
+  FreeCameraOptions,
   ImageMarker,
   MapBoxStyle,
   MapComponent,
@@ -32,7 +34,15 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Theme, ThemeService } from '../../../services/theme.service';
 import { AuthenticationService } from '../../../services/authentication.service';
-import { combineLatest, first, range } from 'rxjs';
+import {
+  combineLatest,
+  first,
+  interval,
+  map,
+  range,
+  scan,
+  takeWhile,
+} from 'rxjs';
 import {
   ActivityDetail,
   ActivityService,
@@ -50,6 +60,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MapLeafletComponent } from '../../../components/map-leaflet/map-leaflet.component';
 import { ConsentService } from '../../../services/consent.service';
+import { Media, MediaService } from '../../../services/media.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { FlyoverControlsComponent } from '../../../components/flyover-controls/flyover-controls.component';
+import { bearing, destination } from '@turf/turf';
+import { FlyOverRecordingService } from '../../../services/recording/fly-over-recording.service';
+import { ShareFlyOverBottomSheetComponent } from '../../../components/share-fly-over-bottom-sheet/share-fly-over-bottom-sheet.component';
 
 /**
  * Represents a coordinate
@@ -61,6 +78,14 @@ export interface Coordinate {
   latitude: number;
   /** Longitude */
   longitude: number;
+}
+
+/**
+ * Represents a mode
+ */
+enum Mode {
+  REGULAR = 'regular',
+  FLY_OVER = 'fly-over',
 }
 
 /**
@@ -83,6 +108,7 @@ export interface Coordinate {
     MatIconButton,
     MatProgressBar,
     MapLeafletComponent,
+    FlyoverControlsComponent,
   ],
   templateUrl: './bes2-activities.component.html',
   styleUrl: './bes2-activities.component.scss',
@@ -103,12 +129,16 @@ export class Bes2ActivitiesComponent implements OnInit {
   private route = inject(ActivatedRoute);
   /** Router */
   private router = inject(Router);
+  /** Media service */
+  public mediaService = inject(MediaService);
   /** Theme service */
   private themeService = inject(ThemeService);
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
   /** Activity service */
   public activityService = inject(ActivityService);
+  /** Fly-over recording service */
+  private flyOverRecordingService = inject(FlyOverRecordingService);
   /** Mapbox service */
   public mapboxService = inject(MapboxService);
   /** Mapillary service */
@@ -116,12 +146,22 @@ export class Bes2ActivitiesComponent implements OnInit {
   /** Consent service */
   public consentService = inject(ConsentService);
 
+  /** Breakpoint observer */
+  private breakpointObserver = inject(BreakpointObserver);
+
   //
   // Signals
   //
 
+  /** Whether device is mobile */
+  isMobile = toSignal(
+    this.breakpointObserver
+      .observe(Breakpoints.Handset)
+      .pipe(map((result) => result.matches)),
+  );
+
   /** Signal providing the selected activity ID */
-  id = signal<number | undefined>(undefined);
+  id = signal<number>(0);
   /** Signal providing the selected activity */
   selectedActivity: Signal<ActivitySummary | undefined> = computed(() => {
     return this.activitySummaries().find(
@@ -139,6 +179,12 @@ export class Bes2ActivitiesComponent implements OnInit {
   drawerEnd = viewChild<MatDrawer>('drawerEnd');
 
   showImages = signal(true);
+  showMode = signal<Mode>(Mode.REGULAR);
+
+  flyoverProgress = signal(0);
+  flyoverPeriod = computed<number>(() => {
+    return (this.selectedActivity()?.totalDistance ?? 5_000) / 500;
+  });
 
   //
   // Paginator
@@ -170,9 +216,13 @@ export class Bes2ActivitiesComponent implements OnInit {
   mapStyle = MapBoxStyle.LIGHT_V10;
 
   overlays: Map<string, Overlay> = new Map<string, Overlay>();
+  overlaysFlyOver: Map<string, Overlay> = new Map<string, Overlay>();
   markers: Marker[] = [];
   imageMarkers: ImageMarker[] = [];
   boundingBox: number[] | undefined;
+
+  /** Camera-to options */
+  cameraTo = signal<FreeCameraOptions | undefined>(undefined);
 
   // Leaflet
 
@@ -200,8 +250,55 @@ export class Bes2ActivitiesComponent implements OnInit {
   coordinateStart: Coordinate | undefined = undefined;
   coordinateEnd: Coordinate | undefined = undefined;
 
+  //
+  // Fly-over
+  //
+
+  /** Camera behind */
+  cameraBehind = 2_500;
+  /** Camera altitude */
+  cameraAltitude = 2_000;
+
+  //
+  // Recording
+  //
+
+  /** Recorder */
+  recorder: any = undefined;
+  /** Chunks */
+  chunks: any[] = [];
+
+  /** Map component */
+  recordingActivitiesFlyover = viewChild<MapComponent | undefined>(
+    'activitiesFlyoverRecording',
+  );
+  /** Map loaded */
+  recordingMapLoaded = signal(false);
+  /** Whether control is playing */
+  recordingPlaying = signal(false);
+  /** Fly-over progress */
+  recordingFlyoverProgress = signal(0);
+  /** Fly-over period */
+  recordingFlyoverPeriod = computed<number>(() => {
+    return (this.selectedActivity()?.totalDistance ?? 5_000) / 250;
+  });
+  /** Whether recording exists in database */
+  recordingExists = signal(false);
+  /** Camera-to options */
+  recordingCameraTo = signal<FreeCameraOptions | undefined>(undefined);
+
+  //
+  // Enums
+  //
+
   /** Language */
   lang = getBrowserLang();
+  /** Mode enum */
+  modeEnum = Mode;
+  /** Media enum */
+  mediaEnum = Media;
+  /** Mapbox style */
+  mapboxStyle = MapBoxStyle;
 
   //
   // Constants
@@ -210,7 +307,9 @@ export class Bes2ActivitiesComponent implements OnInit {
   /** Query parameter theme */
   private QUERY_PARAM_THEME: string = 'theme';
   /** Query parameter activity ID */
-  private QUERY_ACTIVITY_ID: string = 'id';
+  private QUERY_PARAM_ACTIVITY_ID: string = 'id';
+  /** Query parameter mode */
+  private QUERY_PARAM_MODE: string = 'mode';
 
   /**
    * Constructor
@@ -222,27 +321,31 @@ export class Bes2ActivitiesComponent implements OnInit {
 
     effect(() => {
       if (this.id() != undefined) {
-        this.initializeActivityDetails(this.id() ?? 0);
+        this.initializeActivityDetails(this.id());
         this.updateQueryParameters();
       } else {
         this.drawerStart()?.open();
       }
     });
 
+    // Handles overlays
     effect(() => {
       if (this.mapLoaded() && this.id() && this.activitySummaries().length > 0)
-        setTimeout(() => {
-          this.initializeMapOverlay(this.id(), this.activityDetails());
-
-          if (this.consentService.consentMapillary()) {
-            this.initializeMapillaryImages(
-              Math.ceil((this.selectedActivity()?.totalDistance ?? 0) / 500),
-              this.activityDetails(),
-            );
-          }
-        }, 500);
+        this.initializeMapOverlay(this.id(), this.activityDetails());
+      this.initializeMapOverlayFlyOver(this.id(), this.activityDetails());
     });
 
+    // Handles image markers
+    effect(() => {
+      if (this.consentService.consentMapillary()) {
+        this.initializeMapillaryImages(
+          Math.ceil((this.selectedActivity()?.totalDistance ?? 0) / 500),
+          this.activityDetails(),
+        );
+      }
+    });
+
+    // Handles markers
     effect(() => {
       if (this.coordinates().length > 1) {
         this.coordinateStart = this.coordinates()[0];
@@ -262,6 +365,7 @@ export class Bes2ActivitiesComponent implements OnInit {
       }
     });
 
+    // Handles image markers
     effect(() => {
       this.imageMarkers = (this.activityImages() ?? []).map((image) => {
         return {
@@ -273,6 +377,7 @@ export class Bes2ActivitiesComponent implements OnInit {
       });
     });
 
+    // Handles resizing
     effect(() => {
       if (this.windowWidth() <= 960) {
         this.toolbarHeight.set(56);
@@ -283,6 +388,7 @@ export class Bes2ActivitiesComponent implements OnInit {
       }
     });
 
+    // Handles theme
     effect(() => {
       switch (this.themeService.theme()) {
         case Theme.LIGHT: {
@@ -293,6 +399,178 @@ export class Bes2ActivitiesComponent implements OnInit {
           this.mapStyle = MapBoxStyle.DARK_V10;
           break;
         }
+      }
+    });
+
+    // Handles fly-over animation
+    effect(() => {
+      if (this.coordinates().length > 0) {
+        const index = Math.floor(
+          (this.flyoverProgress() / 100) * this.coordinates().length,
+        );
+        const padding = 500;
+        const indexPrev = Math.max(0, index - padding);
+        const indexNext = Math.min(
+          index + padding,
+          this.coordinates().length - 1,
+        );
+
+        const center = this.coordinates()[index];
+        const prev = this.coordinates()[indexPrev];
+        const next = this.coordinates()[indexNext];
+
+        if (center && prev && next) {
+          const behind = this.getPointBehind(
+            [center.longitude, center.latitude],
+            [next.longitude, next.latitude],
+            this.cameraBehind,
+          );
+
+          this.cameraTo.set({
+            position: {
+              index,
+              latitude: behind[1],
+              longitude: behind[0],
+            },
+            lookAtPoint: {
+              index: indexNext,
+              latitude: center.latitude,
+              longitude: center.longitude,
+            },
+            cameraAltitude: this.cameraAltitude,
+          });
+        }
+      }
+    });
+
+    //
+    // Fly-over recording
+    //
+
+    // Handles recording database lookup
+    effect(() => {
+      if (!this.isMobile()) {
+        this.flyOverRecordingService
+          .existsFlyoverRecording(this.id().toString())
+          .subscribe((exists) => {
+            this.recordingExists.set(exists);
+
+            if (!exists) {
+              this.recordingPlaying.set(true);
+              this.snackbar.open(
+                this.translocoService.translate(
+                  `pages.activities.messages.fly-over-recording-started`,
+                ),
+                undefined,
+                {
+                  duration: 500,
+                },
+              );
+            }
+          });
+      }
+    });
+
+    // Handles recording start
+    effect(() => {
+      if (
+        !this.isMobile() &&
+        this.recordingPlaying() &&
+        this.recordingActivitiesFlyover() &&
+        this.recordingMapLoaded() &&
+        this.coordinates().length > 0
+      ) {
+        // @ts-ignore
+        const canvas = this.recordingActivitiesFlyover().map.getCanvas();
+        const stream = canvas.captureStream(24);
+
+        this.recorder = new MediaRecorder(stream, {
+          mimeType: 'video/webm; codecs=vp9', // VP9 is superior to VP8
+          videoBitsPerSecond: 5_000_000,
+        });
+        this.recorder.ondataavailable = (e: any) => this.chunks.push(e.data);
+        this.recorder.start();
+
+        untracked(() => {
+          // Schedule animation
+          interval(
+            (this.recordingFlyoverPeriod() * 1_000) / this.coordinates().length,
+          )
+            .pipe(
+              map(() => 100 / this.coordinates().length),
+              scan((acc, curr) => acc + curr, this.recordingFlyoverProgress()),
+              takeWhile((_) => {
+                return this.recordingPlaying();
+              }),
+              map((value) => Math.min(value, 100)),
+            )
+            .subscribe((value) => {
+              this.recordingFlyoverProgress.set(value);
+            });
+        });
+      }
+    });
+
+    // Handles recording fly-over animation
+    effect(() => {
+      if (this.coordinates().length > 0) {
+        const index = Math.floor(
+          (this.recordingFlyoverProgress() / 100) * this.coordinates().length,
+        );
+        const padding = 400;
+        const indexPrev = Math.max(0, index - padding);
+        const indexNext = Math.min(
+          index + padding,
+          this.coordinates().length - 1,
+        );
+
+        const center = this.coordinates()[index];
+        const prev = this.coordinates()[indexPrev];
+        const next = this.coordinates()[indexNext];
+
+        if (center && prev && next) {
+          const behind = this.getPointBehind(
+            [center.longitude, center.latitude],
+            [next.longitude, next.latitude],
+            this.cameraBehind,
+          );
+
+          this.recordingCameraTo.set({
+            position: {
+              index,
+              latitude: behind[1],
+              longitude: behind[0],
+            },
+            lookAtPoint: {
+              index: indexNext,
+              latitude: center.latitude,
+              longitude: center.longitude,
+            },
+            cameraAltitude: this.cameraAltitude,
+          });
+        }
+      }
+    });
+
+    // Handles recording stop
+    effect(() => {
+      if (this.recordingFlyoverProgress() >= 100) {
+        this.recordingPlaying.set(false);
+        this.snackbar.open(
+          this.translocoService.translate(
+            `pages.activities.messages.fly-over-recording-stopped`,
+          ),
+          undefined,
+          {
+            duration: 1_500,
+          },
+        );
+
+        this.recorder.stop();
+        this.recorder.onstop = async () => {
+          const blob = new Blob(this.chunks, { type: 'video/webm' });
+          this.flyOverRecordingService.store(this.id().toString(), blob);
+        };
       }
     });
   }
@@ -382,6 +660,53 @@ export class Bes2ActivitiesComponent implements OnInit {
   }
 
   /**
+   * Initializes map overlay
+   * @param id activity ID
+   * @param activityDetails activity details
+   */
+  private initializeMapOverlayFlyOver(
+    id?: number,
+    activityDetails?: ActivityDetail,
+  ) {
+    if (id == undefined || activityDetails == undefined) {
+      return;
+    }
+
+    const geojson = this.mapboxService.buildBes2Geojson(activityDetails);
+
+    const overlayId = 'activity-details';
+    const source = {
+      origin: Origin.INLINE,
+      name: overlayId,
+      value: JSON.stringify(geojson),
+    };
+    const layer = {
+      origin: Origin.INLINE,
+      name: `${overlayId}-layer`,
+      value: JSON.stringify({
+        id: `${overlayId}-layer`,
+        type: 'line',
+        source: overlayId,
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round',
+        },
+        paint: {
+          'line-color': 'white',
+          'line-width': 8,
+        },
+      }),
+    };
+    const overlay = {
+      source,
+      layers: [layer],
+    };
+
+    this.overlaysFlyOver.set(`${id}`, overlay);
+    this.overlaysFlyOver = new Map(this.overlaysFlyOver);
+  }
+
+  /**
    * Initializes Mapillary images
    * @param count count
    * @param activityDetails activity details
@@ -416,12 +741,14 @@ export class Bes2ActivitiesComponent implements OnInit {
       .pipe(first())
       .subscribe(([queryParams]) => {
         const theme = queryParams[this.QUERY_PARAM_THEME];
-        const id = queryParams[this.QUERY_ACTIVITY_ID];
+        const id = queryParams[this.QUERY_PARAM_ACTIVITY_ID];
+        const mode = queryParams[this.QUERY_PARAM_MODE];
 
         this.themeService.switchTheme(theme ? theme : Theme.LIGHT);
         if (id?.trim().length > 0) {
           this.id.set(id);
         }
+        this.showMode.set(mode ?? Mode.REGULAR);
       });
   }
 
@@ -472,6 +799,15 @@ export class Bes2ActivitiesComponent implements OnInit {
   }
 
   /**
+   * Handles toggle of flyover mode
+   */
+  onToggleFlyoverModeClicked() {
+    this.showMode.set(
+      this.showMode() == Mode.FLY_OVER ? Mode.REGULAR : Mode.FLY_OVER,
+    );
+  }
+
+  /**
    * Handles click on image marker
    * @param imageMarker image marker
    */
@@ -488,6 +824,44 @@ export class Bes2ActivitiesComponent implements OnInit {
         imageCreator: imageMarker.imageCreator,
       },
     });
+  }
+
+  /**
+   * Handles click on download-fly-over-recording button
+   */
+  onDownloadFlyOverRecordingClicked() {
+    this.flyOverRecordingService
+      .getFlyOverRecording(this.id().toString())
+      .subscribe((blob) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.style.display = 'none';
+        link.href = url;
+        link.download = `flyover-${this.id()}.webm`; // The filename
+        document.body.appendChild(link);
+        link.click();
+        setTimeout(() => {
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+        }, 100);
+      });
+  }
+
+  /**
+   * Handles click on share-fly-over-recording button
+   */
+  onShareFlyOverRecordingClicked() {
+    this.flyOverRecordingService
+      .getFlyOverRecording(this.id().toString())
+      .subscribe((blob) => {
+        this.bottomSheet.open(ShareFlyOverBottomSheetComponent, {
+          data: {
+            title: this.selectedActivity()?.title,
+            description: `${environment.appTitle}`,
+            blob: blob,
+          },
+        });
+      });
   }
 
   /**
@@ -508,6 +882,23 @@ export class Bes2ActivitiesComponent implements OnInit {
   //
 
   /**
+   * Retrieves a point on a geodesic defined by two given points
+   * @param pointA point A
+   * @param pointB point B
+   * @param cameraBehind distance behind point A in meters
+   */
+  private getPointBehind(
+    pointA: number[],
+    pointB: number[],
+    cameraBehind: number,
+  ) {
+    const reverseBearing = bearing(pointA, pointB) - 180;
+    return destination(pointA, cameraBehind, reverseBearing, {
+      units: 'meters',
+    }).geometry.coordinates;
+  }
+
+  /**
    * Updates query parameters
    */
   private updateQueryParameters() {
@@ -516,7 +907,8 @@ export class Bes2ActivitiesComponent implements OnInit {
         relativeTo: this.route,
         queryParams: {
           [this.QUERY_PARAM_THEME]: this.themeService.theme(),
-          [this.QUERY_ACTIVITY_ID]: this.id() ? this.id() : null,
+          [this.QUERY_PARAM_ACTIVITY_ID]: this.id() ? this.id() : null,
+          [this.QUERY_PARAM_MODE]: this.showMode() ? this.showMode() : null,
         },
       })
       .then();

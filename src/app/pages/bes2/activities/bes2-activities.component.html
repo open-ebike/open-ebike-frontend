@@ -51,7 +51,7 @@
                     style="margin: 8px"
                     >route
                   </mat-icon>
-                  <div matListItemTitle>
+                  <div matListItemTitle class="title">
                     {{ activitySummary.title }}
                   </div>
                   <div matListItemLine class="subtitle">
@@ -530,82 +530,205 @@
         <mat-drawer-content>
           <div class="container flex-container-vertical">
             <div class="inner-container heading">
-              <h2>
-                <span class="material-symbols-outlined activity icon">
-                  route
-                </span>
-                @if (selectedActivity()) {
-                  {{ selectedActivity()?.title }}
-                } @else {
-                  {{ t("title") }}
-                }
-                <span class="delimiter">·</span>
-                <button mat-button (click)="drawerStart.toggle()">
-                  @if (drawerStart.opened) {
-                    {{ t("actions.hide-all") }}
-                  } @else {
-                    {{ t("actions.show-all") }}
-                  }
-                </button>
-                @if (selectedActivity()) {
-                  <span class="delimiter">·</span>
-                  <button mat-button (click)="drawerEnd.toggle()">
-                    @if (drawerEnd.opened) {
-                      {{ t("actions.hide-summary") }}
+              @if (mediaService.media() > mediaEnum.SMALL) {
+                <div class="flex-container" style="align-items: baseline">
+                  <h2>
+                    <span class="material-symbols-outlined activity icon">
+                      route
+                    </span>
+                    @if (selectedActivity()) {
+                      {{ selectedActivity()?.title }}
                     } @else {
-                      {{ t("actions.show-summary") }}
+                      {{ t("title") }}
                     }
-                  </button>
-                  @if (
-                    mapillaryService.mapillaryAccessToken() &&
-                    consentService.consentMapillary()
-                  ) {
                     <span class="delimiter">·</span>
-                    <button mat-button (click)="onToggleImagesClicked()">
-                      @if (showImages()) {
-                        {{ t("actions.hide-images") }}
+                    <button mat-button (click)="drawerStart.toggle()">
+                      @if (drawerStart.opened) {
+                        {{ t("actions.hide-all") }}
                       } @else {
-                        {{ t("actions.show-images") }}
+                        {{ t("actions.show-all") }}
+                      }
+                    </button>
+                    @if (selectedActivity()) {
+                      <span class="delimiter">·</span>
+                      <button mat-button (click)="drawerEnd.toggle()">
+                        @if (drawerEnd.opened) {
+                          {{ t("actions.hide-summary") }}
+                        } @else {
+                          {{ t("actions.show-summary") }}
+                        }
+                      </button>
+                      @if (
+                        consentService.consentMapbox() &&
+                        consentService.consentMapillary() &&
+                        mapillaryService.mapillaryAccessToken()
+                      ) {
+                        <span class="delimiter">·</span>
+                        <button mat-button (click)="onToggleImagesClicked()">
+                          @if (showImages()) {
+                            {{ t("actions.hide-images") }}
+                          } @else {
+                            {{ t("actions.show-images") }}
+                          }
+                        </button>
+                      }
+                    }
+                  </h2>
+                  @if (consentService.consentMapbox()) {
+                    <div class="flex-box"></div>
+                    <button
+                      mat-stroked-button
+                      (click)="onToggleFlyoverModeClicked()"
+                    >
+                      @if (showMode() == modeEnum.FLY_OVER) {
+                        {{ t("actions.stop-fly-over-mode") }}
+                      } @else {
+                        {{ t("actions.start-fly-over-mode") }}
                       }
                     </button>
                   }
-                }
-              </h2>
+                </div>
+              } @else {
+                <div class="flex-container" style="align-items: baseline">
+                  <h2>
+                    <span class="material-symbols-outlined activity icon">
+                      route
+                    </span>
+                    @if (selectedActivity()) {
+                      {{ selectedActivity()?.title }}
+                    } @else {
+                      {{ t("title") }}
+                    }
+                  </h2>
+                  @if (consentService.consentMapbox()) {
+                    <div class="flex-box"></div>
+                    <button
+                      mat-icon-button
+                      (click)="onToggleFlyoverModeClicked()"
+                    >
+                      <span class="material-symbols-outlined">raven</span>
+                    </button>
+                  }
+                </div>
+                <div>
+                  <button mat-button (click)="drawerStart.toggle()">
+                    @if (drawerStart.opened) {
+                      {{ t("actions.hide-all") }}
+                    } @else {
+                      {{ t("actions.show-all") }}
+                    }
+                  </button>
+                  @if (selectedActivity()) {
+                    <span class="delimiter">·</span>
+                    <button mat-button (click)="drawerEnd.toggle()">
+                      @if (drawerEnd.opened) {
+                        {{ t("actions.hide-summary") }}
+                      } @else {
+                        {{ t("actions.show-summary") }}
+                      }
+                    </button>
+                    @if (
+                      consentService.consentMapbox() &&
+                      consentService.consentMapillary()
+                    ) {
+                      <span class="delimiter">·</span>
+                      <button mat-button (click)="onToggleImagesClicked()">
+                        @if (showImages()) {
+                          {{ t("actions.hide-images") }}
+                        } @else {
+                          {{ t("actions.show-images") }}
+                        }
+                      </button>
+                    }
+                  }
+                </div>
+              }
+              @if (
+                consentService.consentMapbox() &&
+                showMode() == modeEnum.FLY_OVER
+              ) {
+                <app-flyover-controls
+                  [id]="id().toString()"
+                  [(progress)]="flyoverProgress"
+                  [steps]="this.coordinates().length"
+                  [period]="this.flyoverPeriod()"
+                  [recordingEnabled]="!isMobile()"
+                  [recordingExists]="recordingExists()"
+                  (downloadClickedEmitter)="onDownloadFlyOverRecordingClicked()"
+                  (shareClickedEmitter)="onShareFlyOverRecordingClicked()"
+                ></app-flyover-controls>
+              }
             </div>
-
-            @if (
-              mapboxService.mapboxAccessToken() &&
-              consentService.consentMapbox()
-            ) {
+            <div class="flex-container full-width">
               <div class="map-container">
-                <app-map
-                  [id]="'activities'"
-                  [height]="mapHeight()"
-                  [style]="mapStyle"
-                  [interactiveEnabled]="true"
-                  [overlays]="overlays"
-                  [markers]="markers"
-                  [imageMarkers]="showImages() ? imageMarkers : []"
-                  [boundingBox]="boundingBox"
-                  (mapLoadedEmitter)="mapLoaded.set($event)"
-                  (onImageMarkerClickedEmitter)="onImageMarkerClicked($event)"
-                ></app-map>
+                @if (
+                  mapboxService.mapboxAccessToken() &&
+                  consentService.consentMapbox()
+                ) {
+                  <div [class.hidden]="showMode() == modeEnum.FLY_OVER">
+                    <app-map
+                      [id]="'activities'"
+                      [height]="mapHeight()"
+                      [style]="mapStyle"
+                      [interactiveEnabled]="true"
+                      [preserveDrawingBuffer]="false"
+                      [overlays]="overlays"
+                      [markers]="markers"
+                      [imageMarkers]="showImages() ? imageMarkers : []"
+                      [boundingBox]="boundingBox"
+                      (mapLoadedEmitter)="mapLoaded.set($event)"
+                      (onImageMarkerClickedEmitter)="
+                        onImageMarkerClicked($event)
+                      "
+                    ></app-map>
+                  </div>
+                  <div [class.hidden]="showMode() == modeEnum.REGULAR">
+                    <app-map
+                      #activitiesFlyover
+                      [id]="'activities-fly-over'"
+                      [height]="mapHeight()"
+                      [style]="mapboxStyle.SATELLITE_STREETS_V11"
+                      [interactiveEnabled]="false"
+                      [preserveDrawingBuffer]="true"
+                      [overlays]="overlaysFlyOver"
+                      [markers]="markers"
+                      [cameraTo]="cameraTo()"
+                      (mapLoadedEmitter)="mapLoaded.set($event)"
+                    ></app-map>
+                  </div>
+                } @else {
+                  <app-map-leaflet
+                    [id]="'activities'"
+                    [height]="mapHeight()"
+                    [coordinates]="coordinates()"
+                    [coordinateStart]="coordinateStart"
+                    [coordinateEnd]="coordinateEnd"
+                    (mapLoadedEmitter)="mapLoaded.set($event)"
+                  ></app-map-leaflet>
+                }
               </div>
-            } @else {
-              <div class="map-container">
-                <app-map-leaflet
-                  [id]="'activities'"
-                  [height]="mapHeight()"
-                  [coordinates]="coordinates()"
-                  [coordinateStart]="coordinateStart"
-                  [coordinateEnd]="coordinateEnd"
-                  (mapLoadedEmitter)="mapLoaded.set($event)"
-                ></app-map-leaflet>
-              </div>
-            }
+            </div>
           </div>
         </mat-drawer-content>
       </mat-drawer-container>
     }
   </div>
 </ng-container>
+
+@if (!isMobile()) {
+  <div class="map-container-recording">
+    <app-map
+      #activitiesFlyoverRecording
+      id="bactivities-fly-over-recording"
+      [id]="'activities-fly-over-recording'"
+      [height]="'996px'"
+      [style]="mapboxStyle.SATELLITE_STREETS_V11"
+      [interactiveEnabled]="false"
+      [preserveDrawingBuffer]="true"
+      [overlays]="overlaysFlyOver"
+      [markers]="markers"
+      [cameraTo]="recordingCameraTo()"
+      (mapLoadedEmitter)="recordingMapLoaded.set($event)"
+    ></app-map>
+  </div>
+}

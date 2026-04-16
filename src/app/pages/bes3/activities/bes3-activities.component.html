@@ -306,7 +306,8 @@
                       </button>
                       @if (
                         consentService.consentMapbox() &&
-                        consentService.consentMapillary()
+                        consentService.consentMapillary() &&
+                        mapillaryService.mapillaryAccessToken()
                       ) {
                         <span class="delimiter">·</span>
                         <button mat-button (click)="onToggleImagesClicked()">
