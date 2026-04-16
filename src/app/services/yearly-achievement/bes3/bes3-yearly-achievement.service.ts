@@ -163,18 +163,20 @@ export class Bes3YearlyAchievementService {
         .get(year)
         ?.get(YearlyAchievementType.TOTAL_ELEVATION_GAIN);
       if (achievementTotalElevationGain) {
-        achievementTotalElevationGain.value =
+        achievementTotalElevationGain.value = this.roundDecimals(
           (achievementTotalElevationGain.value ?? 0) +
-          activitySummary.elevation.gain;
+            activitySummary.elevation.gain,
+        );
       }
 
       const achievementTotalCaloriesBurned = yearlyAchievements
         .get(year)
         ?.get(YearlyAchievementType.TOTAL_CALORIES_BURNED);
       if (achievementTotalCaloriesBurned) {
-        achievementTotalCaloriesBurned.value =
+        achievementTotalCaloriesBurned.value = this.roundDecimals(
           (achievementTotalCaloriesBurned.value ?? 0) +
-          activitySummary.caloriesBurned;
+            activitySummary.caloriesBurned,
+        );
       }
 
       const achievementMaxAltitude = yearlyAchievements
@@ -189,9 +191,8 @@ export class Bes3YearlyAchievementService {
             return prev > current ? prev : current;
           });
 
-        achievementMaxAltitude.value = Math.max(
-          achievementMaxAltitude.value ?? 0,
-          highestAltitude,
+        achievementMaxAltitude.value = this.roundDecimals(
+          Math.max(achievementMaxAltitude.value ?? 0, highestAltitude),
         );
       }
     }
