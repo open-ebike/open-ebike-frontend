@@ -437,7 +437,10 @@
                   mapboxService.mapboxAccessToken() &&
                   consentService.consentMapbox()
                 ) {
-                  <div [class.hidden]="showMode() == modeEnum.FLY_OVER">
+                  <div
+                    class="full-width full-height"
+                    [class.hidden]="showMode() == modeEnum.FLY_OVER"
+                  >
                     <app-map
                       [id]="'activities'"
                       [height]="mapHeight()"
@@ -455,7 +458,10 @@
                       "
                     ></app-map>
                   </div>
-                  <div [class.hidden]="showMode() == modeEnum.REGULAR">
+                  <div
+                    class="full-width full-height"
+                    [class.hidden]="showMode() == modeEnum.REGULAR"
+                  >
                     <app-map
                       #activitiesFlyover
                       [id]="'activities-fly-over'"
