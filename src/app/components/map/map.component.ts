@@ -26,8 +26,8 @@ mapboxgl.workerUrl = '/assets/mapbox-gl-csp-worker.js';
 export enum MapBoxStyle {
   // STREETS_V11 = 'mapbox://styles/mapbox/streets-v11',
   // OUTDOORS_V11 = 'mapbox://styles/mapbox/outdoors-v11',
-  LIGHT_V10 = 'mapbox://styles/mapbox/light-v10',
-  DARK_V10 = 'mapbox://styles/mapbox/dark-v10',
+  LIGHT_V11 = 'mapbox://styles/mapbox/light-v11',
+  DARK_V11 = 'mapbox://styles/mapbox/dark-v11',
   // SATELLITE_V9 = 'mapbox://styles/mapbox/satellite-v9',
   SATELLITE_STREETS_V11 = 'mapbox://styles/mapbox/satellite-streets-v11',
   // NAVIGATION_GUIDANCE_DAY_V2 = 'mapbox://styles/mapbox/navigation-guidance-day-v2',
@@ -156,7 +156,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   displayName = input('');
 
   /** Render style for Map */
-  style = input(MapBoxStyle.LIGHT_V10);
+  style = input(MapBoxStyle.LIGHT_V11);
   /** Zoom factor */
   zoom = input(10);
   /** Minimum zoom factor */

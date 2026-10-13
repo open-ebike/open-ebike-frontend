@@ -1,0 +1,188 @@
+<ng-container
+  *transloco="let t; lang: lang; prefix: 'components.registration-dialog'"
+>
+  <div class="dialog-container">
+    @switch (data.selectedEbikeGeneration) {
+      @case ("BES3") {
+        <h2 mat-dialog-title>
+          {{ t("terms.option-bes3.title") }}
+        </h2>
+        <mat-dialog-content>
+          <ul class="list">
+            <li [innerHTML]="t('terms.option-bes3.content-1')"></li>
+            <li [innerHTML]="t('terms.option-bes3.content-2')"></li>
+            <li [innerHTML]="t('terms.option-bes3.content-3')"></li>
+            <li [innerHTML]="t('terms.option-bes3.content-4')"></li>
+          </ul>
+          <h2>
+            <span class="material-symbols-outlined icon"> contract </span>
+            {{ t("terms.option-bes3.step-1-title") }}
+          </h2>
+          <ul class="list">
+            <li [innerHTML]="t('terms.option-bes3.step-1-content-1')"></li>
+            <li [innerHTML]="t('terms.option-bes3.step-1-content-2')"></li>
+            <li [innerHTML]="t('terms.option-bes3.step-1-content-3')"></li>
+            <ul class="client-application">
+              <li>
+                <strong class="highlight">{{ t("terms.login-url") }}:</strong>
+                https://open-ebike.web.app
+              </li>
+              <li>
+                <strong class="highlight"
+                  >{{ t("terms.redirect-uris") }}:</strong
+                >
+                https://open-ebike.web.app/*
+              </li>
+              <li>
+                <strong class="highlight"
+                  >{{ t("terms.confidential-client") }}:</strong
+                >
+                {{ t("terms.false") }}
+              </li>
+            </ul>
+            <li [innerHTML]="t('terms.option-bes3.step-1-content-4')"></li>
+          </ul>
+          <h2>
+            <span class="material-symbols-outlined icon">
+              approval_delegation
+            </span>
+            {{ t("terms.option-bes3.step-2-title") }}
+          </h2>
+          <ul class="list">
+            <li [innerHTML]="t('terms.option-bes3.step-2-content-1')"></li>
+            <li [innerHTML]="t('terms.option-bes3.step-2-content-2')"></li>
+          </ul>
+          <h2>
+            <span class="material-symbols-outlined icon"> login </span>
+            {{ t("terms.option-bes3.step-3-title") }}
+          </h2>
+          <ul class="list">
+            <li [innerHTML]="t('terms.option-bes3.step-3-content-1')"></li>
+            <li [innerHTML]="t('terms.option-bes3.step-3-content-2')"></li>
+            <li [innerHTML]="t('terms.option-bes3.step-3-content-3')"></li>
+          </ul>
+        </mat-dialog-content>
+      }
+      @case ("BES2") {
+        <h2>
+          {{ t("terms.option-bes2.title") }}
+        </h2>
+        <mat-dialog-content>
+          <ul class="list">
+            <li [innerHTML]="t('terms.option-bes2.content-1')"></li>
+            <li [innerHTML]="t('terms.option-bes2.content-2')"></li>
+            <li [innerHTML]="t('terms.option-bes2.content-3')"></li>
+            <li [innerHTML]="t('terms.option-bes2.content-4')"></li>
+          </ul>
+          <h2>
+            <span class="material-symbols-outlined icon"> contract </span>
+            {{ t("terms.option-bes2.step-1-title") }}
+          </h2>
+          <ul class="list">
+            <li [innerHTML]="t('terms.option-bes2.step-1-content-1')"></li>
+            <li [innerHTML]="t('terms.option-bes2.step-1-content-2')"></li>
+            <li [innerHTML]="t('terms.option-bes2.step-1-content-3')"></li>
+            <ul class="client-application">
+              <li>
+                <strong class="highlight">{{ t("terms.login-url") }}:</strong>
+                https://open-ebike.web.app
+              </li>
+              <li>
+                <strong class="highlight"
+                  >{{ t("terms.redirect-uris") }}:</strong
+                >
+                https://open-ebike.web.app/*
+              </li>
+              <li>
+                <strong class="highlight"
+                  >{{ t("terms.confidential-client") }}:</strong
+                >
+                {{ t("terms.false") }}
+              </li>
+            </ul>
+            <li [innerHTML]="t('terms.option-bes2.step-1-content-4')"></li>
+          </ul>
+          <h2>
+            <span class="material-symbols-outlined icon">
+              approval_delegation
+            </span>
+            {{ t("terms.option-bes2.step-2-title") }}
+          </h2>
+          <ul class="list">
+            <li [innerHTML]="t('terms.option-bes3.step-2-content-1')"></li>
+            <li [innerHTML]="t('terms.option-bes3.step-2-content-2')"></li>
+          </ul>
+          <h2>
+            <span class="material-symbols-outlined icon"> login </span>
+            {{ t("terms.option-bes2.step-3-title") }}
+          </h2>
+          <ul class="list">
+            <li [innerHTML]="t('terms.option-bes2.step-3-content-1')"></li>
+            <li [innerHTML]="t('terms.option-bes2.step-3-content-2')"></li>
+            <li [innerHTML]="t('terms.option-bes2.step-3-content-3')"></li>
+          </ul>
+        </mat-dialog-content>
+      }
+      @case ("COBI") {
+        <h2>
+          {{ t("terms.option-cobi.title") }}
+        </h2>
+        <mat-dialog-content>
+          <ul class="list">
+            <li [innerHTML]="t('terms.option-cobi.content-1')"></li>
+            <li [innerHTML]="t('terms.option-cobi.content-2')"></li>
+            <li [innerHTML]="t('terms.option-cobi.content-3')"></li>
+            <li [innerHTML]="t('terms.option-cobi.content-4')"></li>
+          </ul>
+          <h2>
+            <span class="material-symbols-outlined icon"> contract </span>
+            {{ t("terms.option-cobi.step-1-title") }}
+          </h2>
+          <ul class="list">
+            <li [innerHTML]="t('terms.option-cobi.step-1-content-1')"></li>
+            <li [innerHTML]="t('terms.option-cobi.step-1-content-2')"></li>
+            <li [innerHTML]="t('terms.option-cobi.step-1-content-3')"></li>
+            <ul class="client-application">
+              <li>
+                <strong class="highlight">{{ t("terms.login-url") }}:</strong>
+                https://open-ebike.web.app
+              </li>
+              <li>
+                <strong class="highlight"
+                  >{{ t("terms.redirect-uris") }}:</strong
+                >
+                https://open-ebike.web.app/*
+              </li>
+              <li>
+                <strong class="highlight"
+                  >{{ t("terms.confidential-client") }}:</strong
+                >
+                {{ t("terms.false") }}
+              </li>
+            </ul>
+            <li [innerHTML]="t('terms.option-cobi.step-1-content-4')"></li>
+          </ul>
+          <h2>
+            <span class="material-symbols-outlined icon">
+              approval_delegation
+            </span>
+            {{ t("terms.option-cobi.step-2-title") }}
+          </h2>
+          <ul class="list">
+            <li [innerHTML]="t('terms.option-cobi.step-2-content-1')"></li>
+            <li [innerHTML]="t('terms.option-cobi.step-2-content-2')"></li>
+          </ul>
+          <h2>
+            <span class="material-symbols-outlined icon"> login </span>
+            {{ t("terms.option-cobi.step-3-title") }}
+          </h2>
+          <ul class="list">
+            <li [innerHTML]="t('terms.option-cobi.step-3-content-1')"></li>
+            <li [innerHTML]="t('terms.option-cobi.step-3-content-2')"></li>
+            <li [innerHTML]="t('terms.option-cobi.step-3-content-3')"></li>
+          </ul>
+        </mat-dialog-content>
+      }
+    }
+  </div>
+</ng-container>

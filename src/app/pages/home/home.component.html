@@ -1,16 +1,67 @@
 <ng-container *transloco="let t; lang: lang; prefix: 'pages'">
-  <div class="container flex-container-vertical">
-    <div class="inner-container">
-      <h1>
-        {{ t("home.terms.welcome-to") }}
-        <span class="app-title"
-          >OPEN <span class="shimmer-text">EBIKE</span></span
-        >
-      </h1>
-      <h2 [innerHTML]="t('home.terms.app-description')"></h2>
-    </div>
+  @if (!authenticationService.isLoggedIn()) {
+    <div class="container">
+      <app-map
+        [id]="'map-home'"
+        [height]="mapHeight()"
+        [style]="mapStyle()"
+        [boundingBox]="boundingBox"
+        [interactiveEnabled]="interactiveEnabled"
+        [overlays]="overlays"
+        (mapLoadedEmitter)="mapLoaded.set($event)"
+      >
+      </app-map>
 
-    @if (authenticationService.isLoggedIn()) {
+      <div class="overlay">
+        <div class="header">
+          <h1 class="header-title shimmer-text">
+            {{ t("home.texts.header-title") }}
+          </h1>
+          <h2
+            class="header-text"
+            [innerHTML]="t('home.texts.header-text')"
+          ></h2>
+        </div>
+
+        <div class="statistics">
+          <button mat-button (click)="onRegisterWithBes3Clicked()">
+            <div class="statistics-section bes3">
+              <div>
+                <span class="statistics-value">{{ t("home.terms.bes3") }}</span>
+                <span class="statistics-icon material-symbols-outlined"
+                  >electric_bike</span
+                >
+              </div>
+              {{ t("home.actions.register-with-bes3") }}
+            </div>
+          </button>
+          <button mat-button (click)="onRegisterWithBes2Clicked()">
+            <div class="statistics-section bes2">
+              <div>
+                <span class="statistics-value">{{ t("home.terms.bes2") }}</span>
+                <span class="statistics-icon material-symbols-outlined"
+                  >electric_bike</span
+                >
+              </div>
+              {{ t("home.actions.register-with-bes2") }}
+            </div>
+          </button>
+          <button mat-button (click)="onRegisterWithCobiClicked()">
+            <div class="statistics-section cobi">
+              <div>
+                <span class="statistics-value">{{ t("home.terms.cobi") }}</span>
+                <span class="statistics-icon material-symbols-outlined"
+                  >electric_bike</span
+                >
+              </div>
+              {{ t("home.actions.register-with-cobi") }}
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="container flex-container-vertical">
       <div class="inner-container">
         @switch (authenticationService.ebikeGeneration()) {
           @case ("BES3") {
@@ -391,422 +442,6 @@
           }
         }
       </div>
-    } @else {
-      <div class="inner-container">
-        <h2>{{ t("home.terms.getting-started-1") }}</h2>
-      </div>
-      <div class="grid-container">
-        <div class="grid-1">
-          <mat-card
-            class="selectable-card bes3"
-            (click)="selectedEbikeGeneration.set('BES3')"
-          >
-            <mat-card-header>
-              <div mat-card-avatar>
-                <span class="material-symbols-outlined icon"> mobile </span>
-              </div>
-              <mat-card-title
-                >{{ t("home.terms.option-a.title") }}
-              </mat-card-title>
-              <mat-card-subtitle
-                >{{ t("home.terms.option-a.subtitle") }}
-              </mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-              <ul class="list">
-                <li [innerHTML]="t('home.terms.option-a.content-1')"></li>
-                <li [innerHTML]="t('home.terms.option-a.content-2')"></li>
-                <li [innerHTML]="t('home.terms.option-a.content-3')"></li>
-                <li [innerHTML]="t('home.terms.option-a.content-4')"></li>
-              </ul>
-            </mat-card-content>
-            <mat-card-actions style="align-self: center">
-              <button mat-button class="highlight">
-                {{ t("home.terms.getting-started-click") }}
-              </button>
-            </mat-card-actions>
-          </mat-card>
-          <div style="align-content: center; text-align: center">
-            <h2>
-              {{ t("home.terms.or") }}
-            </h2>
-          </div>
-          <mat-card
-            class="selectable-card bes2"
-            (click)="selectedEbikeGeneration.set('BES2')"
-          >
-            <mat-card-header>
-              <div mat-card-avatar>
-                <span class="material-symbols-outlined bes2 icon">
-                  mobile
-                </span>
-              </div>
-              <mat-card-title
-                >{{ t("home.terms.option-b.title") }}
-              </mat-card-title>
-              <mat-card-subtitle
-                >{{ t("home.terms.option-b.subtitle") }}
-              </mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-              <ul class="list">
-                <li [innerHTML]="t('home.terms.option-b.content-1')"></li>
-                <li [innerHTML]="t('home.terms.option-b.content-2')"></li>
-                <li [innerHTML]="t('home.terms.option-b.content-3')"></li>
-                <li [innerHTML]="t('home.terms.option-b.content-4')"></li>
-              </ul>
-            </mat-card-content>
-            <mat-card-actions style="align-self: center">
-              <button mat-button class="highlight">
-                {{ t("home.terms.getting-started-click") }}
-              </button>
-            </mat-card-actions>
-          </mat-card>
-          <div style="align-content: center; text-align: center">
-            <h2>
-              {{ t("home.terms.or") }}
-            </h2>
-          </div>
-          <mat-card
-            class="selectable-card cobi"
-            (click)="selectedEbikeGeneration.set('COBI')"
-          >
-            <mat-card-header>
-              <div mat-card-avatar>
-                <span class="material-symbols-outlined cobi icon">
-                  mobile
-                </span>
-              </div>
-              <mat-card-title
-                >{{ t("home.terms.option-c.title") }}
-              </mat-card-title>
-              <mat-card-subtitle
-                >{{ t("home.terms.option-c.subtitle") }}
-              </mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-              <ul class="list">
-                <li [innerHTML]="t('home.terms.option-c.content-1')"></li>
-                <li [innerHTML]="t('home.terms.option-c.content-2')"></li>
-                <li [innerHTML]="t('home.terms.option-c.content-3')"></li>
-                <li [innerHTML]="t('home.terms.option-c.content-4')"></li>
-              </ul>
-            </mat-card-content>
-            <mat-card-actions style="align-self: center">
-              <button mat-button class="highlight">
-                {{ t("home.terms.getting-started-click") }}
-              </button>
-            </mat-card-actions>
-          </mat-card>
-        </div>
-      </div>
-      @if (selectedEbikeGeneration() == "BES3") {
-        <div class="inner-container">
-          <h2>{{ t("home.terms.getting-started-2") }}</h2>
-          <div class="grid-container">
-            <div class="grid-2">
-              <mat-card class="bes3">
-                <mat-card-header>
-                  <div mat-card-avatar>
-                    <span class="material-symbols-outlined icon">
-                      contract
-                    </span>
-                  </div>
-                  <mat-card-title
-                    >{{ t("home.terms.option-a.step-1-title") }}
-                  </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <ul class="list">
-                    <li
-                      [innerHTML]="t('home.terms.option-a.step-1-content-1')"
-                    ></li>
-                    <li
-                      [innerHTML]="t('home.terms.option-a.step-1-content-2')"
-                    ></li>
-                    <li
-                      [innerHTML]="t('home.terms.option-a.step-1-content-3')"
-                    ></li>
-                    <ul class="client-application">
-                      <li>
-                        <strong class="highlight"
-                          >{{ t("home.terms.login-url") }}:</strong
-                        >
-                        https://open-ebike.web.app
-                      </li>
-                      <li>
-                        <strong class="highlight"
-                          >{{ t("home.terms.redirect-uris") }}:</strong
-                        >
-                        https://open-ebike.web.app/*
-                      </li>
-                      <li>
-                        <strong class="highlight"
-                          >{{ t("home.terms.confidential-client") }}:</strong
-                        >
-                        {{ t("home.terms.false") }}
-                      </li>
-                    </ul>
-                    <li
-                      [innerHTML]="t('home.terms.option-a.step-1-content-4')"
-                    ></li>
-                  </ul>
-                </mat-card-content>
-              </mat-card>
-              <mat-card class="bes3">
-                <mat-card-header>
-                  <div mat-card-avatar>
-                    <span class="material-symbols-outlined icon">
-                      approval_delegation
-                    </span>
-                  </div>
-                  <mat-card-title
-                    >{{ t("home.terms.option-a.step-2-title") }}
-                  </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <ul class="list">
-                    <li
-                      [innerHTML]="t('home.terms.option-a.step-2-content-1')"
-                    ></li>
-                    <li
-                      [innerHTML]="t('home.terms.option-a.step-2-content-2')"
-                    ></li>
-                  </ul>
-                </mat-card-content>
-              </mat-card>
-              <mat-card class="bes3">
-                <mat-card-header>
-                  <div mat-card-avatar>
-                    <span class="material-symbols-outlined icon"> login </span>
-                  </div>
-                  <mat-card-title
-                    >{{ t("home.terms.option-a.step-3-title") }}
-                  </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <ul class="list">
-                    <li
-                      [innerHTML]="t('home.terms.option-a.step-3-content-1')"
-                    ></li>
-                    <li
-                      [innerHTML]="t('home.terms.option-a.step-3-content-2')"
-                    ></li>
-                    <li
-                      [innerHTML]="t('home.terms.option-a.step-3-content-3')"
-                    ></li>
-                  </ul>
-                </mat-card-content>
-              </mat-card>
-            </div>
-          </div>
-        </div>
-      }
-      @if (selectedEbikeGeneration() == "BES2") {
-        <div class="inner-container">
-          <h2>{{ t("home.terms.getting-started-2") }}</h2>
-          <div class="grid-container">
-            <div class="grid-2">
-              <mat-card class="bes2">
-                <mat-card-header>
-                  <div mat-card-avatar>
-                    <span class="material-symbols-outlined icon">
-                      contract
-                    </span>
-                  </div>
-                  <mat-card-title
-                    >{{ t("home.terms.option-b.step-1-title") }}
-                  </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <ul class="list">
-                    <li
-                      [innerHTML]="t('home.terms.option-b.step-1-content-1')"
-                    ></li>
-                    <li
-                      [innerHTML]="t('home.terms.option-b.step-1-content-2')"
-                    ></li>
-                    <li
-                      [innerHTML]="t('home.terms.option-b.step-1-content-3')"
-                    ></li>
-                    <ul class="client-application">
-                      <li>
-                        <strong class="highlight"
-                          >{{ t("home.terms.login-url") }}:</strong
-                        >
-                        https://open-ebike.web.app
-                      </li>
-                      <li>
-                        <strong class="highlight"
-                          >{{ t("home.terms.redirect-uris") }}:</strong
-                        >
-                        https://open-ebike.web.app/*
-                      </li>
-                      <li>
-                        <strong class="highlight"
-                          >{{ t("home.terms.confidential-client") }}:</strong
-                        >
-                        {{ t("home.terms.false") }}
-                      </li>
-                    </ul>
-                    <li
-                      [innerHTML]="t('home.terms.option-b.step-1-content-4')"
-                    ></li>
-                  </ul>
-                </mat-card-content>
-              </mat-card>
-              <mat-card class="bes2">
-                <mat-card-header>
-                  <div mat-card-avatar>
-                    <span class="material-symbols-outlined icon">
-                      approval_delegation
-                    </span>
-                  </div>
-                  <mat-card-title
-                    >{{ t("home.terms.option-b.step-2-title") }}
-                  </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <ul class="list">
-                    <li
-                      [innerHTML]="t('home.terms.option-a.step-2-content-1')"
-                    ></li>
-                    <li
-                      [innerHTML]="t('home.terms.option-a.step-2-content-2')"
-                    ></li>
-                  </ul>
-                </mat-card-content>
-              </mat-card>
-              <mat-card class="bes2">
-                <mat-card-header>
-                  <div mat-card-avatar>
-                    <span class="material-symbols-outlined icon"> login </span>
-                  </div>
-                  <mat-card-title
-                    >{{ t("home.terms.option-b.step-3-title") }}
-                  </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <ul class="list">
-                    <li
-                      [innerHTML]="t('home.terms.option-b.step-3-content-1')"
-                    ></li>
-                    <li
-                      [innerHTML]="t('home.terms.option-b.step-3-content-2')"
-                    ></li>
-                    <li
-                      [innerHTML]="t('home.terms.option-b.step-3-content-3')"
-                    ></li>
-                  </ul>
-                </mat-card-content>
-              </mat-card>
-            </div>
-          </div>
-        </div>
-      }
-      @if (selectedEbikeGeneration() == "COBI") {
-        <div class="inner-container">
-          <h2>{{ t("home.terms.getting-started-2") }}</h2>
-          <div class="grid-container">
-            <div class="grid-2">
-              <mat-card class="cobi">
-                <mat-card-header>
-                  <div mat-card-avatar>
-                    <span class="material-symbols-outlined icon">
-                      contract
-                    </span>
-                  </div>
-                  <mat-card-title
-                    >{{ t("home.terms.option-c.step-1-title") }}
-                  </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <ul class="list">
-                    <li
-                      [innerHTML]="t('home.terms.option-c.step-1-content-1')"
-                    ></li>
-                    <li
-                      [innerHTML]="t('home.terms.option-c.step-1-content-2')"
-                    ></li>
-                    <li
-                      [innerHTML]="t('home.terms.option-c.step-1-content-3')"
-                    ></li>
-                    <ul class="client-application">
-                      <li>
-                        <strong class="highlight"
-                          >{{ t("home.terms.login-url") }}:</strong
-                        >
-                        https://open-ebike.web.app
-                      </li>
-                      <li>
-                        <strong class="highlight"
-                          >{{ t("home.terms.redirect-uris") }}:</strong
-                        >
-                        https://open-ebike.web.app/*
-                      </li>
-                      <li>
-                        <strong class="highlight"
-                          >{{ t("home.terms.confidential-client") }}:</strong
-                        >
-                        {{ t("home.terms.false") }}
-                      </li>
-                    </ul>
-                    <li
-                      [innerHTML]="t('home.terms.option-c.step-1-content-4')"
-                    ></li>
-                  </ul>
-                </mat-card-content>
-              </mat-card>
-              <mat-card class="cobi">
-                <mat-card-header>
-                  <div mat-card-avatar>
-                    <span class="material-symbols-outlined icon">
-                      approval_delegation
-                    </span>
-                  </div>
-                  <mat-card-title
-                    >{{ t("home.terms.option-c.step-2-title") }}
-                  </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <ul class="list">
-                    <li
-                      [innerHTML]="t('home.terms.option-c.step-2-content-1')"
-                    ></li>
-                    <li
-                      [innerHTML]="t('home.terms.option-c.step-2-content-2')"
-                    ></li>
-                  </ul>
-                </mat-card-content>
-              </mat-card>
-              <mat-card class="cobi">
-                <mat-card-header>
-                  <div mat-card-avatar>
-                    <span class="material-symbols-outlined icon"> login </span>
-                  </div>
-                  <mat-card-title
-                    >{{ t("home.terms.option-c.step-3-title") }}
-                  </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <ul class="list">
-                    <li
-                      [innerHTML]="t('home.terms.option-c.step-3-content-1')"
-                    ></li>
-                    <li
-                      [innerHTML]="t('home.terms.option-c.step-3-content-2')"
-                    ></li>
-                    <li
-                      [innerHTML]="t('home.terms.option-c.step-3-content-3')"
-                    ></li>
-                  </ul>
-                </mat-card-content>
-              </mat-card>
-            </div>
-          </div>
-        </div>
-      }
-      <div class="flex-box"></div>
-    }
-  </div>
+    </div>
+  }
 </ng-container>

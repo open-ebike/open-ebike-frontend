@@ -591,7 +591,7 @@
     return e === t;
   }
   function ee(e, t, i = 0, r = e.length - 1, n = ie) {
-    for (; r > i;) {
+    for (; r > i; ) {
       if (r - i > 600) {
         const o = r - i + 1,
           a = t - i + 1,
@@ -609,9 +609,9 @@
       const o = e[t];
       let a = i,
         s = r;
-      for (te(e, i, t), n(e[r], o) > 0 && te(e, i, r); a < s;) {
-        for (te(e, a, s), a++, s--; n(e[a], o) < 0;) a++;
-        for (; n(e[s], o) > 0;) s--;
+      for (te(e, i, t), n(e[r], o) > 0 && te(e, i, r); a < s; ) {
+        for (te(e, a, s), a++, s--; n(e[a], o) < 0; ) a++;
+        for (; n(e[s], o) > 0; ) s--;
       }
       (0 === n(e[i], o) ? te(e, i, s) : (s++, te(e, s, r)),
         s <= t && (i = s + 1),
@@ -3266,7 +3266,7 @@
     _up(e) {
       const { data: t, compare: i } = this,
         r = t[e];
-      for (; e > 0;) {
+      for (; e > 0; ) {
         const n = (e - 1) >> 1,
           o = t[n];
         if (i(r, o) >= 0) break;
@@ -3278,7 +3278,7 @@
       const { data: t, compare: i } = this,
         r = this.length >> 1,
         n = t[e];
-      for (; e < r;) {
+      for (; e < r; ) {
         let r = 1 + (e << 1);
         const o = r + 1;
         if ((o < this.length && i(t[o], t[r]) < 0 && (r = o), i(t[r], n) >= 0))
@@ -3476,8 +3476,8 @@
     return [t * n * i, t * n * r * (1 - ni)];
   }
   function si(e) {
-    for (; e < -180;) e += 360;
-    for (; e > 180;) e -= 360;
+    for (; e < -180; ) e += 360;
+    for (; e > 180; ) e -= 360;
     return e;
   }
   function li(e, t, i, r) {
@@ -3691,7 +3691,7 @@
       ),
       l = t ? 50 : 100,
       u = _i(i);
-    for (; s.length;) {
+    for (; s.length; ) {
       const o = s.pop();
       if (o.dist >= a) continue;
       const c = o.range1;
@@ -3728,7 +3728,7 @@
       ),
       u = t ? 50 : 100,
       c = r ? 50 : 100;
-    for (; l.length;) {
+    for (; l.length; ) {
       const a = l.pop();
       if (a.dist >= s) continue;
       const h = a.range1,
@@ -4239,7 +4239,7 @@
       o = 0,
       a = i,
       s = 0;
-    for (; o <= a;)
+    for (; o <= a; )
       if (((s = Math.floor((o + a) / 2)), (r = e[s]), (n = e[s + 1]), r <= t)) {
         if (s === i || t < n) return s;
         o = s + 1;
@@ -5432,11 +5432,13 @@
       lt,
       Ir(st),
       (e, t) => {
-        if (!(
-          e.globals &&
-          e.globals.activeFloors &&
-          e.globals.activeFloors.size > 0
-        ))
+        if (
+          !(
+            e.globals &&
+            e.globals.activeFloors &&
+            e.globals.activeFloors.size > 0
+          )
+        )
           return !1;
         if (0 === t.length) return !0;
         const i = e.globals.activeFloors;
@@ -5616,7 +5618,7 @@
       [st, mt(ht)],
       (e, [t, i]) =>
         (function (e, t, i, r) {
-          for (; i <= r;) {
+          for (; i <= r; ) {
             const n = (i + r) >> 1;
             if (t[n] === e) return !0;
             t[n] > e ? (r = n - 1) : (i = n + 1);
@@ -6417,8 +6419,8 @@
                   }
                   const s = new Response(
                     200 !== (l = t.status) &&
-                      404 !== l &&
-                      [101, 103, 204, 205, 304].includes(l)
+                    404 !== l &&
+                    [101, 103, 204, 205, 304].includes(l)
                       ? null
                       : t.body,
                     n,
@@ -8296,13 +8298,13 @@
                 n = e;
               e = null;
               let o = null;
-              for (t = 0; n;) {
+              for (t = 0; n; ) {
                 t++;
                 let a = n,
                   s = 0;
                 for (let e = 0; e < i && (s++, (a = a.nextZ), a); e++);
                 let l = i;
-                for (; s > 0 || (l > 0 && a);)
+                for (; s > 0 || (l > 0 && a); )
                   (0 !== s && (0 === l || !a || n.z <= a.z)
                     ? ((r = n), (n = n.nextZ), s--)
                     : ((r = a), (a = a.nextZ), l--),
@@ -8316,7 +8318,7 @@
           })(n));
       })(e, r, n, o);
     let s = e;
-    for (; e.prev !== e.next;) {
+    for (; e.prev !== e.next; ) {
       const l = e.prev,
         u = e.next;
       if (o ? To(e, r, n, o) : Po(e))
@@ -8347,7 +8349,7 @@
       d = Math.max(n, o, a),
       f = Math.max(s, l, u);
     let p = r.next;
-    for (; p !== t;) {
+    for (; p !== t; ) {
       if (
         p.x >= c &&
         p.x <= d &&
@@ -8380,7 +8382,7 @@
       y = Fo(m, _, t, i, r);
     let x = e.prevZ,
       v = e.nextZ;
-    for (; x && x.z >= g && v && v.z <= y;) {
+    for (; x && x.z >= g && v && v.z <= y; ) {
       if (
         x.x >= f &&
         x.x <= m &&
@@ -8406,7 +8408,7 @@
         return !1;
       v = v.nextZ;
     }
-    for (; x && x.z >= g;) {
+    for (; x && x.z >= g; ) {
       if (
         x.x >= f &&
         x.x <= m &&
@@ -8420,7 +8422,7 @@
         return !1;
       x = x.prevZ;
     }
-    for (; v && v.z <= y;) {
+    for (; v && v.z <= y; ) {
       if (
         v.x >= f &&
         v.x <= m &&
@@ -8454,7 +8456,7 @@
     let a = e;
     do {
       let e = a.next.next;
-      for (; e !== a.prev;) {
+      for (; e !== a.prev; ) {
         if (a.i !== e.i && ko(a, e)) {
           let s = Wo(a, e);
           return (
@@ -10640,7 +10642,7 @@
     let a,
       s = 0 | t,
       l = 0;
-    for (; l < o;)
+    for (; l < o; )
       ((a =
         (255 & e.charCodeAt(l)) |
         ((255 & e.charCodeAt(l + 1)) << 8) |
@@ -10687,12 +10689,12 @@
       const i = Fa(e);
       let r = 0,
         n = this.ids.length - 1;
-      for (; r < n;) {
+      for (; r < n; ) {
         const e = (r + n) >> 1;
         this.ids[e] >= i ? (n = e) : (r = e + 1);
       }
       const o = this.ids[r] === i;
-      for (; this.ids[r] === i;)
+      for (; this.ids[r] === i; )
         (t(
           this.positions[3 * r],
           this.positions[3 * r + 1],
@@ -10724,7 +10726,7 @@
     return Number.isSafeInteger(t) ? t : La(String(e));
   }
   function Ba(e, t, i, r) {
-    for (; i < r;) {
+    for (; i < r; ) {
       const n = e[(i + r) >> 1];
       let o = i - 1,
         a = r + 1;
@@ -11141,10 +11143,12 @@
         const a = n.paint.get(o);
         if (o.endsWith("-use-theme")) continue;
         if (!i(o)) continue;
-        if (!(
-          a instanceof PossiblyEvaluatedPropertyValue &&
-          Rr(a.property.specification)
-        ))
+        if (
+          !(
+            a instanceof PossiblyEvaluatedPropertyValue &&
+            Rr(a.property.specification)
+          )
+        )
           continue;
         const s = Ga(o, e.type),
           l = a.value,
@@ -12512,12 +12516,13 @@
           this._keys = r,
           this._values = n;
         e.pos < t;
+
       ) {
         const t = e.readVarint();
         if (8 === t) this.id = e.readVarint();
         else if (18 === t) {
           const t = e.readVarint() + e.pos;
-          for (; e.pos < t;) {
+          for (; e.pos < t; ) {
             const t = r[e.readVarint()],
               i = n[e.readVarint()];
             this.properties[t] = i;
@@ -12541,7 +12546,7 @@
         o = 0,
         a = 0,
         s = 0;
-      for (; e.pos < t;) {
+      for (; e.pos < t; ) {
         if (o <= 0) {
           const t = e.readVarint();
           if (((n = 7 & t), (o = t >> 3), 0 === o)) continue;
@@ -12575,7 +12580,7 @@
         s = -1 / 0,
         l = 1 / 0,
         u = -1 / 0;
-      for (; e.pos < t;) {
+      for (; e.pos < t; ) {
         if (r <= 0) {
           const t = e.readVarint();
           if (((i = 7 & t), (r = t >> 3), 0 === r)) continue;
@@ -12672,6 +12677,7 @@
           this._features = [],
           void 0 === t && (t = e.length);
         e.pos < t;
+
       ) {
         const t = e.readVarint();
         10 === t
@@ -12707,7 +12713,7 @@
   function ys(e) {
     let t = null;
     const i = e.readVarint() + e.pos;
-    for (; e.pos < i;) {
+    for (; e.pos < i; ) {
       const i = e.readVarint();
       t =
         10 === i
@@ -12732,7 +12738,7 @@
   class VectorTile {
     constructor(e, t = e.length) {
       const i = Object.create(null);
-      for (; e.pos < t;) {
+      for (; e.pos < t; ) {
         const t = e.readVarint();
         if (26 === t) {
           const t = new VectorTileLayer(e, e.readVarint() + e.pos);
@@ -12981,7 +12987,7 @@
   function Os(e, t, i, r, n) {
     if (e.length < 2) return void r.push(e);
     const o = [];
-    for (; t.valid();) {
+    for (; t.valid(); ) {
       const [i, r] = t.get();
       for (let t = 0; t < e.length - 1; t++) {
         const n = e[t],
@@ -13000,9 +13006,9 @@
     let a = 0,
       s = 0,
       l = [];
-    for (r.push(l); a !== e.length;) {
+    for (r.push(l); a !== e.length; ) {
       if (s === o.length) {
-        for (; a !== e.length;)
+        for (; a !== e.length; )
           ((0 !== l.length && l.at(-1).equals(e[a])) || l.push(e[a]), a++);
         break;
       }
@@ -13741,9 +13747,9 @@
       }
       const d = "Polygon" === $s[t.type];
       let f = e.length;
-      for (; f >= 2 && e[f - 1].equals(e[f - 2]);) f--;
+      for (; f >= 2 && e[f - 1].equals(e[f - 2]); ) f--;
       let p = 0;
-      for (; p < f - 1 && e[p].equals(e[p + 1]);) p++;
+      for (; p < f - 1 && e[p].equals(e[p + 1]); ) p++;
       if (f < (d ? 3 : 2)) return;
       "bevel" === r && (o = 1.05);
       const m = this.segments.prepareSegment(
@@ -15130,10 +15136,10 @@
     {
       const { zoomStops: t, interpolationType: o } = n;
       let a = 0;
-      for (; a < t.length && t[a] <= e;) a++;
+      for (; a < t.length && t[a] <= e; ) a++;
       a = Math.max(0, a - 1);
       let s = a;
-      for (; s < t.length && t[s] < e + 1;) s++;
+      for (; s < t.length && t[s] < e + 1; ) s++;
       s = Math.min(t.length - 1, s);
       const l = t[a],
         u = t[s];
@@ -16574,7 +16580,7 @@
       (function (e, t) {
         if (0 === t.length) return !1;
         let i = e;
-        for (; "" !== i;) {
+        for (; "" !== i; ) {
           if (t.includes(i)) return !1;
           i = mo(i);
         }
@@ -16860,7 +16866,7 @@
     }
     readFields(e, t, i = this.length) {
       let r;
-      for (; (r = this.nextField(i));) e(r, t, this);
+      for (; (r = this.nextField(i)); ) e(r, t, this);
       return t;
     }
     readMessage(e, t) {
@@ -16951,7 +16957,7 @@
           : (function (e, t, i) {
               let r = "",
                 n = t;
-              for (; n < i;) {
+              for (; n < i; ) {
                 const t = e[n];
                 let o,
                   a,
@@ -17007,47 +17013,47 @@
     }
     readPackedVarint(e = [], t) {
       const i = this.readPackedEnd();
-      for (; this.pos < i;) e.push(this.readVarint(t));
+      for (; this.pos < i; ) e.push(this.readVarint(t));
       return e;
     }
     readPackedSVarint(e = []) {
       const t = this.readPackedEnd();
-      for (; this.pos < t;) e.push(this.readSVarint());
+      for (; this.pos < t; ) e.push(this.readSVarint());
       return e;
     }
     readPackedBoolean(e = []) {
       const t = this.readPackedEnd();
-      for (; this.pos < t;) e.push(this.readBoolean());
+      for (; this.pos < t; ) e.push(this.readBoolean());
       return e;
     }
     readPackedFloat(e = []) {
       const t = this.readPackedEnd();
-      for (; this.pos < t;) e.push(this.readFloat());
+      for (; this.pos < t; ) e.push(this.readFloat());
       return e;
     }
     readPackedDouble(e = []) {
       const t = this.readPackedEnd();
-      for (; this.pos < t;) e.push(this.readDouble());
+      for (; this.pos < t; ) e.push(this.readDouble());
       return e;
     }
     readPackedFixed32(e = []) {
       const t = this.readPackedEnd();
-      for (; this.pos < t;) e.push(this.readFixed32());
+      for (; this.pos < t; ) e.push(this.readFixed32());
       return e;
     }
     readPackedSFixed32(e = []) {
       const t = this.readPackedEnd();
-      for (; this.pos < t;) e.push(this.readSFixed32());
+      for (; this.pos < t; ) e.push(this.readSFixed32());
       return e;
     }
     readPackedFixed64(e = []) {
       const t = this.readPackedEnd();
-      for (; this.pos < t;) e.push(this.readFixed64());
+      for (; this.pos < t; ) e.push(this.readFixed64());
       return e;
     }
     readPackedSFixed64(e = []) {
       const t = this.readPackedEnd();
-      for (; this.pos < t;) e.push(this.readSFixed64());
+      for (; this.pos < t; ) e.push(this.readSFixed64());
       return e;
     }
     readPackedEnd() {
@@ -17063,7 +17069,7 @@
     }
     skip(e) {
       const t = 7 & e;
-      if (0 === t) for (; this.buf[this.pos++] > 127;);
+      if (0 === t) for (; this.buf[this.pos++] > 127; );
       else if (2 === t) this.pos = this.readVarint() + this.pos;
       else if (5 === t) this.pos += 4;
       else {
@@ -17088,7 +17094,7 @@
     }
     realloc(e) {
       let t = this.length || 16;
-      for (; t < this.pos + e;) t *= 2;
+      for (; t < this.pos + e; ) t *= 2;
       if (t !== this.length) {
         const e = new Uint8Array(t);
         (e.set(this.buf),
@@ -17137,7 +17143,7 @@
             let i, r;
             if (
               (e >= 0
-                ? ((i = (e % 4294967296) | 0), (r = (e / 4294967296) | 0))
+                ? ((i = e % 4294967296 | 0), (r = (e / 4294967296) | 0))
                 : ((i = ~(-e % 4294967296)),
                   (r = ~(-e / 4294967296)),
                   4294967295 ^ i
@@ -17344,8 +17350,7 @@
           (n = t.pos),
           (o = t.length));
       else {
-        for (; i > 127;)
-          ((r[n++] = (i % 128) | 128), (i = Math.floor(i / 128)));
+        for (; i > 127; ) ((r[n++] = i % 128 | 128), (i = Math.floor(i / 128)));
         r[n++] = i;
       }
     }
@@ -17485,7 +17490,7 @@
       let r = 0,
         n = 0;
       if (e.length > t.length) return !1;
-      for (; r < e.length && n < t.length;) {
+      for (; r < e.length && n < t.length; ) {
         const o = i(e[r], t[n]);
         if (0 === o) (r++, n++);
         else {
@@ -20924,17 +20929,19 @@
           l = i + 1,
           u = this.unevalVertices[i],
           c = this.unevalVertices[l];
-        if (!(
-          (u.x >= n.min.x &&
-            u.x <= n.max.x &&
-            u.y >= n.min.y &&
-            u.y <= n.max.y) ||
-          (c.x >= n.min.x &&
-            c.x <= n.max.x &&
-            c.y >= n.min.y &&
-            c.y <= n.max.y) ||
-          Cs(u, c, a)
-        ))
+        if (
+          !(
+            (u.x >= n.min.x &&
+              u.x <= n.max.x &&
+              u.y >= n.min.y &&
+              u.y <= n.max.y) ||
+            (c.x >= n.min.x &&
+              c.x <= n.max.x &&
+              c.y >= n.min.y &&
+              c.y <= n.max.y) ||
+            Cs(u, c, a)
+          )
+        )
           continue;
         if (this.isOnBorder(u.x, c.x) || this.isOnBorder(u.y, c.y)) continue;
         const h = ElevatedStructures.computeEdgeHash(
@@ -21433,7 +21440,7 @@
         t.sort((e, t) => (e.portalHash < t.portalHash ? 1 : -1));
         let i = 0,
           r = 0;
-        for (; i !== t.length && r !== e.length;) {
+        for (; i !== t.length && r !== e.length; ) {
           const n = t[i],
             o = e[r];
           n.portalHash > o.hash
@@ -21954,12 +21961,12 @@
           a.push(new ElevationFeature(e.id, e.bounds, e.constantHeight));
           continue;
         }
-        for (; s !== l && r[s].id < e.id;) s++;
+        for (; s !== l && r[s].id < e.id; ) s++;
         if (s === l || r[s].id !== e.id) continue;
         const t = new Array(),
           i = new Array(),
           n = s;
-        for (; s !== l && r[s].id === e.id;) {
+        for (; s !== l && r[s].id === e.id; ) {
           const e = r[s];
           if (
             (t.push({
@@ -22024,7 +22031,7 @@
   function Nc(e, t) {
     let i = 0,
       r = e.length - 1;
-    for (; i <= r;) {
+    for (; i <= r; ) {
       const n = (i + r) >> 1;
       e[n].feature.id < t ? (i = n + 1) : (r = n - 1);
     }
@@ -22087,7 +22094,7 @@
         (e.parent = t));
     }
     _splay(e) {
-      for (; e.parent;) {
+      for (; e.parent; ) {
         var t = e.parent;
         t.parent
           ? t.left === e && t.parent.left === t
@@ -22103,7 +22110,7 @@
       }
     }
     splay(e) {
-      for (var t, i, r, n, o; e.parent;)
+      for (var t, i, r, n, o; e.parent; )
         ((i = (t = e.parent).parent) && i.parent
           ? ((r = i.parent).left === i ? (r.left = e) : (r.right = e),
             (e.parent = r))
@@ -22147,11 +22154,11 @@
         t && (t.parent = e.parent));
     }
     minNode(e = this._root) {
-      if (e) for (; e.left;) e = e.left;
+      if (e) for (; e.left; ) e = e.left;
       return e;
     }
     maxNode(e = this._root) {
-      if (e) for (; e.right;) e = e.right;
+      if (e) for (; e.right; ) e = e.right;
       return e;
     }
     insert(e, t) {
@@ -22159,11 +22166,11 @@
         r = null,
         n = this._compare;
       if (this._noDuplicates)
-        for (; i;) {
+        for (; i; ) {
           if (((r = i), 0 === n(i.key, e))) return;
           i = n(i.key, e) < 0 ? i.right : i.left;
         }
-      else for (; i;) ((r = i), (i = n(i.key, e) < 0 ? i.right : i.left));
+      else for (; i; ) ((r = i), (i = n(i.key, e) < 0 ? i.right : i.left));
       return (
         (i = { key: e, data: t, left: null, right: null, parent: r }),
         r
@@ -22177,7 +22184,7 @@
       );
     }
     find(e) {
-      for (var t = this._root, i = this._compare; t;) {
+      for (var t = this._root, i = this._compare; t; ) {
         var r = i(t.key, e);
         if (r < 0) t = t.right;
         else {
@@ -22188,7 +22195,7 @@
       return null;
     }
     contains(e) {
-      for (var t = this._root, i = this._compare; t;) {
+      for (var t = this._root, i = this._compare; t; ) {
         var r = i(e, t.key);
         if (0 === r) return !0;
         t = r < 0 ? t.left : t.right;
@@ -22248,7 +22255,7 @@
       var e = this._root,
         t = null;
       if (e) {
-        for (; e.left;) e = e.left;
+        for (; e.left; ) e = e.left;
         ((t = { key: e.key, data: e.data }), this.remove(e.key));
       }
       return t;
@@ -22256,19 +22263,19 @@
     next(e) {
       var t = e;
       if (t)
-        if (t.right) for (t = t.right; t && t.left;) t = t.left;
-        else for (t = e.parent; t && t.right === e;) ((e = t), (t = t.parent));
+        if (t.right) for (t = t.right; t && t.left; ) t = t.left;
+        else for (t = e.parent; t && t.right === e; ) ((e = t), (t = t.parent));
       return t;
     }
     prev(e) {
       var t = e;
       if (t)
-        if (t.left) for (t = t.left; t && t.right;) t = t.right;
-        else for (t = e.parent; t && t.left === e;) ((e = t), (t = t.parent));
+        if (t.left) for (t = t.left; t && t.right; ) t = t.right;
+        else for (t = e.parent; t && t.left === e; ) ((e = t), (t = t.parent));
       return t;
     }
     forEach(e) {
-      for (var t = this._root, i = [], r = !1, n = 0; !r;)
+      for (var t = this._root, i = [], r = !1, n = 0; !r; )
         t
           ? (i.push(t), (t = t.left))
           : i.length > 0
@@ -22281,7 +22288,7 @@
         o = this._compare;
       let a,
         s = this._root;
-      for (; 0 !== n.length || s;)
+      for (; 0 !== n.length || s; )
         if (s) (n.push(s), (s = s.left));
         else {
           if (((s = n.pop()), (a = o(s.key, t)), a > 0)) break;
@@ -22291,7 +22298,7 @@
       return this;
     }
     keys() {
-      for (var e = this._root, t = [], i = [], r = !1; !r;)
+      for (var e = this._root, t = [], i = [], r = !1; !r; )
         e
           ? (t.push(e), (e = e.left))
           : t.length > 0
@@ -22300,7 +22307,7 @@
       return i;
     }
     values() {
-      for (var e = this._root, t = [], i = [], r = !1; !r;)
+      for (var e = this._root, t = [], i = [], r = !1; !r; )
         e
           ? (t.push(e), (e = e.left))
           : t.length > 0
@@ -22309,7 +22316,7 @@
       return i;
     }
     at(e) {
-      for (var t = this._root, i = [], r = !1, n = 0; !r;)
+      for (var t = this._root, i = [], r = !1, n = 0; !r; )
         if (t) (i.push(t), (t = t.left));
         else if (i.length > 0) {
           if (((t = i.pop()), n === e)) return t;
@@ -22398,6 +22405,7 @@
           o = a,
           0 !== s && (n[f++] = s);
         h < e && d < i;
+
       )
         (c > u == c > -u
           ? ((a = o + u),
@@ -22410,14 +22418,14 @@
             (c = r[++d])),
           (o = a),
           0 !== s && (n[f++] = s));
-    for (; h < e;)
+    for (; h < e; )
       ((a = o + u),
         (l = a - o),
         (s = o - (a - l) + (u - l)),
         (u = t[++h]),
         (o = a),
         0 !== s && (n[f++] = s));
-    for (; d < i;)
+    for (; d < i; )
       ((a = o + c),
         (l = a - o),
         (s = o - (a - l) + (c - l)),
@@ -22883,11 +22891,11 @@
       o = e + 1,
       a = t[e].point;
     const s = t.length;
-    for (o < s && (n = t[o].point); o < s && n[0] === a[0] && n[1] === a[1];) {
+    for (o < s && (n = t[o].point); o < s && n[0] === a[0] && n[1] === a[1]; ) {
       if (!i[o]) return o;
       (o++, o < s && (n = t[o].point));
     }
-    for (o = e - 1; i[o] && o > r;) o--;
+    for (o = e - 1; i[o] && o > r; ) o--;
     return o;
   }
   function dh(e, t, i) {
@@ -22990,7 +22998,7 @@
           s = [],
           l = Math.min(r[2], n[2]);
         let u, c, h;
-        for (; 0 !== e.length;) {
+        for (; 0 !== e.length; ) {
           let t = e.pop();
           if (
             (s.push(t),
@@ -23038,7 +23046,7 @@
                   (!t.left && t.otherEvent.inResult)) &&
                   a.push(t));
             let s = !1;
-            for (; !s;)
+            for (; !s; )
               for (s = !0, i = 0, r = a.length; i < r; i++)
                 i + 1 < r &&
                   1 === oh(a[i], a[i + 1]) &&
@@ -23072,6 +23080,7 @@
               i.points.push(r[s].point),
               (s = hh(s, r, n, l)),
               !(s == l || s >= r.length) && r[s];
+
           );
           o.push(i);
         }
@@ -24264,7 +24273,7 @@
         for (let e = n; e < o; e++) {
           const i = this.payload[e],
             r = Math.floor(i / 8),
-            n = 1 << (i % 8);
+            n = 1 << i % 8;
           if (
             !(this.lookup[r] & n) &&
             ((this.lookup[r] |= n), t.push(i), t.length === this.triangleCount)
@@ -24289,7 +24298,7 @@
           for (let e = this.cellOffsets[r]; e < n; e++) {
             const t = this.payload[e],
               r = Math.floor(t / 8),
-              n = 1 << (t % 8);
+              n = 1 << t % 8;
             if (
               !(this.lookup[r] & n) &&
               ((this.lookup[r] |= n),
@@ -24993,7 +25002,7 @@
         s = Td;
       ((s.length = 0), s.push(0));
       let l = -1 / 0;
-      for (; s.length > 0;) {
+      for (; s.length > 0; ) {
         const u = s.pop();
         if (n[3 * u + 2] <= l) continue;
         const c = i[3 * u];
@@ -25347,12 +25356,14 @@
             n = t.positionMinAccessor,
             o = t.positionMaxAccessor,
             a = t.indexAccessor;
-          if (!(
-            Number.isInteger(r) &&
-            Number.isInteger(n) &&
-            Number.isInteger(o) &&
-            Number.isInteger(a)
-          ))
+          if (
+            !(
+              Number.isInteger(r) &&
+              Number.isInteger(n) &&
+              Number.isInteger(o) &&
+              Number.isInteger(a)
+            )
+          )
             return null;
           const s = e.json.accessors;
           if (r >= s.length || n >= s.length || o >= s.length || a >= s.length)
@@ -25392,12 +25403,14 @@
             x = u.byteOffset || 0,
             v = c.byteOffset || 0,
             b = h.byteOffset || 0;
-          if (!(
-            g(y, 0, f.byteLength) &&
-            g(x, 3 * u.count * 4, p.byteLength) &&
-            g(v, 3 * c.count * 4, m.byteLength) &&
-            g(b, 4 * h.count, _.byteLength)
-          ))
+          if (
+            !(
+              g(y, 0, f.byteLength) &&
+              g(x, 3 * u.count * 4, p.byteLength) &&
+              g(v, 3 * c.count * 4, m.byteLength) &&
+              g(b, 4 * h.count, _.byteLength)
+            )
+          )
             return null;
           const w = new Uint8Array(
               e.buffers[f.buffer],
@@ -26579,7 +26592,7 @@
             o = [],
             a = [];
           let s = e.length;
-          for (; s >= 2 && e[s - 1].equals(e[s - 2]);) s--;
+          for (; s >= 2 && e[s - 1].equals(e[s - 2]); ) s--;
           if (s < (t ? 3 : 2)) return r;
           let l,
             u,
@@ -26587,7 +26600,7 @@
             h,
             d,
             f = 0;
-          for (; f < s - 1 && e[f].equals(e[f + 1]);) f++;
+          for (; f < s - 1 && e[f].equals(e[f + 1]); ) f++;
           t && ((l = e[s - 2]), (d = e[f].sub(l)._unit()._perp()));
           for (let i = f; i < s; i++) {
             if (
@@ -26984,13 +26997,13 @@
         n++;
       }
       const o = e.length;
-      for (; r !== e.length;) {
+      for (; r !== e.length; ) {
         i = e[r].triangleSegmentIdx;
         let a = 0,
           s = r,
           l = r;
         for (let t = s; t < n && e[t].subtile === a; t++) l++;
-        for (; s !== n;) {
+        for (; s !== n; ) {
           const r = e[s];
           a = r.subtile;
           const o = this.centroidData.get(r.centroidIdx).min.clone(),
@@ -27126,7 +27139,7 @@
       const r = this.partsByBuildingId;
       let n = 0,
         o = r.length;
-      for (; n < o;) {
+      for (; n < o; ) {
         const t = (n + o) >> 1;
         i[r[t]].buildingId < e ? (n = t + 1) : (o = t);
       }
@@ -27192,14 +27205,16 @@
                 (e.flags |= 0 !== t.clipMask ? -1073741824 : yf));
         else
           for (const i of this.centroidData)
-            if (!(
-              i.flags & yf ||
-              i.flags & xf ||
-              t.min.x > i.max.x ||
-              i.min.x > t.max.x ||
-              t.min.y > i.max.y ||
-              i.min.y > t.max.y
-            ))
+            if (
+              !(
+                i.flags & yf ||
+                i.flags & xf ||
+                t.min.x > i.max.x ||
+                i.min.x > t.max.x ||
+                t.min.y > i.max.y ||
+                i.min.y > t.max.y
+              )
+            )
               for (let o = 0; o < i.footprintSegLen; o++) {
                 const a = this.footprintSegments.get(i.footprintSegIdx + o);
                 if (
@@ -27371,6 +27386,7 @@
       for (
         h.length ? f.push({ polygons: d, bounds: t, depth: 0 }) : s(d, t);
         f.length;
+
       ) {
         const e = f.pop(),
           t = e.depth,
@@ -27457,7 +27473,7 @@
     }
     readStringBuffer(e) {
       let t = "";
-      for (; 0 !== this.module.heapU8[e];)
+      for (; 0 !== this.module.heapU8[e]; )
         ((t += String.fromCharCode(this.module.heapU8[e])), ++e);
       return t;
     }
@@ -29150,7 +29166,7 @@
       let i = 0;
       const r = t[i++];
       let n;
-      for (; !n || r.equals(n);) if (((n = t[i++]), !n)) return 1 / 0;
+      for (; !n || r.equals(n); ) if (((n = t[i++]), !n)) return 1 / 0;
       for (; i < t.length; i++) {
         const o = t[i],
           a = e[0],
@@ -34837,14 +34853,14 @@
     let o = t,
       a = t.segment + 1,
       s = 0;
-    for (; s > -i / 2;) {
+    for (; s > -i / 2; ) {
       if ((a--, a < 0)) return !1;
       ((s -= e[a].dist(o)), (o = e[a]));
     }
     ((s += e[a].dist(e[a + 1])), a++);
     const l = [];
     let u = 0;
-    for (; s < i / 2;) {
+    for (; s < i / 2; ) {
       const t = e[a],
         i = e[a + 1];
       if (!i) return !1;
@@ -34854,6 +34870,7 @@
           l.push({ distance: s, angleDelta: o }),
           u += o;
         s - l[0].distance > r;
+
       )
         u -= l.shift().angleDelta;
       if (u > n) return !1;
@@ -34922,7 +34939,7 @@
         s = e[t + 1],
         p = a.dist(s),
         m = s.angleTo(a);
-      for (; d + i < h + p;) {
+      for (; d + i < h + p; ) {
         d += i;
         const _ = (d - h) / p,
           g = rt(a.x, s.x, _),
@@ -35374,7 +35391,7 @@
         return new Cell(i / t, r / t, 0, e);
       })(e),
       d = c.length;
-    for (; c.length;) {
+    for (; c.length; ) {
       const r = c.pop();
       ((r.d > h.d || !h.d) &&
         ((h = r),
@@ -36757,10 +36774,12 @@
           if (1 === this.renderSourceType && "symbol" !== n.type) continue;
           if (2 === this.renderSourceType && "fill-extrusion" !== n.type)
             continue;
-          if (!(
-            (0 !== this.renderSourceType && 3 !== this.renderSourceType) ||
-            ("symbol" !== n.type && "fill-extrusion" !== n.type)
-          ))
+          if (
+            !(
+              (0 !== this.renderSourceType && 3 !== this.renderSourceType) ||
+              ("symbol" !== n.type && "fill-extrusion" !== n.type)
+            )
+          )
             continue;
           if (!this.isLayerActiveForTile(n)) continue;
           const o = l.bucketLayerIDs.length;
@@ -37572,7 +37591,7 @@
         c = [],
         h = [],
         d = [{ idx: 0, t: s, nodex: 0, nodey: 0, depth: 0 }];
-      for (; d.length > 0;) {
+      for (; d.length > 0; ) {
         const { idx: s, t: f, nodex: p, nodey: m, depth: _ } = d.pop();
         if (this.leaves[s]) {
           Eg(p, m, _, e, t, i, r, c, h);
@@ -38390,7 +38409,7 @@
       ((qg[0] = 0), (qg[1] = n.length - 1), (qg[2] = 0));
       let s = 3;
       const l = [];
-      for (; s > 0;) {
+      for (; s > 0; ) {
         const u = qg[--s],
           c = qg[--s],
           h = qg[--s];
@@ -38425,7 +38444,7 @@
       let s = 3,
         l = 0;
       const u = i * i;
-      for (; s > 0;) {
+      for (; s > 0; ) {
         const c = qg[--s],
           h = qg[--s],
           d = qg[--s];
@@ -38454,7 +38473,7 @@
       Yg(e, t, i, a + 1, n, 1 - o));
   }
   function Jg(e, t, i, r, n, o) {
-    for (; n > r;) {
+    for (; n > r; ) {
       if (n - r > 600) {
         const a = n - r + 1,
           s = i - r + 1,
@@ -38473,9 +38492,9 @@
       const a = t[2 * i + o];
       let s = r,
         l = n;
-      for (Kg(e, t, r, i), t[2 * n + o] > a && Kg(e, t, r, n); s < l;) {
-        for (Kg(e, t, s, l), s++, l--; t[2 * s + o] < a;) s++;
-        for (; t[2 * l + o] > a;) l--;
+      for (Kg(e, t, r, i), t[2 * n + o] > a && Kg(e, t, r, n); s < l; ) {
+        for (Kg(e, t, s, l), s++, l--; t[2 * s + o] < a; ) s++;
+        for (; t[2 * l + o] > a; ) l--;
       }
       (t[2 * r + o] === a ? Kg(e, t, r, l) : (l++, Kg(e, t, l, n)),
         l <= i && (r = l + 1),
@@ -38673,7 +38692,7 @@
     }
     getClusterExpansionZoom(e) {
       let t = this._getOriginZoom(e) - 1;
-      for (; t <= this.options.maxZoom;) {
+      for (; t <= this.options.maxZoom; ) {
         const i = this.getChildren(e);
         if ((t++, 1 !== i.length)) break;
         e = i[0].properties.cluster_id;
@@ -38890,7 +38909,7 @@
     if (1 === t) py(n, i, 0, i.length);
     else {
       const e = 3 === t;
-      for (let t = 0; t < i.length;) {
+      for (let t = 0; t < i.length; ) {
         const r = t + 2,
           o = r + 3 * i[t];
         ((!e || i[t + 1] >= 0) && py(n, i, r, o), (t = o));
@@ -39137,7 +39156,7 @@
   function zy(e, t, i, r, n, o, a, s, l) {
     const u = 3 === t;
     let c = 0;
-    for (let t = 0; t < e.length;) {
+    for (let t = 0; t < e.length; ) {
       const o = t + 2 + 3 * e[t];
       ((c += Cy(e, t + 2, o, i, r, n, u)), (t = o));
     }
@@ -39146,7 +39165,7 @@
     const d = l === Int32Array,
       f = s && 2 === t ? [] : null;
     let p = 0;
-    for (let t = 0; t < e.length;) {
+    for (let t = 0; t < e.length; ) {
       const a = t + 2 + 3 * e[t];
       ((p = My(e, t + 2, a, e[t + 1], h, p, i, r, n, u, d, f, o.start || 0)),
         (t = a));
@@ -39283,7 +39302,7 @@
     const r = e.slice();
     if (1 === t) for (let e = 0; e < r.length; e += 3) r[e] += i;
     else
-      for (let e = 0; e < r.length;) {
+      for (let e = 0; e < r.length; ) {
         const t = e + 2 + 3 * r[e];
         for (let n = e + 2; n < t; n += 3) r[n] += i;
         e = t;
@@ -39353,7 +39372,7 @@
       if (((e.numPoints += t), (e.numSimplified += t), !f.length)) return;
     } else {
       f = [];
-      for (let t = 0; t < d.length;) {
+      for (let t = 0; t < d.length; ) {
         const r = t + 2,
           h = r + 3 * d[t];
         (ky(f, d, r, h, d[t + 1], e, i, 0, n, o, a, s, l, u, c), (t = h));
@@ -39479,7 +39498,7 @@
         l = [t, i, r],
         u = this.options,
         c = u.debug;
-      for (; s.length;) {
+      for (; s.length; ) {
         ((r = l.pop()), (i = l.pop()), (t = l.pop()), (e = s.pop()));
         const h = 1 << t,
           d = Gy(t, i, r);
@@ -39588,7 +39607,7 @@
         s = e,
         l = t,
         u = i;
-      for (; !a && s > 0;)
+      for (; !a && s > 0; )
         (s--, (l >>= 1), (u >>= 1), (a = this.tiles[Gy(s, l, u)]));
       return a && a.source
         ? (r > 1 &&
@@ -39789,7 +39808,7 @@
   function Hy(e, t) {
     const i = {};
     let r;
-    for (; (r = e.nextField(t));)
+    for (; (r = e.nextField(t)); )
       1 === r
         ? ((i.delta_filter = $y(e, e.readVarint() + e.pos)),
           (i.filter = "delta_filter"))
@@ -39803,13 +39822,13 @@
   function $y(e, t) {
     const i = { blockSize: 0 };
     let r;
-    for (; (r = e.nextField(t));) 1 === r && (i.blockSize = e.readVarint());
+    for (; (r = e.nextField(t)); ) 1 === r && (i.blockSize = e.readVarint());
     return i;
   }
   function Wy(e, t) {
     const i = {};
     let r;
-    for (; (r = e.nextField(t));)
+    for (; (r = e.nextField(t)); )
       1 === r
         ? (e.readVarint(), (i.codec = "gzip_data"))
         : 2 === r
@@ -39832,7 +39851,7 @@
     let r,
       n = 0,
       o = 0;
-    for (; (r = e.nextField(t));)
+    for (; (r = e.nextField(t)); )
       1 === r
         ? (i.firstByte = e.readFixed64())
         : 2 === r
@@ -39867,7 +39886,7 @@
       dataIndex: [],
     };
     let r;
-    for (; (r = e.nextField(t));)
+    for (; (r = e.nextField(t)); )
       1 === r
         ? (i.version = e.readVarint())
         : 2 === r
@@ -39885,11 +39904,11 @@
   }
   function qy(e, t, i) {
     let r;
-    for (; (r = e.nextField(t));)
+    for (; (r = e.nextField(t)); )
       if (1 === r) {
         let t = 0;
         const r = e.readVarint() + e.pos;
-        for (; e.pos < r;) i[t++] = e.readVarint();
+        for (; e.pos < r; ) i[t++] = e.readVarint();
       }
     return i;
   }
@@ -40113,7 +40132,7 @@
       const r = (function (e) {
         const t = { headerLength: 0, x: 0, y: 0, z: 0, layers: [] };
         let i;
-        for (; (i = e.nextField(void 0));)
+        for (; (i = e.nextField(void 0)); )
           1 === i
             ? (t.headerLength = e.readFixed32())
             : 2 === i
@@ -40409,7 +40428,7 @@
                         var D = yx(E),
                           P = (1 << D) - 1,
                           T = fx(E, D);
-                        for (I = 0; I < w;) {
+                        for (I = 0; I < w; ) {
                           var z,
                             C = T[xx(e, c, P)];
                           if (((c += 15 & C), (z = C >> 4) < 16)) A[I++] = z;
@@ -40426,6 +40445,7 @@
                                   : 18 == z &&
                                     ((R = 11 + xx(e, c, 127)), (c += 7));
                               R--;
+
                             )
                               A[I++] = M;
                           }
@@ -40523,7 +40543,7 @@
             (e) => (
               (function (e, t) {
                 let i;
-                for (; (i = e.nextField());)
+                for (; (i = e.nextField()); )
                   if (2 === i) qy(e, e.readVarint() + e.pos, t);
                   else if (3 === i) throw new Error("Not implemented");
               })(new zx(e), h),

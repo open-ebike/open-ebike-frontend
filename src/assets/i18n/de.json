@@ -30,24 +30,13 @@
       "actions": {
         "save": "Speichern"
       }
-    }
-  },
-  "pages": {
-    "home": {
-      "title": "Startseite",
-      "actions": {
-        "enter-client-credentials-login": "Client Credentials spezifizieren und einloggen"
-      },
+    },
+    "registration-dialog": {
+      "title": "Befolge Sie diese Schritte, um loszulegen:",
       "terms": {
-        "welcome-to": "Willkommen bei",
-        "app-title": "Open eBike",
-        "app-description": "Diese App zeigt die Verwendung der <a href='https://www.bosch-ebike.com/de/data-act' target='_blank'>EUDA-API von Bosch eBike Systems</a>",
-        "getting-started-1": "Wähle eine der beiden Optionen, je nachdem welches Bosch eBike System du benutzt",
-        "getting-started-click": "Klicke hier, um die nächsten Schritte anzuzeigen",
-        "getting-started-2": "Befolge Sie diese Schritte, um loszulegen:",
         "to-be-done": "to be done",
-        "option-a": {
-          "title": "Option A - SingleKey ID Account + eBike Flow App",
+        "option-bes3": {
+          "title": "SingleKey ID Account + eBike Flow App",
           "subtitle": "Smart System",
           "content-1": "Erstelle einen <a href='https://singlekey-id.com/de-de/login' target='_blank'>SingleKey ID Account</a>",
           "content-2": "Besitze ein <a href='https://www.bosch-ebike.com/de/produkte/das-smarte-system' target='_blank'>Bosch eBike mit dem Smarten System</a>",
@@ -66,8 +55,8 @@
           "step-3-content-2": "Gib die Client ID ein die du in Schritt 3 notiert hast",
           "step-3-content-3": "Klicke auf <strong class='highlight'>Login Smart System</>"
         },
-        "option-b": {
-          "title": "Option B - eBike Connect Account + Bosch eBike Connect App",
+        "option-bes2": {
+          "title": "eBike Connect Account + Bosch eBike Connect App",
           "subtitle": "Bosch eBike System 2",
           "content-1": "Erstelle einen <a href='https://www.ebike-connect.com/login' target='_blank'>eBike Connect Account</a>",
           "content-2": "Besitze ein <a href='https://www.bosch-ebike.com/de/produkte/bosch-ebike-system-2' target='_blank'>Bosch eBike mit dem Bosch eBike System 2</a>",
@@ -86,8 +75,8 @@
           "step-3-content-2": "Gib die Client ID ein die du in Schritt 3 notiert hast",
           "step-3-content-3": "Klicke auf <strong class='highlight'>Login Bosch eBike System 2</>"
         },
-        "option-c": {
-          "title": "Option C - SingleKey ID + COBI.Bike App",
+        "option-cobi": {
+          "title": "SingleKey ID + COBI.Bike App",
           "subtitle": "Bosch eBike System 2",
           "content-1": "Erstelle einen <a href='https://singlekey-id.com/de-de/login' target='_blank'>SingleKey ID Account</a>",
           "content-2": "Besitze ein <a href='https://www.bosch-ebike.com/de/produkte/bosch-ebike-system-2' target='_blank'>Bosch eBike mit dem Bosch eBike System 2</a>",
@@ -106,13 +95,31 @@
           "step-3-content-2": "Gib die Client ID ein die du in Schritt 3 notiert hast",
           "step-3-content-3": "Klicke auf <strong class='highlight'>Login COBI</>"
         },
-        "or": "oder",
         "client-application-name": "client application name",
         "login-url": "login URL",
         "redirect-uris": "redirect URI(s)",
         "confidential-client": "confidential client",
-        "false": "deaktiviert",
+        "false": "deaktiviert"
+      }
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Startseite",
+      "actions": {
+        "register-with-bes3": "mit SingleKey ID Account registrieren",
+        "register-with-bes2": "mit eBike Connect Account registrieren",
+        "register-with-cobi": "mit SingleKey ID Account registrieren"
+      },
+      "terms": {
+        "bes3": "BES3",
+        "bes2": "BES2",
+        "cobi": "COBI",
         "hello": "Hallo {{username}}"
+      },
+      "texts": {
+        "header-title": "Verfolge deine eBike Aktivitäten von der Couch",
+        "header-text": "Wir zeigen die Verwendung der <a href='https://www.bosch-ebike.com/de/data-act' target='_blank'>EUDA-API von Bosch eBike Systems</a>"
       }
     },
     "ebikes": {

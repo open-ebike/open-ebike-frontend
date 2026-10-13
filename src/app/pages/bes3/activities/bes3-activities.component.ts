@@ -227,7 +227,7 @@ export class Bes3ActivitiesComponent implements OnInit {
   toolbarHeight = signal(64);
   innerContainerHeight = signal(160);
   mapHeight = signal(`100%`);
-  mapStyle = MapBoxStyle.LIGHT_V10;
+  mapStyle = MapBoxStyle.LIGHT_V11;
 
   overlays: Map<string, Overlay> = new Map<string, Overlay>();
   overlaysFlyOver: Map<string, Overlay> = new Map<string, Overlay>();
@@ -413,11 +413,11 @@ export class Bes3ActivitiesComponent implements OnInit {
     effect(() => {
       switch (this.themeService.theme()) {
         case Theme.LIGHT: {
-          this.mapStyle = MapBoxStyle.LIGHT_V10;
+          this.mapStyle = MapBoxStyle.LIGHT_V11;
           break;
         }
         case Theme.DARK: {
-          this.mapStyle = MapBoxStyle.DARK_V10;
+          this.mapStyle = MapBoxStyle.DARK_V11;
           break;
         }
       }

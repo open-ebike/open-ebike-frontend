@@ -37,6 +37,7 @@
 .theme-light {
   --icon-color: #212121; /* Near black */
   --icon-disabled: #bdbdbd;
+  --mat-dialog-supporting-text-color: #000000;
 
   a {
     color: #424242;
@@ -120,6 +121,7 @@
 .theme-dark {
   --icon-color: #ffffff; /* White */
   --icon-disabled: #424242;
+  --mat-dialog-supporting-text-color: #ffffff;
 
   a {
     color: #ffffff;
@@ -266,6 +268,10 @@
     .highlight {
       color: theme-colors.$color-raspberry-pink;
     }
+  }
+
+  .statistics-section {
+    transition-duration: 250ms;
   }
 
   --toolbar-height: 64px;

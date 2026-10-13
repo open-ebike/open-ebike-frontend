@@ -30,24 +30,13 @@
       "actions": {
         "save": "Save"
       }
-    }
-  },
-  "pages": {
-    "home": {
-      "title": "Home",
-      "actions": {
-        "enter-client-credentials-login": "Enter Client Credentials and Login"
-      },
+    },
+    "registration-dialog": {
+      "title": "Follow these steps to get started:",
       "terms": {
-        "welcome-to": "Welcome to",
-        "app-title": "Open eBike",
-        "app-description": "This app showcases the usage of the <a href='https://www.bosch-ebike.com/us/data-act' target='_blank'>EUDA API of Bosch eBike Systems</a>",
-        "getting-started-1": "Select one of the options depending on the Bosch eBike System you use",
-        "getting-started-click": "Click here to display the next steps",
-        "getting-started-2": "Follow these steps to get started:",
         "to-be-done": "to be done",
-        "option-a": {
-          "title": "Option A - SingleKey ID Account + eBike Flow App",
+        "option-bes3": {
+          "title": "SingleKey ID Account + eBike Flow App",
           "subtitle": "Smart System",
           "content-1": "Sign up for <a href='https://singlekey-id.com/en-us/login' target='_blank'>SingleKey ID</a>",
           "content-2": "Have a <a href='https://www.bosch-ebike.com/us/products/the-smart-system' target='_blank'>Bosch-powered eBike using the Smart System</a>",
@@ -63,18 +52,18 @@
           "step-2-content-2": "On the <a href='https://flow.bosch-ebike.com/data-act' target='_blank'>Data Act page</a> grant your client application access to your eBike's data",
           "step-3-title": "Step 3 - Open eBike Login",
           "step-3-content-1": "Visit the <a href='https://open-ebike.web.app/login' target='_blank'>Open eBike login page</a>",
-          "step-3-content-2": "Enter the client ID you noted in step 3",
+          "step-3-content-2": "Enter the client ID you noted in step 1",
           "step-3-content-3": "Click <strong class='highlight'>Login Smart System</>"
         },
-        "option-b": {
-          "title": "Option B - eBike Connect + eBike Connect App",
+        "option-bes2": {
+          "title": "eBike Connect + eBike Connect App",
           "subtitle": "Bosch eBike System 2",
           "content-1": "Sign up for <a href='https://www.ebike-connect.com/login' target='_blank'>eBike Connect</a>",
           "content-2": "Have a <a href='https://www.bosch-ebike.com/us/products/bosch-ebike-system-2' target='_blank'>Bosch-powered eBike using the Bosch eBike System 2</a>",
           "content-3": "Get the <a href='https://www.bosch-ebike.com/us/connect/' target='_blank'>eBike Connect app</a> and log in with your eBike Connect account",
           "content-4": "Connect your eBike with the Flow app and take a ride",
           "step-1-title": "Step 1 - Data Access Request",
-          "step-1-content-1": "Log in to <a href='https://portal.bosch-ebike.com/data-act' target='_blank'>https://portal.bosch-ebike.com/data-act</a> using your eBike Connect account (by clicking on \"Are you Bosch eBike Connect user? Log in here\"",
+          "step-1-content-1": "Log in to <a href='https://portal.bosch-ebike.com/data-act' target='_blank'>https://portal.bosch-ebike.com/data-act</a> using your eBike Connect account (by clicking on \"Are you Bosch eBike Connect user? Log in here\")",
           "step-1-content-2": "Select <strong class='highlight'>I am a user</strong> and accept the terms and conditions",
           "step-1-content-3": "Create a client application with the following specs",
           "step-1-content-4": "Note the displayed client ID",
@@ -83,11 +72,11 @@
           "step-2-content-2": "On the <a href='https://flow.bosch-ebike.com/data-act' target='_blank'>Data Act page</a> grant your client application access to your eBike's data",
           "step-3-title": "Step 3 - Open eBike Login",
           "step-3-content-1": "Visit the <a href='https://open-ebike.web.app/login' target='_blank'>Open eBike login page</a>",
-          "step-3-content-2": "Enter the client ID you noted in step 3",
+          "step-3-content-2": "Enter the client ID you noted in step 1",
           "step-3-content-3": "Click <strong class='highlight'>Login Bosch eBike System 2</>"
         },
-        "option-c": {
-          "title": "Option C - SingleKey ID + COBI.Bike App",
+        "option-cobi": {
+          "title": "SingleKey ID + COBI.Bike App",
           "subtitle": "Bosch eBike System 2",
           "content-1": "Sign up for <a href='https://singlekey-id.com/en-us/login' target='_blank'>SingleKey ID</a>",
           "content-2": "Have a <a href='https://www.bosch-ebike.com/us/products/bosch-ebike-system-2' target='_blank'>Bosch-powered eBike using the Bosch eBike System 2</a>",
@@ -104,16 +93,34 @@
           "step-2-content-2": "On the <a href='https://flow.bosch-ebike.com/data-act' target='_blank'>Data Act page</a> grant your client application access to your COBI.Bike data",
           "step-3-title": "Step 3 - Open eBike Login",
           "step-3-content-1": "Visit the <a href='https://open-ebike.web.app/login' target='_blank'>Open eBike login page</a>",
-          "step-3-content-2": "Enter the client ID you noted in step 3",
+          "step-3-content-2": "Enter the client ID you noted in step 1",
           "step-3-content-3": "Click <strong class='highlight'>Login COBI</>"
         },
-        "or": "or",
         "client-application-name": "client application name",
         "login-url": "login URL",
         "redirect-uris": "redirect URI(s)",
         "confidential-client": "confidential client",
-        "false": "false",
+        "false": "false"
+      }
+    }
+  },
+  "pages": {
+    "home": {
+      "title": "Home",
+      "actions": {
+        "register-with-bes3": "register with SingleKey ID account",
+        "register-with-bes2": "register with eBike Connect account",
+        "register-with-cobi": "register with SingleKey ID account"
+      },
+      "terms": {
+        "bes3": "BES3",
+        "bes2": "BES2",
+        "cobi": "COBI",
         "hello": "Hello {{username}}"
+      },
+      "texts": {
+        "header-title": "Track your eBike journeys from the couch",
+        "header-text": "We showcase the usage of the <a href='https://www.bosch-ebike.com/us/data-act' target='_blank'>EUDA API of Bosch eBike Systems</a>"
       }
     },
     "ebikes": {

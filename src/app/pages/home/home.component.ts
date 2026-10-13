@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Theme, ThemeService } from '../../services/theme.service';
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
@@ -6,14 +6,11 @@ import { combineLatest, first } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
 import {
   MatCard,
-  MatCardActions,
   MatCardAvatar,
-  MatCardContent,
   MatCardHeader,
   MatCardSubtitle,
   MatCardTitle,
 } from '@angular/material/card';
-import { EbikeGeneration } from '../../services/auth/ebike-generation.type';
 import { MatButton } from '@angular/material/button';
 import { ActivityRecordsService as Bes3ActivityRecordsService } from '../../services/api/bes3/activity-records.service';
 import { MatProgressBar } from '@angular/material/progress-bar';
@@ -26,6 +23,18 @@ import { Bes2AchievementService } from '../../services/achievement/bes2/bes2-ach
 import { Bes2YearlyAchievementService } from '../../services/yearly-achievement/bes2/bes2-yearly-achievement.service';
 import { HubService as CobiHubService } from '../../services/api/cobi/hub.service';
 import { ActivityService as CobiActivityService } from '../../services/api/cobi/activity.service';
+import {
+  MapBoxStyle,
+  MapComponent,
+  Overlay,
+} from '../../components/map/map.component';
+import { Media, MediaService } from '../../services/media.service';
+import { config } from '../../../environments/config';
+import {
+  RegistrationDialogComponent,
+  RegistrationDialogData,
+} from '../../components/registration-dialog/registration-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 /**
  * Displays home component
@@ -39,11 +48,10 @@ import { ActivityService as CobiActivityService } from '../../services/api/cobi/
     MatCardAvatar,
     MatCardTitle,
     MatCardSubtitle,
-    MatCardContent,
-    MatCardActions,
     MatButton,
     RouterLink,
     MatProgressBar,
+    MapComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -56,9 +64,13 @@ export class HomeComponent implements OnInit {
 
   /** Activated route */
   private route = inject(ActivatedRoute);
+  /** Dialog */
+  private dialog = inject(MatDialog);
 
   /** Theme service */
   public themeService = inject(ThemeService);
+  /** Media service */
+  public mediaService = inject(MediaService);
   /** Authentication service */
   public authenticationService = inject(AuthenticationService);
 
@@ -89,8 +101,43 @@ export class HomeComponent implements OnInit {
   // Signals
   //
 
-  /** Selected eBike generation */
-  selectedEbikeGeneration = signal<EbikeGeneration | undefined>(undefined);
+  // Initialization
+
+  /** Map loaded */
+  public mapLoaded = signal(false);
+
+  //
+  // Map properties
+  //
+
+  /** Height of the map */
+  mapHeight = computed(() => {
+    return this.mediaService.media() == Media.SMALL
+      ? 'calc(100vh - 56px)'
+      : 'calc(100vh - 64px)';
+  });
+  /** Style of the map */
+  mapStyle = computed(() => {
+    return this.themeService.theme() === Theme.DARK
+      ? MapBoxStyle.DARK_V11
+      : MapBoxStyle.LIGHT_V11;
+  });
+  /** Bounding box */
+  boundingBox = [
+    config.areas['germany'].boundingBox[0] -
+      config.mapbox.boundBoxPaddingHorizontal,
+    config.areas['germany'].boundingBox[1] -
+      config.mapbox.boundBoxPaddingVertical,
+    config.areas['germany'].boundingBox[2] +
+      config.mapbox.boundBoxPaddingHorizontal,
+    config.areas['germany'].boundingBox[3] +
+      config.mapbox.boundBoxPaddingVertical,
+  ];
+  /** Whether interactive mode is enabled or not */
+  interactiveEnabled = true;
+
+  /** Overlays */
+  overlays: Map<string, Overlay> = new Map<string, Overlay>();
 
   //
   // Constants
@@ -130,5 +177,42 @@ export class HomeComponent implements OnInit {
 
         this.themeService.switchTheme(theme ? theme : Theme.LIGHT);
       });
+  }
+
+  //
+  // Actions
+  //
+
+  /**
+   * Handles click on register with BES3 button
+   */
+  onRegisterWithBes3Clicked() {
+    this.dialog.open(RegistrationDialogComponent, {
+      data: {
+        selectedEbikeGeneration: 'BES3',
+      } as RegistrationDialogData,
+    });
+  }
+
+  /**
+   * Handles click on register with BES2 button
+   */
+  onRegisterWithBes2Clicked() {
+    this.dialog.open(RegistrationDialogComponent, {
+      data: {
+        selectedEbikeGeneration: 'BES2',
+      } as RegistrationDialogData,
+    });
+  }
+
+  /**
+   * Handles click on register with COBI button
+   */
+  onRegisterWithCobiClicked() {
+    this.dialog.open(RegistrationDialogComponent, {
+      data: {
+        selectedEbikeGeneration: 'COBI',
+      } as RegistrationDialogData,
+    });
   }
 }

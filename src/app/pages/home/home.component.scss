@@ -1,12 +1,256 @@
+@use "@angular/material" as mat;
+@use "../../../styles";
 @use "../../../sizes";
 
-.selectable-card {
-  cursor: pointer;
+::ng-deep .theme-light {
+  .container {
+    background: #f6f6f4;
+    height: calc(100vh - var(--toolbar-height));
+  }
+
+  .statistics {
+    background: white !important;
+  }
 }
 
-.text {
-  max-width: 960px;
-  margin: 32px;
+::ng-deep .theme-dark {
+  .container {
+    background: #343332;
+    height: calc(100vh - var(--toolbar-height));
+  }
+
+  .statistics {
+    background: #212121 !important;
+  }
+}
+
+::ng-deep .theme-light {
+  .overlay {
+    .header {
+      .header-text {
+        $map-background-color: #f6f6f4;
+        text-shadow:
+          3px 0 $map-background-color,
+          -3px 0 $map-background-color,
+          0 3px $map-background-color,
+          0 -3px $map-background-color,
+          2px 2px $map-background-color,
+          -2px -2px $map-background-color,
+          2px -2px $map-background-color,
+          -2px 2px $map-background-color;
+      }
+    }
+
+    .shimmer-text {
+      background: linear-gradient(
+        90deg,
+        black 0%,
+        var(--chinese-blue-color) 20%,
+        var(--celestial-blue-color) 40%,
+        var(--raspberry-pink-color) 60%,
+        black 80%,
+        black 100%
+      );
+
+      background-size: 400% 100%;
+
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      animation: shimmer 10s infinite linear;
+    }
+  }
+}
+
+::ng-deep .theme-dark {
+  .overlay {
+    .header {
+      .header-text {
+        $map-background-color: #343332;
+        text-shadow:
+          3px 0 $map-background-color,
+          -3px 0 $map-background-color,
+          0 3px $map-background-color,
+          0 -3px $map-background-color,
+          2px 2px $map-background-color,
+          -2px -2px $map-background-color,
+          2px -2px $map-background-color,
+          -2px 2px $map-background-color;
+      }
+    }
+
+    .shimmer-text {
+      background: linear-gradient(
+        90deg,
+        white 0%,
+        var(--chinese-blue-color) 20%,
+        var(--celestial-blue-color) 40%,
+        var(--raspberry-pink-color) 60%,
+        white 80%,
+        white 100%
+      );
+
+      background-size: 400% 100%;
+
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      animation: shimmer 10s infinite linear;
+    }
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.overlay {
+  z-index: 1;
+  position: absolute;
+  top: 64px;
+
+  height: calc(100vh - var(--toolbar-height));
+  width: 100%;
+  overflow: scroll;
+
+  .header {
+    text-align: center;
+
+    @media #{sizes.$breakpoint-small} {
+      padding: 5%;
+    }
+    @media #{sizes.$breakpoint-medium} {
+      padding: 5% 15% 5%;
+    }
+    @media #{sizes.$breakpoint-large} {
+      padding: 5% 15% 5%;
+    }
+
+    .header-title {
+      font-size: 4em;
+
+      @media #{sizes.$breakpoint-small} {
+        font-size: 2.5em;
+      }
+    }
+
+    .header-text {
+      font-size: 1.25em;
+      font-weight: 600;
+    }
+  }
+
+  .statistics {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10%;
+
+    @media #{sizes.$breakpoint-small} {
+      padding: 5% 15% 5%;
+    }
+    @media #{sizes.$breakpoint-medium} {
+      padding: 5% 15% 5%;
+    }
+    @media #{sizes.$breakpoint-large} {
+      padding: 5% 15% 5%;
+    }
+
+    button[mat-button] {
+      height: auto;
+      line-height: inherit;
+      padding: 16px 24px;
+    }
+
+    .statistics-section {
+      min-width: 25%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .statistics-value {
+        font-size: 3em;
+        line-height: 1;
+
+        @media #{sizes.$breakpoint-small} {
+          font-size: 2em;
+        }
+      }
+
+      .statistics-icon {
+        height: 32px;
+        padding: 4px 0 4px 12px;
+        font-size: 2.5em;
+        overflow: visible;
+        vertical-align: top;
+
+        @media #{sizes.$breakpoint-small} {
+          font-size: 1.5em;
+        }
+      }
+    }
+  }
+
+  .features {
+    @media #{sizes.$breakpoint-small} {
+      padding: 5%;
+    }
+    @media #{sizes.$breakpoint-medium} {
+      padding: 5% 15% 5%;
+    }
+    @media #{sizes.$breakpoint-large} {
+      padding: 5% 15% 5%;
+    }
+
+    .section-spacer-top,
+    .section-spacer-bottom {
+      height: 96px;
+    }
+
+    .feature-card {
+      left: 0;
+
+      @media #{sizes.$breakpoint-large} {
+        width: 450px;
+      }
+
+      @media #{sizes.$breakpoint-medium} {
+        width: 450px;
+      }
+
+      @media #{sizes.$breakpoint-small} {
+      }
+
+      .feature-icon {
+        font-size: 36px;
+      }
+
+      .feature-title {
+        font-size: 22px;
+
+        @media #{sizes.$breakpoint-small} {
+          font-size: 20px;
+        }
+      }
+
+      .feature-subtitle {
+        font-size: 14px;
+
+        @media #{sizes.$breakpoint-small} {
+          font-size: 12px;
+        }
+      }
+    }
+  }
 }
 
 .grid-0 {
@@ -40,79 +284,4 @@
   .grid-2 {
     grid-template-columns: 1fr;
   }
-}
-
-.list {
-  list-style-type: none;
-  padding-inline-start: 0;
-}
-
-li {
-  margin: 24px 0;
-}
-
-.client-application > li {
-  margin: 8px 0;
-}
-
-.app-title {
-  font-weight: 900;
-}
-
-::ng-deep .theme-light {
-  .shimmer-text {
-    background: linear-gradient(
-      90deg,
-      black 0%,
-      var(--chinese-blue-color) 20%,
-      var(--celestial-blue-color) 40%,
-      var(--raspberry-pink-color) 60%,
-      black 80%,
-      black 100%
-    );
-
-    background-size: 400% 100%;
-
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    animation: shimmer 10s infinite linear;
-  }
-}
-
-::ng-deep .theme-dark {
-  .shimmer-text {
-    background: linear-gradient(
-      90deg,
-      white 0%,
-      var(--chinese-blue-color) 20%,
-      var(--celestial-blue-color) 40%,
-      var(--raspberry-pink-color) 60%,
-      white 80%,
-      white 100%
-    );
-
-    background-size: 400% 100%;
-
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    animation: shimmer 10s infinite linear;
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: 400% 0;
-  }
-  100% {
-    background-position: 0 0;
-  }
-}
-
-.grey {
-  cursor: unset;
-  opacity: 0.5;
 }
