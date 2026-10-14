@@ -17,6 +17,8 @@ import { HttpClient } from '@angular/common/http';
 import { MapboxService, Marker } from '../../services/mapbox.service';
 import { timer } from 'rxjs';
 
+mapboxgl.workerUrl = '/assets/mapbox-gl-csp-worker.js';
+
 /**
  * Map box style
  * @see https://docs.mapbox.com/api/maps/#styles
