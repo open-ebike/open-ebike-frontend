@@ -3,14 +3,23 @@
 @use "theme-dark";
 @use "theme-colors";
 @use "sass:color";
-
 @use "sizes";
 
-@include mat.all-component-themes(theme-light.$theme-light);
+//
+// Google Fonts / Material Icons
+//
+
+@import "@fontsource/roboto/400.css";
+@import "@fontsource/roboto/500.css";
+@import "@fontsource/roboto/700.css";
+
+@import "material-symbols/outlined.css";
 
 //
 // Light theme
 //
+
+@include mat.all-component-themes(theme-light.$theme-light);
 
 .theme-light {
   --icon-color: #212121; /* Near black */
