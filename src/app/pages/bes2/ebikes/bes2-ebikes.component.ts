@@ -24,7 +24,6 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { Theme, ThemeService } from '../../../services/theme.service';
 import { combineLatest, first } from 'rxjs';
 import { MatIconButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DiagnosisEventService } from '../../../services/api/bes2/diagnosis-event.service';
 import { DiagnosisFieldDataService } from '../../../services/api/bes2/diagnosis-field-data.service';
@@ -48,7 +47,6 @@ import { RemoteConfigurationService } from '../../../services/api/bes2/remote-co
     MatCardContent,
     MatCardActions,
     MatCardFooter,
-    MatIcon,
     MatIconButton,
   ],
   templateUrl: './bes2-ebikes.component.html',

@@ -35,7 +35,6 @@ import {
 } from 'rxjs';
 import { MatList, MatListItem } from '@angular/material/list';
 import { DatePipe, NgStyle } from '@angular/common';
-import { MatIcon } from '@angular/material/icon';
 import { MatRipple } from '@angular/material/core';
 import { MetersToKilometersPipe } from '../../../pipes/meters-to-kilometers.pipe';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
@@ -109,7 +108,6 @@ enum Mode {
     TranslocoDirective,
     MatList,
     MatListItem,
-    MatIcon,
     DatePipe,
     MatRipple,
     MetersToKilometersPipe,

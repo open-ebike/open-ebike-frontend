@@ -14,7 +14,7 @@
                 [disabled]="activityService.loading()"
                 (click)="onRefreshClicked()"
               >
-                <mat-icon>refresh</mat-icon>
+                <span class="material-symbols-outlined">refresh</span>
               </button>
             </div>
             <mat-list class="activities-list">
@@ -44,13 +44,13 @@
                   class="list-item"
                   (click)="onActivityClicked(activitySummary.id)"
                 >
-                  <mat-icon
+                  <span
                     matListItemIcon
-                    class="activity icon"
+                    class="material-symbols-outlined activity icon"
                     [class.grey]="activitySummary.id != id()"
                     style="margin: 8px"
                     >route
-                  </mat-icon>
+                  </span>
                   <div matListItemTitle class="title">
                     {{ activitySummary.title }}
                   </div>

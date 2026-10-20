@@ -4,7 +4,6 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { getBrowserLang, TranslocoDirective } from '@jsverse/transloco';
 import { AchievementGridComponent } from '../../../components/achievement-grid/achievement-grid.component';
 import { MatIconButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { combineLatest, first } from 'rxjs';
 import { Theme, ThemeService } from '../../../services/theme.service';
@@ -18,7 +17,6 @@ import { ActivatedRoute } from '@angular/router';
   imports: [
     TranslocoDirective,
     AchievementGridComponent,
-    MatIcon,
     MatIconButton,
     MatProgressBar,
   ],

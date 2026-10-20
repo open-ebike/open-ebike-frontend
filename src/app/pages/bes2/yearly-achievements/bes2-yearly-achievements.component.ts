@@ -7,7 +7,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { YearlyAchievementCarouselComponent } from '../../../components/yearly-achievement-carousel/yearly-achievement-carousel.component';
 import { MatIconButton } from '@angular/material/button';
 import { MatProgressBar } from '@angular/material/progress-bar';
-import { MatIcon } from '@angular/material/icon';
 import { combineLatest, first, firstValueFrom, map } from 'rxjs';
 import { ActivityService } from '../../../services/api/bes2/activity.service';
 import { Theme, ThemeService } from '../../../services/theme.service';
@@ -21,7 +20,6 @@ import { Theme, ThemeService } from '../../../services/theme.service';
     TranslocoDirective,
     YearlyAchievementGridComponent,
     YearlyAchievementCarouselComponent,
-    MatIcon,
     MatIconButton,
     MatProgressBar,
   ],

@@ -7,7 +7,6 @@ import { YearlyAchievementCarouselComponent } from '../../../components/yearly-a
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatIconButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { combineLatest, first, firstValueFrom, map } from 'rxjs';
 import { ActivityRecordsService } from '../../../services/api/bes3/activity-records.service';
 import { Theme, ThemeService } from '../../../services/theme.service';
@@ -22,7 +21,6 @@ import { Theme, ThemeService } from '../../../services/theme.service';
     YearlyAchievementGridComponent,
     YearlyAchievementCarouselComponent,
     MatProgressBar,
-    MatIcon,
     MatIconButton,
   ],
   templateUrl: './bes3-yearly-achievements.component.html',

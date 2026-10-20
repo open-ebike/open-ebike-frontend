@@ -16,7 +16,6 @@ import {
   TranslocoService,
 } from '@jsverse/transloco';
 import { MatList, MatListItem } from '@angular/material/list';
-import { MatIcon } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
 import { MatRipple } from '@angular/material/core';
 import { MetersToKilometersPipe } from '../../../pipes/meters-to-kilometers.pipe';
@@ -97,7 +96,6 @@ enum Mode {
     TranslocoDirective,
     MatList,
     MatListItem,
-    MatIcon,
     DatePipe,
     MatRipple,
     MetersToKilometersPipe,

@@ -28,7 +28,6 @@ import {
   Registration,
 } from '../../../services/api/bes3/ebike-registration.service';
 import { MatIconButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BikePassService } from '../../../services/api/bes3/bike-pass.service';
 import { BulkConfigurationService } from '../../../services/api/bes3/bulk-configuration.service';
@@ -54,7 +53,6 @@ import { RemoteConfigurationService } from '../../../services/api/bes3/remote-co
     MatCardContent,
     MatCardActions,
     MatCardFooter,
-    MatIcon,
     MatIconButton,
   ],
   templateUrl: './bes3-ebikes.component.html',
