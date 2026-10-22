@@ -721,13 +721,15 @@ export class Bes2ActivitiesComponent implements OnInit {
 
       const coordinate = coordinates[position]!!;
 
-      this.mapillaryService
-        .getImageByLocation(coordinate.latitude, coordinate.longitude, 0.001)
-        .subscribe((response) => {
-          this.activityImages.set(
-            this.activityImages().concat(...response.data),
-          );
-        });
+      if (coordinate) {
+        this.mapillaryService
+          .getImageByLocation(coordinate.latitude, coordinate.longitude, 0.001)
+          .subscribe((response) => {
+            this.activityImages.set(
+              this.activityImages().concat(...response.data),
+            );
+          });
+      }
     });
   }
 

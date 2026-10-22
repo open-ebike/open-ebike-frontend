@@ -737,17 +737,19 @@ export class Bes3ActivitiesComponent implements OnInit {
 
       const activityDetail = activityDetails[position];
 
-      this.mapillaryService
-        .getImageByLocation(
-          activityDetail.latitude,
-          activityDetail.longitude,
-          0.001,
-        )
-        .subscribe((response) => {
-          this.activityImages.set(
-            this.activityImages().concat(...response.data),
-          );
-        });
+      if (activityDetail) {
+        this.mapillaryService
+          .getImageByLocation(
+            activityDetail.latitude,
+            activityDetail.longitude,
+            0.001,
+          )
+          .subscribe((response) => {
+            this.activityImages.set(
+              this.activityImages().concat(...response.data),
+            );
+          });
+      }
     });
   }
 
