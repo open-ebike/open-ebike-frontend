@@ -389,23 +389,25 @@ export class MapComponent implements AfterViewInit, OnDestroy {
    * Initializes Map Box
    */
   initializeMapBox(accessToken: string | undefined) {
-    mapboxgl.accessToken = accessToken;
-    this.map = new mapboxgl.Map({
-      container: this.id(),
-      style: this.style(),
-      zoom: this.zoom(),
-      minZoom: this.minZoom(),
-      maxZoom: this.maxZoom(),
-      pitch: this.pitch(),
-      bearing: this.bearing(),
-      center: [this.center().longitude, this.center().latitude],
-      interactive: this.interactiveEnabled(),
-      preserveDrawingBuffer: this.preserveDrawingBuffer(),
-    });
+    if (accessToken) {
+      mapboxgl.accessToken = accessToken;
+      this.map = new mapboxgl.Map({
+        container: this.id(),
+        style: this.style(),
+        zoom: this.zoom(),
+        minZoom: this.minZoom(),
+        maxZoom: this.maxZoom(),
+        pitch: this.pitch(),
+        bearing: this.bearing(),
+        center: [this.center().longitude, this.center().latitude],
+        interactive: this.interactiveEnabled(),
+        preserveDrawingBuffer: this.preserveDrawingBuffer(),
+      });
 
-    if (this.boundingBox() != null) {
-      // @ts-ignore
-      this.map.fitBounds(this.boundingBox());
+      if (this.boundingBox() != null) {
+        // @ts-ignore
+        this.map.fitBounds(this.boundingBox());
+      }
     }
   }
 

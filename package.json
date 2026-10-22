@@ -39,7 +39,7 @@
     "chartjs-plugin-annotation": "^3.0.1",
     "dexie": "^4.2.1",
     "leaflet": "^1.9.4",
-    "mapbox-gl": "^3.33.0",
+    "mapbox-gl": "^2.15.0",
     "material-symbols": "^0.48.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
