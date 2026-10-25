@@ -20,6 +20,7 @@
     "@angular/common": "^21.2.25",
     "@angular/compiler": "^21.2.25",
     "@angular/core": "^21.2.25",
+    "@angular/fire": "^21.0.0",
     "@angular/forms": "^21.2.25",
     "@angular/material": "^21.2.14",
     "@angular/platform-browser": "^21.2.25",
