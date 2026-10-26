@@ -68,7 +68,12 @@
             <h2>
               {{
                 t("home.terms.hello", {
-                  username: authenticationService.getIdentityClaims().email,
+                  username:
+                    authenticationService.getIdentityClaims()?.email ||
+                    authenticationService.getIdentityClaims()
+                      ?.preferred_username ||
+                    authenticationService.getIdentityClaims()?.name ||
+                    "",
                 })
               }}
             </h2>
@@ -186,7 +191,12 @@
             <h2>
               {{
                 t("home.terms.hello", {
-                  username: authenticationService.getIdentityClaims().name,
+                  username:
+                    authenticationService.getIdentityClaims()?.name ||
+                    authenticationService.getIdentityClaims()
+                      ?.preferred_username ||
+                    authenticationService.getIdentityClaims()?.email ||
+                    "",
                 })
               }}
             </h2>
@@ -294,7 +304,12 @@
             <h2>
               {{
                 t("home.terms.hello", {
-                  username: authenticationService.getIdentityClaims().email,
+                  username:
+                    authenticationService.getIdentityClaims()?.email ||
+                    authenticationService.getIdentityClaims()
+                      ?.preferred_username ||
+                    authenticationService.getIdentityClaims()?.name ||
+                    "",
                 })
               }}
             </h2>

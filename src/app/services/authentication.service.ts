@@ -8,50 +8,50 @@ import { EbikeGeneration } from './auth/ebike-generation.type';
  */
 export interface IdentityClaims {
   /** Expiration time */
-  exp: string;
+  exp?: string | number;
   /** Issued at time */
-  iat: string;
+  iat?: string | number;
   /** Authentication time */
-  auth_time: string;
+  auth_time?: string | number;
   /** JWT ID */
-  jti: string;
+  jti?: string;
   /** Issuer */
-  iss: string;
+  iss?: string;
   /** Audience */
-  aud: string;
+  aud?: string | string[];
   /** Subject */
-  sub: string;
+  sub?: string;
   /** Type */
-  typ: string;
-  azp: string;
+  typ?: string;
+  azp?: string;
   /** Nonce */
-  nonce: string;
-  sid: string;
-  at_hash: string;
-  acr: string;
+  nonce?: string;
+  sid?: string;
+  at_hash?: string;
+  acr?: string;
   /** Whether the email is verified */
-  email_verified: string;
+  email_verified?: boolean | string;
   /** Preferred username */
-  preferred_username: string;
+  preferred_username?: string;
 
   //
   // BES 3
   //
 
   /** E-mail */
-  email: string;
+  email?: string;
   //
   // BES 2
   //
 
   /** eBike Connect ID */
-  ebike_connect_id: string;
+  ebike_connect_id?: string;
   /** Name */
-  name: string;
+  name?: string;
   /** Given name */
-  given_name: string;
+  given_name?: string;
   /** Family name */
-  family_name: string;
+  family_name?: string;
 }
 
 /**
@@ -187,7 +187,47 @@ export class AuthenticationService {
   /**
    * Retrieves the user's identity claims
    */
-  getIdentityClaims(): IdentityClaims {
-    return this.oauthService.getIdentityClaims() as IdentityClaims;
+  getIdentityClaims(): IdentityClaims | null {
+    const claims = this.oauthService.getIdentityClaims() as IdentityClaims;
+    if (claims && Object.keys(claims).length > 0) {
+      return claims;
+    }
+
+    const accessToken = this.oauthService.getAccessToken();
+    if (accessToken) {
+      const decodedClaims = this.parseJwt(accessToken);
+      if (decodedClaims) {
+        return decodedClaims as IdentityClaims;
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Decodes a JWT token safely
+   * @param token JWT token
+   */
+  private parseJwt(token: string): Record<string, any> | null {
+    try {
+      const parts = token.split('.');
+      if (parts.length < 2) {
+        return null;
+      }
+      let base64Url = parts[1];
+      let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      while (base64.length % 4 !== 0) {
+        base64 += '=';
+      }
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join(''),
+      );
+      return JSON.parse(jsonPayload);
+    } catch {
+      return null;
+    }
   }
 }

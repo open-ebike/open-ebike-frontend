@@ -7,51 +7,51 @@ import { EbikeGeneration } from './auth/ebike-generation.type';
  */
 export interface IdentityClaims {
   /** Expiration time */
-  exp: string;
+  exp?: string | number;
   /** Issued at time */
-  iat: string;
+  iat?: string | number;
   /** Authentication time */
-  auth_time: string;
+  auth_time?: string | number;
   /** JWT ID */
-  jti: string;
+  jti?: string;
   /** Issuer */
-  iss: string;
+  iss?: string;
   /** Audience */
-  aud: string;
+  aud?: string | string[];
   /** Subject */
-  sub: string;
+  sub?: string;
   /** Type */
-  typ: string;
-  azp: string;
+  typ?: string;
+  azp?: string;
   /** Nonce */
-  nonce: string;
-  sid: string;
-  at_hash: string;
-  acr: string;
+  nonce?: string;
+  sid?: string;
+  at_hash?: string;
+  acr?: string;
   /** Whether the email is verified */
-  email_verified: string;
+  email_verified?: boolean | string;
   /** Preferred username */
-  preferred_username: string;
+  preferred_username?: string;
 
   //
   // BES 3
   //
 
   /** E-mail */
-  email: string;
+  email?: string;
 
   //
   // BES 2
   //
 
   /** eBike Connect ID */
-  ebike_connect_id: string;
+  ebike_connect_id?: string;
   /** Name */
-  name: string;
+  name?: string;
   /** Given name */
-  given_name: string;
+  given_name?: string;
   /** Family name */
-  family_name: string;
+  family_name?: string;
 }
 
 /**
@@ -129,7 +129,7 @@ export class AuthenticationService {
   /**
    * Retrieves the user's identity claims
    */
-  getIdentityClaims(): IdentityClaims {
+  getIdentityClaims(): IdentityClaims | null {
     return {
       exp: '',
       iat: '',
